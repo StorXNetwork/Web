@@ -1,222 +1,288 @@
-import * as React from 'react';
-import { Container, Form, Col, Button } from 'react-bootstrap';
-import Checkbox from '@material-ui/core/Checkbox';
-import AesUtil from '../../lib/AesUtil';
+import * as React from "react";
+import { Container, Form, Col, Button } from "react-bootstrap";
+import Checkbox from "@material-ui/core/Checkbox";
+import AesUtil from "../../lib/AesUtil";
+import { Link } from "react-router-dom";
+import history from "../../lib/history";
+import Settings from "../../lib/settings";
 
-import history from '../../lib/history';
-import Settings from '../../lib/settings';
+import {
+  decryptTextWithKey,
+  encryptText,
+  encryptTextWithKey,
+  passToHash,
+} from "../../lib/utils";
+import { getHeaders } from "../../lib/auth";
+import "../../../src/assets/css/backend.css";
+import logo from "../../../src/assets/images/logo.png";
+import logoWhite from "../../../src/assets/images/logo-white.png";
+import loginLogo from "../../../src/assets/images/login/login_img.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { analytics } from "../../lib/analytics";
+import queryString, { ParsedQuery } from "query-string";
+import { initializeUser } from "../../services/auth.service";
+import { generateNewKeys } from "../../services/pgp.service";
+import AesFunctions from "../../lib/AesUtil";
 
-import { decryptTextWithKey, encryptText, encryptTextWithKey, passToHash } from '../../lib/utils';
-import { getHeaders } from '../../lib/auth';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { analytics } from '../../lib/analytics';
-import queryString, { ParsedQuery } from 'query-string';
-import { initializeUser } from '../../services/auth.service';
-import { generateNewKeys } from '../../services/pgp.service';
-import AesFunctions from '../../lib/AesUtil';
-
-const bip39 = require('bip39');
+const bip39 = require("bip39");
 
 interface NewProps {
-    match: any
-    location: {
-        search: string
-    }
-    isNewUser: boolean
+  match: any;
+  location: {
+    search: string;
+  };
+  isNewUser: boolean;
 }
 
 interface NewState {
-    isAuthenticated?: Boolean
-    register: {
-        name: string
-        lastname: string
-        email: string
-        password: string
-        confirmPassword: string
-    }
-    currentContainer: number
-    validated?: Boolean
-    showModal: Boolean
-    token?: string
-    user?: any
-    isLoading: boolean
-    checkTermsConditions: boolean
+  isAuthenticated?: Boolean;
+  register: {
+    name: string;
+    lastname: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
+  currentContainer: number;
+  validated?: Boolean;
+  showModal: Boolean;
+  token?: string;
+  user?: any;
+  isLoading: boolean;
+  checkTermsConditions: boolean;
 }
 
 const CONTAINERS = {
   RegisterContainer: 1,
   PrivacyTermsContainer: 2,
   PasswordContainer: 3,
-  ActivationContainer: 4
+  ActivationContainer: 4,
 };
 
 class New extends React.Component<NewProps, NewState> {
-
   constructor(props: NewProps) {
     super(props);
 
     const qs = queryString.parse(history.location.search);
 
-    const hasEmailParam = this.props.match.params.email && this.validateEmail(this.props.match.params.email);
+    const hasEmailParam =
+      this.props.match.params.email &&
+      this.validateEmail(this.props.match.params.email);
     const hasTokenParam = qs.token;
 
-    if (hasTokenParam && typeof hasTokenParam === 'string') {
+    if (hasTokenParam && typeof hasTokenParam === "string") {
       Settings.clear();
-      Settings.set('xToken', hasTokenParam);
+      Settings.set("xToken", hasTokenParam);
       history.replace(history.location.pathname);
     }
 
     this.state = {
-      currentContainer: hasEmailParam && this.props.isNewUser ? CONTAINERS.ActivationContainer : CONTAINERS.RegisterContainer,
+      currentContainer:
+        hasEmailParam && this.props.isNewUser
+          ? CONTAINERS.ActivationContainer
+          : CONTAINERS.RegisterContainer,
       register: {
-        name: '',
-        lastname: '',
-        email: hasEmailParam ? this.props.match.params.email : '',
-        password: '',
-        confirmPassword: ''
+        name: "",
+        lastname: "",
+        email: hasEmailParam ? this.props.match.params.email : "",
+        password: "",
+        confirmPassword: "",
       },
       showModal: false,
       isLoading: false,
-      checkTermsConditions: false
+      checkTermsConditions: false,
     };
-
   }
 
   componentDidMount() {
-
-    const parsedQueryParams: ParsedQuery<string> = queryString.parse(history.location.search);
-    const isEmailQuery = parsedQueryParams.email && this.validateEmail(parsedQueryParams.email.toString());
+    const parsedQueryParams: ParsedQuery<string> = queryString.parse(
+      history.location.search
+    );
+    const isEmailQuery =
+      parsedQueryParams.email &&
+      this.validateEmail(parsedQueryParams.email.toString());
 
     if (isEmailQuery && parsedQueryParams.email !== this.state.register.email) {
       this.setState({
-        register: { ...this.state.register, email: parsedQueryParams.email + '' }
+        register: {
+          ...this.state.register,
+          email: parsedQueryParams.email + "",
+        },
       });
     }
 
     const xUser = Settings.getUser();
-    const xToken = Settings.get('xToken');
-    const mnemonic = Settings.get('xMnemonic');
-    const haveInfo = (xUser && xToken && mnemonic);
+    const xToken = Settings.get("xToken");
+    const mnemonic = Settings.get("xMnemonic");
+    const haveInfo = xUser && xToken && mnemonic;
 
-    if (xUser.registerCompleted && (this.state.isAuthenticated === true || haveInfo)) {
-      history.push('/app');
+    if (
+      xUser.registerCompleted &&
+      (this.state.isAuthenticated === true || haveInfo)
+    ) {
+      history.push("/app");
     }
   }
 
-    handleChangeRegister = (event: any) => {
-      var registerState = this.state.register;
+  handleChangeRegister = (event: any) => {
+    var registerState = this.state.register;
 
-      registerState[event.target.id] = event.target.value;
-      this.setState({ register: registerState });
+    registerState[event.target.id] = event.target.value;
+    this.setState({ register: registerState });
+  };
+
+  validateEmail = (email: string) => {
+    // eslint-disable-next-line no-control-regex
+    let emailPattern = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"))@((?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
+
+    return emailPattern.test(email.toLowerCase());
+  };
+
+  validateRegisterFormPart1 = () => {
+    let isValid = true;
+
+    if (
+      !this.state.register.name ||
+      !this.state.register.lastname ||
+      !this.state.register.email
+    ) {
+      return false;
     }
 
-    validateEmail = (email: string) => {
-      // eslint-disable-next-line no-control-regex
-      let emailPattern = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"))@((?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
-
-      return emailPattern.test(email.toLowerCase());
+    // Name lenght check
+    if (
+      this.state.register.name.length < 1 &&
+      this.state.register.lastname.length < 1
+    ) {
+      isValid = false;
+    }
+    // Email length check and validation
+    if (
+      this.state.register.email.length < 5 ||
+      !this.validateEmail(this.state.register.email)
+    ) {
+      isValid = false;
     }
 
-    validateRegisterFormPart1 = () => {
-      let isValid = true;
+    return isValid;
+  };
 
-      if (!this.state.register.name || !this.state.register.lastname || !this.state.register.email) {
-        return false;
-      }
+  validatePassword = () => {
+    let isValid = true;
 
-      // Name lenght check
-      if (this.state.register.name.length < 1 && this.state.register.lastname.length < 1) {isValid = false;}
-      // Email length check and validation
-      if (this.state.register.email.length < 5 || !this.validateEmail(this.state.register.email)) {isValid = false;}
-
-      return isValid;
+    if (!this.state.register.password || !this.state.register.confirmPassword) {
+      return false;
     }
 
-    validatePassword = () => {
-      let isValid = true;
-
-      if (!this.state.register.password || !this.state.register.confirmPassword) {
-        return false;
-      }
-
-      // Pass length check
-      if (this.state.register.password.length < 1 && this.state.register.confirmPassword.length < 1) {isValid = false;}
-      // Pass and confirm pass validation
-      if (this.state.register.password !== this.state.register.confirmPassword) {
-        toast.warn('Password mismatch');
-        isValid = false;
-      }
-
-      return isValid;
+    // Pass length check
+    if (
+      this.state.register.password.length < 1 &&
+      this.state.register.confirmPassword.length < 1
+    ) {
+      isValid = false;
+    }
+    // Pass and confirm pass validation
+    if (this.state.register.password !== this.state.register.confirmPassword) {
+      toast.warn("Password mismatch");
+      isValid = false;
     }
 
-    readReferalCookie() {
-      const cookie = document.cookie.match(/(^| )REFERRAL=([^;]+)/);
+    return isValid;
+  };
 
-      return cookie ? cookie[2] : null;
-    }
+  readReferalCookie() {
+    const cookie = document.cookie.match(/(^| )REFERRAL=([^;]+)/);
 
-    doRegister = async () => {
-      // Setup hash and salt
-      const hashObj = passToHash({ password: this.state.register.password });
-      const encPass = encryptText(hashObj.hash);
-      const encSalt = encryptText(hashObj.salt);
-      // Setup mnemonic
-      const mnemonic = bip39.generateMnemonic(256);
-      const encMnemonic = encryptTextWithKey(mnemonic, this.state.register.password);
+    return cookie ? cookie[2] : null;
+  }
 
-      //Generate keys
-      const { privateKeyArmored, publicKeyArmored: codpublicKey, revocationCertificate: codrevocationKey } = await generateNewKeys();
+  doRegister = async () => {
+    // Setup hash and salt
+    const hashObj = passToHash({ password: this.state.register.password });
+    const encPass = encryptText(hashObj.hash);
+    const encSalt = encryptText(hashObj.salt);
+    // Setup mnemonic
+    const mnemonic = bip39.generateMnemonic(256);
+    const encMnemonic = encryptTextWithKey(
+      mnemonic,
+      this.state.register.password
+    );
 
-      //Datas
-      const encPrivateKey = AesUtil.encrypt(privateKeyArmored, this.state.register.password, false);
+    //Generate keys
+    const {
+      privateKeyArmored,
+      publicKeyArmored: codpublicKey,
+      revocationCertificate: codrevocationKey,
+    } = await generateNewKeys();
 
-      return fetch('/api/register', {
-        method: 'post',
-        headers: getHeaders(true, true),
-        body: JSON.stringify({
-          name: this.state.register.name,
-          lastname: this.state.register.lastname,
-          email: this.state.register.email,
-          password: encPass,
-          mnemonic: encMnemonic,
-          salt: encSalt,
-          referral: this.readReferalCookie(),
-          privateKey: encPrivateKey,
-          publicKey: codpublicKey,
-          revocationKey: codrevocationKey
-        })
-      }).then(response => {
+    //Datas
+    const encPrivateKey = AesUtil.encrypt(
+      privateKeyArmored,
+      this.state.register.password,
+      false
+    );
+
+    return fetch("/api/register", {
+      method: "post",
+      headers: getHeaders(true, true),
+      body: JSON.stringify({
+        name: this.state.register.name,
+        lastname: this.state.register.lastname,
+        email: this.state.register.email,
+        password: encPass,
+        mnemonic: encMnemonic,
+        salt: encSalt,
+        referral: this.readReferalCookie(),
+        privateKey: encPrivateKey,
+        publicKey: codpublicKey,
+        revocationKey: codrevocationKey,
+      }),
+    })
+      .then((response) => {
         if (response.status === 200) {
           return response.json().then((body) => {
             // Manage succesfull register
             const { token, user, uuid } = body;
 
-            analytics.identify(uuid, { email: this.state.register.email, member_tier: 'free' });
-            window.analytics.track('user-signup', {
+            analytics.identify(uuid, {
+              email: this.state.register.email,
+              member_tier: "free",
+            });
+            window.analytics.track("user-signup", {
               properties: {
                 userId: uuid,
-                email: this.state.register.email
-              }
+                email: this.state.register.email,
+              },
             });
 
-            const privkeyDecrypted = Buffer.from(AesFunctions.decrypt(user.privateKey, this.state.register.password)).toString('base64');
+            const privkeyDecrypted = Buffer.from(
+              AesFunctions.decrypt(
+                user.privateKey,
+                this.state.register.password
+              )
+            ).toString("base64");
 
             user.privateKey = privkeyDecrypted;
 
-            Settings.set('xToken', token);
-            user.mnemonic = decryptTextWithKey(user.mnemonic, this.state.register.password);
-            Settings.set('xUser', JSON.stringify(user));
-            Settings.set('xMnemonic', user.mnemonic);
+            Settings.set("xToken", token);
+            user.mnemonic = decryptTextWithKey(
+              user.mnemonic,
+              this.state.register.password
+            );
+            Settings.set("xUser", JSON.stringify(user));
+            Settings.set("xMnemonic", user.mnemonic);
 
-            return initializeUser(this.state.register.email, user.mnemonic, encPass).then((rootFolderInfo) => {
+            return initializeUser(
+              this.state.register.email,
+              user.mnemonic,
+              encPass
+            ).then((rootFolderInfo) => {
               user.root_folder_id = rootFolderInfo.user.root_folder_id;
-              Settings.set('xUser', JSON.stringify(user));
-              history.push('/login');
+              Settings.set("xUser", JSON.stringify(user));
+              history.push("/login");
             });
           });
-
         } else {
           return response.json().then((body) => {
             // Manage account already exists (error 400)
@@ -226,148 +292,351 @@ class New extends React.Component<NewProps, NewState> {
             this.setState({ validated: false });
           });
         }
-      }).catch(err => {
-        console.error('Register error', err);
+      })
+      .catch((err) => {
+        console.error("Register error", err);
       });
+  };
 
-    }
+  updateInfo = () => {
+    // Setup hash and salt
+    const hashObj = passToHash({ password: this.state.register.password });
+    const encPass = encryptText(hashObj.hash);
+    const encSalt = encryptText(hashObj.salt);
 
-    updateInfo = () => {
-      // Setup hash and salt
-      const hashObj = passToHash({ password: this.state.register.password });
-      const encPass = encryptText(hashObj.hash);
-      const encSalt = encryptText(hashObj.salt);
+    // Setup mnemonic
+    const mnemonic = bip39.generateMnemonic(256);
+    const encMnemonic = encryptTextWithKey(
+      mnemonic,
+      this.state.register.password
+    );
 
-      // Setup mnemonic
-      const mnemonic = bip39.generateMnemonic(256);
-      const encMnemonic = encryptTextWithKey(mnemonic, this.state.register.password);
+    // Body
+    const body = {
+      name: this.state.register.name,
+      lastname: this.state.register.lastname,
+      email: this.state.register.email,
+      password: encPass,
+      mnemonic: encMnemonic,
+      salt: encSalt,
+      referral: this.readReferalCookie(),
+    };
 
-      // Body
-      const body = {
-        name: this.state.register.name,
-        lastname: this.state.register.lastname,
-        email: this.state.register.email,
-        password: encPass,
-        mnemonic: encMnemonic,
-        salt: encSalt,
-        referral: this.readReferalCookie()
-      };
+    const fetchHandler = async (res: Response) => {
+      const body = await res.text();
 
-      const fetchHandler = async (res: Response) => {
-        const body = await res.text();
+      try {
+        const bodyJson = JSON.parse(body);
 
-        try {
-          const bodyJson = JSON.parse(body);
+        return { res: res, body: bodyJson };
+      } catch {
+        return { res: res, body: body };
+      }
+    };
 
-          return { res: res, body: bodyJson };
-        } catch {
-          return { res: res, body: body };
-        }
-      };
-
-      return fetch('/api/appsumo/update', {
-        method: 'POST',
-        headers: getHeaders(true, false),
-        body: JSON.stringify(body)
-      }).then(fetchHandler).then(({ res, body }) => {
+    return fetch("/api/appsumo/update", {
+      method: "POST",
+      headers: getHeaders(true, false),
+      body: JSON.stringify(body),
+    })
+      .then(fetchHandler)
+      .then(({ res, body }) => {
         if (res.status !== 200) {
-          throw Error(body.error || 'Internal Server Error');
+          throw Error(body.error || "Internal Server Error");
         } else {
           return body;
         }
-      }).then(res => {
+      })
+      .then((res) => {
         const xToken = res.token;
         const xUser = res.user;
 
         xUser.mnemonic = mnemonic;
 
-        return initializeUser(this.state.register.email, xUser.mnemonic, encPass).then((rootFolderInfo) => {
+        return initializeUser(
+          this.state.register.email,
+          xUser.mnemonic,
+          encPass
+        ).then((rootFolderInfo) => {
           xUser.root_folder_id = rootFolderInfo.user.root_folder_id;
-          Settings.set('xToken', xToken);
-          Settings.set('xMnemonic', mnemonic);
-          Settings.set('xUser', JSON.stringify(xUser));
+          Settings.set("xToken", xToken);
+          Settings.set("xMnemonic", mnemonic);
+          Settings.set("xUser", JSON.stringify(xUser));
         });
       });
+  };
 
+  resendEmail = async (email: string) => {
+    if (!this.validateEmail(email)) {
+      throw Error("No email address provided");
     }
 
-    resendEmail = async (email: string) => {
-      if (!this.validateEmail(email)) {
-        throw Error('No email address provided');
-      }
-
-      return fetch(`/api/user/resend/${email}`, {
-        method: 'GET'
-      }).then(async res => {
+    return fetch(`/api/user/resend/${email}`, {
+      method: "GET",
+    })
+      .then(async (res) => {
         return { response: res, data: await res.json() };
-      }).then(res => {
+      })
+      .then((res) => {
         if (res.response.status !== 200) {
           throw res.data;
         } else {
           toast.info(`Activation email sent to ${email}`);
         }
-      }).catch(err => {
-        toast.warn(`Error: ${err.error ? err.error : 'Internal Server Error'}`);
+      })
+      .catch((err) => {
+        toast.warn(`Error: ${err.error ? err.error : "Internal Server Error"}`);
       });
-    }
+  };
 
-    registerContainer() {
-      return <div className="container-register">
-        <p className="container-title">Create an StorX account</p>
-        <div className="menu-box">
-          <button className="off" onClick={(e) => { history.push('/login'); }}>Sign in</button>
-          <button className="on">Create account</button>
+  registerContainer() {
+    return (
+      // <div className="wrapper">
+      <section className="login-content">
+        <div className="container h-100">
+          <div className="row justify-content-center align-items-center">
+            <div className="col-lg-10">
+              <div className="login-content-wrapper">
+                <div className="row justify-content-center align-items-center">
+                  <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
+                    <div className="sign-user_card">
+                      <img
+                        // src="assets/images/logo.png"
+                        src={logo}
+                        className="img-fluid rounded-normal light-logo logo"
+                        alt="logo"
+                      />
+                      {/* <img
+                          // src="assets/images/logo-white.png"
+                          src={logoWhite}
+                          className="img-fluid rounded-normal darkmode-logo logo"
+                          alt="logo"
+                        /> */}
+                      <h5 className="mb-4">Create an StorX Account</h5>
+                      <div className="btn-block mb-4">
+                        <Link to="/login" className="btn btn-off">
+                          Sign In
+                        </Link>
+                        <Link to="" type="button" className="btn btn-on">
+                          Create Account
+                        </Link>
+                      </div>
+                      <Form
+                        onSubmit={(e: any) => {
+                          e.preventDefault();
+                          if (this.validateRegisterFormPart1()) {
+                            var tempReg = this.state.register;
+                            tempReg.email = tempReg.email.toLowerCase().trim();
+                            this.setState({
+                              currentContainer:
+                                CONTAINERS.PrivacyTermsContainer,
+                              register: tempReg,
+                            });
+                          }
+                        }}
+                      >
+                        <div className="row">
+                          <div className="col-lg-6">
+                            <div className="floating-label form-group">
+                              <input
+                                className="floating-input form-control"
+                                type="text"
+                                placeholder=" "
+                                required
+                                onChange={(e) =>
+                                  this.setState({
+                                    register: {
+                                      ...this.state.register,
+                                      name: e.target.value,
+                                    },
+                                  })
+                                }
+                                value={this.state.register.name}
+                              />
+                              <label>First Name</label>
+                            </div>
+                          </div>
+                          <div className="col-lg-6">
+                            <div className="floating-label form-group">
+                              <input
+                                className="floating-input form-control"
+                                type="text"
+                                placeholder=" "
+                                required
+                                onChange={(e) =>
+                                  this.setState({
+                                    register: {
+                                      ...this.state.register,
+                                      lastname: e.target.value,
+                                    },
+                                  })
+                                }
+                                value={this.state.register.lastname}
+                              />
+                              <label>Last Name</label>
+                            </div>
+                          </div>
+                          <div className="col-lg-12">
+                            <div className="floating-label form-group">
+                              <input
+                                className="floating-input form-control"
+                                type="email"
+                                placeholder=" "
+                                required
+                                onChange={(e) =>
+                                  this.setState({
+                                    register: {
+                                      ...this.state.register,
+                                      email: e.target.value,
+                                    },
+                                  })
+                                }
+                                disabled={!this.props.isNewUser}
+                                value={this.state.register.email}
+                              />
+                              <label>Email address</label>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="submit"
+                          className="btn btn-block btn-primary"
+                          disabled={!this.validateRegisterFormPart1()}
+                        >
+                          Create Account
+                        </button>
+                        <p className="mt-4 mb-0 text-small text-muted">
+                          * In order to use features of Storx, the email address
+                          of your Storx account needs to be verified. please
+                          Check your spam folder to make sure verification email
+                          didn't end up there.
+                        </p>
+                      </Form>
+                    </div>
+                  </div>
+                  <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+                    <div className="sign-image_card">
+                      <h4 className="font-weight-bold text-white mb-3">
+                        Truly Decentralized Cloud Storage
+                      </h4>
+                      <p>
+                        StorX helps you securely encrypt, fragment and then
+                        distribute important data across multiple hosting nodes
+                        spread worldwide.
+                      </p>
+                      <div>
+                        <img
+                          // src="assets/images/login/login_img.png"
+                          src={loginLogo}
+                          className="img-fluid rounded-normal"
+                          alt="Truly Decentralized Cloud Storage"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <Form className="form-register" onSubmit={(e: any) => {
-          e.preventDefault();
+      </section>
+      // </div>
+    );
 
-          if (this.validateRegisterFormPart1()) {
-            var tempReg = this.state.register;
+    // return (
+    //   <div className="container-register">
+    //     <p className="container-title">Create an StorX account</p>
+    //     <div className="menu-box">
+    //       <button
+    //         className="off"
+    //         onClick={(e) => {
+    //           history.push("/login");
+    //         }}
+    //       >
+    //         Sign in
+    //       </button>
+    //       <button className="on">Create account</button>
+    //     </div>
+    //     <Form
+    //       className="form-register"
+    //       onSubmit={(e: any) => {
+    //         e.preventDefault();
 
-            tempReg.email = tempReg.email.toLowerCase().trim();
-            this.setState({
-              currentContainer: CONTAINERS.PrivacyTermsContainer,
-              register: tempReg
-            });
-          }
-        }}>
-          <Form.Row>
-            <Form.Group as={Col} controlId="name">
-              <Form.Control placeholder="First name" required autoComplete="name"
-                onChange={this.handleChangeRegister}
-                value={this.state && this.state.register.name} autoFocus />
-            </Form.Group>
-            <Form.Group as={Col} controlId="lastname">
-              <Form.Control placeholder="Last name" required autoComplete="lastname"
-                onChange={this.handleChangeRegister}
-                value={this.state && this.state.register.lastname} />
-            </Form.Group>
-          </Form.Row>
-          <Form.Row>
-            <Form.Group as={Col} controlId="email">
-              <Form.Control placeholder="Email address" type="email" required autoComplete="email"
-                onChange={this.handleChangeRegister}
-                disabled={!this.props.isNewUser}
-                value={this.state && this.state.register.email} />
-            </Form.Group>
-          </Form.Row>
-          <Form.Row className="form-register-submit">
-            <Form.Group as={Col}>
-              <button className="on btn-block" type="submit" disabled={!this.validateRegisterFormPart1()}>Continue</button>
-            </Form.Group>
-          </Form.Row>
-        </Form>
-      </div>;
-    }
+    //         if (this.validateRegisterFormPart1()) {
+    //           var tempReg = this.state.register;
 
-    handleTermsConditions = (event: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({ checkTermsConditions: event.target.checked });
-    };
+    //           tempReg.email = tempReg.email.toLowerCase().trim();
+    //           this.setState({
+    //             currentContainer: CONTAINERS.PrivacyTermsContainer,
+    //             register: tempReg,
+    //           });
+    //         }
+    //       }}
+    //     >
+    //       <Form.Row>
+    //         <Form.Group as={Col} controlId="name">
+    //           <Form.Control
+    //             placeholder="First name"
+    //             required
+    //             autoComplete="name"
+    //             onChange={this.handleChangeRegister}
+    //             value={this.state && this.state.register.name}
+    //             autoFocus
+    //           />
+    //         </Form.Group>
+    //         <Form.Group as={Col} controlId="lastname">
+    //           <Form.Control
+    //             placeholder="Last name"
+    //             required
+    //             autoComplete="lastname"
+    //             onChange={this.handleChangeRegister}
+    //             value={this.state && this.state.register.lastname}
+    //           />
+    //         </Form.Group>
+    //       </Form.Row>
+    //       <Form.Row>
+    //         <Form.Group as={Col} controlId="email">
+    //           <Form.Control
+    //             placeholder="Email address"
+    //             type="email"
+    //             required
+    //             autoComplete="email"
+    //             onChange={this.handleChangeRegister}
+    //             disabled={!this.props.isNewUser}
+    //             value={this.state && this.state.register.email}
+    //           />
+    //         </Form.Group>
+    //       </Form.Row>
+    //       <Form.Row className="form-register-submit">
+    //         <Form.Group as={Col}>
+    //           <button
+    //             className="on btn-block"
+    //             type="submit"
+    //             disabled={!this.validateRegisterFormPart1()}
+    //           >
+    //             Continue
+    //           </button>
+    //         </Form.Group>
+    //       </Form.Row>
+    //     </Form>
+    //   </div>
+    // );
+  }
 
-    privacyContainer() {
-      return (<div className="container-register">
+  handleTermsConditions = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ checkTermsConditions: event.target.checked });
+  };
+
+  privacyContainer() {
+    return (
+      <div className="container-register">
         <p className="container-title">StorX Security</p>
-        <p className="privacy-disclaimer">StorX Drive uses your password to encrypt and decrypt your files. Due to the secure nature of StorX Drive, we don't know your password. That means that if you ever forget it, your files are gone forever. With us, you're the only owner of your files. We strongly suggest you to:</p>
+        <p className="privacy-disclaimer">
+          StorX Drive uses your password to encrypt and decrypt your files. Due
+          to the secure nature of StorX Drive, we don't know your password. That
+          means that if you ever forget it, your files are gone forever. With
+          us, you're the only owner of your files. We strongly suggest you to:
+        </p>
         <ul className="privacy-remainders">
           <li>Store your Password. Keep it safe and secure.</li>
           <li>Keep an offline backup of your password.</li>
@@ -378,120 +647,229 @@ class New extends React.Component<NewProps, NewState> {
             checked={this.state.checkTermsConditions}
             onChange={this.handleTermsConditions}
             color="default"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
+            inputProps={{ "aria-label": "secondary checkbox" }}
           />
-          <a href="https://web.storx.io/en/legal" target="_blank" rel="noreferrer">
-              Accept terms, conditions and privacy policy
+          <a
+            href="https://web.storx.io/en/legal"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Accept terms, conditions and privacy policy
           </a>
         </div>
 
-        <Form onSubmit={(e: any) => {
-          e.preventDefault();
-          this.setState({ currentContainer: CONTAINERS.PasswordContainer });
-        }}>
+        <Form
+          onSubmit={(e: any) => {
+            e.preventDefault();
+            this.setState({ currentContainer: CONTAINERS.PasswordContainer });
+          }}
+        >
           <Form.Row>
             <Form.Group as={Col} controlId="name">
-              <button className="btn-block off" onClick={(e: any) => {
-                this.setState({ currentContainer: CONTAINERS.RegisterContainer });
-                e.preventDefault();
-              }}>Back</button>
+              <button
+                className="btn-block off"
+                onClick={(e: any) => {
+                  this.setState({
+                    currentContainer: CONTAINERS.RegisterContainer,
+                  });
+                  e.preventDefault();
+                }}
+              >
+                Back
+              </button>
             </Form.Group>
             <Form.Group as={Col}>
-              <button className="btn-block on" type="submit" autoFocus disabled={!this.state.checkTermsConditions}>Continue</button>
+              <button
+                className="btn-block on"
+                type="submit"
+                autoFocus
+                disabled={!this.state.checkTermsConditions}
+              >
+                Continue
+              </button>
             </Form.Group>
           </Form.Row>
-
         </Form>
-      </div>);
-    }
+      </div>
+    );
+  }
 
-    passwordContainer() {
-      return <div className="container-register">
+  passwordContainer() {
+    return (
+      <div className="container-register">
         <p className="container-title">Create an StorX account</p>
         <div className="menu-box">
-          <button className="off" onClick={(e: any) => { /* this.setState({ currentContainer: this.loginContainer() }) */ }}>Sign in</button>
+          <button
+            className="off"
+            onClick={(e: any) => {
+              /* this.setState({ currentContainer: this.loginContainer() }) */
+            }}
+          >
+            Sign in
+          </button>
           <button className="on">Create account</button>
         </div>
-        <Form className="form-register" onSubmit={async (e: any) => {
-          e.preventDefault();
+        <Form
+          className="form-register"
+          onSubmit={async (e: any) => {
+            e.preventDefault();
 
-          await new Promise<void>(r => this.setState({ isLoading: true }, () => r()));
+            await new Promise<void>((r) =>
+              this.setState({ isLoading: true }, () => r())
+            );
 
-          if (!this.validatePassword()) {
-            return toast.warn(<div>Password mismatch</div>);
-          }
+            if (!this.validatePassword()) {
+              return toast.warn(<div>Password mismatch</div>);
+            }
 
-          if (!this.props.isNewUser) {
-            this.updateInfo().then(() => {
-              history.push('/login');
-            }).catch(err => {
-              toast.error(<div>
-                <div>Reason: {err.message}</div>
-                <div>Please contact us</div>
-              </div>, {
-                autoClose: false,
-                closeOnClick: false
-              });
-            }).finally(() => {
-              this.setState({ isLoading: false });
-            });
-          }
-          else {
-            this.doRegister().finally(() => this.setState({ isLoading: false }));
-          }
-        }}>
+            if (!this.props.isNewUser) {
+              this.updateInfo()
+                .then(() => {
+                  history.push("/login");
+                })
+                .catch((err) => {
+                  toast.error(
+                    <div>
+                      <div>Reason: {err.message}</div>
+                      <div>Please contact us</div>
+                    </div>,
+                    {
+                      autoClose: false,
+                      closeOnClick: false,
+                    }
+                  );
+                })
+                .finally(() => {
+                  this.setState({ isLoading: false });
+                });
+            } else {
+              this.doRegister().finally(() =>
+                this.setState({ isLoading: false })
+              );
+            }
+          }}
+        >
           <Form.Row>
-            <Form.Control type="hidden" name="username" autoComplete="username" value={this.state.register.email} />
+            <Form.Control
+              type="hidden"
+              name="username"
+              autoComplete="username"
+              value={this.state.register.email}
+            />
             <Form.Group as={Col} controlId="password">
-              <Form.Control type="password" required placeholder="Password" autoComplete="new-password" onChange={this.handleChangeRegister} autoFocus />
+              <Form.Control
+                type="password"
+                required
+                placeholder="Password"
+                autoComplete="new-password"
+                onChange={this.handleChangeRegister}
+                autoFocus
+              />
             </Form.Group>
           </Form.Row>
           <Form.Row>
             <Form.Group as={Col} controlId="confirmPassword">
-              <Form.Control type="password" required placeholder="Confirm password" autoComplete="confirm-password" onChange={this.handleChangeRegister} />
+              <Form.Control
+                type="password"
+                required
+                placeholder="Confirm password"
+                autoComplete="confirm-password"
+                onChange={this.handleChangeRegister}
+              />
             </Form.Group>
           </Form.Row>
           <Form.Row className="form-register-submit">
             <Form.Group as={Col}>
-              <Button className="btn-block off" onClick={(e: any) => {
-                this.setState({ currentContainer: CONTAINERS.PrivacyTermsContainer });
-                e.preventDefault();
-              }}>Back</Button>
+              <Button
+                className="btn-block off"
+                onClick={(e: any) => {
+                  this.setState({
+                    currentContainer: CONTAINERS.PrivacyTermsContainer,
+                  });
+                  e.preventDefault();
+                }}
+              >
+                Back
+              </Button>
             </Form.Group>
             <Form.Group as={Col}>
-              <Button className="btn-block on __btn-new-button" type="submit" disabled={this.state.isLoading}>Continue</Button>
+              <Button
+                className="btn-block on __btn-new-button"
+                type="submit"
+                disabled={this.state.isLoading}
+              >
+                Continue
+              </Button>
             </Form.Group>
           </Form.Row>
         </Form>
-      </div >;
-    }
-
-    activationContainer() {
-      return (<div className="container-register">
-        <p className="container-title">Activation Email</p>
-        <p className="privacy-disclaimer">Please check your email <b>{this.state.register.email}</b> and follow the instructions to activate your account so you can start using StorX Drive.</p>
-        <ul className="privacy-remainders" style={{ paddingTop: '20px' }}>By creating an account, you are agreeing to our Terms &amp; Conditions and Privacy Policy</ul>
-        <button className="btn-block on" onClick={() => {
-          this.resendEmail(this.state.register.email).catch(err => {
-            toast.error(<div><div>Error sending email</div><div>Reason: {err.message}</div></div>);
-          });
-        }}>Re-send activation email</button>
-      </div>);
-    }
-
-    render() {
-      return (<div className="login-main">
-        <Container className="login-container-box">
-          {this.state.currentContainer === CONTAINERS.RegisterContainer ? this.registerContainer() : ''}
-          {this.state.currentContainer === CONTAINERS.PrivacyTermsContainer ? this.privacyContainer() : ''}
-          {this.state.currentContainer === CONTAINERS.PasswordContainer ? this.passwordContainer() : ''}
-        </Container>
-        <Container className="login-container-box-forgot-password">
-          <p className="forgotPassword"></p>
-        </Container>
       </div>
-      );
-    }
+    );
+  }
+
+  activationContainer() {
+    return (
+      <div className="container-register">
+        <p className="container-title">Activation Email</p>
+        <p className="privacy-disclaimer">
+          Please check your email <b>{this.state.register.email}</b> and follow
+          the instructions to activate your account so you can start using StorX
+          Drive.
+        </p>
+        <ul className="privacy-remainders" style={{ paddingTop: "20px" }}>
+          By creating an account, you are agreeing to our Terms &amp; Conditions
+          and Privacy Policy
+        </ul>
+        <button
+          className="btn-block on"
+          onClick={() => {
+            this.resendEmail(this.state.register.email).catch((err) => {
+              toast.error(
+                <div>
+                  <div>Error sending email</div>
+                  <div>Reason: {err.message}</div>
+                </div>
+              );
+            });
+          }}
+        >
+          Re-send activation email
+        </button>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      // <div className="login-main">
+      //   <Container className="login-container-box">
+      //     {this.state.currentContainer === CONTAINERS.RegisterContainer
+      //       ? this.registerContainer()
+      //       : ""}
+      //     {this.state.currentContainer === CONTAINERS.PrivacyTermsContainer
+      //       ? this.privacyContainer()
+      //       : ""}
+      //     {this.state.currentContainer === CONTAINERS.PasswordContainer
+      //       ? this.passwordContainer()
+      //       : ""}
+      //   </Container>
+      //   <Container className="login-container-box-forgot-password">
+      //     <p className="forgotPassword"></p>
+      //   </Container>
+      // </div>
+      <div className="wrapper">
+        {this.state.currentContainer === CONTAINERS.RegisterContainer
+          ? this.registerContainer()
+          : ""}
+        {this.state.currentContainer === CONTAINERS.PrivacyTermsContainer
+          ? this.privacyContainer()
+          : ""}
+        {this.state.currentContainer === CONTAINERS.PasswordContainer
+          ? this.passwordContainer()
+          : ""}
+      </div>
+    );
+  }
 }
 
 export default New;
