@@ -423,7 +423,7 @@ class Login extends React.Component<LoginProps> {
                               <Link
                                 to="/remove"
                                 className="text-primary"
-                                onClick={(e: any) => {
+                                onClick={() => {
                                   window.analytics.track(
                                     "user-reset-password-request"
                                   );

@@ -6,7 +6,7 @@ import "../src/assets/css/backend.css";
 // import Remove from "./components/forms/Remove";
 // import New from "./components/forms/New";
 // import XCloud from "./components/xcloud/XCloud";
-import Activation from "./components/forms/Activation";
+// import Activation from "./components/forms/Activation";
 import NotFound from "./NotFound";
 import Deactivation from "./components/forms/Deactivation";
 import Share from "./components/forms/Share";
@@ -16,7 +16,7 @@ import Security from "./components/Security";
 import { ToastContainer } from "react-toastify";
 import Checkout from "./components/Checkout";
 import Referred from "./components/Referred";
-import Teams from "./components/forms/Teams";
+// import Teams from "./components/forms/Teams";
 import JoinTeam from "./components/forms/JoinTeam";
 import DeactivationTeams from "./components/forms/DeactivationTeam";
 import { analytics, PATH_NAMES } from "./lib/analytics";
@@ -24,6 +24,8 @@ import Settings from "./lib/settings";
 import Success from "./components/teams/Success";
 import MainLoader from "./mainLoader";
 // const MainLoader = lazy(() => import("./mainLoader"));
+const Teams = lazy(() => import("./components/forms/Teams"));
+const Activation = lazy(() => import("./components/forms/Activation"));
 const Storage = lazy(() => import("./components/Storage"));
 const Login = lazy(() => import("./components/forms/Login"));
 const Remove = lazy(() => import("./components/forms/Remove"));
@@ -189,9 +191,6 @@ class App extends React.Component {
                 />
               )}
             />
-            {/* <Route path="/loader">
-              <MainLoader />
-            </Route> */}
             <Route
               path="/teams/join/:token"
               render={(props) => <JoinTeam {...props} />}
