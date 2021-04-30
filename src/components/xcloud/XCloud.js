@@ -54,9 +54,9 @@ class XCloud extends React.Component {
   componentDidMount = () => {
     if (isMobile) {
       if (isAndroid) {
-        window.location.href = 'https://web.storx.io/mobileapp';
+        window.location.href = 'https://storx.tech/applications.html';
       } else if (isIOS) {
-        window.location.href = 'https://web.storx.io/mobileapp';
+        window.location.href = 'https://storx.tech/applications.html';
       }
     }
 
@@ -425,7 +425,7 @@ class XCloud extends React.Component {
           get onClick() {
             return () => {
               window.analytics.track('file-welcome-open');
-              return fetch('/Internxt.pdf').then(res => res.blob()).then(obj => {
+              return fetch('/storx.pdf').then(res => res.blob()).then(obj => {
                 fileDownload(obj, 'Welcome.pdf');
               });
             };

@@ -232,7 +232,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
                 {!Settings.exists('xTeam') && <Dropdown.Item onClick={(e) => { history.push('/settings'); }}>Settings</Dropdown.Item>}
                 <Dropdown.Item onClick={(e) => { history.push('/security'); }}>Security</Dropdown.Item>
                 {!this.state.isTeam && <Dropdown.Item onClick={(e) => { history.push('/invite'); }}>Referrals</Dropdown.Item>}
-                {isAdmin || !xTeam ? <Dropdown.Item onClick={(e) => { history.push('/teams'); }}>Business</Dropdown.Item> : <></>}
+                {/* {isAdmin || !xTeam ? <Dropdown.Item onClick={(e) => { history.push('/teams'); }}>Business</Dropdown.Item> : <></>} */}
                 {/* {!xTeam && <Dropdown.Item onClick={(e) => this.handleBilling()}> Billing </Dropdown.Item>} */}
                 {!this.state.isTeam && <Dropdown.Item onClick={(e) => {
                   function getOperatingSystem() {
@@ -264,8 +264,8 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
                       break;
                   }
 
-                }}>Download</Dropdown.Item>}
-                <Dropdown.Item href="mailto:support@StorX.tech">Contact</Dropdown.Item>
+                }}>Download StorX Desktop Client</Dropdown.Item>}
+                <Dropdown.Item target="_blank" href="https://storx.tech/support.html">Community Support</Dropdown.Item>
               </div>
               <Dropdown.Divider />
               <div className="dropdown-menu-group">
