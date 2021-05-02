@@ -1,9 +1,11 @@
 import React from 'react';
 import { Nav, Navbar, Dropdown, ProgressBar } from 'react-bootstrap';
-
+import { Link } from "react-router-dom";
 // Assets
 import account from '../../assets/Dashboard-Icons/Account.svg';
 import logo from '../../assets/drive-logo.svg';
+import Logo from '../../../src/assets/images/logo.png';
+import LogoWhite from '../../assets/images/logo-white.png';
 
 import search from '../../assets/Dashboard-Icons/Search.svg';
 import uploadFileIcon from '../../assets/Dashboard-Icons/Upload.svg';
@@ -25,31 +27,31 @@ import Settings from '../../lib/settings';
 import customPrettySize from '../../lib/sizer';
 
 interface NavigationBarProps {
-  navbarItems: JSX.Element
-  showFileButtons?: boolean
-  showSettingsButton?: boolean
-  setSearchFunction?: any
-  uploadFile?: any
-  createFolder?: any
-  deleteItems?: any
-  shareItem?: any
-  uploadHandler?: any
-  showTeamSettings?: any
-  isTeam: boolean
-  handleChangeWorkspace?: any
-  isAdmin?: boolean
-  isMember?: boolean
+  navbarItems: JSX.Element;
+  showFileButtons?: boolean;
+  showSettingsButton?: boolean;
+  setSearchFunction?: any;
+  uploadFile?: any;
+  createFolder?: any;
+  deleteItems?: any;
+  shareItem?: any;
+  uploadHandler?: any;
+  showTeamSettings?: any;
+  isTeam: boolean;
+  handleChangeWorkspace?: any;
+  isAdmin?: boolean;
+  isMember?: boolean;
 }
 
 interface NavigationBarState {
-  navbarItems: JSX.Element
-  workspace: string
-  menuButton: any
-  barLimit: number
-  barUsage: number
-  isTeam: boolean
-  isAdmin: boolean
-  isMember: boolean
+  navbarItems: JSX.Element;
+  workspace: string;
+  menuButton: any;
+  barLimit: number;
+  barUsage: number;
+  isTeam: boolean;
+  isAdmin: boolean;
+  isMember: boolean;
 }
 
 class NavigationBar extends React.Component<NavigationBarProps, NavigationBarState> {
@@ -87,21 +89,20 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
 
   getNavBarItems(isTeam: boolean) {
     const xTeam = Settings.exists('xTeam');
-
-    return <Nav className="m-auto">
-      <div className="top-bar">
-        <div className="search-container">
-          <input alt="Search files" className="search" required style={{ backgroundImage: 'url(' + search + ')' }} onChange={this.props.setSearchFunction} />
-        </div>
-      </div>
-
-      <HeaderButton icon={uploadFileIcon} name="Upload file" clickHandler={this.props.uploadFile} />
-      <HeaderButton icon={newFolder} name="New folder" clickHandler={this.props.createFolder} />
-      <HeaderButton icon={deleteFile} name="Delete" clickHandler={this.props.deleteItems} />
-      <HeaderButton icon={share} name="Share" clickHandler={this.props.shareItem} />
+  //   <div className="top-bar">
+  //   <div className="search-container">
+  //     <input alt="Search files" className="search" required style={{ backgroundImage: 'url(' + search + ')' }} onChange={this.props.setSearchFunction} />
+  //   </div>
+  // </div>
+    return <>
+      <HeaderButton active="active" icon="fas fa-home iq-arrow-left" name="Dashboard" />
+      <HeaderButton icon="fas fa-cloud-upload-alt iq-arrow-left" name="Upload File" clickHandler={this.props.uploadFile} />
+      <HeaderButton icon="fas fa-folder-open iq-arrow-left" name="New folder" clickHandler={this.props.createFolder} />
+      <HeaderButton icon="fas fa-trash-alt iq-arrow-left" name="Delete" clickHandler={this.props.deleteItems} />
+      <HeaderButton icon="fas fa-share iq-arrow-left" name="Share" clickHandler={this.props.shareItem} />
       <input id="uploadFileControl" type="file" onChange={this.props.uploadHandler} multiple={true} />
       {xTeam && <HeaderButton icon={isTeam ? personalIcon : teamsIcon} name="Team" clickHandler={this.handleChangeWorkspace.bind(this)} />}
-    </Nav>;
+    </>;
   }
 
   componentDidMount() {
@@ -210,78 +211,194 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     const xTeam = Settings.exists('xTeam');
 
     return (
-      <Navbar id="mainNavBar">
-        <Navbar.Brand>
-          <a href="/"><img src={logo} alt="Logo" /></a>
-        </Navbar.Brand>
-        <Nav className="m-auto">
-          {this.state.navbarItems}
-        </Nav>
-        <Nav style={{ margin: '0 13px 0 0' }}>
-          <Dropdown drop="left" className="settingsButton">
-            <Dropdown.Toggle id="1"><HeaderButton icon={account} name="Menu" /></Dropdown.Toggle>
-            <Dropdown.Menu>
-              <div className="dropdown-menu-group info">
-                <p className="name-lastname">{this.state.isTeam ? 'Business' : `${user.name} ${user.lastname}`}</p>
-                <ProgressBar className="mini-progress-bar" now={this.state.barUsage} max={this.state.barLimit} />
-                <p className="space-used">Used <strong>{customPrettySize(this.state.barUsage)}</strong> of <strong>{customPrettySize(this.state.barLimit)}</strong></p>
-              </div>
-              <Dropdown.Divider />
-              <div className="dropdown-menu-group">
-                {!this.state.isTeam && <Dropdown.Item onClick={(e) => { history.push('/storage'); }}>Storage</Dropdown.Item>}
-                {!Settings.exists('xTeam') && <Dropdown.Item onClick={(e) => { history.push('/settings'); }}>Settings</Dropdown.Item>}
-                <Dropdown.Item onClick={(e) => { history.push('/security'); }}>Security</Dropdown.Item>
-                {!this.state.isTeam && <Dropdown.Item onClick={(e) => { history.push('/invite'); }}>Referrals</Dropdown.Item>}
-                {isAdmin || !xTeam ? <Dropdown.Item onClick={(e) => { history.push('/teams'); }}>Business</Dropdown.Item> : <></>}
-                {/* {!xTeam && <Dropdown.Item onClick={(e) => this.handleBilling()}> Billing </Dropdown.Item>} */}
-                {!this.state.isTeam && <Dropdown.Item onClick={(e) => {
-                  function getOperatingSystem() {
-                    let operatingSystem = 'Not known';
-
-                    if (window.navigator.appVersion.indexOf('Win') !== -1) { operatingSystem = 'WindowsOS'; }
-                    if (window.navigator.appVersion.indexOf('Mac') !== -1) { operatingSystem = 'MacOS'; }
-                    if (window.navigator.appVersion.indexOf('X11') !== -1) { operatingSystem = 'UNIXOS'; }
-                    if (window.navigator.appVersion.indexOf('Linux') !== -1) { operatingSystem = 'LinuxOS'; }
-
-                    return operatingSystem;
-                  }
-
-                  console.log(getOperatingSystem());
-
-                  switch (getOperatingSystem()) {
-                    case 'WindowsOS':
-                      window.location.href = 'https://storx.io/downloads/drive.exe';
-                      break;
-                    case 'MacOS':
-                      window.location.href = 'https://storx.io/downloads/drive.dmg';
-                      break;
-                    case 'Linux':
-                    case 'UNIXOS':
-                      window.location.href = 'https://storx.io/downloads/drive.deb';
-                      break;
-                    default:
-                      window.location.href = 'https://storx.io/downloads/';
-                      break;
-                  }
-
-                }}>Download</Dropdown.Item>}
-                <Dropdown.Item href="mailto:support@StorX.tech">Contact</Dropdown.Item>
-              </div>
-              <Dropdown.Divider />
-              <div className="dropdown-menu-group">
-                <Dropdown.Item onClick={(e) => {
-                  window.analytics.track('user-signout', {
-                    email: getUserData().email
-                  });
-                  Settings.clear();
-                  history.push('/login');
-                }}>Sign out</Dropdown.Item>
-              </div>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Nav>
-      </Navbar>
+      <div className="iq-sidebar  sidebar-default ">
+        <div className="iq-sidebar-logo d-flex align-items-center justify-content-between">
+          <a href="index.html" className="header-logo">
+            <img src={Logo} className="img-fluid rounded-normal light-logo" alt="logo" />
+            {/* <img src="assets/images/logo-white.png" className="img-fluid rounded-normal darkmode-logo" alt="logo" /> */}
+          </a>
+          <div className="iq-menu-bt-sidebar">
+            <i className="ri-close-line wrapper-menu"></i>
+          </div>
+        </div>
+        <div className="data-scrollbar" data-scroll="1">
+          {/* <div className="new-create select-dropdown input-prepend input-append"> */}
+          {/* <div className="btn-group"> */}
+          {/* <label data-toggle="dropdown">
+                <div className="search-query selet-caption"><i className="fas fa-plus pr-2"></i>Create New</div>
+                <span className="search-replace"></span>
+                <span className="caret">
+                </span>
+              </label>
+              <ul className="dropdown-menu">
+                <li><a href="#">
+                  <div className="item"><i className="ri-folder-add-fill pr-3"></i>New Folder</div>
+                </a></li>
+                <li><a href="#">
+                  <div className="item"><i className="ri-file-upload-fill pr-3"></i>Upload File</div>
+                </a></li>
+                <li><a href="#">
+                  <div className="item"><i className="ri-folder-upload-fill pr-3"></i>Upload Folder</div>
+                </a></li>
+              </ul> */}
+          {/* </div> */}
+          {/* </div> */}
+          <nav className="iq-sidebar-menu">
+            <ul id="iq-sidebar-toggle" className="iq-menu">
+              {this.state.navbarItems}
+              {/* <li className="active">
+                <a href="index.html" className="">
+                  <i className="fas fa-home iq-arrow-left"></i><span>Dashboard</span>
+                </a>
+              </li>
+              <li className=" " >
+                <a href="#" className="" onClick={this.props.fileUploader}>
+                  <input type="file" hidden multiple={true} id="select-file"  />
+                  <i className="fas fa-cloud-upload-alt iq-arrow-left"></i><span>Upload Files</span>
+                </a>
+              </li>
+              <li className=" ">
+                <a href="#" className="">
+                  <i className="fas fa-trash-alt iq-arrow-left"></i><span>New Folder</span>
+                </a>
+              </li>
+              <li className=" ">
+                <a href="#" className="">
+                  <i className="fas fa-cloud-upload-alt iq-arrow-left"></i><span>Upload Folder</span>
+                </a>
+              </li>
+              <li className=" ">
+                <a href="#" className="">
+                  <i className="fas fa-share iq-arrow-left"></i><span>Share</span>
+                </a>
+              </li>
+              <li className=" ">
+                <a href="#" className="">
+                  <i className="fas fa-database iq-arrow-left"></i><span>Storage</span>
+                </a>
+              </li> */}
+              {!this.state.isTeam && <li className=" " onClick={(e) => {
+                function getOperatingSystem() {
+                  let operatingSystem = 'Not known';
+                  if (window.navigator.appVersion.indexOf('Win') !== -1) { operatingSystem = 'WindowsOS'; }
+                  if (window.navigator.appVersion.indexOf('Mac') !== -1) { operatingSystem = 'MacOS'; }
+                  if (window.navigator.appVersion.indexOf('X11') !== -1) { operatingSystem = 'UNIXOS'; }
+                  if (window.navigator.appVersion.indexOf('Linux') !== -1) { operatingSystem = 'LinuxOS'; }
+                  return operatingSystem;
+                }
+                switch (getOperatingSystem()) {
+                  case 'WindowsOS':
+                    window.location.href = 'https://storx.io/downloads/drive.exe';
+                    break;
+                  case 'MacOS':
+                    window.location.href = 'https://storx.io/downloads/drive.dmg';
+                    break;
+                  case 'Linux':
+                  case 'UNIXOS':
+                    window.location.href = 'https://storx.io/downloads/drive.deb';
+                    break;
+                  default:
+                    window.location.href = 'https://storx.io/downloads/';
+                    break;
+                }
+              }}>
+                <Link className="" to="">
+                  <i className="fas fa-download iq-arrow-left"></i><span>Download</span>
+                </Link>
+              </li>}
+            </ul>
+          </nav>
+          <div className="sidebar-bottom">
+            <h4 className="mb-3"><i className="fas fa-cloud mr-2"></i>Storage</h4>
+            <p>17.1 / 20 GB Used</p>
+            <div className="iq-progress-bar mb-3">
+              <span className="bg-primary iq-progress progress-1" data-percent="67">
+              </span>
+            </div>
+            <p>75% Full - 3.9 GB Free</p>
+            <a href="#" className="btn btn-outline-primary view-more mt-2">Buy Storage</a>
+          </div>
+          <div className="p-3"></div>
+        </div>
+      </div>
     );
+
+
+
+
+    // return (
+    //   <Navbar id="mainNavBar">
+    //     <Navbar.Brand>
+    //       <a href="/"><img src={logo} alt="Logo" /></a>
+    //     </Navbar.Brand>
+    //     <Nav className="m-auto">
+    //       {this.state.navbarItems}
+    //     </Nav>
+    //     <Nav style={{ margin: '0 13px 0 0' }}>
+    //       <Dropdown drop="left" className="settingsButton">
+    //         <Dropdown.Toggle id="1"><HeaderButton icon={account} name="Menu" /></Dropdown.Toggle>
+    //         <Dropdown.Menu>
+    //           <div className="dropdown-menu-group info">
+    //             <p className="name-lastname">{this.state.isTeam ? 'Business' : `${user.name} ${user.lastname}`}</p>
+    //             <ProgressBar className="mini-progress-bar" now={this.state.barUsage} max={this.state.barLimit} />
+    //             <p className="space-used">Used <strong>{customPrettySize(this.state.barUsage)}</strong> of <strong>{customPrettySize(this.state.barLimit)}</strong></p>
+    //           </div>
+    //           <Dropdown.Divider />
+    //           <div className="dropdown-menu-group">
+    //             {!this.state.isTeam && <Dropdown.Item onClick={(e) => { history.push('/storage'); }}>Storage</Dropdown.Item>}
+    //             {!Settings.exists('xTeam') && <Dropdown.Item onClick={(e) => { history.push('/settings'); }}>Settings</Dropdown.Item>}
+    //             <Dropdown.Item onClick={(e) => { history.push('/security'); }}>Security</Dropdown.Item>
+    //             {!this.state.isTeam && <Dropdown.Item onClick={(e) => { history.push('/invite'); }}>Referrals</Dropdown.Item>}
+    //             {isAdmin || !xTeam ? <Dropdown.Item onClick={(e) => { history.push('/teams'); }}>Business</Dropdown.Item> : <></>}
+    //             {/* {!xTeam && <Dropdown.Item onClick={(e) => this.handleBilling()}> Billing </Dropdown.Item>} */}
+    //             {!this.state.isTeam && <Dropdown.Item onClick={(e) => {
+    //               function getOperatingSystem() {
+    //                 let operatingSystem = 'Not known';
+
+    //                 if (window.navigator.appVersion.indexOf('Win') !== -1) { operatingSystem = 'WindowsOS'; }
+    //                 if (window.navigator.appVersion.indexOf('Mac') !== -1) { operatingSystem = 'MacOS'; }
+    //                 if (window.navigator.appVersion.indexOf('X11') !== -1) { operatingSystem = 'UNIXOS'; }
+    //                 if (window.navigator.appVersion.indexOf('Linux') !== -1) { operatingSystem = 'LinuxOS'; }
+
+    //                 return operatingSystem;
+    //               }
+
+    //               console.log(getOperatingSystem());
+
+    //               switch (getOperatingSystem()) {
+    //                 case 'WindowsOS':
+    //                   window.location.href = 'https://storx.io/downloads/drive.exe';
+    //                   break;
+    //                 case 'MacOS':
+    //                   window.location.href = 'https://storx.io/downloads/drive.dmg';
+    //                   break;
+    //                 case 'Linux':
+    //                 case 'UNIXOS':
+    //                   window.location.href = 'https://storx.io/downloads/drive.deb';
+    //                   break;
+    //                 default:
+    //                   window.location.href = 'https://storx.io/downloads/';
+    //                   break;
+    //               }
+
+    //             }}>Download</Dropdown.Item>}
+    //             <Dropdown.Item href="mailto:support@StorX.tech">Contact</Dropdown.Item>
+    //           </div>
+    //           <Dropdown.Divider />
+    //           <div className="dropdown-menu-group">
+    //             <Dropdown.Item onClick={(e) => {
+    //               window.analytics.track('user-signout', {
+    //                 email: getUserData().email
+    //               });
+    //               Settings.clear();
+    //               history.push('/login');
+    //             }}>Sign out</Dropdown.Item>
+    //           </div>
+    //         </Dropdown.Menu>
+    //       </Dropdown>
+    //     </Nav>
+    //   </Navbar>
+    // );
   }
 }
 

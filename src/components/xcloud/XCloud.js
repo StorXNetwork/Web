@@ -115,7 +115,7 @@ class XCloud extends React.Component {
     this.setState({ isTeam: isTeam }, () => {
       Settings.set('workspace', isTeam ? 'teams' : 'individual');
     });
-  }
+  };
 
   userInitialization = () => {
     return new Promise((resolve, reject) => {
@@ -171,7 +171,7 @@ class XCloud extends React.Component {
       .catch(() => {
         console.log('Error getting user activation');
       });
-  }
+  };
 
   getTeamByUser = () => {
     return new Promise((resolve, reject) => {
@@ -197,7 +197,7 @@ class XCloud extends React.Component {
         reject(err);
       });
     });
-  }
+  };
 
   setSortFunction = (newSortFunc) => {
     // Set new sort function on state and call getFolderContent for refresh files list
@@ -975,13 +975,14 @@ class XCloud extends React.Component {
 
   showTeamSettings = () => {
     history.push('/teams/settings');
-  }
+  };
 
   render() {
     // Check authentication
     if (this.props.isAuthenticated && this.state.isInitialized) {
+
       return (
-        <div className="App flex-column">
+        <div className="wrapper">
           <NavigationBar
             showFileButtons={true}
             showSettingsButton={true}
@@ -989,15 +990,15 @@ class XCloud extends React.Component {
             uploadFile={this.openUploadFile}
             uploadHandler={this.uploadFile}
             deleteItems={this.deleteItems}
-            setSearchFunction={this.setSearchFunction}
+            // setSearchFunction={this.setSearchFunction}
             shareItem={this.shareItem}
             showTeamSettings={this.showTeamSettings}
             handleChangeWorkspace={this.handleChangeWorkspace}
             isTeam={this.state.isTeam}
             style
           />
-
           <FileCommander
+            setSearchFunction={this.setSearchFunction}
             currentCommanderItems={this.state.currentCommanderItems}
             openFolder={this.openFolder}
             downloadFile={this.downloadFile}
@@ -1014,18 +1015,18 @@ class XCloud extends React.Component {
             isLoading={this.state.isLoading}
             isTeam={this.state.isTeam}
           />
-
-          {this.getSelectedItems().length > 0 && this.state.popupShareOpened ? (
-            <PopupShare
-              isTeam={this.state.isTeam}
-              open={this.state.popupShareOpened}
-              item={this.getSelectedItems()[0]}
-              onClose={() => {
-                this.setState({ popupShareOpened: false });
-              }}
-            />
-          ) : ''}
-
+          {
+            this.getSelectedItems().length > 0 && this.state.popupShareOpened ? (
+              <PopupShare
+                isTeam={this.state.isTeam}
+                open={this.state.popupShareOpened}
+                item={this.getSelectedItems()[0]}
+                onClose={() => {
+                  this.setState({ popupShareOpened: false });
+                }}
+              />
+            ) : ''
+          }
           <Popup
             open={this.state.showDeleteItemsPopup}
             closeOnDocumentClick
@@ -1060,7 +1061,6 @@ class XCloud extends React.Component {
               </div>
             </div>
           </Popup>
-
           <Popup open={this.state.chooserModalOpen} closeOnDocumentClick onClose={this.closeModal}>
             <div>
               <a href={'inxt://' + this.state.token + '://' + JSON.stringify(this.props.user)}>
@@ -1083,7 +1083,7 @@ class XCloud extends React.Component {
                 <img src={closeTab} onClick={this.closeRateLimitModal} alt="Close tab" />
               </div>
               <div className="message-wrapper">
-                <h1> You have run out of storage. </h1>
+                <h1> You have run out of storage.</h1>
                 <h2>
                   In order to start uploading more files please click the button below to upgrade
                   your storage plan.
@@ -1098,6 +1098,126 @@ class XCloud extends React.Component {
           </Popup>
         </div>
       );
+
+
+      // return (
+      //   <div className="App flex-column">
+      //     <NavigationBar
+      //       showFileButtons={true}
+      //       showSettingsButton={true}
+      //       createFolder={this.createFolder}
+      //       uploadFile={this.openUploadFile}
+      //       uploadHandler={this.uploadFile}
+      //       deleteItems={this.deleteItems}
+      //       setSearchFunction={this.setSearchFunction}
+      //       shareItem={this.shareItem}
+      //       showTeamSettings={this.showTeamSettings}
+      //       handleChangeWorkspace={this.handleChangeWorkspace}
+      //       isTeam={this.state.isTeam}
+      //       style
+      //     />
+
+      //     <FileCommander
+      //       currentCommanderItems={this.state.currentCommanderItems}
+      //       openFolder={this.openFolder}
+      //       downloadFile={this.downloadFile}
+      //       selectItems={this.selectItems}
+      //       namePath={this.state.namePath}
+      //       handleFolderTraverseUp={this.folderTraverseUp.bind(this)}
+      //       uploadDroppedFile={this.uploadDroppedFile}
+      //       createFolderByName={this.createFolderByName}
+      //       setSortFunction={this.setSortFunction}
+      //       move={this.move}
+      //       updateMeta={this.updateMeta}
+      //       currentFolderId={this.state.currentFolderId}
+      //       getFolderContent={this.getFolderContent}
+      //       isLoading={this.state.isLoading}
+      //       isTeam={this.state.isTeam}
+      //     />
+
+      //     {this.getSelectedItems().length > 0 && this.state.popupShareOpened ? (
+      //       <PopupShare
+      //         isTeam={this.state.isTeam}
+      //         open={this.state.popupShareOpened}
+      //         item={this.getSelectedItems()[0]}
+      //         onClose={() => {
+      //           this.setState({ popupShareOpened: false });
+      //         }}
+      //       />
+      //     ) : ''}
+
+      //     <Popup
+      //       open={this.state.showDeleteItemsPopup}
+      //       closeOnDocumentClick
+      //       onClose={() => this.setState({ showDeleteItemsPopup: false })}
+      //       className="popup--full-screen"
+      //     >
+      //       <div className="popup--full-screen__content">
+      //         <div className="popup--full-screen__close-button-wrapper">
+      //           <img
+      //             src={closeTab}
+      //             onClick={() => this.setState({ showDeleteItemsPopup: false })}
+      //             alt="Close tab"
+      //           />
+      //         </div>
+      //         <div className="message-wrapper">
+      //           <h1>Delete item{this.getSelectedItems().length > 1 ? 's' : ''}</h1>
+      //           <h2>
+      //             Please confirm you want to delete this item
+      //             {this.getSelectedItems().length > 1 ? 's' : ''}. This action can’t be undone.
+      //           </h2>
+      //           <div className="buttons-wrapper">
+      //             <div
+      //               className="default-button button-primary"
+      //               onClick={() => {
+      //                 this.confirmDeleteItems();
+      //                 this.setState({ showDeleteItemsPopup: false });
+      //               }}
+      //             >
+      //               Confirm
+      //             </div>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </Popup>
+
+      //     <Popup open={this.state.chooserModalOpen} closeOnDocumentClick onClose={this.closeModal}>
+      //       <div>
+      //         <a href={'inxt://' + this.state.token + '://' + JSON.stringify(this.props.user)}>
+      //           Open mobile app
+      //         </a>
+      //         <a href="/" onClick={this.closeModal}>
+      //           Use web app
+      //         </a>
+      //       </div>
+      //     </Popup>
+
+      //     <Popup
+      //       open={this.state.rateLimitModal}
+      //       closeOnDocumentClick
+      //       onClose={this.closeRateLimitModal}
+      //       className="popup--full-screen"
+      //     >
+      //       <div className="popup--full-screen__content">
+      //         <div className="popup--full-screen__close-button-wrapper">
+      //           <img src={closeTab} onClick={this.closeRateLimitModal} alt="Close tab" />
+      //         </div>
+      //         <div className="message-wrapper">
+      //           <h1> You have run out of storage. </h1>
+      //           <h2>
+      //             In order to start uploading more files please click the button below to upgrade
+      //             your storage plan.
+      //           </h2>
+      //           <div className="buttons-wrapper">
+      //             <div className="default-button button-primary" onClick={this.goToStorage}>
+      //               Upgrade my storage plan
+      //             </div>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </Popup>
+      //   </div>
+      // );
     } else {
       // Cases of access error
       // Not authenticated
