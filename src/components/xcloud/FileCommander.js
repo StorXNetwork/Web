@@ -4,7 +4,7 @@ import { Dropdown } from "react-bootstrap";
 import async from "async";
 import $ from "jquery";
 import Logo from "../../../src/assets/images/logo.png";
-import Settings from '../../lib/settings';
+import Settings from "../../lib/settings";
 import backgroundLogo from "../../../src/assets/images/layouts/mydrive/background.png";
 
 // import './FileCommander.scss';
@@ -31,7 +31,7 @@ const SORT_TYPES = {
 };
 
 class FileCommander extends React.Component {
-  constructor (props, state) {
+  constructor(props, state) {
     super(props, state);
     this.state = {
       currentCommanderItems: this.props.currentCommanderItems,
@@ -240,7 +240,7 @@ class FileCommander extends React.Component {
                 );
               }
             })
-            .catch((err) => { });
+            .catch((err) => {});
         } else {
           nextItem();
         }
@@ -291,7 +291,7 @@ class FileCommander extends React.Component {
             .then(() => {
               resolve(this.state.treeSize);
             })
-            .catch(() => { });
+            .catch(() => {});
         });
       } else if (item.isDirectory) {
         let dirReader = item.createReader();
@@ -365,18 +365,23 @@ class FileCommander extends React.Component {
   };
 
   handlerTheme() {
-    $('body').toggleClass('dark');
+    $("body").toggleClass("dark");
   }
 
   handleNavigation() {
-    $('body').addClass('sidebar-main');
+    $("body").addClass("sidebar-main");
+  }
+
+  handleFileType() {
+    console.log("..........");
+    $(".ri-arrow-down-s-line").toggleClass("show");
   }
 
   render() {
     const list = this.state.currentCommanderItems || 0;
     const inRoot = this.state.namePath.length === 1;
-    const folderLength = list.filter(e => e.isFolder === true).length;
-    const fileLength = list.filter(e => !e.hasOwnProperty('isFolder')).length;
+    const folderLength = list.filter((e) => e.isFolder === true).length;
+    const fileLength = list.filter((e) => !e.hasOwnProperty("isFolder")).length;
     const user = JSON.parse(localStorage.getItem("xUser"));
 
     return (
@@ -385,7 +390,10 @@ class FileCommander extends React.Component {
           <div className="iq-navbar-custom">
             <nav className="navbar navbar-expand-lg navbar-light p-0">
               <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
-                <i className="ri-menu-line wrapper-menu" onClick={() => this.handleNavigation()}></i>
+                <i
+                  className="ri-menu-line wrapper-menu"
+                  onClick={() => this.handleNavigation()}
+                ></i>
                 <a href="#" className="header-logo">
                   <img
                     src={Logo}
@@ -462,7 +470,10 @@ class FileCommander extends React.Component {
                 </form>
               </div>
               <div className="d-flex align-items-center">
-                <div className="change-mode" onChange={() => this.handlerTheme()}>
+                <div
+                  className="change-mode"
+                  onChange={() => this.handlerTheme()}
+                >
                   <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
                     <div className="custom-switch-inner">
                       <p className="mb-0"></p>
@@ -601,20 +612,26 @@ class FileCommander extends React.Component {
                             <div className="profile-header">
                               <div className="cover-container text-center">
                                 <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                                  V<a href=""></a>
+                                  {user.name.charAt(0)}
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
-                                    <a href="#">{user.name} {user.lastname}</a>
+                                    <a href="#">
+                                      {user.name} {user.lastname}
+                                    </a>
                                   </h5>
                                   <p>{user.email}</p>
                                 </div>
-                                <Link to="/login" className="btn btn-primary" onClick={() => {
-                                  window.analytics.track('user-signout', {
-                                    email: getUserData().email
-                                  });
-                                  Settings.clear();
-                                }}>
+                                <Link
+                                  to="/login"
+                                  className="btn btn-primary"
+                                  onClick={() => {
+                                    window.analytics.track("user-signout", {
+                                      email: getUserData().email,
+                                    });
+                                    Settings.clear();
+                                  }}
+                                >
                                   Sign Out
                                 </Link>
                               </div>
@@ -631,7 +648,7 @@ class FileCommander extends React.Component {
         </div>
         <div className="content-page">
           <div className="container-fluid">
-            <div className="row mb-5">
+            <div className="row mb-2">
               <div className="col-lg-12">
                 <div className="card-transparent card-block card-stretch card-height mb-3">
                   <div className="d-flex justify-content-between">
@@ -663,15 +680,29 @@ class FileCommander extends React.Component {
                           Welcome: {user.name} {user.lastname}
                         </h4>
                         <p className="mb-5">
-                          Currently you have {folderLength > 0 ? `${folderLength} Folder` : "No Folder Available"}  and {fileLength > 0 ? `${fileLength} File` : "No File Available"} in your
-                          drive.
+                          Currently you have{" "}
+                          {folderLength > 0
+                            ? `${folderLength} Folder`
+                            : "No Folder Available"}{" "}
+                          and{" "}
+                          {fileLength > 0
+                            ? `${fileLength} File`
+                            : "No File Available"}{" "}
+                          in your drive.
                         </p>
-                        {/* <a href="#">Explore Now<i className="las la-arrow-right ml-2"></i></a> */}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div
+              className="row mb-3"
+              onDragOver={this.handleDragOver}
+              onDragLeave={this.handleDragLeave}
+              onDrop={this.handleDrop}
+            >
               <div className="col-lg-12">
                 <div className="card card-block card-stretch card-transparent">
                   <div className="card-header d-flex justify-content-between pb-0">
@@ -688,22 +719,46 @@ class FileCommander extends React.Component {
                           onSelect={this.onSelect}
                         >
                           All Folders
-                          <i className="ri-arrow-down-s-line ml-1"></i>
+                          <i
+                            className="ri-arrow-down-s-line ml-1"
+                            onChange={this.handleFileType}
+                          ></i>
                         </span>
                         <div
                           className="dropdown-menu dropdown-menu-right shadow-none"
                           aria-labelledby="dropdownMenuButton1"
                         >
-                          <a className="dropdown-item" href="#" onClick={() => this.sortItems(this.state.selectedSortType === SORT_TYPES.NAME_ASC ? SORT_TYPES.NAME_DESC : SORT_TYPES.NAME_ASC)}
-                            onSelect={this.onSelect}>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() =>
+                              this.sortItems(
+                                this.state.selectedSortType ===
+                                  SORT_TYPES.NAME_ASC
+                                  ? SORT_TYPES.NAME_DESC
+                                  : SORT_TYPES.NAME_ASC
+                              )
+                            }
+                            onSelect={this.onSelect}
+                          >
                             Name
                           </a>
-                          <a className="dropdown-item" href="#" onClick={() => this.sortItems(SORT_TYPES.SIZE_ASC)}
-                            onSelect={this.onSelect}>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => this.sortItems(SORT_TYPES.SIZE_ASC)}
+                            onSelect={this.onSelect}
+                          >
                             Size
                           </a>
-                          <a className="dropdown-item" href="#" onClick={() => this.sortItems(SORT_TYPES.FILETYPE_ASC)}
-                            onSelect={this.onSelect}>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() =>
+                              this.sortItems(SORT_TYPES.FILETYPE_ASC)
+                            }
+                            onSelect={this.onSelect}
+                          >
                             File Type
                           </a>
                           {/* <a className="dropdown-item" href="#">
@@ -735,11 +790,9 @@ class FileCommander extends React.Component {
                         icon={item.icon}
                         color={item.color ? item.color : "blue"}
                         clickHandler={
-                          item.isFolder
-                            ? this.props.openFolder.bind(null, item.id)
-                            : item.onClick
-                              ? item.onClick
-                              : this.props.downloadFile.bind(null, item.fileId)
+                          this.props.openFolder.bind(null, item.id)
+                            ? item.onClick
+                            : this.props.downloadFile.bind(null, item.fileId)
                         }
                         selectHandler={this.props.selectItems}
                         isLoading={!!item.isLoading}
@@ -765,6 +818,9 @@ class FileCommander extends React.Component {
                   </h4>
                 </div>
               ) : null}
+            </div>
+
+            <div className="row mb-5">
               <div className="col-lg-12">
                 <div className="card card-block card-stretch card-transparent ">
                   <div className="card-header d-flex justify-content-between pb-0">
