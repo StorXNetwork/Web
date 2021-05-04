@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 
-import './StorageProgressBar.scss';
+// import './StorageProgressBar.scss';
 
 interface StorageProgressBarState {
     max: Number

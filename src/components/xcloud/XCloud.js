@@ -15,7 +15,7 @@ import { removeAccents } from '../../lib/utils';
 import closeTab from '../../assets/Dashboard-Icons/close-tab.svg';
 
 import PopupShare from '../PopupShare';
-import './XCloud.scss';
+// import './XCloud.scss';
 
 import { getHeaders } from '../../lib/auth';
 import { toast } from 'react-toastify';
@@ -52,13 +52,14 @@ class XCloud extends React.Component {
   moveEvent = {};
 
   componentDidMount = () => {
-    if (isMobile) {
-      if (isAndroid) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      } else if (isIOS) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      }
-    }
+    // if (isMobile) {
+    //   if (isAndroid) {
+    //     // window.location.href = 'https://web.storx.io/mobileapp';
+    //     window.location.href = "";
+    //   } else if (isIOS) {
+    //     // window.location.href = 'https://web.storx.io/mobileapp';
+    //   }
+    // }
 
     // When user is not signed in, redirect to login
     if (!this.props.user || !this.props.isAuthenticated) {
@@ -998,6 +999,7 @@ class XCloud extends React.Component {
             style
           />
           <FileCommander
+            deleteItems={this.deleteItems}
             setSearchFunction={this.setSearchFunction}
             currentCommanderItems={this.state.currentCommanderItems}
             openFolder={this.openFolder}
@@ -1097,6 +1099,7 @@ class XCloud extends React.Component {
             </div>
           </Popup>
         </div>
+
       );
 
 

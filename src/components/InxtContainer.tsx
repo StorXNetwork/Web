@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import './InxtContainer.scss';
+// import './InxtContainer.scss';
 
 interface InxtContainerProps {
     style?: React.CSSProperties

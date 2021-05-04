@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationBar from './navigationBar/NavigationBar';
 import PayMethods from './PayMethods';
-import './Storage.scss';
+// import './Storage.scss';
 import history from '../lib/history';
 import InxtContainer from './InxtContainer';
 import './Plans.css';

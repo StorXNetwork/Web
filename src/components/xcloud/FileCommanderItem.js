@@ -2,13 +2,14 @@ import * as React from 'react';
 import $ from 'jquery';
 import PrettySize from 'prettysize';
 import { Dropdown, ToggleButton, ToggleButtonGroup, ProgressBar } from 'react-bootstrap';
-import './FileCommanderItem.scss';
+// import './FileCommanderItem.scss';
 import Icon from '../../assets/Icon';
 import ActivityIndicator from '../ActivityIndicator';
 import SanitizeFilename from 'sanitize-filename';
 import TimeAgo from 'react-timeago';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 
 class FileCommanderItem extends React.Component {
   constructor (props, state) {
@@ -344,7 +345,7 @@ class FileCommanderItem extends React.Component {
           </a>
           <div className="card-header-toolbar">
             <div className="dropdown">
-              <span className="dropdown-toggle" id="dropdownMenuButton2"
+              <span className="dropdown-toggle" id="dropdownMenuButton2" handleShowDropdown={this.handleShowDropdown}
                 data-toggle="dropdown">
                 <i className="ri-more-2-fill"></i>
               </span>
@@ -386,13 +387,9 @@ class FileCommanderItem extends React.Component {
           </div>
         </div>
         <a href="#" className="folder">
-          <h5 className="mb-2">Wallet</h5>
-          <p className="mb-2"><i className="lar la-clock text-primary mr-2 font-size-20"></i> 10 Dec,
-                        2020</p>
-          <p className="mb-0"><i className="las la-file-alt text-primary mr-2 font-size-20"></i> 08
-                        Files</p>
+          <h5 className="mb-2">{this.props.name}</h5>
+          <p className="mb-2"><i className="lar la-clock text-primary mr-2 font-size-20"></i>{moment(this.props.rawItem.createdAt).format('DD MMM, YYYY')}</p>
         </a>
-        {/* </a> */}
       </div>
     );
 

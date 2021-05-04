@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoadingFileExplorer.scss';
+// import './LoadingFileExplorer.scss';
 
 export default function LoadingFileExplorer() {
   return <div className="loader-container">

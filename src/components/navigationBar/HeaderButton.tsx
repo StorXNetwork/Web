@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './HeaderButton.scss';
+// import './HeaderButton.scss';
 
 interface HeaderButtonProps {
   icon: string;

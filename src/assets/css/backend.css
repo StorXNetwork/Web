@@ -169,6 +169,7 @@ a {
 }
 a:hover {
   color: #484ff0;
+  text-decoration: none !important;
 }
 a:not([href]),
 a:not([href]):hover {
@@ -314,6 +315,7 @@ progress {
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
+
 ::-webkit-file-upload-button {
   font: inherit;
   -webkit-appearance: button;
@@ -8391,7 +8393,7 @@ a.text-dark:hover {
   background: #fff;
   border-radius: 8px;
   margin-bottom: 30px;
-  border: none;
+  border: none !important;
   -ms-box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.0392157);
   -o-box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.0392157);
   box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.0392157);
@@ -8409,11 +8411,11 @@ a.text-dark:hover {
   margin-bottom: 0;
 }
 .card-transparent {
-  background: transparent;
+  background: transparent !important;
   border-radius: 8px;
   margin-bottom: 30px;
   border: none;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 .card-transparent .card-header {
   background: transparent;
@@ -9318,7 +9320,6 @@ body.sidebar-main .iq-top-navbar {
   border-radius: 8px;
 }
 .data-scrollbar {
-  overflow-y: scroll;
   height: 100vh;
 }
 .navbar-toggler {
@@ -15555,7 +15556,7 @@ body {
   padding: 0;
   margin: 0;
   color: #535f6b;
-  background: #fafbfe;
+  background: #fafbfe !important;
 }
 a:hover {
   text-decoration: none;
@@ -17334,7 +17335,7 @@ ul.iq-contact-rest li a p {
   font-weight: 500;
 }
 .new-create {
-  padding-top: 25px;
+  /* padding-top: 25px; */
   border-top: 1px solid #f1f1f1;
   margin: 0 20px;
 }
@@ -17415,6 +17416,9 @@ ul.iq-contact-rest li a p {
   -o-box-shadow: 0 0 13px 10px #fafafa;
   box-shadow: 0 0 13px 10px #fafafa;
   border-radius: 8px;
+}
+.card-body a {
+  text-decoration: none !important;
 }
 .dropdown-menu .dropdown-item,
 .folder p {
@@ -17560,7 +17564,7 @@ ul.iq-contact-rest li a p {
   display: block;
 }
 .dark {
-  background: #1d1d1f;
+  background: #1d1d1f !important;
   color: #a6a6a6;
   transition: all 0.3s ease-in-out;
 }
@@ -20124,3 +20128,10 @@ table.dataTable th {
 /*------------------------------------------------------------------
 	  Icon folders, Quick acces toolbar css
 -------------------------------------------------------------------*/
+
+.btn-group.createNew:hover .dropdown-menu {
+  display: block;
+  transform: translate3d(0px, 43px, 0px);
+  top: 0px;
+  will-change: transform;
+}

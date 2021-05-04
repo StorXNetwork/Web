@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Container, Dropdown, DropdownButton, Form } from 'react-bootstrap';
 import NavigationBar from './navigationBar/NavigationBar';
-import './Referred.scss';
+// import './Referred.scss';
 import { getHeaders } from '../lib/auth';
 import Settings from '../lib/settings';
 

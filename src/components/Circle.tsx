@@ -1,5 +1,5 @@
 import React from 'react';
-import './Circle.scss';
+// import './Circle.scss';
 
 interface CircleProps {
     color: string

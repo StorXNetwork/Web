@@ -37,14 +37,14 @@ class Remove extends React.Component<RemoveProps, RemoveState> {
   }
 
   componentDidMount() {
-    this.setState({ currentContainer: this.privacyContainer() });
-    if (isMobile) {
-      if (isAndroid) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      } else if (isIOS) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      }
-    }
+    // this.setState({ currentContainer: this.privacyContainer() });
+    // if (isMobile) {
+    //   if (isAndroid) {
+    //     window.location.href = 'https://web.storx.io/mobileapp';
+    //   } else if (isIOS) {
+    //     window.location.href = 'https://web.storx.io/mobileapp';
+    //   }
+    // }
 
     const xUser = Settings.getUser();
     const xToken = Settings.get('xToken');

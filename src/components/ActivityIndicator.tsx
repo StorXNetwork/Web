@@ -1,5 +1,5 @@
 import React from 'react';
-import './ActivityIndicator.scss';
+// import './ActivityIndicator.scss';
 
 import SvgUploading from '../assets/Dashboard-Icons/Uploading.js';
 

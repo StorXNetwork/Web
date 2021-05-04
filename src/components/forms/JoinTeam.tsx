@@ -3,8 +3,8 @@ import history from '../../lib/history';
 import { getHeaders } from '../../lib/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './Login.scss';
-import './Reset.scss';
+// import './Login.scss';
+// import './Reset.scss';
 
 interface Props {
   match: any

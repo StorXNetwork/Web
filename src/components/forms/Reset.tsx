@@ -1,8 +1,8 @@
 import React from 'react';
 import Settings from '../../lib/settings';
 import { Container } from 'react-bootstrap';
-import './Login.scss';
-import './Reset.scss';
+// import './Login.scss';
+// import './Reset.scss';
 import { Form, Col, Button } from 'react-bootstrap';
 import NavigationBar from './../navigationBar/NavigationBar';
 import { encryptText, passToHash, decryptText, encryptTextWithKey } from '../../lib/utils';

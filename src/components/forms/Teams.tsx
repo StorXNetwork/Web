@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, ListGroup, Modal } from 'react-bootstrap';
-import './Login.scss';
-import './Reset.scss';
+// import './Login.scss';
+// import './Reset.scss';
 import { Form, Button } from 'react-bootstrap';
 import NavigationBar from './../navigationBar/NavigationBar';
 import history from '../../lib/history';
@@ -10,7 +10,7 @@ import TeamsPlans from './../TeamPlans';
 import { getHeaders } from '../../lib/auth';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-import './Teams.scss';
+// import './Teams.scss';
 import closeTab from '../../assets/Dashboard-Icons/close-tab.svg';
 import Popup from 'reactjs-popup';
 import { encryptPGPInvitations } from '../../lib/utilspgp';

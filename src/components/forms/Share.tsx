@@ -2,7 +2,7 @@ import * as React from 'react';
 import fileDownload from 'js-file-download';
 import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './Share.scss';
+// import './Share.scss';
 import { isMobile } from 'react-device-detect';
 import { socket } from '../../lib/socket';
 
