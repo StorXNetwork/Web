@@ -434,10 +434,10 @@ class FileCommander extends React.Component {
                         data-mode="toggle"
                       >
                         <span className="switch-icon-left">
-                          <i className="a-left"></i>
+                          <i className="a-left ri-sun-line"></i>
                         </span>
                         <span className="switch-icon-right">
-                          <i className="a-right"></i>
+                          <i className="a-left ri-moon-clear-line"></i>
                         </span>
                       </label>
                     </div>
@@ -460,7 +460,6 @@ class FileCommander extends React.Component {
                   <ul className="navbar-nav ml-auto navbar-list align-items-center">
                     <li className="nav-item nav-icon search-content">
                       <a
-
                         className="search-toggle rounded"
                         id="dropdownSearch"
                         data-toggle="dropdown"
@@ -489,7 +488,6 @@ class FileCommander extends React.Component {
                     </li>
                     <li className="nav-item nav-icon dropdown">
                       <a
-
                         className="search-toggle dropdown-toggle"
                         id="dropdownMenuButton02"
                         data-toggle="dropdown"
@@ -531,14 +529,13 @@ class FileCommander extends React.Component {
                     </li>
                     <li className="nav-item nav-icon dropdown caption-content">
                       <a
-
                         className="search-toggle dropdown-toggle"
                         id="dropdownMenuButton03"
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <div className="caption bg-primary line-height">P</div>
+                        <div className="caption bg-primary line-height"><i class="ri-user-3-fill"></i></div>
                       </a>
                       <div
                         className="iq-sub-dropdown dropdown-menu"

@@ -266,6 +266,7 @@ class FileCommanderItem extends React.Component {
         return ZIP;
       case "png":
       case "jpeg":
+      case "jpg":
         return IMG;
       default:
         return EXE;
@@ -315,15 +316,15 @@ class FileCommanderItem extends React.Component {
             this.props.selectHandler(this.props.id, this.props.isFolder, false);
           }}
           onDoubleClick={(e) => {
-            if (e.target.className.includes('card')) {
-              if (this.props.type == null) {
-                window.analytics.track('folder-opened', {
-                  folder_name: this.state.itemName,
-                  folder_id: this.props.id
-                });
-              }
-              this.itemClickHandler(e);
-            }
+            // if (e.target.className.includes('card')) {
+            // if (this.props.type == null) {
+              window.analytics.track('folder-opened', {
+                folder_name: this.state.itemName,
+                folder_id: this.props.id
+              });
+            // }
+            this.itemClickHandler(e);
+            // }
           }}
           draggable={this.props.isDraggable}
           onDragStart={(e) => this.props.handleDragStart(e)}
@@ -381,7 +382,7 @@ class FileCommanderItem extends React.Component {
           </a>
         </div>
       ) : (
-        <>{this.props.type == "pdf" || "ppt" || "xlsx" || "doc" || "jpeg" || "png" ? (
+        <>{this.props.type == "pdf" || "ppt" || "xlsx" || "doc" || "jpeg" || "png" || "jpg" ? (
           <div className="card-body image-thumb">
             <a data-title={`${this.props.name}.${this.props.type}`} data-load-file="file"
               data-load-target="#resolte-contaniner" data-url={`${this.props.name}.${this.props.type}`} data-toggle="modal"
