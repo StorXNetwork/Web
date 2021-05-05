@@ -12,7 +12,7 @@ const HeaderButton = (props: HeaderButtonProps) => {
 
   return (
     <li className={props.active}>
-      <a href="#" className="" onClick={props.clickHandler}>
+      <a className="" onClick={props.clickHandler}>
         <i className={props.icon}></i><span>{props.name}</span>
       </a>
     </li>

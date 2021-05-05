@@ -3,6 +3,14 @@ import $ from 'jquery';
 import PrettySize from 'prettysize';
 import { Dropdown, ToggleButton, ToggleButtonGroup, ProgressBar } from 'react-bootstrap';
 // import './FileCommanderItem.scss';
+import PDF from "../../../src/assets/images/layouts/file-icons/pdf.png";
+import DOC from "../../../src/assets/images/layouts/file-icons/doc.png";
+import XLSX from "../../../src/assets/images/layouts/file-icons/xlsx.png";
+import ZIP from "../../../src/assets/images/layouts/file-icons/zip.png";
+import PPT from "../../../src/assets/images/layouts/file-icons/ppt.png";
+import IMG from "../../../src/assets/images/layouts/file-icons/img.png";
+import EXE from "../../../src/assets/images/layouts/file-icons/exe.png";
+import FolderGreen from "../../../src/assets/Folders/New-Folder-Green.svg";
 import Icon from '../../assets/Icon';
 import ActivityIndicator from '../ActivityIndicator';
 import SanitizeFilename from 'sanitize-filename';
@@ -244,6 +252,26 @@ class FileCommanderItem extends React.Component {
     );
   };
 
+  fileTypeDoc = (type) => {
+    switch (type) {
+      case "pdf":
+        return PDF;
+      case "doc":
+        return DOC;
+      case "xlsx":
+        return XLSX;
+      case "ppt":
+        return PPT;
+      case "zip":
+        return ZIP;
+      case "png":
+      case "jpeg":
+        return IMG;
+      default:
+        return EXE;
+    }
+  };
+
   itemClickHandler = (e) => {
     this.setState({ isDownloading: true }, () => {
       this.props
@@ -266,131 +294,111 @@ class FileCommanderItem extends React.Component {
   render() {
 
     return (
-      <div className="card-body"
-        data-type={this.props.type}
-        data-id={this.props.id}
-        data-cloud-file-id={this.props.rawItem.id}
-        data-cloud-folder-id={this.props.rawItem.folder_id}
-        data-bridge-file-id={this.props.rawItem.fileId}
-        data-bridge-bucket-id={this.props.rawItem.bucket}
-        data-name={this.props.rawItem.name}
-        data-isfolder={!!this.props.rawItem.isFolder}
-        onClick={() => {
-          this.props.selectHandler(this.props.id, this.props.isFolder, false);
-        }}
-        onDoubleClick={(e) => {
-          if (e.target.className.includes('FileCommanderItem')) {
-            if (this.props.type == null) {
-              window.analytics.track('folder-opened', {
-                folder_name: this.state.itemName,
-                folder_id: this.props.id
-              });
+      <>{this.props.rawItem.isFolder == true ? (
+        <div
+          className="card-body"
+          // className={
+          //   'card-body' +
+          //   (this.props.isSelected ? ' selected ' : ' ') +
+          //   this.state.dragDropStyle
+          // }
+
+          data-type={this.props.type}
+          data-id={this.props.id}
+          data-cloud-file-id={this.props.rawItem.id}
+          data-cloud-folder-id={this.props.rawItem.folder_id}
+          data-bridge-file-id={this.props.rawItem.fileId}
+          data-bridge-bucket-id={this.props.rawItem.bucket}
+          data-name={this.props.rawItem.name}
+          data-isfolder={!!this.props.rawItem.isFolder}
+          onClick={() => {
+            this.props.selectHandler(this.props.id, this.props.isFolder, false);
+          }}
+          onDoubleClick={(e) => {
+            if (e.target.className.includes('card')) {
+              if (this.props.type == null) {
+                window.analytics.track('folder-opened', {
+                  folder_name: this.state.itemName,
+                  folder_id: this.props.id
+                });
+              }
+              this.itemClickHandler(e);
             }
-            this.itemClickHandler(e);
-          }
-        }}
-        draggable={this.props.isDraggable}
-        onDragStart={(e) => this.props.handleDragStart(e)}
-        onDragOver={this.handleDragOver}
-        onDragLeave={this.handleDragLeave}
-        onDrop={this.handleDrop}
-        onDragEnd={this.handleDragEnd}
-      >
-        <div className="d-flex justify-content-between">
-          <a href="#" className="folder">
-            <div className="iconwrap icon-folder purple">
-              {/* <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                width="105.4px" height="74.92px" viewBox="0 0 105.4 74.92"
-                                style="overflow:visible;enable-background:new 0 0 105.4 74.92;"
-                                xml:space="preserve">
-                                <defs>
-                                    <linearGradient id="folder-blue-a" x1="50%" x2="50%" y1="2.892%"
-                                        y2="100%">
-                                        <stop offset="0%" stop-color="#91bbfc"></stop>
-                                        <stop offset="100%" stop-color="#72a8fa"></stop>
-                                    </linearGradient>
-                                    <linearGradient id="folder-green-a" x1="50%" x2="50%" y1="2.892%"
-                                        y2="100%">
-                                        <stop offset="0%" stop-color="#aed27b"></stop>
-                                        <stop offset="100%" stop-color="#68b840"></stop>
-                                    </linearGradient>
-                                    <linearGradient id="folder-pink-a" x1="50%" x2="50%" y1="0%"
-                                        y2="100%">
-                                        <stop offset="0%" stop-color="#fe9acf"></stop>
-                                        <stop offset="100%" stop-color="#fe6ab9"></stop>
-                                    </linearGradient>
-                                    <linearGradient id="folder-purple-a" x1="50%" x2="50%" y1="0%"
-                                        y2="100%">
-                                        <stop offset="0%" stop-color="#d49efe"></stop>
-                                        <stop offset="100%" stop-color="#b55dfc"></stop>
-                                    </linearGradient>
-                                    <linearGradient id="folder-red-a" x1="50%" x2="50%" y1="0%"
-                                        y2="100%">
-                                        <stop offset="0%" stop-color="#ff9e9e"></stop>
-                                        <stop offset="100%" stop-color="#ff6464"></stop>
-                                    </linearGradient>
-                                    <linearGradient id="folder-yellow-a" x1="50%" x2="50%" y1="0%"
-                                        y2="100%">
-                                        <stop offset="0%" stop-color="#fee8a6"></stop>
-                                        <stop offset="100%" stop-color="#ffcc30"></stop>
-                                    </linearGradient>
-                                </defs>
-                                <rect class="st0" x="4.34" y="15.05" width="88.46" height="57.42" />
-                                <rect class="st1" x="8.42" y="20.31" width="88.57" height="52.16" />
-                                <path class="st2"
-                                    d="M105.4,26.96v41.31c0,0-0.23,6.65-8.39,6.65H9.12c0,0-9.1,0.35-9.1-6.65V6.65c0,0-0.7-6.65,6.65-6.65 s12.95,0,12.95,0s5.34-0.05,9.8,1.75c5.04,2.39,9.1,4.67,9.1,4.67S44.71,9.8,49.26,9.8h34.89v5.25H4.34v52.51 c0,0-0.09,4.96,5.37,3.97c4.49-0.82,4.2-5.02,4.2-5.02V26.84L105.4,26.96z" />
-                            </svg> */}
-            </div>
-          </a>
-          <div className="card-header-toolbar">
-            <div className="dropdown">
-              <span className="dropdown-toggle" id="dropdownMenuButton2" handleShowDropdown={this.handleShowDropdown}
-                data-toggle="dropdown">
-                <i className="ri-more-2-fill"></i>
-              </span>
-              <div className="dropdown-menu dropdown-menu-right"
-                aria-labelledby="dropdownMenuButton2">
-                <div className="colorToggleBox">
-                  <p>Folder Color</p>
-                  <div className="colorToggle" role="group" className="toggleGroup btn-group">
-                    <label className="redColor btn btn-primary"><input
-                      name="colorSelection" type="radio"
-                      value="red" /></label>
-                    <label className="yellowColor btn btn-primary"><input
-                      name="colorSelection" type="radio"
-                      value="yellow" /></label>
-                    <label className="greenColor btn btn-primary"><input
-                      name="colorSelection" type="radio"
-                      value="green" /></label>
-                    <label className="blueColor btn btn-primary"><input
-                      name="colorSelection" type="radio"
-                      value="blue" /></label>
-                    <label className="purpleColor active btn btn-primary"><input
-                      name="colorSelection" type="radio"
-                      value="purple" /></label>
-                    <label className="pinkColor btn btn-primary"><input
-                      name="colorSelection" type="radio"
-                      value="pink" /></label>
+          }}
+          draggable={this.props.isDraggable}
+          onDragStart={(e) => this.props.handleDragStart(e)}
+          onDragOver={this.handleDragOver}
+          onDragLeave={this.handleDragLeave}
+          onDrop={this.handleDrop}
+          onDragEnd={this.handleDragEnd}
+        >
+          <div className="d-flex justify-content-between">
+            <a className="folder">
+              <div className="iconwrap icon-folder purple">
+                <div className="">
+                  {this.props.isFolder ? this.getFolderIcon() : this.getFileIcon()}
+                </div>
+              </div>
+            </a>
+            <div className="card-header-toolbar">
+              <div className="dropdown">
+                <span className="dropdown-toggle" as={CustomToggle} id="dropdownMenuButton2" handleShowDropdown={this.handleShowDropdown}
+                  data-toggle="dropdown">
+                  <i className="ri-more-2-fill"></i>
+                </span>
+                <div className="dropdown-menu dropdown-menu-right"
+                  aria-labelledby="dropdownMenuButton2">
+                  <div className="colorToggleBox">
+                    <p>Style Color</p>
+                    <div
+                      // className="colorToggle"
+                      id="colorToggle"
+                      className="toggleGroup"
+                      name="colorSelection"
+                      type="radio"
+                      defaultValue={this.props.color}
+                      onChange={this.handleColorSelection} role="group" className="toggleGroup btn-group">
+                      {this.colors.map((value, i) => {
+                        return (
+                          <label
+                            className={`${value}Color btn btn-primary`}
+                            type="radio"
+                            key={i}
+                            value={value}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-                <a className="dropdown-item" href="#"><i
-                  className="ri-eye-fill mr-2"></i>View</a>
-                <a className="dropdown-item" href="#"><i
-                  className="ri-delete-bin-6-fill mr-2"></i>Delete</a>
-                <a className="dropdown-item" href="#"><i
-                  className="ri-pencil-fill mr-2"></i>Edit</a>
-                <a className="dropdown-item" href="#"><i
-                  className="ri-file-download-fill mr-2"></i>Download</a>
               </div>
             </div>
           </div>
+          <a className="folder">
+            <h5 className="mb-2">{this.props.name}</h5>
+            <p className="mb-2"><i className="lar la-clock text-primary mr-2 font-size-20"></i>{moment(this.props.rawItem.createdAt).format('DD MMM, YYYY')}</p>
+            <p className="mb-0"><i className="lar la-clock text-primary mr-2 font-size-20"></i>{PrettySize(this.props.size)}</p>
+          </a>
         </div>
-        <a href="#" className="folder">
-          <h5 className="mb-2">{this.props.name}</h5>
-          <p className="mb-2"><i className="lar la-clock text-primary mr-2 font-size-20"></i>{moment(this.props.rawItem.createdAt).format('DD MMM, YYYY')}</p>
-        </a>
-      </div>
+      ) : (
+        <>{this.props.type == "pdf" || "ppt" || "xlsx" || "doc" || "jpeg" || "png" ? (
+          <div className="card-body image-thumb">
+            <a data-title={`${this.props.name}.${this.props.type}`} data-load-file="file"
+              data-load-target="#resolte-contaniner" data-url={`${this.props.name}.${this.props.type}`} data-toggle="modal"
+              data-target="#exampleModal" className="folder">
+              <div className="mb-4 text-center p-3 rounded iq-thumb">
+                <div className="iq-image-overlay"></div>
+                <img src={this.fileTypeDoc(this.props.type)} className="img-fluid"
+                  alt="image1" />
+              </div>
+              <h6>{this.props.name}.{this.props.type}</h6>
+              <p className="mb-2">{moment(this.props.rawItem.createdAt).format('DD MMM, YYYY')}</p>
+              <p className="mb-0">{PrettySize(this.props.size)}</p>
+            </a>
+          </div>
+        ) : ""}</>
+      )}</>
+
     );
 
 

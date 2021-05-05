@@ -11,7 +11,6 @@ import backgroundLogo from "../../../src/assets/images/layouts/mydrive/backgroun
 import FileCommanderItem from "./FileCommanderItem";
 import DropdownArrowIcon from "../../assets/Dashboard-Icons/Dropdown arrow.svg";
 import BackToIcon from "../../assets/Dashboard-Icons/back-arrow.svg";
-import FolderGreen from "../../../src/assets/Folders/New-Folder-Green.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -31,7 +30,7 @@ const SORT_TYPES = {
 };
 
 class FileCommander extends React.Component {
-  constructor(props, state) {
+  constructor (props, state) {
     super(props, state);
     this.state = {
       currentCommanderItems: this.props.currentCommanderItems,
@@ -39,7 +38,6 @@ class FileCommander extends React.Component {
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
       treeSize: 0,
-      theme: "",
       isTeam: this.props.isTeam,
     };
   }
@@ -240,7 +238,7 @@ class FileCommander extends React.Component {
                 );
               }
             })
-            .catch((err) => {});
+            .catch((err) => { });
         } else {
           nextItem();
         }
@@ -291,7 +289,7 @@ class FileCommander extends React.Component {
             .then(() => {
               resolve(this.state.treeSize);
             })
-            .catch(() => {});
+            .catch(() => { });
         });
       } else if (item.isDirectory) {
         let dirReader = item.createReader();
@@ -364,17 +362,8 @@ class FileCommander extends React.Component {
     });
   };
 
-  handlerTheme() {
+  changeTheme() {
     $("body").toggleClass("dark");
-  }
-
-  handleNavigation() {
-    $("body").addClass("sidebar-main");
-  }
-
-  handleFileType() {
-    console.log("..........");
-    $(".ri-arrow-down-s-line").toggleClass("show");
   }
 
   render() {
@@ -392,16 +381,14 @@ class FileCommander extends React.Component {
               <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
                 <i
                   className="ri-menu-line wrapper-menu"
-                  onClick={() => this.handleNavigation()}
+                  onClick={() => $("body").addClass("sidebar-main")}
                 ></i>
-                <a href="#" className="header-logo">
+                <a className="header-logo">
                   <img
                     src={Logo}
                     className="img-fluid rounded-normal light-logo"
                     alt="logo"
                   />
-                  {/* <img src="assets/images/logo-white.png" class="img-fluid rounded-normal darkmode-logo"
-                  alt="logo" /> */}
                 </a>
               </div>
               <div className="iq-search-bar device-search">
@@ -419,52 +406,10 @@ class FileCommander extends React.Component {
                           onChange={this.props.setSearchFunction}
                         />
                         <span className="search-replace"></span>
-                        <a className="search-link" href="#">
+                        <a className="search-link" >
                           <i className="ri-search-line"></i>
                         </a>
-                        <span className="caret"></span>
                       </label>
-                      <ul className="dropdown-menu">
-                        <li>
-                          <a href="#">
-                            <div className="item">
-                              <i className="far fa-file-pdf bg-info"></i>PDFs
-                            </div>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <div className="item">
-                              <i className="far fa-file-alt bg-primary"></i>
-                              Documents
-                            </div>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <div className="item">
-                              <i className="far fa-file-excel bg-success"></i>
-                              Spreadsheet
-                            </div>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <div className="item">
-                              <i className="far fa-file-powerpoint bg-danger"></i>
-                              Presentation
-                            </div>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <div className="item">
-                              <i className="far fa-file-image bg-warning"></i>
-                              Photos & Images
-                            </div>
-                          </a>
-                        </li>
-                      </ul>
                     </div>
                   </div>
                 </form>
@@ -472,7 +417,7 @@ class FileCommander extends React.Component {
               <div className="d-flex align-items-center">
                 <div
                   className="change-mode"
-                  onChange={() => this.handlerTheme()}
+                  onChange={() => this.changeTheme()}
                 >
                   <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
                     <div className="custom-switch-inner">
@@ -515,7 +460,7 @@ class FileCommander extends React.Component {
                   <ul className="navbar-nav ml-auto navbar-list align-items-center">
                     <li className="nav-item nav-icon search-content">
                       <a
-                        href="#"
+
                         className="search-toggle rounded"
                         id="dropdownSearch"
                         data-toggle="dropdown"
@@ -528,14 +473,14 @@ class FileCommander extends React.Component {
                         className="iq-search-bar iq-sub-dropdown dropdown-menu"
                         aria-labelledby="dropdownSearch"
                       >
-                        <form action="#" className="searchbox p-2">
+                        <form action className="searchbox p-2">
                           <div className="form-group mb-0 position-relative">
                             <input
                               type="text"
                               className="text search-input font-size-12"
                               placeholder="type here to search..."
                             />
-                            <a href="#" className="search-link">
+                            <a className="search-link">
                               <i className="las la-search"></i>
                             </a>
                           </div>
@@ -544,7 +489,7 @@ class FileCommander extends React.Component {
                     </li>
                     <li className="nav-item nav-icon dropdown">
                       <a
-                        href="#"
+
                         className="search-toggle dropdown-toggle"
                         id="dropdownMenuButton02"
                         data-toggle="dropdown"
@@ -586,7 +531,7 @@ class FileCommander extends React.Component {
                     </li>
                     <li className="nav-item nav-icon dropdown caption-content">
                       <a
-                        href="#"
+
                         className="search-toggle dropdown-toggle"
                         id="dropdownMenuButton03"
                         data-toggle="dropdown"
@@ -616,7 +561,7 @@ class FileCommander extends React.Component {
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
-                                    <a href="#">
+                                    <a >
                                       {user.name} {user.lastname}
                                     </a>
                                   </h5>
@@ -696,7 +641,6 @@ class FileCommander extends React.Component {
                 </div>
               </div>
             </div>
-
             <div
               className="row mb-3"
               onDragOver={this.handleDragOver}
@@ -707,7 +651,7 @@ class FileCommander extends React.Component {
                 <div className="card card-block card-stretch card-transparent">
                   <div className="card-header d-flex justify-content-between pb-0">
                     <div className="header-title">
-                      <h4 className="card-title">Folders</h4>
+                      <h4 className="card-title">Folders / Files</h4>
                     </div>
                     <div className="card-header-toolbar d-flex align-items-center">
                       <div className="dropdown">
@@ -717,11 +661,11 @@ class FileCommander extends React.Component {
                           data-toggle="dropdown"
                           onClick={() => this.sortItems(SORT_TYPES.DATE_ADDED)}
                           onSelect={this.onSelect}
+                          active
                         >
-                          All Folders
+                          All Folders / Files
                           <i
                             className="ri-arrow-down-s-line ml-1"
-                            onChange={this.handleFileType}
                           ></i>
                         </span>
                         <div
@@ -730,22 +674,15 @@ class FileCommander extends React.Component {
                         >
                           <a
                             className="dropdown-item"
-                            href="#"
-                            onClick={() =>
-                              this.sortItems(
-                                this.state.selectedSortType ===
-                                  SORT_TYPES.NAME_ASC
-                                  ? SORT_TYPES.NAME_DESC
-                                  : SORT_TYPES.NAME_ASC
-                              )
-                            }
+
+                            onClick={() => this.sortItems(this.state.selectedSortType === SORT_TYPES.NAME_ASC ? SORT_TYPES.NAME_DESC : SORT_TYPES.NAME_ASC)}
                             onSelect={this.onSelect}
                           >
                             Name
                           </a>
                           <a
                             className="dropdown-item"
-                            href="#"
+
                             onClick={() => this.sortItems(SORT_TYPES.SIZE_ASC)}
                             onSelect={this.onSelect}
                           >
@@ -753,15 +690,13 @@ class FileCommander extends React.Component {
                           </a>
                           <a
                             className="dropdown-item"
-                            href="#"
-                            onClick={() =>
-                              this.sortItems(SORT_TYPES.FILETYPE_ASC)
-                            }
+
+                            onClick={() => this.sortItems(SORT_TYPES.FILETYPE_ASC)}
                             onSelect={this.onSelect}
                           >
                             File Type
                           </a>
-                          {/* <a className="dropdown-item" href="#">
+                          {/* <a className="dropdown-item" >
                             Last modified
                           </a> */}
                         </div>
@@ -789,10 +724,16 @@ class FileCommander extends React.Component {
                         created={item.created_at}
                         icon={item.icon}
                         color={item.color ? item.color : "blue"}
+                        downloadFile={this.props.downloadFile.bind(
+                          null,
+                          item.fileId
+                        )}
                         clickHandler={
-                          this.props.openFolder.bind(null, item.id)
-                            ? item.onClick
-                            : this.props.downloadFile.bind(null, item.fileId)
+                          item.isFolder
+                            ? this.props.openFolder.bind(null, item.id)
+                            : item.onClick
+                              ? item.onClick
+                              : this.props.downloadFile.bind(null, item.fileId)
                         }
                         selectHandler={this.props.selectItems}
                         isLoading={!!item.isLoading}
@@ -818,111 +759,6 @@ class FileCommander extends React.Component {
                   </h4>
                 </div>
               ) : null}
-            </div>
-
-            <div className="row mb-5">
-              <div className="col-lg-12">
-                <div className="card card-block card-stretch card-transparent ">
-                  <div className="card-header d-flex justify-content-between pb-0">
-                    <div className="header-title">
-                      <h4 className="card-title">Documents</h4>
-                    </div>
-                    <div className="card-header-toolbar d-flex align-items-center">
-                      <a href="#" className=" view-more">
-                        View All
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6">
-                <div className="card card-block card-stretch card-height">
-                  <div className="card-body image-thumb">
-                    <a
-                      href="#"
-                      data-title="Terms.pdf"
-                      data-load-file="file"
-                      data-load-target="#resolte-contaniner"
-                      data-url="demo.pdf"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                    >
-                      <div className="mb-4 text-center p-3 rounded iq-thumb">
-                        <div className="iq-image-overlay"></div>
-                        {/* <img src="assets/images/layouts/file-icons/pdf.png" className="img-fluid"
-                        alt="image1" /> */}
-                      </div>
-                      <h6>Terms.pdf</h6>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6">
-                <div className="card card-block card-stretch card-height">
-                  <div className="card-body image-thumb">
-                    <a
-                      href="#"
-                      data-title="New-one.docx"
-                      data-load-file="file"
-                      data-load-target="#resolte-contaniner"
-                      data-url="assets/vendor/doc-viewer/files/demo.docx"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                    >
-                      <div className="mb-4 text-center p-3 rounded iq-thumb">
-                        <div className="iq-image-overlay"></div>
-                        {/* <img src="assets/images/layouts/file-icons/doc.png" className="img-fluid"
-                        alt="image1" /> */}
-                      </div>
-                      <h6>New-one.docx</h6>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6">
-                <div className="card card-block card-stretch card-height">
-                  <div className="card-body image-thumb">
-                    <a
-                      href="#"
-                      data-title="Woo-box.xlsx"
-                      data-load-file="file"
-                      data-load-target="#resolte-contaniner"
-                      data-url="assets/vendor/doc-viewer/files/demo.xlsx"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                    >
-                      <div className="mb-4 text-center p-3 rounded iq-thumb">
-                        <div className="iq-image-overlay"></div>
-                        {/* <img src="assets/images/layouts/file-icons/xlsx.png" className="img-fluid"
-                        alt="image1" /> */}
-                      </div>
-                      <h6>Woo-box.xlsx</h6>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6">
-                <div className="card card-block card-stretch card-height">
-                  <div className="card-body image-thumb doc-text">
-                    <a
-                      href="#"
-                      data-title="IOS-content.pptx"
-                      data-load-file="file"
-                      data-load-target="#resolte-contaniner"
-                      data-url="assets/vendor/doc-viewer/files/demo.pptx"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                    >
-                      <div className="mb-4 text-center p-3 rounded iq-thumb">
-                        <div className="iq-image-overlay"></div>
-                        {/* <img src="assets/images/layouts/file-icons/ppt.png" className="img-fluid"
-                        alt="image1" /> */}
-                      </div>
-                      <h6>IOS-content.pptx</h6>
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -1040,7 +876,6 @@ class FileCommander extends React.Component {
     //                 item.isFolder
     //                   ? this.props.openFolder.bind(null, item.id)
     //                   : (item.onClick ? item.onClick : this.props.downloadFile.bind(null, item.fileId))
-
     //               }
     //               selectHandler={this.props.selectItems}
     //               isLoading={!!item.isLoading}

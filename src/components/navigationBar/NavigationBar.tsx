@@ -201,7 +201,6 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
 
   render() {
     let user: any = null;
-
     try {
       user = Settings.getUser();
       if (user == null) {
@@ -218,7 +217,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     return (
       <div className="iq-sidebar  sidebar-default ">
         <div className="iq-sidebar-logo d-flex align-items-center justify-content-between">
-          <a href="#" className="header-logo">
+          <a className="header-logo">
             <img src={Logo} className="img-fluid rounded-normal light-logo" alt="logo" />
             {/* <img src="assets/images/logo-white.png" className="img-fluid rounded-normal darkmode-logo" alt="logo" /> */}
           </a>
@@ -273,7 +272,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
               </span>
             </div>
             <p>{((this.state.barUsage * 100) / this.state.barLimit).toFixed(2)} % Full</p>
-            <a href="#" onClick={() => { history.push('/storage'); }} className="btn btn-outline-primary view-more mt-2">Buy Storage</a>
+            <a onClick={() => { history.push('/storage'); }} className="btn btn-outline-primary view-more mt-2">Buy Storage</a>
           </div>
           <div className="p-3"></div>
         </div>
