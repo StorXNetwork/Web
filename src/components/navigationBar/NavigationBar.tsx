@@ -97,7 +97,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     //   </div>
     // </div>
     return <>
-      <HeaderButton to="/app" active="active" icon="fas fa-home iq-arrow-left" name="Dashboard" />
+      <HeaderButton active="active" icon="fas fa-home iq-arrow-left" name="Dashboard" />
       <HeaderButton icon="fas fa-cloud-upload-alt iq-arrow-left" name="Upload File" clickHandler={this.props.uploadFile} />
       <HeaderButton icon="fas fa-folder-plus iq-arrow-left" name="New folder" clickHandler={this.props.createFolder} />
       <HeaderButton icon="fas fa-trash-alt iq-arrow-left" name="Delete" clickHandler={this.props.deleteItems} />
@@ -258,7 +258,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
                 }
               }}>
                 <Link className="" to="">
-                  <i className="fas fa-download iq-arrow-left"></i><span>Download StorX</span>
+                  <i className="fas fa-download iq-arrow-left"></i><span>Download Desktop Client</span>
                 </Link>
               </li>}
             </ul>
@@ -272,7 +272,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
               >
               </span>
             </div>
-            <p>{((this.state.barUsage * 100) / this.state.barLimit).toFixed(2)} % Full</p>
+            <p>{isNaN(this.state.barUsage / this.state.barLimit) ? 0 : ((this.state.barUsage * 100) / this.state.barLimit).toFixed(2)} % Full</p>
             <a onClick={() => { history.push('/storage'); }} className="btn btn-outline-primary view-more mt-2">Buy Storage</a>
           </div>
           <div className="p-3"></div>

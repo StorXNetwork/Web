@@ -354,13 +354,13 @@ class FileCommanderItem extends React.Component {
             }}
             onDoubleClick={(e) => {
               // if (e.target.className.includes('card-body')) {
-                if (this.props.type == null) {
-                  window.analytics.track("folder-opened", {
-                    folder_name: this.state.itemName,
-                    folder_id: this.props.id,
-                  });
-                }
-                this.itemClickHandler(e);
+              if (this.props.type == null) {
+                window.analytics.track("folder-opened", {
+                  folder_name: this.state.itemName,
+                  folder_id: this.props.id,
+                });
+              }
+              this.itemClickHandler(e);
               // }
             }}
             draggable={this.props.isDraggable}
@@ -384,12 +384,12 @@ class FileCommanderItem extends React.Component {
                 <div className="dropdown">
                   <span
                     className="dropdown-toggle"
-                    as={CustomToggle}
+                    // as={CustomToggle}
                     id="dropdownMenuButton2"
                     handleShowDropdown={this.handleShowDropdown}
                     data-toggle="dropdown"
                   >
-                    <i className="ri-more-2-fill"></i>
+                    {/* <i className="ri-more-2-fill"></i> */}
                   </span>
                   <div
                     className="dropdown-menu dropdown-menu-right"
@@ -432,7 +432,11 @@ class FileCommanderItem extends React.Component {
               </p>
               <p className="mb-0">
                 <i className="lar la-clock text-primary mr-2 font-size-20"></i>
-                {PrettySize(this.props.size)}
+                {/* {PrettySize(this.props.size)} */}
+              </p>
+              <p className="mb-0">
+                <i className="lar la-clock text-primary mr-2 font-size-20"></i>
+                {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}
               </p>
             </a>
           </div>
@@ -465,13 +469,13 @@ class FileCommanderItem extends React.Component {
                 }}
                 onDoubleClick={(e) => {
                   // if (e.target.className.includes('card-body')) {
-                    if (this.props.type == null) {
-                      window.analytics.track("folder-opened", {
-                        folder_name: this.state.itemName,
-                        folder_id: this.props.id,
-                      });
-                    }
-                    this.itemClickHandler(e);
+                  if (this.props.type == null) {
+                    window.analytics.track("folder-opened", {
+                      folder_name: this.state.itemName,
+                      folder_id: this.props.id,
+                    });
+                  }
+                  this.itemClickHandler(e);
                   // }
                 }}
                 draggable={this.props.isDraggable}
@@ -507,6 +511,7 @@ class FileCommanderItem extends React.Component {
                     )}
                   </p>
                   <p className="mb-0">{PrettySize(this.props.size)}</p>
+                  <p className="mb-0"> {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}</p>
                 </a>
               </div>
             ) : (

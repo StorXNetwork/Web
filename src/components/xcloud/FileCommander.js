@@ -539,7 +539,7 @@ class FileCommander extends React.Component {
                               </Link>
                               <a href="https://storx.tech/support.html" target="_blank" className="iq-sub-card">
                                 <i className="ri-mail-open-fill"></i>
-                                Contact
+                                Community Support
                               </a>
                             </div>
                           </div>

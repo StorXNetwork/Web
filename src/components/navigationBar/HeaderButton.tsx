@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 interface HeaderButtonProps {
   icon: string;
   name: string;
-  to: string;
+  // to: string;
   active?: string;
   clickHandler?: any;
 }
@@ -14,7 +14,7 @@ const HeaderButton = (props: HeaderButtonProps) => {
 
   return (
     <li className={props.active}>
-      <Link to={props.to || ""} className="" onClick={props.clickHandler}>
+      <Link onClick={props.clickHandler}>
         <i className={props.icon}></i><span>{props.name}</span>
       </Link>
     </li>

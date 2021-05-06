@@ -426,7 +426,7 @@ class XCloud extends React.Component {
           get onClick() {
             return () => {
               window.analytics.track('file-welcome-open');
-              return fetch('/Internxt.pdf').then(res => res.blob()).then(obj => {
+              return fetch('/Welcome.pdf').then(res => res.blob()).then(obj => {
                 fileDownload(obj, 'Welcome.pdf');
               });
             };
