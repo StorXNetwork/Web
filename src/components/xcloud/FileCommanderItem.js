@@ -15,6 +15,7 @@ import ZIP from "../../../src/assets/images/layouts/file-icons/zip.png";
 import PPT from "../../../src/assets/images/layouts/file-icons/ppt.png";
 import IMG from "../../../src/assets/images/layouts/file-icons/img.png";
 import EXE from "../../../src/assets/images/layouts/file-icons/exe.png";
+import FILE from "../../../src/assets/images/layouts/file-icons/file.png";
 import FolderGreen from "../../../src/assets/Folders/New-Folder-Green.svg";
 import Icon from "../../assets/Icon";
 import ActivityIndicator from "../ActivityIndicator";
@@ -308,7 +309,7 @@ class FileCommanderItem extends React.Component {
       case "jpg":
         return IMG;
       default:
-        return EXE;
+        return FILE;
     }
   };
 
