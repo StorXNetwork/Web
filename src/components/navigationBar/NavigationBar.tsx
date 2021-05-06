@@ -61,7 +61,8 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
 
     this.state = {
       menuButton: null,
-      navbarItems: props.navbarItems,
+      navbarItems: this.getNavBarItems(true),
+      // navbarItems: props.navbarItems,
       workspace: 'My Workspace',
       barLimit: 1024 * 1024 * 1024 * 2,
       barUsage: 0,
@@ -96,7 +97,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     //   </div>
     // </div>
     return <>
-      <HeaderButton active="active" icon="fas fa-home iq-arrow-left" name="Dashboard" />
+      <HeaderButton to="/app" active="active" icon="fas fa-home iq-arrow-left" name="Dashboard" />
       <HeaderButton icon="fas fa-cloud-upload-alt iq-arrow-left" name="Upload File" clickHandler={this.props.uploadFile} />
       <HeaderButton icon="fas fa-folder-plus iq-arrow-left" name="New folder" clickHandler={this.props.createFolder} />
       <HeaderButton icon="fas fa-trash-alt iq-arrow-left" name="Delete" clickHandler={this.props.deleteItems} />

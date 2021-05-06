@@ -983,7 +983,7 @@ class XCloud extends React.Component {
     if (this.props.isAuthenticated && this.state.isInitialized) {
 
       return (
-        <div className="wrapper">
+        <>
           <NavigationBar
             showFileButtons={true}
             showSettingsButton={true}
@@ -1098,8 +1098,7 @@ class XCloud extends React.Component {
               </div>
             </div>
           </Popup>
-        </div>
-
+        </>
       );
 
 

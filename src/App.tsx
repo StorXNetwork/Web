@@ -56,213 +56,215 @@ class App extends React.Component {
 
     return (
       <Suspense fallback={<MainLoader />}>
-        <Router history={history}>
-          <Switch>
-            <Redirect from="//*" to="/*" />
-            <Route
-              exact
-              path="/login"
-              render={(props) => (
-                <Login
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                  handleKeySaved={this.handleKeySaved}
-                />
-              )}
-            />
+        <div className="wrapper">
+          <Router history={history}>
+            <Switch>
+              <Redirect from="//*" to="/*" />
+              <Route
+                exact
+                path="/login"
+                render={(props) => (
+                  <Login
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
 
-            <Route
-              exact
-              path="/activate/:email"
-              render={(props: any) => (
-                <New
-                  {...props}
-                  isNewUser={true}
-                  isAuthenticated={this.state.isAuthenticated}
-                  handleKeySaved={this.handleKeySaved}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/appsumo/:email"
-              render={(props: any) => (
-                <New
-                  {...props}
-                  isNewUser={false}
-                  isAuthenticated={this.state.isAuthenticated}
-                  handleKeySaved={this.handleKeySaved}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/new"
-              render={(props: any) => (
-                <New
-                  {...props}
-                  isNewUser={true}
-                  isAuthenticated={this.state.isAuthenticated}
-                  handleKeySaved={this.handleKeySaved}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/team/success/:sessionId"
-              render={(props: any) => (
-                <Success
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
+              <Route
+                exact
+                path="/activate/:email"
+                render={(props: any) => (
+                  <New
+                    {...props}
+                    isNewUser={true}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/appsumo/:email"
+                render={(props: any) => (
+                  <New
+                    {...props}
+                    isNewUser={false}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/new"
+                render={(props: any) => (
+                  <New
+                    {...props}
+                    isNewUser={true}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/team/success/:sessionId"
+                render={(props: any) => (
+                  <Success
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
 
-            <Route
-              exact
-              path="/storage"
-              render={(props) => (
-                <Storage
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/invite"
-              render={(props) => (
-                <Referred
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              path="/reset/:token"
-              render={(props) => (
-                <Reset
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              path="/checkout/:sessionId"
-              render={(props) => <Checkout {...props} />}
-            />
-            <Route
-              exact
-              path="/reset"
-              render={(props) => (
-                <Reset
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/settings"
-              render={(props) => (
-                <Reset
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/teams/"
-              render={(props) => (
-                <Teams
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/team/cancel/"
-              render={(props) => (
-                <Teams
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              path="/teams/join/:token"
-              render={(props) => <JoinTeam {...props} />}
-            />
-            <Route
-              path="/activations/:token"
-              render={(props) => <Activation {...props} />}
-            />
-            <Route
-              path="/deactivations/:token"
-              render={(props) => <Deactivation {...props} />}
-            />
-            <Route
-              path="/deactivationsTeams/:token"
-              render={(props) => <DeactivationTeams {...props} />}
-            />
-            <Route
-              path="/security"
-              render={(props) => (
-                <Security
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/app"
-              render={(props) => (
-                <XCloud
-                  {...props}
-                  isAuthenticated={this.state.isAuthenticated}
-                  user={this.state.user}
-                  isActivated={this.state.isActivated}
-                  handleKeySaved={this.handleKeySaved}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/remove"
-              render={(props: any) => <Remove {...props} />}
-              isAuthenticated={this.state.isAuthenticated}
-              handleKeySaved={this.handleKeySaved}
-            />
-            <Route
-              exact
-              path="/:token([a-z0-9]{10})"
-              render={(props) => <Share {...props} />}
-            />
-            <Route exact path="/">
-              <Redirect to="/login" />
-            </Route>
-            <Route component={NotFound} />
-          </Switch>
+              <Route
+                exact
+                path="/storage"
+                render={(props) => (
+                  <Storage
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/invite"
+                render={(props) => (
+                  <Referred
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                path="/reset/:token"
+                render={(props) => (
+                  <Reset
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                path="/checkout/:sessionId"
+                render={(props) => <Checkout {...props} />}
+              />
+              <Route
+                exact
+                path="/reset"
+                render={(props) => (
+                  <Reset
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/settings"
+                render={(props) => (
+                  <Reset
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/teams/"
+                render={(props) => (
+                  <Teams
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/team/cancel/"
+                render={(props) => (
+                  <Teams
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                path="/teams/join/:token"
+                render={(props) => <JoinTeam {...props} />}
+              />
+              <Route
+                path="/activations/:token"
+                render={(props) => <Activation {...props} />}
+              />
+              <Route
+                path="/deactivations/:token"
+                render={(props) => <Deactivation {...props} />}
+              />
+              <Route
+                path="/deactivationsTeams/:token"
+                render={(props) => <DeactivationTeams {...props} />}
+              />
+              <Route
+                path="/security"
+                render={(props) => (
+                  <Security
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/app"
+                render={(props) => (
+                  <XCloud
+                    {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                    user={this.state.user}
+                    isActivated={this.state.isActivated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/remove"
+                render={(props: any) => <Remove {...props} />}
+                isAuthenticated={this.state.isAuthenticated}
+                handleKeySaved={this.handleKeySaved}
+              />
+              <Route
+                exact
+                path="/:token([a-z0-9]{10})"
+                render={(props) => <Share {...props} />}
+              />
+              <Route exact path="/">
+                <Redirect to="/login" />
+              </Route>
+              <Route component={NotFound} />
+            </Switch>
 
-          {/^[a-z0-9]{10}$/.test(pathName) ? (
-            <ToastContainer />
-          ) : (
-            <ToastContainer
-              position="bottom-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick={true}
-              rtl={false}
-              draggable={true}
-              pauseOnHover={true}
-              className=""
-            />
-          )}
-        </Router>
+            {/^[a-z0-9]{10}$/.test(pathName) ? (
+              <ToastContainer />
+            ) : (
+              <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                draggable={true}
+                pauseOnHover={true}
+                className=""
+              />
+            )}
+          </Router>
+        </div>
       </Suspense>
     );
   }

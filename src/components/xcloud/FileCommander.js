@@ -362,9 +362,27 @@ class FileCommander extends React.Component {
     });
   };
 
-  changeTheme() {
-    $("body").toggleClass("dark");
-  }
+  // changeTheme() {
+  //   // // if (localStorage.getItem('theme') == "") {
+  //   //   localStorage.setItem('theme', "dark");
+  //   //   $("body").addClass("dark");
+  //   //   // return null;
+  //   // // }
+  //   // if (localStorage.getItem('theme') == "dark") {
+  //   //   localStorage.setItem('theme', "");
+  //   //   $("body").removeClass("dark");
+  //   //   return null;
+  //   // }
+  //   // this.state.theme ? localStorage.setItem('theme', "") : localStorage.setItem('theme', "dark");
+  //   // if (localStorage.getItem('theme') == "") {
+  //   //   $("body").toggleClass("");
+  //   // } else {
+  //   //   $("body").toggleClass("dark");
+  //   // }
+  //   // localStorage.getItem('theme') == "dark" ? $("body").toggleClass("dark") : "";
+  //   // localStorage.setItem('theme', "");
+  //   // $("body").toggleClass("dark");
+  // }
 
   render() {
     const list = this.state.currentCommanderItems || 0;
@@ -381,7 +399,8 @@ class FileCommander extends React.Component {
               <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
                 <i
                   className="ri-menu-line wrapper-menu"
-                  onClick={() => $("body").addClass("sidebar-main")}
+                  // onClick={() => $("body").addClass("sidebar-main")}
+                  onClick={() => this.setState({ theme: !this.state.theme })}
                 ></i>
                 <a className="header-logo">
                   <img
@@ -417,7 +436,7 @@ class FileCommander extends React.Component {
               <div className="d-flex align-items-center">
                 <div
                   className="change-mode"
-                  onChange={() => this.changeTheme()}
+                  onChange={() => $("body").toggleClass("dark")}
                 >
                   <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
                     <div className="custom-switch-inner">
@@ -518,10 +537,10 @@ class FileCommander extends React.Component {
                                 <i className="ri-money-dollar-circle-fill"></i>{" "}
                                 Business
                               </Link>
-                              <Link to="" className="iq-sub-card">
+                              <a href="https://storx.tech/support.html" target="_blank" className="iq-sub-card">
                                 <i className="ri-mail-open-fill"></i>
                                 Contact
-                              </Link>
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -603,6 +622,19 @@ class FileCommander extends React.Component {
                         </label>
                       </div>
                     </div>
+                    {
+                      <div
+                        class="dashboard1-info-back">
+                        {this.state.namePath.length > 1 ? (
+                          <a href="#"
+                            onClick={this.props.handleFolderTraverseUp.bind(this)}
+                            onDragOver={this.handleDragOverBackButton}
+                            onDrop={this.handleDropOverBackButton}>
+                            <i class="ri-arrow-left-s-line"></i>Back
+                          </a>
+                        ) : ""}
+                      </div>
+                    }
                   </div>
                 </div>
               </div>

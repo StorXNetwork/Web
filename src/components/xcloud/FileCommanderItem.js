@@ -1,7 +1,12 @@
-import * as React from 'react';
-import $ from 'jquery';
-import PrettySize from 'prettysize';
-import { Dropdown, ToggleButton, ToggleButtonGroup, ProgressBar } from 'react-bootstrap';
+import * as React from "react";
+import $ from "jquery";
+import PrettySize from "prettysize";
+import {
+  Dropdown,
+  ToggleButton,
+  ToggleButtonGroup,
+  ProgressBar,
+} from "react-bootstrap";
 // import './FileCommanderItem.scss';
 import PDF from "../../../src/assets/images/layouts/file-icons/pdf.png";
 import DOC from "../../../src/assets/images/layouts/file-icons/doc.png";
@@ -11,63 +16,63 @@ import PPT from "../../../src/assets/images/layouts/file-icons/ppt.png";
 import IMG from "../../../src/assets/images/layouts/file-icons/img.png";
 import EXE from "../../../src/assets/images/layouts/file-icons/exe.png";
 import FolderGreen from "../../../src/assets/Folders/New-Folder-Green.svg";
-import Icon from '../../assets/Icon';
-import ActivityIndicator from '../ActivityIndicator';
-import SanitizeFilename from 'sanitize-filename';
-import TimeAgo from 'react-timeago';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import moment from 'moment';
+import Icon from "../../assets/Icon";
+import ActivityIndicator from "../ActivityIndicator";
+import SanitizeFilename from "sanitize-filename";
+import TimeAgo from "react-timeago";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import moment from "moment";
 
 class FileCommanderItem extends React.Component {
   constructor (props, state) {
     super(props, state);
     this.state = {
-      dragDropStyle: '',
+      dragDropStyle: "",
       itemName: this.props.name,
-      selectedColor: '',
+      selectedColor: "",
       selectedIcon: 0,
       showDropdown: false,
       isLoading: this.props.isLoading,
       isDownloading: false,
       handleExternalDrop: this.props.handleExternalDrop,
-      progress: 0
+      progress: 0,
     };
 
     // Folder colors definition
-    this.colors = ['red', 'yellow', 'green', 'blue', 'purple', 'pink', 'grey'];
+    this.colors = ["red", "yellow", "green", "blue", "purple", "pink", "grey"];
     // Folder icons definition (icon id is its index in array)
     this.icons = [
-      'avatarcircleneutral',
-      'backup',
-      'barchart',
-      'bell',
-      'binoculars',
-      'book',
-      'bowl',
-      'camera',
-      'categories',
-      'circlefilledcheckmark',
-      'clappboard',
-      'clipboard',
-      'cloud',
-      'controllerneoGeo',
-      'dollarsign',
-      'facehappy',
-      'file',
-      'heartfilled',
-      'inbox',
-      'lighton',
-      'locklocked',
-      'musicnote',
-      'navigationcircle',
-      'notifications',
-      'path',
-      'running',
-      'starfilled',
-      'video',
-      'window',
-      'yinyang'
+      "avatarcircleneutral",
+      "backup",
+      "barchart",
+      "bell",
+      "binoculars",
+      "book",
+      "bowl",
+      "camera",
+      "categories",
+      "circlefilledcheckmark",
+      "clappboard",
+      "clipboard",
+      "cloud",
+      "controllerneoGeo",
+      "dollarsign",
+      "facehappy",
+      "file",
+      "heartfilled",
+      "inbox",
+      "lighton",
+      "locklocked",
+      "musicnote",
+      "navigationcircle",
+      "notifications",
+      "path",
+      "running",
+      "starfilled",
+      "video",
+      "window",
+      "yinyang",
     ];
   }
 
@@ -76,36 +81,38 @@ class FileCommanderItem extends React.Component {
     if (this.props.isFolder) {
       event.preventDefault();
       event.stopPropagation();
-      this.setState({ dragDropStyle: 'dragOver' });
+      this.setState({ dragDropStyle: "dragOver" });
     }
   };
 
   handleDragLeave = (e) => {
-    this.setState({ dragDropStyle: '' });
+    this.setState({ dragDropStyle: "" });
   };
 
   handleDragEnd = (e) => {
-    $('#FileCommander-backTo').removeClass('drag-over');
+    $("#FileCommander-backTo").removeClass("drag-over");
   };
 
   handleDrop = (event) => {
-    this.setState({ dragDropStyle: '' });
+    this.setState({ dragDropStyle: "" });
     // Move file or folder when its dropped
     event.preventDefault();
     event.stopPropagation();
     // Handle external drop
-    if (event.dataTransfer.types && event.dataTransfer.types[0] !== 'text/plain') {
+    if (
+      event.dataTransfer.types &&
+      event.dataTransfer.types[0] !== "text/plain"
+    ) {
       return this.state.handleExternalDrop(event, this.props.id);
     }
 
     // Handle internal drop event
-    if (event.currentTarget.dataset.isfolder === 'true') {
+    if (event.currentTarget.dataset.isfolder === "true") {
       const moveOpId = new Date().getTime();
-      var data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      var data = JSON.parse(event.dataTransfer.getData("text/plain"));
 
       this.props.move(data, this.props.id, moveOpId);
     }
-
   };
 
   handleNameChange = (event) => {
@@ -113,21 +120,25 @@ class FileCommanderItem extends React.Component {
   };
 
   handleColorSelection = (value, event) => {
-    window.analytics.track('folder-color-selection', {
-      value: value
+    window.analytics.track("folder-color-selection", {
+      value: value,
     });
     this.setState({ selectedColor: value });
   };
 
   handleIconSelection = (value, event) => {
-    window.analytics.track('folder-icon-selection', {
-      value: value
+    window.analytics.track("folder-icon-selection", {
+      value: value,
     });
     this.setState({ selectedIcon: value });
   };
 
   handleClickIcon = (value, event) => {
-    if (this.props.icon && this.props.icon.name && this.props.icon.name === value) {
+    if (
+      this.props.icon &&
+      this.props.icon.name &&
+      this.props.icon.name === value
+    ) {
       this.setState({ selectedIcon: 0 }, () => {
         this.handleApplyChanges();
       });
@@ -142,21 +153,30 @@ class FileCommanderItem extends React.Component {
       const sanitizedFilename = SanitizeFilename(this.state.itemName);
 
       if (sanitizedFilename !== this.state.itemName) {
-        return toast.warn('Invalid file name');
+        return toast.warn("Invalid file name");
       }
     }
 
-    if (this.state.itemName && this.props.name !== this.state.itemName) { metadata.itemName = this.state.itemName; }
+    if (this.state.itemName && this.props.name !== this.state.itemName) {
+      metadata.itemName = this.state.itemName;
+    }
     if (this.props.isFolder) {
       // Changes on folder item
-      if (this.state.selectedColor && this.props.color !== this.state.selectedColor) { metadata.color = this.state.selectedColor; }
+      if (
+        this.state.selectedColor &&
+        this.props.color !== this.state.selectedColor
+      ) {
+        metadata.color = this.state.selectedColor;
+      }
       if (
         this.state.selectedIcon &&
         (!this.props.icon || this.props.icon.id !== this.state.selectedIcon)
-      ) { metadata.icon = this.state.selectedIcon; }
+      ) {
+        metadata.icon = this.state.selectedIcon;
+      }
 
       if (this.state.selectedIcon === 0) {
-        metadata.icon = 'none';
+        metadata.icon = "none";
       }
 
       if (metadata.itemName || metadata.color || metadata.icon) {
@@ -165,7 +185,11 @@ class FileCommanderItem extends React.Component {
     } else {
       // Changes on file item
       if (metadata.itemName) {
-        this.props.updateMeta(metadata, this.props.rawItem.fileId, this.props.isFolder);
+        this.props.updateMeta(
+          metadata,
+          this.props.rawItem.fileId,
+          this.props.isFolder
+        );
       }
     }
   };
@@ -177,14 +201,17 @@ class FileCommanderItem extends React.Component {
     } else {
       // When click off window, close it and apply changes
       this.setState({ showDropdown: isOpen });
-      if (isOpen === false) { this.handleApplyChanges(); }
+      if (isOpen === false) {
+        this.handleApplyChanges();
+      }
     }
   };
 
   handleShowDropdown = () => {
     // Save changes when dropdown is closed
-    if (this.state.showDropdown === true) { this.handleApplyChanges(); }
-    else {
+    if (this.state.showDropdown === true) {
+      this.handleApplyChanges();
+    } else {
       // Set item name when open context menu
       this.setState({ itemName: this.props.name });
     }
@@ -194,24 +221,26 @@ class FileCommanderItem extends React.Component {
   resetMetadataChanges = (event, reset) => {
     event.stopPropagation();
     switch (reset) {
-      case 'icon':
-        $('#iconToggle label').removeClass('active');
+      case "icon":
+        $("#iconToggle label").removeClass("active");
         this.setState({ selectedIcon: 0 });
         break;
-      case 'color':
-        $('#colorToggle label').removeClass('active');
-        this.setState({ selectedColor: '' });
+      case "color":
+        $("#colorToggle label").removeClass("active");
+        this.setState({ selectedColor: "" });
         break;
       default:
-        $('#iconToggle label').removeClass('active');
-        $('#colorToggle label').removeClass('active');
-        this.setState({ selectedColor: '', selectedIcon: 0 });
+        $("#iconToggle label").removeClass("active");
+        $("#colorToggle label").removeClass("active");
+        this.setState({ selectedColor: "", selectedIcon: 0 });
         break;
     }
   };
 
   getFolderIcon = () => {
-    let localColor = this.state.selectedColor ? this.state.selectedColor : this.props.color;
+    let localColor = this.state.selectedColor
+      ? this.state.selectedColor
+      : this.props.color;
 
     if (this.props.isLoading) {
       return (
@@ -243,11 +272,21 @@ class FileCommanderItem extends React.Component {
       <div className="iconContainer fileIconContainer">
         <div className="type">
           <span className="extension">
-            {!this.state.isLoading && !this.state.isDownloading ? this.props.type : ''}
+            {!this.state.isLoading && !this.state.isDownloading
+              ? this.props.type
+              : ""}
           </span>
-          {this.state.progress > 0 ? <ProgressBar className="download-pb" now={this.state.progress} /> : ''}
+          {this.state.progress > 0 ? (
+            <ProgressBar className="download-pb" now={this.state.progress} />
+          ) : (
+            ""
+          )}
         </div>
-        {this.state.isLoading || this.state.isDownloading ? <ActivityIndicator /> : ''}
+        {this.state.isLoading || this.state.isDownloading ? (
+          <ActivityIndicator />
+        ) : (
+          ""
+        )}
       </div>
     );
   };
@@ -293,115 +332,190 @@ class FileCommanderItem extends React.Component {
   }
 
   render() {
-
     return (
-      <>{this.props.rawItem.isFolder == true ? (
-        <div
-          className="card-body"
-          // className={
-          //   'card-body' +
-          //   (this.props.isSelected ? ' selected ' : ' ') +
-          //   this.state.dragDropStyle
-          // }
-
-          data-type={this.props.type}
-          data-id={this.props.id}
-          data-cloud-file-id={this.props.rawItem.id}
-          data-cloud-folder-id={this.props.rawItem.folder_id}
-          data-bridge-file-id={this.props.rawItem.fileId}
-          data-bridge-bucket-id={this.props.rawItem.bucket}
-          data-name={this.props.rawItem.name}
-          data-isfolder={!!this.props.rawItem.isFolder}
-          onClick={() => {
-            this.props.selectHandler(this.props.id, this.props.isFolder, false);
-          }}
-          onDoubleClick={(e) => {
-            // if (e.target.className.includes('card')) {
-            // if (this.props.type == null) {
-              window.analytics.track('folder-opened', {
-                folder_name: this.state.itemName,
-                folder_id: this.props.id
-              });
-            // }
-            this.itemClickHandler(e);
-            // }
-          }}
-          draggable={this.props.isDraggable}
-          onDragStart={(e) => this.props.handleDragStart(e)}
-          onDragOver={this.handleDragOver}
-          onDragLeave={this.handleDragLeave}
-          onDrop={this.handleDrop}
-          onDragEnd={this.handleDragEnd}
-        >
-          <div className="d-flex justify-content-between">
-            <a className="folder">
-              <div className="iconwrap icon-folder purple">
-                <div className="">
-                  {this.props.isFolder ? this.getFolderIcon() : this.getFileIcon()}
+      <>
+        {this.props.rawItem.isFolder == true ? (
+          <div
+            className={`card-body ${this.props.isSelected ? "selected" : ""}`}
+            data-type={this.props.type}
+            data-id={this.props.id}
+            data-cloud-file-id={this.props.rawItem.id}
+            data-cloud-folder-id={this.props.rawItem.folder_id}
+            data-bridge-file-id={this.props.rawItem.fileId}
+            data-bridge-bucket-id={this.props.rawItem.bucket}
+            data-name={this.props.rawItem.name}
+            data-isfolder={!!this.props.rawItem.isFolder}
+            onClick={() => {
+              this.props.selectHandler(
+                this.props.id,
+                this.props.isFolder,
+                false
+              );
+            }}
+            onDoubleClick={(e) => {
+              if (e.target.className.includes('card-body')) {
+                if (this.props.type == null) {
+                  window.analytics.track("folder-opened", {
+                    folder_name: this.state.itemName,
+                    folder_id: this.props.id,
+                  });
+                }
+                this.itemClickHandler(e);
+              }
+            }}
+            draggable={this.props.isDraggable}
+            onDragStart={(e) => this.props.handleDragStart(e)}
+            onDragOver={this.handleDragOver}
+            onDragLeave={this.handleDragLeave}
+            onDrop={this.handleDrop}
+            onDragEnd={this.handleDragEnd}
+          >
+            <div className="d-flex justify-content-between">
+              <a className="folder">
+                <div className="iconwrap icon-folder purple">
+                  <div className="">
+                    {this.props.isFolder
+                      ? this.getFolderIcon()
+                      : this.getFileIcon()}
+                  </div>
                 </div>
-              </div>
-            </a>
-            <div className="card-header-toolbar">
-              <div className="dropdown">
-                <span className="dropdown-toggle" as={CustomToggle} id="dropdownMenuButton2" handleShowDropdown={this.handleShowDropdown}
-                  data-toggle="dropdown">
-                  <i className="ri-more-2-fill"></i>
-                </span>
-                <div className="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="dropdownMenuButton2">
-                  <div className="colorToggleBox">
-                    <p>Style Color</p>
-                    <div
-                      // className="colorToggle"
-                      id="colorToggle"
-                      className="toggleGroup"
-                      name="colorSelection"
-                      type="radio"
-                      defaultValue={this.props.color}
-                      onChange={this.handleColorSelection} role="group" className="toggleGroup btn-group">
-                      {this.colors.map((value, i) => {
-                        return (
-                          <label
-                            className={`${value}Color btn btn-primary`}
-                            type="radio"
-                            key={i}
-                            value={value}
-                          />
-                        );
-                      })}
+              </a>
+              <div className="card-header-toolbar">
+                <div className="dropdown">
+                  <span
+                    className="dropdown-toggle"
+                    as={CustomToggle}
+                    id="dropdownMenuButton2"
+                    handleShowDropdown={this.handleShowDropdown}
+                    data-toggle="dropdown"
+                  >
+                    <i className="ri-more-2-fill"></i>
+                  </span>
+                  <div
+                    className="dropdown-menu dropdown-menu-right"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <div className="colorToggleBox">
+                      <p>Style Color</p>
+                      <div
+                        // className="colorToggle"
+                        id="colorToggle"
+                        className="toggleGroup"
+                        name="colorSelection"
+                        type="radio"
+                        defaultValue={this.props.color}
+                        onChange={this.handleColorSelection}
+                        role="group"
+                        className="toggleGroup btn-group"
+                      >
+                        {this.colors.map((value, i) => {
+                          return (
+                            <label
+                              className={`${value}Color btn btn-primary`}
+                              type="radio"
+                              key={i}
+                              value={value}
+                            />
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <a className="folder">
-            <h5 className="mb-2">{this.props.name}</h5>
-            <p className="mb-2"><i className="lar la-clock text-primary mr-2 font-size-20"></i>{moment(this.props.rawItem.createdAt).format('DD MMM, YYYY')}</p>
-            <p className="mb-0"><i className="lar la-clock text-primary mr-2 font-size-20"></i>{PrettySize(this.props.size)}</p>
-          </a>
-        </div>
-      ) : (
-        <>{this.props.type == "pdf" || "ppt" || "xlsx" || "doc" || "jpeg" || "png" || "jpg" ? (
-          <div className="card-body image-thumb">
-            <a data-title={`${this.props.name}.${this.props.type}`} data-load-file="file"
-              data-load-target="#resolte-contaniner" data-url={`${this.props.name}.${this.props.type}`} data-toggle="modal"
-              data-target="#exampleModal" className="folder">
-              <div className="mb-4 text-center p-3 rounded iq-thumb">
-                <div className="iq-image-overlay"></div>
-                <img src={this.fileTypeDoc(this.props.type)} className="img-fluid"
-                  alt="image1" />
-              </div>
-              <h6>{this.props.name}.{this.props.type}</h6>
-              <p className="mb-2">{moment(this.props.rawItem.createdAt).format('DD MMM, YYYY')}</p>
-              <p className="mb-0">{PrettySize(this.props.size)}</p>
+            <a className="folder">
+              <h5 className="mb-2">{this.props.name}</h5>
+              <p className="mb-2">
+                <i className="lar la-clock text-primary mr-2 font-size-20"></i>
+                {moment(this.props.rawItem.createdAt).format("DD MMM, YYYY")}
+              </p>
+              <p className="mb-0">
+                <i className="lar la-clock text-primary mr-2 font-size-20"></i>
+                {PrettySize(this.props.size)}
+              </p>
             </a>
           </div>
-        ) : ""}</>
-      )}</>
-
+        ) : (
+          <>
+            {this.props.type == "pdf" ||
+              "ppt" ||
+              "xlsx" ||
+              "doc" ||
+              "jpeg" ||
+              "png" ||
+              "jpg" ? (
+              <div
+                className={`card-body image-thumb ${this.props.isSelected ? "selected" : ""
+                  }`}
+                data-type={this.props.type}
+                data-id={this.props.id}
+                data-cloud-file-id={this.props.rawItem.id}
+                data-cloud-folder-id={this.props.rawItem.folder_id}
+                data-bridge-file-id={this.props.rawItem.fileId}
+                data-bridge-bucket-id={this.props.rawItem.bucket}
+                data-name={this.props.rawItem.name}
+                data-isfolder={!!this.props.rawItem.isFolder}
+                onClick={() => {
+                  this.props.selectHandler(
+                    this.props.id,
+                    this.props.isFolder,
+                    false
+                  );
+                }}
+                onDoubleClick={(e) => {
+                  if (e.target.className.includes('card-body')) {
+                    if (this.props.type == null) {
+                      window.analytics.track("folder-opened", {
+                        folder_name: this.state.itemName,
+                        folder_id: this.props.id,
+                      });
+                    }
+                    this.itemClickHandler(e);
+                  }
+                }}
+                draggable={this.props.isDraggable}
+                onDragStart={(e) => this.props.handleDragStart(e)}
+                onDragOver={this.handleDragOver}
+                onDragLeave={this.handleDragLeave}
+                onDrop={this.handleDrop}
+                onDragEnd={this.handleDragEnd}
+              >
+                <a
+                  data-title={`${this.props.name}.${this.props.type}`}
+                  data-load-file="file"
+                  data-load-target="#resolte-contaniner"
+                  data-url={`${this.props.name}.${this.props.type}`}
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  className="folder"
+                >
+                  <div className="mb-4 text-center p-3 rounded iq-thumb">
+                    <div className="iq-image-overlay"></div>
+                    <img
+                      src={this.fileTypeDoc(this.props.type)}
+                      className="img-fluid"
+                      alt="image1"
+                    />
+                  </div>
+                  <h6>
+                    {this.props.name}.{this.props.type}
+                  </h6>
+                  <p className="mb-2">
+                    {moment(this.props.rawItem.createdAt).format(
+                      "DD MMM, YYYY"
+                    )}
+                  </p>
+                  <p className="mb-0">{PrettySize(this.props.size)}</p>
+                </a>
+              </div>
+            ) : (
+              ""
+            )}
+          </>
+        )}
+      </>
     );
-
 
     // return (
     //   <div
@@ -556,20 +670,22 @@ class FileCommanderItem extends React.Component {
   }
 }
 
-const CustomToggle = React.forwardRef(({ children, onClick, handleShowDropdown }, ref) => {
-  return (
-    <div
-      ref={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        // Call dropdown to toggle show
-        handleShowDropdown();
-        onClick(e);
-      }}
-    >
-      {children}
-    </div>
-  );
-});
+const CustomToggle = React.forwardRef(
+  ({ children, onClick, handleShowDropdown }, ref) => {
+    return (
+      <div
+        ref={ref}
+        onClick={(e) => {
+          e.preventDefault();
+          // Call dropdown to toggle show
+          handleShowDropdown();
+          onClick(e);
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 export default FileCommanderItem;

@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 // import './HeaderButton.scss';
 
 interface HeaderButtonProps {
   icon: string;
   name: string;
+  to: string;
   active?: string;
   clickHandler?: any;
 }
@@ -12,9 +14,9 @@ const HeaderButton = (props: HeaderButtonProps) => {
 
   return (
     <li className={props.active}>
-      <a className="" onClick={props.clickHandler}>
+      <Link to={props.to || ""} className="" onClick={props.clickHandler}>
         <i className={props.icon}></i><span>{props.name}</span>
-      </a>
+      </Link>
     </li>
   );
 

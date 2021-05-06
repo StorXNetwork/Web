@@ -334,7 +334,7 @@ class Login extends React.Component<LoginProps> {
 
       return (
         // <React.Suspense fallback={<h1>Loading.........</h1>}>
-        <div className="wrapper">
+        // <div className="wrapper">
           <section className="login-content">
             <div className="container h-100">
               <div className="row justify-content-center align-items-center">
@@ -461,7 +461,7 @@ class Login extends React.Component<LoginProps> {
               </div>
             </div>
           </section>
-        </div>
+        // </div>
         // </React.Suspense>
       );
 
@@ -616,49 +616,126 @@ class Login extends React.Component<LoginProps> {
       // );
 
       return (
-        <div className="login-main">
-          <Container className="login-container-box">
-            <div className="container-register">
-              <p className="container-title">Security Verification</p>
-              <p className="privacy-disclaimer">
-                Enter your 6 digit authenticator code below
-              </p>
-              <Form
-                className="form-register container-register two-factor"
-                onSubmit={(e: any) => {
-                  e.preventDefault();
-                  this.doLogin();
-                }}
-              >
-                <Form.Row>
-                  <Form.Group as={Col} controlId="twoFactorCode">
-                    <Form.Control
-                      placeholder="Authentication code"
-                      required
-                      type="text"
-                      name="two-factor"
-                      autoComplete="off"
-                      value={this.state.twoFactorCode}
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row className="form-register-submit">
-                  <Form.Group as={Col}>
-                    <Button
-                      className="on btn-block __btn-new-button"
-                      disabled={!isValid}
-                      type="submit"
-                    >
-                      Sign in
-                    </Button>
-                  </Form.Group>
-                </Form.Row>
-              </Form>
+        <section className="login-content">
+          <div className="container h-100">
+            <div className="row justify-content-center align-items-center">
+              <div className="col-lg-10">
+                <div className="login-content-wrapper">
+                  <div className="row justify-content-center align-items-center">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
+                      <div className="sign-user_card">
+                        <img
+                          src={logo}
+                          className="img-fluid rounded-normal light-logo logo"
+                          alt="logo"
+                        />
+                        <h5 className="mb-4">Security Verification</h5>
+                        <Form onSubmit={(e: any) => {
+                          e.preventDefault();
+                          this.doLogin();
+                        }}>
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="floating-label form-group">
+                                <input
+                                  className="floating-input form-control"
+                                  type="text"
+                                  id="twoFactorCode"
+                                  placeholder=" "
+                                  required
+                                  name="two-factor"
+                                  autoComplete="off"
+                                  value={this.state.twoFactorCode}
+                                  onChange={this.handleChange}
+
+                                />
+                                <label>Authentication Code</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="btn-block">
+                            <button
+                              type="submit"
+                              disabled={!isValid}
+                              className="btn btn-block btn-primary"
+                            >
+                              Sign In
+                            </button>
+                          </div>
+                        </Form>
+                      </div>
+                    </div>
+                    <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+                      <div className="sign-image_card">
+                        <h4 className="font-weight-bold text-white mb-3">
+                          Truly Decentralized Cloud Storage
+                        </h4>
+                        <p>
+                          StorX helps you securely encrypt, fragment and then
+                          distribute important data across multiple hosting
+                          nodes spread worldwide.
+                        </p>
+                        <div>
+                          <img
+                            src={loginLogo}
+                            className="img-fluid rounded-normal"
+                            alt="Truly Decentralized Cloud Storage"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </Container>
-        </div>
+          </div>
+        </section>
       );
+
+      // return (
+      //   <div className="login-main">
+      //     <Container className="login-container-box">
+      //       <div className="container-register">
+      //         <p className="container-title">Security Verification</p>
+      //         <p className="privacy-disclaimer">
+      //           Enter your 6 digit authenticator code below
+      //         </p>
+      //         <Form
+      //           className="form-register container-register two-factor"
+      //           onSubmit={(e: any) => {
+      //             e.preventDefault();
+      //             this.doLogin();
+      //           }}
+      //         >
+      //           <Form.Row>
+      //             <Form.Group as={Col} controlId="twoFactorCode">
+      //               <Form.Control
+      //                 placeholder="Authentication code"
+      //                 required
+      //                 type="text"
+      //                 name="two-factor"
+      //                 autoComplete="off"
+      //                 value={this.state.twoFactorCode}
+      //                 onChange={this.handleChange}
+      //               />
+      //             </Form.Group>
+      //           </Form.Row>
+      //           <Form.Row className="form-register-submit">
+      //             <Form.Group as={Col}>
+      //               <Button
+      //                 className="on btn-block __btn-new-button"
+      //                 disabled={!isValid}
+      //                 type="submit"
+      //               >
+      //                 Sign in
+      //               </Button>
+      //             </Form.Group>
+      //           </Form.Row>
+      //         </Form>
+      //       </div>
+      //     </Container>
+      //   </div>
+      // );
     }
   }
 }

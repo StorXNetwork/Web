@@ -132,6 +132,7 @@ class New extends React.Component<NewProps, NewState> {
 
     registerState[event.target.id] = event.target.value;
     this.setState({ register: registerState });
+    console.log('...........', this.state, event);
   };
 
   validateEmail = (email: string) => {
@@ -890,7 +891,7 @@ class New extends React.Component<NewProps, NewState> {
                                 required
                                 placeholder=" "
                                 autoComplete="new-password"
-                                onChange={(e) => this.setState({  })}
+                                onChange={this.handleChangeRegister}
                                 autoFocus
                               />
                               <label>Password</label>
@@ -899,13 +900,13 @@ class New extends React.Component<NewProps, NewState> {
                           <div className="col-lg-12">
                             <div className="floating-label form-group">
                               <input
-                                id="confirmPassword"
                                 className="floating-input form-control"
                                 type="password"
+                                id="confirmPassword"
                                 required
                                 placeholder=" "
                                 autoComplete="confirm-password"
-                                onChange={(e) => this.setState({ })}
+                                onChange={this.handleChangeRegister}
                               />
                               <label>Confirm Password</label>
                             </div>
@@ -1127,7 +1128,7 @@ class New extends React.Component<NewProps, NewState> {
           <p className="forgotPassword"></p>
         </Container>
       </div> */}
-        <div className="wrapper">
+        {/* <div className="wrapper"> */}
           {this.state.currentContainer === CONTAINERS.RegisterContainer
             ? this.registerContainer()
             : ""}
@@ -1137,7 +1138,7 @@ class New extends React.Component<NewProps, NewState> {
           {this.state.currentContainer === CONTAINERS.PasswordContainer
             ? this.passwordContainer()
             : ""}
-        </div>
+        {/* </div> */}
       </>
     );
   }
