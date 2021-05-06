@@ -353,7 +353,7 @@ class FileCommanderItem extends React.Component {
               );
             }}
             onDoubleClick={(e) => {
-              if (e.target.className.includes('card-body')) {
+              // if (e.target.className.includes('card-body')) {
                 if (this.props.type == null) {
                   window.analytics.track("folder-opened", {
                     folder_name: this.state.itemName,
@@ -361,7 +361,7 @@ class FileCommanderItem extends React.Component {
                   });
                 }
                 this.itemClickHandler(e);
-              }
+              // }
             }}
             draggable={this.props.isDraggable}
             onDragStart={(e) => this.props.handleDragStart(e)}
