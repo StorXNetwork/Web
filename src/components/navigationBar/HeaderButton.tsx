@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 // import './HeaderButton.scss';
 
 interface HeaderButtonProps {
@@ -11,15 +11,21 @@ interface HeaderButtonProps {
 }
 
 const HeaderButton = (props: HeaderButtonProps) => {
-
   return (
     <li className={props.active}>
-      <Link onClick={props.clickHandler}>
-        <i className={props.icon}></i><span>{props.name}</span>
-      </Link>
+      {props.name == "Dashboard" ? (
+        <Link to="/app" onClick={props.clickHandler}>
+          <i className={props.icon}></i>
+          <span>{props.name}</span>
+        </Link>
+      ) : (
+        <a onClick={props.clickHandler}>
+          <i className={props.icon}></i>
+          <span>{props.name}</span>
+        </a>
+      )}
     </li>
   );
-
 
   // return (
   //   <div className="HeaderButton" onClick={props.clickHandler} style={{
