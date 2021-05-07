@@ -37,9 +37,14 @@ class FileCommander extends React.Component {
       namePath: this.props.namePath,
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
+      theme: false,
       treeSize: 0,
       isTeam: this.props.isTeam,
     };
+  }
+
+  componentDidMount() {
+    localStorage.setItem('theme', "dark");
   }
 
   componentDidUpdate(prevProps) {
@@ -362,27 +367,9 @@ class FileCommander extends React.Component {
     });
   };
 
-  // changeTheme() {
-  //   // // if (localStorage.getItem('theme') == "") {
-  //   //   localStorage.setItem('theme', "dark");
-  //   //   $("body").addClass("dark");
-  //   //   // return null;
-  //   // // }
-  //   // if (localStorage.getItem('theme') == "dark") {
-  //   //   localStorage.setItem('theme', "");
-  //   //   $("body").removeClass("dark");
-  //   //   return null;
-  //   // }
-  //   // this.state.theme ? localStorage.setItem('theme', "") : localStorage.setItem('theme', "dark");
-  //   // if (localStorage.getItem('theme') == "") {
-  //   //   $("body").toggleClass("");
-  //   // } else {
-  //   //   $("body").toggleClass("dark");
-  //   // }
-  //   // localStorage.getItem('theme') == "dark" ? $("body").toggleClass("dark") : "";
-  //   // localStorage.setItem('theme', "");
-  //   // $("body").toggleClass("dark");
-  // }
+  changeTheme() {
+    $('body').toggleClass('dark');
+  }
 
   render() {
     const list = this.state.currentCommanderItems || 0;
@@ -399,8 +386,8 @@ class FileCommander extends React.Component {
               <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
                 <i
                   className="ri-menu-line wrapper-menu"
-                  // onClick={() => $("body").addClass("sidebar-main")}
-                  onClick={() => this.setState({ theme: !this.state.theme })}
+                  onClick={() => $("body").addClass("sidebar-main")}
+                // onClick={() => this.setState({ theme: !this.state.theme })}
                 ></i>
                 <a className="header-logo">
                   <img
@@ -425,7 +412,7 @@ class FileCommander extends React.Component {
                           onChange={this.props.setSearchFunction}
                         />
                         <span className="search-replace"></span>
-                        <a className="search-link" >
+                        <a className="search-link">
                           <i className="ri-search-line"></i>
                         </a>
                       </label>
@@ -436,21 +423,23 @@ class FileCommander extends React.Component {
               <div className="d-flex align-items-center">
                 <div
                   className="change-mode"
-                  onChange={() => $("body").toggleClass("dark")}
+                  onChange={() => this.changeTheme()}
+                // onChange={() => $("body").toggleClass("dark")}
                 >
                   <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
-                    <div className="custom-switch-inner">
+                    <div className="custom-switch-inner"
+                    >
                       <p className="mb-0"></p>
                       <input
                         type="checkbox"
                         className="custom-control-input"
                         id="dark-mode"
-                        data-active="true"
+                      // data-active="true"
                       />
                       <label
                         className="custom-control-label"
                         htmlFor="dark-mode"
-                        data-mode="toggle"
+                      // data-mode="toggle"
                       >
                         <span className="switch-icon-left">
                           <i className="a-left ri-sun-line"></i>
@@ -537,7 +526,11 @@ class FileCommander extends React.Component {
                                 <i className="ri-money-dollar-circle-fill"></i>{" "}
                                 Business
                               </Link>
-                              <a href="https://storx.tech/support.html" target="_blank" className="iq-sub-card">
+                              <a
+                                href="https://storx.tech/support.html"
+                                target="_blank"
+                                className="iq-sub-card"
+                              >
                                 <i className="ri-mail-open-fill"></i>
                                 Community Support
                               </a>
@@ -554,7 +547,9 @@ class FileCommander extends React.Component {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <div className="caption bg-primary line-height"><i class="ri-user-3-fill"></i></div>
+                        <div className="caption bg-primary line-height">
+                          <i className="ri-user-3-fill"></i>
+                        </div>
                       </a>
                       <div
                         className="iq-sub-dropdown dropdown-menu"
@@ -577,7 +572,7 @@ class FileCommander extends React.Component {
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
-                                    <a >
+                                    <a>
                                       {user.name} {user.lastname}
                                     </a>
                                   </h5>
@@ -623,16 +618,21 @@ class FileCommander extends React.Component {
                       </div>
                     </div>
                     {
-                      <div
-                        class="dashboard1-info-back">
+                      <div className="dashboard1-info-back">
                         {this.state.namePath.length > 1 ? (
-                          <a href="#"
-                            onClick={this.props.handleFolderTraverseUp.bind(this)}
+                          <a
+                            href="#"
+                            onClick={this.props.handleFolderTraverseUp.bind(
+                              this
+                            )}
                             onDragOver={this.handleDragOverBackButton}
-                            onDrop={this.handleDropOverBackButton}>
-                            <i class="ri-arrow-left-s-line"></i>Back
+                            onDrop={this.handleDropOverBackButton}
+                          >
+                            <i className="ri-arrow-left-s-line"></i>Back
                           </a>
-                        ) : ""}
+                        ) : (
+                          ""
+                        )}
                       </div>
                     }
                   </div>
@@ -693,9 +693,7 @@ class FileCommander extends React.Component {
                           active
                         >
                           All Folders / Files
-                          <i
-                            className="ri-arrow-down-s-line ml-1"
-                          ></i>
+                          <i className="ri-arrow-down-s-line ml-1"></i>
                         </span>
                         <div
                           className="dropdown-menu dropdown-menu-right shadow-none"
@@ -703,15 +701,20 @@ class FileCommander extends React.Component {
                         >
                           <a
                             className="dropdown-item"
-
-                            onClick={() => this.sortItems(this.state.selectedSortType === SORT_TYPES.NAME_ASC ? SORT_TYPES.NAME_DESC : SORT_TYPES.NAME_ASC)}
+                            onClick={() =>
+                              this.sortItems(
+                                this.state.selectedSortType ===
+                                  SORT_TYPES.NAME_ASC
+                                  ? SORT_TYPES.NAME_DESC
+                                  : SORT_TYPES.NAME_ASC
+                              )
+                            }
                             onSelect={this.onSelect}
                           >
                             Name
                           </a>
                           <a
                             className="dropdown-item"
-
                             onClick={() => this.sortItems(SORT_TYPES.SIZE_ASC)}
                             onSelect={this.onSelect}
                           >
@@ -719,8 +722,9 @@ class FileCommander extends React.Component {
                           </a>
                           <a
                             className="dropdown-item"
-
-                            onClick={() => this.sortItems(SORT_TYPES.FILETYPE_ASC)}
+                            onClick={() =>
+                              this.sortItems(SORT_TYPES.FILETYPE_ASC)
+                            }
                             onSelect={this.onSelect}
                           >
                             File Type
