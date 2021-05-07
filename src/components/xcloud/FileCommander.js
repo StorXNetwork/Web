@@ -37,14 +37,10 @@ class FileCommander extends React.Component {
       namePath: this.props.namePath,
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
-      theme: false,
+      theme: localStorage.getItem('theme') || false,
       treeSize: 0,
       isTeam: this.props.isTeam,
     };
-  }
-
-  componentDidMount() {
-    localStorage.setItem('theme', "dark");
   }
 
   componentDidUpdate(prevProps) {
@@ -59,6 +55,9 @@ class FileCommander extends React.Component {
         isTeam: this.props.isTeam,
       });
     }
+    // if (this.state.theme != prevProps.theme) {
+    //   localStorage.setItem('theme', localStorage.getItem('theme'));
+    // }
   }
 
   sortItems = (sortType) => {
@@ -217,6 +216,14 @@ class FileCommander extends React.Component {
     return parseInt(size) <= 1024 * 1024 * 1200 ? true : false;
   };
 
+  // componentDidMount() {
+  //   if (localStorage.getItem('theme') == true) {
+  //     $('body').addClass('dark');
+  //   } else {
+  //     $('body').removeClass('dark');
+  //   }
+  // }
+
   handleDrop = (e, parentId = null) => {
     e.preventDefault();
     let items = e.dataTransfer.items;
@@ -368,7 +375,14 @@ class FileCommander extends React.Component {
   };
 
   changeTheme() {
+    // this.setState({ theme: !this.state.theme });
+    // if (this.state.theme) {
+    //   localStorage.setItem('theme', this.state.theme);
     $('body').toggleClass('dark');
+    // } else {
+    //   localStorage.setItem('theme', this.state.theme);
+    //   $('body').toggleClass('dark');
+    // }
   }
 
   render() {
@@ -377,6 +391,7 @@ class FileCommander extends React.Component {
     const folderLength = list.filter((e) => e.isFolder === true).length;
     const fileLength = list.filter((e) => !e.hasOwnProperty("isFolder")).length;
     const user = JSON.parse(localStorage.getItem("xUser"));
+    // localStorage.getItem('theme') == true ? $('body').addClass('dark') : $('body').removeClass('dark');
 
     return (
       <>
@@ -423,8 +438,8 @@ class FileCommander extends React.Component {
               <div className="d-flex align-items-center">
                 <div
                   className="change-mode"
-                  onChange={() => this.changeTheme()}
-                // onChange={() => $("body").toggleClass("dark")}
+                  // onClick={() => { this.changeTheme(); }}
+                onChange={() => $("body").toggleClass("dark")}
                 >
                   <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
                     <div className="custom-switch-inner"
@@ -518,14 +533,14 @@ class FileCommander extends React.Component {
                                 <i className="ri-shield-fill"></i>
                                 Security
                               </Link>
-                              <Link to="/invite" className="iq-sub-card">
+                              {/* <Link to="/invite" className="iq-sub-card">
                                 <i className="ri-user-follow-fill"></i>
                                 Referrals
                               </Link>
                               <Link to="/teams" className="iq-sub-card">
                                 <i className="ri-money-dollar-circle-fill"></i>{" "}
                                 Business
-                              </Link>
+                              </Link> */}
                               <a
                                 href="https://storx.tech/support.html"
                                 target="_blank"

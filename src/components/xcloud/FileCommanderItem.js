@@ -337,7 +337,7 @@ class FileCommanderItem extends React.Component {
       <>
         {this.props.rawItem.isFolder == true ? (
           <div
-            className={`card-body ${this.props.isSelected ? "selected" : ""}`}
+            className={`card-body text-center ${this.props.isSelected ? "selected" : ""}`}
             data-type={this.props.type}
             data-id={this.props.id}
             data-cloud-file-id={this.props.rawItem.id}
@@ -371,7 +371,7 @@ class FileCommanderItem extends React.Component {
             onDrop={this.handleDrop}
             onDragEnd={this.handleDragEnd}
           >
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-center mb-2">
               <a className="folder">
                 <div className="iconwrap icon-folder purple">
                   <div className="">
@@ -431,14 +431,14 @@ class FileCommanderItem extends React.Component {
                 <i className="lar la-clock text-primary mr-2 font-size-20"></i>
                 {moment(this.props.rawItem.createdAt).format("DD MMM, YYYY")}
               </p>
-              <p className="mb-0">
+              {/* <p className="mb-0">
                 <i className="lar la-clock text-primary mr-2 font-size-20"></i>
-                {/* {PrettySize(this.props.size)} */}
+                {PrettySize(this.props.size)}
               </p>
               <p className="mb-0">
                 <i className="lar la-clock text-primary mr-2 font-size-20"></i>
-                {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}
-              </p>
+                {this.props.created && this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}
+              </p> */}
             </a>
           </div>
         ) : (
@@ -449,9 +449,10 @@ class FileCommanderItem extends React.Component {
               "doc" ||
               "jpeg" ||
               "png" ||
+              "PNG" ||
               "jpg" ? (
               <div
-                className={`card-body image-thumb ${this.props.isSelected ? "selected" : ""
+                className={`card-body image-thumb text-center ${this.props.isSelected ? "selected" : ""
                   }`}
                 data-type={this.props.type}
                 data-id={this.props.id}
@@ -495,8 +496,7 @@ class FileCommanderItem extends React.Component {
                   data-target="#exampleModal"
                   className="folder"
                 >
-                  <div className="mb-4 text-center p-3 rounded iq-thumb">
-                    <div className="iq-image-overlay"></div>
+                  <div className="mb-3 text-center p-0 rounded iq-thumb">
                     <img
                       src={this.fileTypeDoc(this.props.type)}
                       className="img-fluid"
@@ -506,12 +506,12 @@ class FileCommanderItem extends React.Component {
                   <h6>
                     {this.props.name}.{this.props.type}
                   </h6>
-                  <p className="mb-2">
+                  {/* <p className="mb-2">
                     {moment(this.props.rawItem.createdAt).format(
                       "DD MMM, YYYY"
                     )}
-                  </p>
-                  <p className="mb-0">{PrettySize(this.props.size)}</p>
+                  </p> */}
+                  {/* <p className="mb-0">{PrettySize(this.props.size)}</p> */}
                   <p className="mb-0"> {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}</p>
                 </a>
               </div>

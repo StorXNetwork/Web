@@ -196,9 +196,9 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     });
   }
 
-  handleNavigationRemove() {
-    $('body').removeClass('sidebar-main');
-  }
+  // handleNavigationRemove() {
+  //   $('body').removeClass('sidebar-main');
+  // }
 
   render() {
     let user: any = null;
@@ -223,7 +223,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
             {/* <img src="assets/images/logo-white.png" className="img-fluid rounded-normal darkmode-logo" alt="logo" /> */}
           </a>
           <div className="iq-menu-bt-sidebar">
-            <i className="ri-close-line wrapper-menu" onClick={() => this.handleNavigationRemove()}></i>
+            <i className="ri-close-line wrapper-menu" onClick={() => $('body').removeClass('sidebar-main')}></i>
           </div>
         </div>
         <div className="data-scrollbar" data-scroll="1">

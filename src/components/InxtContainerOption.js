@@ -1,19 +1,28 @@
-import React from 'react';
-import { Card, Col } from 'react-bootstrap';
-import './InxtContainerOption.scss';
+import React from "react";
+import { Card, Col } from "react-bootstrap";
+import "./InxtContainerOption.scss";
 
-import CheckIcon from './../assets/check.svg';
+import CheckIcon from "./../assets/check.svg";
 
 class InxtContainerOption extends React.Component {
   render() {
-    return <Col className='InxtContainerOption' xs={12} md={4} sm={6}><Card>
-      <Card.Header onClick={this.props.onClick} style={{ background: this.props.style }}>
-        <div className="card-header-content">{this.props.header}</div>
-      </Card.Header>
-      <Card.Text>
-        {this.props.isChecked ? <img src={CheckIcon} alt="Current plan" /> : ''} {this.props.text}
-      </Card.Text>
-    </Card></Col>;
+    return (
+      <div className="card-body border text-center rounded">
+        <div>
+          <h3 className="mt-2 mb-2 display-5 font-weight-bolder">{this.props.header}</h3>
+        </div>
+        <h3 className="text-primary font-weight-bolder mt-5 mb-2">{this.props.text}</h3>
+      </div>
+    );
+    // <Col className='InxtContainerOption' xs={12} md={4} sm={6}><Card>
+    //   <Card.Header onClick={this.props.onClick} style={{ background: this.props.style }}>
+    //     <div className="card-header-content">{this.props.header}</div>
+    //   </Card.Header>
+    //   <Card.Text>
+    //     {this.props.isChecked ? <img src={CheckIcon} alt="Current plan" /> : ''} {this.props.text}
+    //   </Card.Text>
+    // </Card>
+    // </Col>;
   }
 }
 
