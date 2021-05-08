@@ -201,6 +201,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
   // }
 
   render() {
+    console.log('.........', window.location.pathname)
     let user: any = null;
     try {
       user = Settings.getUser();

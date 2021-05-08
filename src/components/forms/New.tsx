@@ -247,7 +247,7 @@ class New extends React.Component<NewProps, NewState> {
           return response.json().then((body) => {
             // Manage succesfull register
             const { token, user, uuid } = body;
-
+            toast.success('User Created');
             analytics.identify(uuid, {
               email: this.state.register.email,
               member_tier: "free",
@@ -290,7 +290,7 @@ class New extends React.Component<NewProps, NewState> {
           return response.json().then((body) => {
             // Manage account already exists (error 400)
             const { message } = body;
-
+            // history.push("/login");
             toast.warn(`"${message}"`);
             this.setState({ validated: false });
           });
@@ -1129,15 +1129,15 @@ class New extends React.Component<NewProps, NewState> {
         </Container>
       </div> */}
         {/* <div className="wrapper"> */}
-          {this.state.currentContainer === CONTAINERS.RegisterContainer
-            ? this.registerContainer()
-            : ""}
-          {this.state.currentContainer === CONTAINERS.PrivacyTermsContainer
-            ? this.privacyContainer()
-            : ""}
-          {this.state.currentContainer === CONTAINERS.PasswordContainer
-            ? this.passwordContainer()
-            : ""}
+        {this.state.currentContainer === CONTAINERS.RegisterContainer
+          ? this.registerContainer()
+          : ""}
+        {this.state.currentContainer === CONTAINERS.PrivacyTermsContainer
+          ? this.privacyContainer()
+          : ""}
+        {this.state.currentContainer === CONTAINERS.PasswordContainer
+          ? this.passwordContainer()
+          : ""}
         {/* </div> */}
       </>
     );

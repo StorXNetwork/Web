@@ -564,7 +564,7 @@ class Security extends React.Component {
 
   deactivation2FA() {
     return <div className="security-deactivation">
-      <div className="disable-description">Disable Google Authentication below</div>
+      <div className="disable-description mb-3">Disable Google Authentication below</div>
       <Form onSubmit={this.handleDeactivation}>
         <Form.Row>
           <Form.Group as={Col} controlId="deactivationPassword">

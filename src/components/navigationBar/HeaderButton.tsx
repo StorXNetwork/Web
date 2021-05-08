@@ -19,10 +19,10 @@ const HeaderButton = (props: HeaderButtonProps) => {
           <span>{props.name}</span>
         </Link>
       ) : (
-        <a onClick={props.clickHandler}>
+        <Link to={window.location.pathname == "/app" ? false : "/app"} onClick={props.clickHandler}>
           <i className={props.icon}></i>
           <span>{props.name}</span>
-        </a>
+        </Link>
       )}
     </li>
   );

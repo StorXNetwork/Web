@@ -144,33 +144,29 @@ class StoragePlans extends React.Component {
   }
 
   render() {
-    console.log("............", this.state);
     if (this.state.storageStep === 1) {
       return (
-        <div className="col-lg-3 col-sm-6">
-          <div className="card card-block card-stretch card-height blog pricing-details">
-              {this.state.productsLoading === 'error' ? 'There was an error loading the available plans: The server was unreachable. Please check your network connection and reload.' : ''}
-              {this.state.availableProducts ?
-                this.state.availableProducts.map((entry, i) => {
-                  return <InxtContainerOption
-                    key={'plan' + i}
-                    isChecked={this.props.currentPlan === entry.metadata.size_bytes * 1}
-                    header={entry.metadata.simple_name}
-                    onClick={(e) => {
-                      // Can't select the current product or lesser
-                      this.setState({ selectedProductToBuy: entry, storageStep: 2, plansLoading: true, availablePlans: null });
-                    }}
-                    text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>€{entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>} />;
-                })
-                : ''}
-              {/* <div className="pricing-header">
-                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">2 GB</h3>
-              </div>
-              <h3 className="text-primary font-weight-bolder mt-5 mb-2">
-                FREE
-              </h3> */}
-            {/* </div> */}
-          </div>
+        <div className="row m-0">
+          {this.state.productsLoading === 'error' ? 'There was an error loading the available plans: The server was unreachable. Please check your network connection and reload.' : ''}
+          {this.state.availableProducts ?
+            this.state.availableProducts.map((entry, i) => (<InxtContainerOption
+              key={'plan' + i}
+              isChecked={this.props.currentPlan === entry.metadata.size_bytes * 1}
+              header={entry.metadata.simple_name}
+              onClick={(e) => {
+                // Can't select the current product or lesser
+                this.setState({ selectedProductToBuy: entry, storageStep: 2, plansLoading: true, availablePlans: null });
+              }}
+              text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>€{entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>}
+            />))
+            : ''}
+          {/* <div className="pricing-header">
+                  <h3 className="mt-2 mb-2 display-5 font-weight-bolder">2 GB</h3>
+                  </div>
+                  <h3 className="text-primary font-weight-bolder mt-5 mb-2">
+                  FREE
+                </h3> */}
+          {/* </div> */}
         </div>
       );
 

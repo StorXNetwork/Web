@@ -1,6 +1,6 @@
 {
   "name": "drive-web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@mapbox/react-click-to-select": "^2.2.0",

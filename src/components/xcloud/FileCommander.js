@@ -30,14 +30,14 @@ const SORT_TYPES = {
 };
 
 class FileCommander extends React.Component {
-  constructor (props, state) {
+  constructor(props, state) {
     super(props, state);
     this.state = {
       currentCommanderItems: this.props.currentCommanderItems,
       namePath: this.props.namePath,
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
-      theme: localStorage.getItem('theme') || false,
+      theme: localStorage.getItem("theme") || false,
       treeSize: 0,
       isTeam: this.props.isTeam,
     };
@@ -250,7 +250,7 @@ class FileCommander extends React.Component {
                 );
               }
             })
-            .catch((err) => { });
+            .catch((err) => {});
         } else {
           nextItem();
         }
@@ -301,7 +301,7 @@ class FileCommander extends React.Component {
             .then(() => {
               resolve(this.state.treeSize);
             })
-            .catch(() => { });
+            .catch(() => {});
         });
       } else if (item.isDirectory) {
         let dirReader = item.createReader();
@@ -378,7 +378,7 @@ class FileCommander extends React.Component {
     // this.setState({ theme: !this.state.theme });
     // if (this.state.theme) {
     //   localStorage.setItem('theme', this.state.theme);
-    $('body').toggleClass('dark');
+    $("body").toggleClass("dark");
     // } else {
     //   localStorage.setItem('theme', this.state.theme);
     //   $('body').toggleClass('dark');
@@ -402,7 +402,7 @@ class FileCommander extends React.Component {
                 <i
                   className="ri-menu-line wrapper-menu"
                   onClick={() => $("body").addClass("sidebar-main")}
-                // onClick={() => this.setState({ theme: !this.state.theme })}
+                  // onClick={() => this.setState({ theme: !this.state.theme })}
                 ></i>
                 <a className="header-logo">
                   <img
@@ -439,22 +439,21 @@ class FileCommander extends React.Component {
                 <div
                   className="change-mode"
                   // onClick={() => { this.changeTheme(); }}
-                onChange={() => $("body").toggleClass("dark")}
+                  onChange={() => $("body").toggleClass("dark")}
                 >
                   <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
-                    <div className="custom-switch-inner"
-                    >
+                    <div className="custom-switch-inner">
                       <p className="mb-0"></p>
                       <input
                         type="checkbox"
                         className="custom-control-input"
                         id="dark-mode"
-                      // data-active="true"
+                        // data-active="true"
                       />
                       <label
                         className="custom-control-label"
                         htmlFor="dark-mode"
-                      // data-mode="toggle"
+                        // data-mode="toggle"
                       >
                         <span className="switch-icon-left">
                           <i className="a-left ri-sun-line"></i>
@@ -501,6 +500,7 @@ class FileCommander extends React.Component {
                               type="text"
                               className="text search-input font-size-12"
                               placeholder="type here to search..."
+                              onChange={this.props.setSearchFunction}
                             />
                             <a className="search-link">
                               <i className="las la-search"></i>
@@ -780,8 +780,8 @@ class FileCommander extends React.Component {
                           item.isFolder
                             ? this.props.openFolder.bind(null, item.id)
                             : item.onClick
-                              ? item.onClick
-                              : this.props.downloadFile.bind(null, item.fileId)
+                            ? item.onClick
+                            : this.props.downloadFile.bind(null, item.fileId)
                         }
                         selectHandler={this.props.selectItems}
                         isLoading={!!item.isLoading}

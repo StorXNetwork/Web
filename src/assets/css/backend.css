@@ -8427,10 +8427,16 @@ a.text-dark:hover {
   border: none;
 }
 .card-transparent .card-header:hover {
+  cursor: none;
   background: transparent !important;
+}
+.card .card-header:hover {
+  background: transparent !important;
+  cursor: none;
 }
 .card-header:hover {
   background: transparent !important;
+  cursor: none;
 }
 .card-transparent .card-header .header-title .card-title {
   margin-bottom: 0;

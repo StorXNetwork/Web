@@ -52,14 +52,13 @@ class XCloud extends React.Component {
   moveEvent = {};
 
   componentDidMount = () => {
-    // if (isMobile) {
-    //   if (isAndroid) {
-    //     // window.location.href = 'https://web.storx.io/mobileapp';
-    //     window.location.href = "";
-    //   } else if (isIOS) {
-    //     // window.location.href = 'https://web.storx.io/mobileapp';
-    //   }
-    // }
+    if (isMobile) {
+      if (isAndroid) {
+        window.location.href = 'https://web.storx.io/mobileapp';
+      } else if (isIOS) {
+        window.location.href = 'https://web.storx.io/mobileapp';
+      }
+    }
 
     // When user is not signed in, redirect to login
     if (!this.props.user || !this.props.isAuthenticated) {

@@ -361,7 +361,7 @@ class Storage extends React.Component {
                   </div>
                 </div>
               </div>
-              {/* <div className="col-lg-12">
+              <div className="col-lg-12">
                 <div className="card card-block card-stretch card-transparent">
                   <div className="card-header d-flex justify-content-between pb-0">
                     <div className="header-title">
@@ -369,7 +369,7 @@ class Storage extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
               <div className="col-lg-12">
                 <div className="pricing-custom-tab w-100">
                   <div className="tab-title-info position-relative">
@@ -382,11 +382,11 @@ class Storage extends React.Component {
                         <li className="nav-item">
                           {" "}
                           <a
-                            className="nav-link show"
+                            className="nav-link active"
                             data-toggle="pill"
                             href="#pricing-data1"
                             role="tab"
-                            aria-selected="false"
+                            aria-selected="true"
                           >
                             For Individual
                           </a>
@@ -399,11 +399,11 @@ class Storage extends React.Component {
                         <li className="nav-item">
                           {" "}
                           <a
-                            className="nav-link active"
+                            className="nav-link show"
                             data-toggle="pill"
                             href="#pricing-data2"
                             role="tab"
-                            aria-selected="true"
+                            aria-selected="false"
                           >
                             For Enterprise
                           </a>
@@ -412,10 +412,9 @@ class Storage extends React.Component {
                     </div>
                   </div>
                   <div className="pricing-content">
-                    <div id="pricing-data1" className="tab-pane fade">
-                      <div className="row m-0">
-                        <StoragePlans currentPlan={this.state.max} />
-                        {/* <div className="col-lg-3 col-sm-6">
+                    <div id="pricing-data1" className="tab-pane fade active show">
+                      <StoragePlans currentPlan={this.state.max} />
+                      {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
                               <div className="pricing-header">
@@ -489,11 +488,11 @@ class Storage extends React.Component {
                             </div>
                           </div>
                         </div> */}
-                      </div>
                     </div>
-                    <div id="pricing-data2" className="tab-pane fade active show">
+                    <div id="pricing-data2" className="tab-pane fade">
                       <div className="row m-0 d-flex">
-                        <div className="col-lg-3 col-sm-6">
+                        <h4 className="text-warning">For Enterprise Coming ...</h4>
+                        {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
                               <div className="pricing-header bg-primary text-white">
@@ -512,8 +511,8 @@ class Storage extends React.Component {
                               </a>
                             </div>
                           </div>
-                        </div>
-                        <div className="col-lg-3 col-sm-6">
+                        </div> */}
+                        {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
                               <div className="pricing-header bg-success text-white">
@@ -532,8 +531,8 @@ class Storage extends React.Component {
                               </a>
                             </div>
                           </div>
-                        </div>
-                        <div className="col-lg-3 col-sm-6">
+                        </div> */}
+                        {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
                               <div className="pricing-header bg-info text-white">
@@ -552,8 +551,8 @@ class Storage extends React.Component {
                               </a>
                             </div>
                           </div>
-                        </div>
-                        <div className="col-lg-3 col-sm-6">
+                        </div> */}
+                        {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
                               <div className="pricing-header bg-warning text-white">
@@ -573,7 +572,7 @@ class Storage extends React.Component {
                               </a>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
