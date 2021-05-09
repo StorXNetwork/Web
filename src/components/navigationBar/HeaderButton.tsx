@@ -14,7 +14,7 @@ const HeaderButton = (props: HeaderButtonProps) => {
   return (
     <li className={props.active}>
       {window.location.pathname == "/app" ? (
-        <a href="#" onClick={props.clickHandler}>
+        <a onClick={props.clickHandler}>
           <i className={props.icon}></i>
           <span>{props.name}</span>
         </a>

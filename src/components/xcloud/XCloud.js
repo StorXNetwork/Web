@@ -847,6 +847,7 @@ class XCloud extends React.Component {
               file_type: file.type,
               file_id: data.fileId,
             });
+            toast.success("Upload successfull")
           } catch (err) {
             console.log(err);
             window.analytics.track("file-upload-error", {
@@ -1070,22 +1071,23 @@ class XCloud extends React.Component {
       items = [items];
     }
 
-    this.state.currentCommanderItems.forEach((item) => {
-      const isTargetItem =
-        items.indexOf(item.id) !== -1 && item.isFolder === isFolder;
+    if (typeof items != "undefined") {
+      this.state.currentCommanderItems.forEach((item) => {
+        const isTargetItem =
+          items.indexOf(item.id) !== -1 && item.isFolder === isFolder;
 
-      if (isTargetItem) {
-        item.isSelected = !item.isSelected;
-      } else {
-        if (unselectOthers) {
-          item.isSelected = false;
+        if (isTargetItem) {
+          item.isSelected = !item.isSelected;
         } else {
-          item.isSelected = !!item.isSelected;
+          if (unselectOthers) {
+            item.isSelected = false;
+          } else {
+            item.isSelected = !!item.isSelected;
+          }
         }
-      }
-    });
-
-    this.setState({ currentCommanderItems: this.state.currentCommanderItems });
+      });
+      this.setState({ currentCommanderItems: this.state.currentCommanderItems });
+    } else toast.error("Something Wrong")
   };
 
   deselectAll() {
