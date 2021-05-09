@@ -185,7 +185,7 @@ class PopupShare extends React.Component<PopupShareProps> {
                 setTimeout(() => { this.setState({ animationCss: '' }); }, 1000);
               });
               if (this.state.link) {
-                copy('Hello,\nHow are things going? I’m using StorX Drive, a secure, simple, private and eco-friendly cloud storage service https://web.storx.io/drive\nI wanted to share a file with you through this direct secure link: ' + this.state.link + '');
+                copy(this.state.link);
               }
             }}>Copy</a>
           </div>

@@ -269,7 +269,7 @@ class Security extends React.Component {
                           <div className="card-body p-0 ">
                             <div className="p-3">
                               <Link to="/settings" className="iq-sub-card pt-0">
-                                <i className="ri-settings-3-line"></i>Settings
+                                <i className="ri-settings-3-line"></i>Update Password
                               </Link>
                               <Link to="/security" className="iq-sub-card">
                                 <i className="ri-shield-fill"></i>

@@ -196,10 +196,6 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     });
   }
 
-  // handleNavigationRemove() {
-  //   $('body').removeClass('sidebar-main');
-  // }
-
   render() {
     let user: any = null;
     try {

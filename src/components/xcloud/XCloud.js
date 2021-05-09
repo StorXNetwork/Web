@@ -777,14 +777,14 @@ class XCloud extends React.Component {
               .then((result) => {
                 const json = JSON.parse(result);
 
-                toast.warn(
-                  "Error downloading file:\n" +
-                  err.response.status +
-                  "\n" +
-                  json.message +
-                  "\nFile id: " +
-                  id
-                );
+                // toast.warn(
+                //   "Error downloading file:\n" +
+                //   err.response.status +
+                //   "\n" +
+                //   json.message +
+                //   "\nFile id: " +
+                //   id
+                // );
               })
               .catch((textErr) => {
                 toast.warn(
@@ -1039,6 +1039,7 @@ class XCloud extends React.Component {
       return (next) =>
         fetch(url, fetchOptions)
           .then(() => {
+            toast.success("Your file has been deleted Successfully")
             window.analytics.track(
               (v.isFolder ? "folder" : "file") + "-delete",
               {
@@ -1087,7 +1088,7 @@ class XCloud extends React.Component {
         }
       });
       this.setState({ currentCommanderItems: this.state.currentCommanderItems });
-    } else toast.error("Something Wrong")
+    } else toast.error("Wait for upload")
   };
 
   deselectAll() {

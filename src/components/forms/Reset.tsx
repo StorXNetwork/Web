@@ -291,7 +291,7 @@ class Reset extends React.Component<ResetProps> {
                           <div className="card-body p-0 ">
                             <div className="p-3">
                               <Link to="/settings" className="iq-sub-card pt-0">
-                                <i className="ri-settings-3-line"></i>Settings
+                                <i className="ri-settings-3-line"></i>Update Password
                               </Link>
                               <Link to="/security" className="iq-sub-card">
                                 <i className="ri-shield-fill"></i>
@@ -406,7 +406,7 @@ class Reset extends React.Component<ResetProps> {
                   <div className="row justify-content-center align-items-center">
                     <div className="col-lg-10 col-md-10 col-sm-12 col-12 align-self-center">
                       <div className="sign-user_card inside">
-                        <h5 className="mb-4 text-center">Change your password</h5>
+                        <h5 className="mb-4 text-center">Update Password</h5>
                         <Form
                           onSubmit={this.handleChangePassword}
                         >

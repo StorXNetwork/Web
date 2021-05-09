@@ -250,7 +250,7 @@ class FileCommander extends React.Component {
                 );
               }
             })
-            .catch((err) => {});
+            .catch((err) => { });
         } else {
           nextItem();
         }
@@ -301,7 +301,7 @@ class FileCommander extends React.Component {
             .then(() => {
               resolve(this.state.treeSize);
             })
-            .catch(() => {});
+            .catch(() => { });
         });
       } else if (item.isDirectory) {
         let dirReader = item.createReader();
@@ -374,6 +374,7 @@ class FileCommander extends React.Component {
     });
   };
 
+
   changeTheme() {
     // this.setState({ theme: !this.state.theme });
     // if (this.state.theme) {
@@ -386,6 +387,7 @@ class FileCommander extends React.Component {
   }
 
   render() {
+
     const list = this.state.currentCommanderItems || 0;
     const inRoot = this.state.namePath.length === 1;
     const folderLength = list.filter((e) => e.isFolder === true).length;
@@ -402,7 +404,7 @@ class FileCommander extends React.Component {
                 <i
                   className="ri-menu-line wrapper-menu"
                   onClick={() => $("body").addClass("sidebar-main")}
-                  // onClick={() => this.setState({ theme: !this.state.theme })}
+                // onClick={() => this.setState({ theme: !this.state.theme })}
                 ></i>
                 <a className="header-logo">
                   <img
@@ -448,12 +450,12 @@ class FileCommander extends React.Component {
                         type="checkbox"
                         className="custom-control-input"
                         id="dark-mode"
-                        // data-active="true"
+                      // data-active="true"
                       />
                       <label
                         className="custom-control-label"
                         htmlFor="dark-mode"
-                        // data-mode="toggle"
+                      // data-mode="toggle"
                       >
                         <span className="switch-icon-left">
                           <i className="a-left ri-sun-line"></i>
@@ -527,7 +529,7 @@ class FileCommander extends React.Component {
                           <div className="card-body p-0 ">
                             <div className="p-3">
                               <Link to="/settings" className="iq-sub-card pt-0">
-                                <i className="ri-settings-3-line"></i>Settings
+                                <i className="ri-settings-3-line"></i>Update Password
                               </Link>
                               <Link to="/security" className="iq-sub-card">
                                 <i className="ri-shield-fill"></i>
@@ -780,8 +782,8 @@ class FileCommander extends React.Component {
                           item.isFolder
                             ? this.props.openFolder.bind(null, item.id)
                             : item.onClick
-                            ? item.onClick
-                            : this.props.downloadFile.bind(null, item.fileId)
+                              ? item.onClick
+                              : this.props.downloadFile.bind(null, item.fileId)
                         }
                         selectHandler={this.props.selectItems}
                         isLoading={!!item.isLoading}

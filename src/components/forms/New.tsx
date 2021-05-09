@@ -247,7 +247,7 @@ class New extends React.Component<NewProps, NewState> {
           return response.json().then((body) => {
             // Manage succesfull register
             const { token, user, uuid } = body;
-            toast.success('User Created');
+            toast.success('Your account has been created successfully. Please check your mailbox for activation.');
             analytics.identify(uuid, {
               email: this.state.register.email,
               member_tier: "free",
@@ -258,6 +258,7 @@ class New extends React.Component<NewProps, NewState> {
                 email: this.state.register.email,
               },
             });
+            // history.push("/login");
 
             const privkeyDecrypted = Buffer.from(
               AesFunctions.decrypt(
