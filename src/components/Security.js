@@ -20,7 +20,7 @@ import Settings from '../lib/settings';
 
 class Security extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       currentStep: 1,
@@ -33,7 +33,9 @@ class Security extends React.Component {
       checkCode: '',
       deactivationPassword: '',
       deactivationCode: '',
-      passwordSalt: ''
+      passwordSalt: '',
+      dropdown: false,
+      profiledown: false
     };
 
     // Functions to be used inside sub-views
@@ -251,9 +253,10 @@ class Security extends React.Component {
                         </form>
                       </div>
                     </li>
-                    <li className="nav-item nav-icon dropdown">
+                    <li className={`nav-item nav-icon dropdown ${this.state.dropdown == true ? "show" : ""}`}>
                       <a
                         className="search-toggle dropdown-toggle"
+                        onClick={() => this.setState({ dropdown: !this.state.dropdown })}
                         id="dropdownMenuButton02"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -262,7 +265,7 @@ class Security extends React.Component {
                         <i className="ri-settings-3-line"></i>
                       </a>
                       <div
-                        className="iq-sub-dropdown dropdown-menu"
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.dropdown == true ? "show" : ""}`}
                         aria-labelledby="dropdownMenuButton02"
                       >
                         <div className="card shadow-none m-0">
@@ -296,20 +299,21 @@ class Security extends React.Component {
                         </div>
                       </div>
                     </li>
-                    <li className="nav-item nav-icon dropdown caption-content">
+                    <li className={`nav-item nav-icon dropdown caption-content ${this.state.profiledown == true ? "show" : ""}`}>
                       <a
                         className="search-toggle dropdown-toggle"
                         id="dropdownMenuButton03"
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
+                        onClick={() => this.setState({ profiledown: !this.state.profiledown })}
                       >
                         <div className="caption bg-primary line-height">
                           <i className="ri-user-3-fill"></i>
                         </div>
                       </a>
                       <div
-                        className="iq-sub-dropdown dropdown-menu"
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.profiledown == true ? "show" : ""}`}
                         aria-labelledby="dropdownMenuButton03"
                       >
                         <div className="card mb-0">
