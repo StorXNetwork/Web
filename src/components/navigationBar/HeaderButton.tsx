@@ -13,13 +13,13 @@ interface HeaderButtonProps {
 const HeaderButton = (props: HeaderButtonProps) => {
   return (
     <li className={props.active}>
-      {props.name == "Dashboard" ? (
-        <Link to="/app" onClick={props.clickHandler}>
+      {window.location.pathname == "/app" ? (
+        <a href="#" onClick={props.clickHandler}>
           <i className={props.icon}></i>
           <span>{props.name}</span>
-        </Link>
+        </a>
       ) : (
-        <Link to={window.location.pathname == "/app" ? false : "/app"} onClick={props.clickHandler}>
+        <Link to="/app" onClick={props.clickHandler}>
           <i className={props.icon}></i>
           <span>{props.name}</span>
         </Link>

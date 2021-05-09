@@ -12,7 +12,7 @@ import Deactivation from "./components/forms/Deactivation";
 import Share from "./components/forms/Share";
 import Reset from "./components/forms/Reset";
 // import Storage from "./components/Storage";
-import Security from "./components/Security";
+// import Security from "./components/Security";
 import { ToastContainer } from "react-toastify";
 import Checkout from "./components/Checkout";
 import Referred from "./components/Referred";
@@ -31,6 +31,7 @@ const Login = lazy(() => import("./components/forms/Login"));
 const Remove = lazy(() => import("./components/forms/Remove"));
 const New = lazy(() => import("./components/forms/New"));
 const XCloud = lazy(() => import("./components/xcloud/XCloud"));
+const Security = lazy(() => import("./components/Security"));
 
 class App extends React.Component {
   state = {

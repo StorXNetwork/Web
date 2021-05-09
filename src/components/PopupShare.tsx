@@ -1,9 +1,16 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
-import './PopupShare.scss';
+// import './PopupShare.scss';
 import history from '../lib/history';
 import ClickToSelect from '@mapbox/react-click-to-select';
-
+import PDF from "../../src/assets/images/layouts/file-icons/pdf.png";
+import DOC from "../../src/assets/images/layouts/file-icons/doc.png";
+import XLSX from "../../src/assets/images/layouts/file-icons/xlsx.png";
+import ZIP from "../../src/assets/images/layouts/file-icons/zip.png";
+import PPT from "../../src/assets/images/layouts/file-icons/ppt.png";
+import IMG from "../../src/assets/images/layouts/file-icons/img.png";
+import EXE from "../../src/assets/images/layouts/file-icons/exe.png";
+import FILE from "../../src/assets/images/layouts/file-icons/file.png";
 import CloseIcon from '../assets/Dashboard-Icons/close-tab.svg';
 import FolderBlueIcon from '../assets/Folders/Folder-Blue.svg';
 
@@ -100,24 +107,47 @@ class PopupShare extends React.Component<PopupShareProps> {
     });
   }
 
+  fileTypeDoc = (type) => {
+    switch (type) {
+      case "pdf":
+        return PDF;
+      case "doc":
+        return DOC;
+      case "xlsx":
+        return XLSX;
+      case "ppt":
+        return PPT;
+      case "zip":
+        return ZIP;
+      case "exe":
+        return EXE;
+      case "png":
+      case "jpeg":
+      case "jpg":
+        return IMG;
+      default:
+        return FILE;
+    }
+  };
+
   render() {
     const fileType = this.props.item.isFolder ? '' : this.props.item.type.toUpperCase();
     const fileName = this.props.item.isFolder ? this.props.item.name : `${this.props.item.name}.${this.props.item.type}`;
-
     return <Popup open={this.props.open} onClose={this.props.onClose}>
       <div className="ShareContainer">
 
         <div className="ShareHeader">
-          <div>
+          {this.props.item.isFolder ? <img src={FolderBlueIcon} className="Folder" alt="Folder" /> : <img src={this.fileTypeDoc(this.props.item.type)} />}
+          {/* <div>
             <div className={this.props.item.isFolder ? 'Icon-image' : 'Icon'}>
               {
                 this.props.item.isFolder ?
                   <img src={FolderBlueIcon} className="Folder" alt="Folder" />
-                  : <div className="Extension">{fileType}</div>
+                  : <img src={this.fileTypeDoc(this.props.item.type)} />
+                // <div className="Extension">{fileType}</div>
               }
-
             </div>
-          </div>
+          </div> */}
           <div className="ShareName"><p>{fileName}</p></div>
           <div className="ShareClose"><img src={CloseIcon} onClick={e => { this.props.onClose(); }} alt="Close" /></div>
         </div>

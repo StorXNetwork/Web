@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import NavigationBar from "./navigationBar/NavigationBar";
 import PayMethods from "./PayMethods";
 import $ from "jquery";
@@ -8,7 +8,7 @@ import Logo from "../../src/assets/images/logo.png";
 import InxtContainer from "./InxtContainer";
 import "./Plans.css";
 import StorageProgressBar from "./StorageProgressBar";
-import StoragePlans from "./StoragePlans";
+// import StoragePlans from "./StoragePlans";
 import PrettySize from "prettysize";
 
 import Circle from "./Circle";
@@ -24,6 +24,7 @@ import { getUserData } from "../lib/analytics";
 import { Link } from "react-router-dom";
 import Settings from "../lib/settings";
 import customPrettySize from "../lib/sizer";
+const StoragePlans = lazy(() => import("./StoragePlans"));
 
 class Storage extends React.Component {
   state = {
@@ -88,7 +89,6 @@ class Storage extends React.Component {
 
   render() {
     const user = JSON.parse(localStorage.getItem("xUser"));
-    // console.log('...........', this.props, '**********', this.state);
     return (
       <div className="settings">
         <NavigationBar showSettingsButton={true} />
@@ -413,7 +413,9 @@ class Storage extends React.Component {
                   </div>
                   <div className="pricing-content">
                     <div id="pricing-data1" className="tab-pane fade active show">
-                      <StoragePlans currentPlan={this.state.max} />
+                      <Suspense fallback={<h3 className="text-warning">Loading.....</h3>}>
+                        <StoragePlans currentPlan={this.state.max} />
+                      </Suspense>
                       {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">

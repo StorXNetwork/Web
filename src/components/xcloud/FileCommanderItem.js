@@ -26,7 +26,7 @@ import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
 class FileCommanderItem extends React.Component {
-  constructor (props, state) {
+  constructor(props, state) {
     super(props, state);
     this.state = {
       dragDropStyle: "",
@@ -304,6 +304,8 @@ class FileCommanderItem extends React.Component {
         return PPT;
       case "zip":
         return ZIP;
+      case "exe":
+        return EXE;
       case "png":
       case "jpeg":
       case "jpg":
