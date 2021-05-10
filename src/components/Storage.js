@@ -496,7 +496,7 @@ class Storage extends React.Component {
                     </div>
                     <div id="pricing-data2" className="tab-pane fade">
                       <div className="row m-0 d-flex">
-                        <h4 className="text-warning">For Enterprise Coming ...</h4>
+                        <h4 className="text-warning">For Enterprise Coming Soon ...</h4>
                         {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
