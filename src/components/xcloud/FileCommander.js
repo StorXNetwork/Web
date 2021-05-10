@@ -538,11 +538,11 @@ class FileCommander extends React.Component {
                                 <i className="ri-shield-fill"></i>
                                 Enable 2FA
                               </Link>
-                              {/* <Link to="/invite" className="iq-sub-card">
+                              <Link to="/invite" className="iq-sub-card">
                                 <i className="ri-user-follow-fill"></i>
                                 Referrals
                               </Link>
-                              <Link to="/teams" className="iq-sub-card">
+                              {/* <Link to="/teams" className="iq-sub-card">
                                 <i className="ri-money-dollar-circle-fill"></i>{" "}
                                 Business
                               </Link> */}

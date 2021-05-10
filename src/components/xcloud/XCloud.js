@@ -270,6 +270,7 @@ class XCloud extends React.Component {
 
             throw body.error ? body.error : "createFolder error";
           }
+          toast.success(`${folderName} created successful`);
           window.analytics.track("folder-created", {
             email: getUserData().email,
             platform: "web",
@@ -847,7 +848,7 @@ class XCloud extends React.Component {
               file_type: file.type,
               file_id: data.fileId,
             });
-            toast.success("Upload successfull")
+            toast.success("Upload successfull");
           } catch (err) {
             console.log(err);
             window.analytics.track("file-upload-error", {
@@ -1039,7 +1040,7 @@ class XCloud extends React.Component {
       return (next) =>
         fetch(url, fetchOptions)
           .then(() => {
-            toast.success("Your file has been deleted Successfully")
+            toast.success(`Your ${v.isFolder ? "folder" : "file"} has been deleted Successfully`);
             window.analytics.track(
               (v.isFolder ? "folder" : "file") + "-delete",
               {
@@ -1088,7 +1089,7 @@ class XCloud extends React.Component {
         }
       });
       this.setState({ currentCommanderItems: this.state.currentCommanderItems });
-    } else toast.error("Wait for upload")
+    } else toast.error("Wait for upload");
   };
 
   deselectAll() {
