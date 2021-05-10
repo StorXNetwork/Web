@@ -83,6 +83,7 @@ class Referred extends React.Component {
   };
 
   handleEmailChange = (event) => {
+    console.log('............', event.target.value);
     this.setState({
       email: event.target.value
     });
@@ -407,7 +408,7 @@ class Referred extends React.Component {
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} class="img-fluid" />
                     </div>
-                    <h4 className="text-center mb-0">{`€${this.state.credit}`}</h4>
+                    <h4 className="text-center mb-0">€${this.state.credit}</h4>
                   </div>
                 </div>
               </div>
@@ -421,7 +422,7 @@ class Referred extends React.Component {
                   </div>
                   <div className="card-body">
                     <div className="new-user-info">
-                      <form>
+                      {/* <form> */}
                         <div className="row">
                           <div className="col-lg-10">
                             <p className="pb-3 m-0">Insert your friends email address and send
@@ -433,8 +434,8 @@ class Referred extends React.Component {
                                 onClick={() => {
                                   const mail = this.state.email;
                                   if (mail !== undefined && this.validateEmail(mail)) {
-                                    this.setState({ email: '' });
                                     this.sendInvitationEmail(mail);
+                                    this.setState({ email: '' });
                                   } else {
                                     toast.warn('Please, enter a valid email before sending out the invite');
                                   }
@@ -494,7 +495,7 @@ class Referred extends React.Component {
                             >Claim Now</button>
                           </div>
                         </div>
-                      </form>
+                      {/* </form> */}
                     </div>
                   </div>
                 </div>
