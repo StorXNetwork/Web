@@ -37,7 +37,7 @@ class FileCommander extends React.Component {
       namePath: this.props.namePath,
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
-      theme: localStorage.getItem("theme") || false,
+      // theme: localStorage.getItem("theme") == "" ? false : true,
       treeSize: 0,
       isTeam: this.props.isTeam,
       dropdown: false,
@@ -377,16 +377,20 @@ class FileCommander extends React.Component {
   };
 
 
-  changeTheme() {
-    // this.setState({ theme: !this.state.theme });
-    // if (this.state.theme) {
-    //   localStorage.setItem('theme', this.state.theme);
-    $("body").toggleClass("dark");
-    // } else {
-    //   localStorage.setItem('theme', this.state.theme);
-    //   $('body').toggleClass('dark');
-    // }
-  }
+  // changeTheme() {
+  //   this.setState({ theme: !this.state.theme });
+  //   console.log('*************', this.state.theme);
+  //   if (this.state.theme == true) {
+  //      localStorage.setItem('theme', true);
+  //   }
+  //   if (this.state.theme == false ) {
+  //      localStorage.setItem('theme', false);
+  //   }
+  //   if (localStorage.getItem('theme') == true) {
+  //     $('body').toggleClass('dark');
+  //   }
+  //   else $('body').toggleClass('dark');
+  // }
 
   render() {
 
@@ -442,7 +446,7 @@ class FileCommander extends React.Component {
               <div className="d-flex align-items-center">
                 <div
                   className="change-mode"
-                  // onClick={() => { this.changeTheme(); }}
+                  // onClick={() => this.changeTheme()}
                   onChange={() => $("body").toggleClass("dark")}
                 >
                   <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
@@ -452,12 +456,12 @@ class FileCommander extends React.Component {
                         type="checkbox"
                         className="custom-control-input"
                         id="dark-mode"
-                      // data-active="true"
+                        data-active="true"
                       />
                       <label
                         className="custom-control-label"
                         htmlFor="dark-mode"
-                      // data-mode="toggle"
+                        data-mode="toggle"
                       >
                         <span className="switch-icon-left">
                           <i className="a-left ri-sun-line"></i>

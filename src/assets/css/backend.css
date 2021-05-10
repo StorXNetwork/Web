@@ -8931,7 +8931,7 @@ a.text-dark:hover {
 .iq-top-navbar .iq-sub-dropdown {
   width: 250px;
   height: auto;
-  position: absolute;
+  position: absolute !important;
   top: 100%;
   right: 0;
   left: auto;
@@ -17245,7 +17245,7 @@ ul.iq-contact-rest li a p {
 .dark label,
 .dark p,
 .dark span {
-  color: #a6a6a6;
+  color: #a6a6a6 !important;
 }
 .dark .btn span {
   color: inherit;
@@ -17269,7 +17269,7 @@ ul.iq-contact-rest li a p {
 .dark span.btn-outline-primary,
 .dark span.btn-outline-success,
 .dark span.btn-outline-warning {
-  color: #fff;
+  color: #fff !important;
 }
 .dark .border.border-danger,
 .dark .border.border-info,
@@ -17919,6 +17919,27 @@ ul.iq-contact-rest li a p {
 .dark .crm-p-image {
   border: 5px solid #27272a;
 }
+
+
+.dark .login-content .sign-user_card.inside {
+	background-color: #121212;
+	transition: all .3s ease-in-out;
+}
+.dark .iq-progress-bar {
+	background: #343438;
+}
+.dark .security-button-block button {
+    background-color: #343438;
+}
+.dark .security-button-block button span.number {
+    background-color: #1d1d1f;
+}
+.dark .btn-secondary {
+    color: #FFFFFF !important;
+}
+
+
+
 @media (min-width: 1300px) {
   .dark .white-bg-menu {
     background: #121212;

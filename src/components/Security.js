@@ -462,7 +462,7 @@ class Security extends React.Component {
         <img src={this.state.bidi} alt="Bidi Code" />
         <div className="code-container">
           <div className="text-code-container font-weight-medium mb-2">{this.state.code}</div>
-          <div className="desc-code-container">If you are unable to scan the QR code enter this code into the app.</div>
+          <div className="desc-code-container mt-3">If you are unable to scan the QR code enter this code into the app.</div>
         </div>
       </div>
     </div>;

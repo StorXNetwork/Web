@@ -4,7 +4,7 @@ import PayMethods from './PayMethods';
 // import './Storage.scss';
 import history from '../lib/history';
 import InxtContainer from './InxtContainer';
-import './Plans.css';
+// import './Plans.css';
 import StorageProgressBar from './StorageProgressBar';
 import StoragePlans from './StoragePlans';
 

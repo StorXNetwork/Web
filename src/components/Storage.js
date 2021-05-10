@@ -6,7 +6,7 @@ import $ from "jquery";
 import history from "../lib/history";
 import Logo from "../../src/assets/images/logo.png";
 import InxtContainer from "./InxtContainer";
-import "./Plans.css";
+// import "./Plans.css";
 import StorageProgressBar from "./StorageProgressBar";
 // import StoragePlans from "./StoragePlans";
 import PrettySize from "prettysize";

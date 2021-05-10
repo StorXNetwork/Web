@@ -264,7 +264,10 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
             <p>{customPrettySize(this.state.barUsage)} / {customPrettySize(this.state.barLimit)}</p>
             <div className="iq-progress-bar mb-3">
               <span className="bg-primary iq-progress progress-1" data-percent={(this.state.barUsage * 100) / this.state.barLimit}
-                style={{ width: `${(this.state.barUsage * 100) / this.state.barLimit}%` }}
+                style={{
+                  width: `${(this.state.barUsage * 100) / this.state.barLimit}%`,
+                  transition: `width 2s ease 0s`
+                }}
               >
               </span>
             </div>
