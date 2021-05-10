@@ -54,21 +54,21 @@ class Activation extends React.Component<ActivationProps & RouteProps, Activatio
   }
 
   redirect = () => {
-    if (isMobile) {
-      if (isAndroid) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      } else if (isIOS) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      }
-    } else {
-      if (this.state.isActivated) {
-        toast.info('Your account has been activated successfully!', { className: 'xcloud-toast-info' });
-      } else {
-        toast.warn('Invalid activation code');
-        toast.warn('Your activation code is invalid. Maybe you have used this link before and your account is already activated.');
-      }
-      history.push('/');
-    }
+    // if (isMobile) {
+    //   if (isAndroid) {
+    //     window.location.href = 'https://web.storx.io/mobileapp';
+    //   } else if (isIOS) {
+    //     window.location.href = 'https://web.storx.io/mobileapp';
+    //   }
+    // } else {
+    //   if (this.state.isActivated) {
+    //     toast.info('Your account has been activated successfully!', { className: 'xcloud-toast-info' });
+    //   } else {
+    //     toast.warn('Invalid activation code');
+    //     toast.warn('Your activation code is invalid. Maybe you have used this link before and your account is already activated.');
+    //   }
+    //   history.push('/');
+    // }
   };
 
   render() {

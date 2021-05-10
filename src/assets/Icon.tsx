@@ -52,7 +52,7 @@ import Repeat from './Dashboard-Icons/Repeat';
 import Search from './Dashboard-Icons/Search';
 import Share from './Dashboard-Icons/Share';
 import Upload from './Dashboard-Icons/Upload';
-import Uploading from './Dashboard-Icons/Uploading';
+// import Uploading from './Dashboard-Icons/Uploading';
 
 const defaultColors = {
   'blue'      :   '#688DC4',
@@ -173,8 +173,8 @@ class Icon extends React.Component<IconProps> {
         return <Share defaultColors={defaultColors} {...this.props} />;
       case 'upload':
         return <Upload defaultColors={defaultColors} {...this.props} />;
-      case 'uploading':
-        return <Uploading defaultColors={defaultColors} {...this.props} />;
+      // case 'uploading':
+      //   return <Uploading defaultColors={defaultColors} {...this.props} />;
       default:
         return;
     }

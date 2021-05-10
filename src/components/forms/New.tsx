@@ -132,7 +132,6 @@ class New extends React.Component<NewProps, NewState> {
 
     registerState[event.target.id] = event.target.value;
     this.setState({ register: registerState });
-    console.log('...........', this.state, event);
   };
 
   validateEmail = (email: string) => {
@@ -143,51 +142,62 @@ class New extends React.Component<NewProps, NewState> {
   };
 
   validateRegisterFormPart1 = () => {
-    let isValid = true;
+    let isValid = false;
+    const regexFullName = /^([a-zA-Z]{2,})(\s?[a-zA-Z]+)?$/;
 
     if (
-      !this.state.register.name ||
-      !this.state.register.lastname ||
-      !this.state.register.email
-    ) {
-      return false;
+      regexFullName.test(this.state.register.name) &&
+      regexFullName.test(this.state.register.lastname) &&
+      this.validateEmail(this.state.register.email)) {
+      isValid = true;
     }
-
-    // Name lenght check
-    if (
-      this.state.register.name.length < 1 &&
-      this.state.register.lastname.length < 1
-    ) {
-      isValid = false;
-    }
-    // Email length check and validation
-    if (
-      this.state.register.email.length < 5 ||
-      !this.validateEmail(this.state.register.email)
-    ) {
+    else {
       isValid = false;
     }
 
+    // if (
+    //   !this.state.register.name ||
+    //   !this.state.register.lastname ||
+    //   !this.state.register.email
+    // ) {
+    //   return false;
+    // }
+
+    // // Name lenght check
+    // if (
+    //   this.state.register.name.length < 1 &&
+    //   this.state.register.lastname.length < 1
+    // ) {
+    //   isValid = false;
+    // }
+    // // Email length check and validation
+    // if (
+    //   this.state.register.email.length < 5 ||
+    //   !this.validateEmail(this.state.register.email)
+    // ) {
+    //   isValid = false;
+    // }
     return isValid;
   };
 
   validatePassword = () => {
-    let isValid = true;
-
+    let isValid = false;
+    const regexPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
     if (!this.state.register.password || !this.state.register.confirmPassword) {
       return false;
     }
 
     // Pass length check
     if (
-      this.state.register.password.length < 1 &&
-      this.state.register.confirmPassword.length < 1
+      regexPass.test(this.state.register.password) &&
+      regexPass.test(this.state.register.confirmPassword)
     ) {
+      isValid = true;
+    } else {
       isValid = false;
     }
     // Pass and confirm pass validation
     if (this.state.register.password !== this.state.register.confirmPassword) {
-      toast.warn("Password mismatch");
       isValid = false;
     }
 
@@ -294,6 +304,7 @@ class New extends React.Component<NewProps, NewState> {
             // history.push("/login");
             toast.warn(`"${message}"`);
             this.setState({ validated: false });
+            history.push('/login');
           });
         }
       })
@@ -846,7 +857,7 @@ class New extends React.Component<NewProps, NewState> {
                           );
 
                           if (!this.validatePassword()) {
-                            return toast.warn(<div>Password mismatch</div>);
+                            return toast.warn("Password Mismatch");
                           }
 
                           if (!this.props.isNewUser) {
@@ -928,8 +939,8 @@ class New extends React.Component<NewProps, NewState> {
                           <button
                             className="btn btn-on"
                             type="submit"
-                          // disabled={this.state.isLoading}
-                          // disabled={!this.state.checkTermsConditions}
+                            // disabled={this.state.isLoading}
+                            disabled={!this.validatePassword()}
                           >
                             Continue
                           </button>

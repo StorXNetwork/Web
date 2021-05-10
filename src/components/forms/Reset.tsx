@@ -19,6 +19,7 @@ import { getHeaders } from "../../lib/auth";
 import { getUserData } from "../../lib/analytics";
 import AesFunctions from "../../lib/AesUtil";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface ResetProps {
   match?: any;
@@ -51,7 +52,6 @@ class Reset extends React.Component<ResetProps> {
 
   handleChangePassword = async (e: any) => {
     e.preventDefault();
-
     await this.getSalt();
 
     if (!this.state.salt) {
@@ -112,7 +112,8 @@ class Reset extends React.Component<ResetProps> {
             status: "success",
             email: getUserData().email,
           });
-          alert("Password changed successfully.");
+          // alert("Password changed successfully.");
+          toast.success("Password changed successfully");
         }
       })
       .catch((err) => {
@@ -120,13 +121,37 @@ class Reset extends React.Component<ResetProps> {
           status: "error",
           email: getUserData().email,
         });
-        alert(err);
+        // alert(err);
+        toast.error("Incorrect current password");
       });
   };
 
+  isPasswordValid() {
+    let isValid = false;
+    const regexPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
+    if (!this.state.newPassword || !this.state.confirmNewPassword) {
+      return false;
+    }
+
+    // Pass length check
+    if (
+      regexPass.test(this.state.newPassword) &&
+      regexPass.test(this.state.confirmNewPassword)
+    ) {
+      isValid = true;
+    } else {
+      isValid = false;
+    }
+    // Pass and confirm pass validation
+    if (this.state.newPassword !== this.state.confirmNewPassword) {
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
   getSalt = () => {
     const email = Settings.getUser().email;
-
     return fetch("/api/login", {
       method: "post",
       headers: getHeaders(false, false),
@@ -139,6 +164,7 @@ class Reset extends React.Component<ResetProps> {
             this.setState({ salt: decryptText(res.sKey) }, () => {
               resolve();
             });
+            console.log('..........', this.state);
           })
       );
   };
@@ -158,7 +184,7 @@ class Reset extends React.Component<ResetProps> {
     return (
       <>
         <NavigationBar
-          navbarItems=""
+          // navbarItems=""
           isTeam={false}
           isMember={false}
           isAdmin={false}
@@ -393,7 +419,7 @@ class Reset extends React.Component<ResetProps> {
                     <div className="btn-group">
                       <label data-toggle="dropdown">
                         <div className="dropdown-toggle search-query">
-                          Settings
+                          Password
                         </div>
                       </label>
                     </div>
@@ -423,7 +449,8 @@ class Reset extends React.Component<ResetProps> {
                                   required
                                   type="password"
                                   name="pass"
-                                  value={this.state.currentPassword} onChange={this.handleChange}
+                                  value={this.state.currentPassword}
+                                  onChange={this.handleChange}
                                 />
                                 <label htmlFor="pass">Current Password</label>
                               </div>
@@ -437,7 +464,8 @@ class Reset extends React.Component<ResetProps> {
                                   placeholder=" "
                                   required
                                   name="password"
-                                  value={this.state.newPassword} onChange={this.handleChange}
+                                  value={this.state.newPassword}
+                                  onChange={this.handleChange}
                                 />
                                 <label htmlFor="password">New Password</label>
                               </div>
@@ -451,7 +479,8 @@ class Reset extends React.Component<ResetProps> {
                                   id="confirmNewPassword"
                                   required
                                   name="confpassword"
-                                  value={this.state.confirmNewPassword} onChange={this.handleChange}
+                                  value={this.state.confirmNewPassword}
+                                  onChange={this.handleChange}
                                 />
                                 <label htmlFor="confpassword">Confirm New Password</label>
                               </div>
@@ -460,7 +489,7 @@ class Reset extends React.Component<ResetProps> {
                           <button
                             type="submit"
                             className="btn btn-block btn-primary"
-                          // disabled={!isValid || this.state.isLogingIn}
+                            disabled={!this.isPasswordValid()}
                           >
                             Change Password
                           </button>

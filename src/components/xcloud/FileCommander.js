@@ -809,12 +809,12 @@ class FileCommander extends React.Component {
                   </div>
                 ))
               ) : inRoot ? (
-                <div className="col-md-6 col-sm-6 col-lg-3">
-                  <h1>Your StorX Drive is empty.</h1>
-                  <h4 className="noItems-subtext">
+                <div className="col-md-12 col-sm-12 col-lg-12">
+                  <h4 className="text-primary text-center">Your StorX Drive is empty.</h4>
+                  {/* <h4 className="noItems-subtext">
                     Click the upload button or drop files in this window to get
                     started.
-                  </h4>
+                  </h4> */}
                 </div>
               ) : null}
             </div>

@@ -243,14 +243,14 @@ class FileCommanderItem extends React.Component {
       ? this.state.selectedColor
       : this.props.color;
 
-    if (this.props.isLoading) {
-      return (
-        <div className="iconContainer">
-          <Icon name="folder" color={localColor} height="75" alt="" />
-          <ActivityIndicator color="#4385F4" />
-        </div>
-      );
-    }
+    // if (this.props.isLoading) {
+    //   return (
+    //     <div className="iconContainer">
+    //       <Icon name="folder" color={localColor} height="75" alt="" />
+    //       <ActivityIndicator color="#4385F4" />
+    //     </div>
+    //   );
+    // }
 
     if (this.props.icon || this.state.selectedIcon) {
       let localIcon = this.state.selectedIcon

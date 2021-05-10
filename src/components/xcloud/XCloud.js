@@ -51,13 +51,13 @@ class XCloud extends React.Component {
   moveEvent = {};
 
   componentDidMount = () => {
-    if (isMobile) {
-      if (isAndroid) {
-        window.location.href = "https://web.storx.io/mobileapp";
-      } else if (isIOS) {
-        window.location.href = "https://web.storx.io/mobileapp";
-      }
-    }
+    // if (isMobile) {
+    //   if (isAndroid) {
+    //     window.location.href = "https://web.storx.io/mobileapp";
+    //   } else if (isIOS) {
+    //     window.location.href = "https://web.storx.io/mobileapp";
+    //   }
+    // }
 
     // When user is not signed in, redirect to login
     if (!this.props.user || !this.props.isAuthenticated) {
@@ -270,7 +270,7 @@ class XCloud extends React.Component {
 
             throw body.error ? body.error : "createFolder error";
           }
-          toast.success(`${folderName} created successful`);
+          toast.success('Folder created successfully');
           window.analytics.track("folder-created", {
             email: getUserData().email,
             platform: "web",
@@ -839,7 +839,6 @@ class XCloud extends React.Component {
       })
         .then(async (res) => {
           let data;
-
           try {
             data = await res.json();
             window.analytics.track("file-upload-finished", {
@@ -848,7 +847,7 @@ class XCloud extends React.Component {
               file_type: file.type,
               file_id: data.fileId,
             });
-            toast.success("Upload successfull");
+            toast.success("File Uploaded Successfully.");
           } catch (err) {
             console.log(err);
             window.analytics.track("file-upload-error", {
