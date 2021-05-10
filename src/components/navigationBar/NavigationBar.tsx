@@ -253,9 +253,9 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
                     break;
                 }
               }}>
-                <Link className="" to="">
+                <a>
                   <i className="fas fa-download iq-arrow-left"></i><span>Download Desktop Client</span>
-                </Link>
+                </a>
               </li>}
             </ul>
           </nav>
