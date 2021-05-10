@@ -276,7 +276,7 @@ class Security extends React.Component {
                               </Link>
                               <Link to="/security" className="iq-sub-card">
                                 <i className="ri-shield-fill"></i>
-                                Security
+                                Enable 2FA
                               </Link>
                               {/* <Link to="/invite" className="iq-sub-card">
                               <i className="ri-user-follow-fill"></i>
