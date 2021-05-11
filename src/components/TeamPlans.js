@@ -123,7 +123,7 @@ export default function TeamPlans(props: any) {
               text={entry.metadata.price_eur === '0.00' ? 'Free'
                 :
                 <span>
-                  <span style={{ display: 'block' }}>€{entry.metadata.price_eur}<span style={{ textAlign: 'center', color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>
+                  <span style={{ display: 'block' }}>${entry.metadata.price_eur}<span style={{ textAlign: 'center', color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>
                 </span>
               } />;
           }) : ''}
@@ -160,7 +160,7 @@ export default function TeamPlans(props: any) {
             return <InxtContainerOption
               key={'plan' + i}
               isChecked={false}
-              header={'€' + fixedPrice}
+              header={'$' + fixedPrice}
               onClick={(e) => {
                 setSelectedPlanToBuy(entry);
                 setStorageStep(4);

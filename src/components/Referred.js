@@ -43,7 +43,7 @@ class Referred extends React.Component {
     this.getCredit();
     this.setState({ textToCopy: `https://web.storx.io/?ref=${user.uuid}` });
     this.setState({ copySuccess: 'Copy' });
-    const socialText = this.parseUrl('I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and €5 that can be used if you ever decide to upgrade your StorX storage plan!');
+    const socialText = this.parseUrl('I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!');
 
     this.setState({ text: socialText });
   }
@@ -385,10 +385,7 @@ class Referred extends React.Component {
                     <div className="d-flex flex-wrap align-items-center">
                       <div className="col-lg-8 col-md-7 col-12 p-0">
                         <h4 className="mb-4">Earn money by referring friends</h4>
-                        <p className="mb-0">Invite friends who aren't on StorX yet. You'll both get $5 of
-                        StorX credit as soon as they activate their account. You can redeem that
-                        credit for a premium StorX membership, exclusive StorX merch or STORX
-                                            tokens. Start earning money today!</p>
+                        <p className="mb-0">Invite friends who aren't on StorX yet. You'll both will be eligible for rewards of 5 STORX Tokens. Start earning with StorX today !</p>
                       </div>
                       <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
                         <img src={referralClicked} className="img-fluid" />
@@ -408,7 +405,7 @@ class Referred extends React.Component {
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} class="img-fluid" />
                     </div>
-                    <h4 className="text-center mb-0">€${this.state.credit}</h4>
+                    <h4 className="text-center mb-0">{`$${this.state.credit}`}</h4>
                   </div>
                 </div>
               </div>
@@ -423,78 +420,78 @@ class Referred extends React.Component {
                   <div className="card-body">
                     <div className="new-user-info">
                       {/* <form> */}
-                        <div className="row">
-                          <div className="col-lg-10">
-                            <p className="pb-3 m-0">Insert your friends email address and send
+                      <div className="row">
+                        <div className="col-lg-10">
+                          <p className="pb-3 m-0">Insert your friends email address and send
                                                     invitations to join StorX!</p>
-                            <div className="d-flex">
-                              <input type="email" className="form-control mr-2 flex-grow-1"
-                                placeholder="example@example.com" value={this.state.email} onChange={this.handleEmailChange} />
-                              <button className="btn btn-primary flex-shrink-0"
-                                onClick={() => {
-                                  const mail = this.state.email;
-                                  if (mail !== undefined && this.validateEmail(mail)) {
-                                    this.sendInvitationEmail(mail);
-                                    this.setState({ email: '' });
-                                  } else {
-                                    toast.warn('Please, enter a valid email before sending out the invite');
-                                  }
-                                }}
-                              >Invite</button>
-                            </div>
-                          </div>
-
-                          <div className="col-lg-10 mt-4">
-                            <h5 className="pb-2 m-0">Share the referral link</h5>
-                            <p className="pb-3 m-0">You can also share your referral link by copying and
-                                                    sending it or sharing it on your social media.</p>
-                          </div>
-
-                          <div className="col-lg-10">
-                            <div className="form-row">
-                              <div className="col-lg-9 col-md-9 col-sm-8 mb-3">
-                                <div className="input-group">
-                                  <input id="referralCode" type="text" className="form-control"
-                                    readonly=""
-                                    value={`https://web.storx.io/?ref=${user.uuid}`} />
-                                  <div className="input-group-append">
-                                    <button className="btn btn-secondary"
-                                      onClick={this.copyToClipboard}>
-                                      {this.state.copySuccess}
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-lg-3 col-md-3 col-sm-4 mb-3">
-                                <div className="social-sharing justify-content-between">
-                                  <a className="twitter"
-                                    href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and €5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
-                                    target="_blank"
-                                  ><i className="fab fa-twitter"></i></a>
-                                  <a className="facebook"
-                                    href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and €5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
-                                    target="_blank"
-                                    data-href={`https://web.storx.io/?ref=${user.uuid}`}
-                                  ><i className="fab fa-facebook-f"></i></a>
-                                  <a className="telegram"
-                                    href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and €5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://web.storx.io/?ref=${user.uuid}`} target="_blank"
-                                  ><i className="fa fa-paper-plane"></i></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-lg-9">
-                            <button type="submit" className="btn btn-primary"
+                          <div className="d-flex">
+                            <input type="email" className="form-control mr-2 flex-grow-1"
+                              placeholder="example@example.com" value={this.state.email} onChange={this.handleEmailChange} />
+                            <button className="btn btn-primary flex-shrink-0"
                               onClick={() => {
-                                if (this.state.credit > 0) {
-                                  this.sendClaimEmail(this.state.email);
+                                const mail = this.state.email;
+                                if (mail !== undefined && this.validateEmail(mail)) {
+                                  this.sendInvitationEmail(mail);
+                                  this.setState({ email: '' });
                                 } else {
-                                  toast.info('You don\'t have any credit on your account');
+                                  toast.warn('Please, enter a valid email before sending out the invite');
                                 }
                               }}
-                            >Claim Now</button>
+                            >Invite</button>
                           </div>
                         </div>
+
+                        <div className="col-lg-10 mt-4">
+                          <h5 className="pb-2 m-0">Share the referral link</h5>
+                          <p className="pb-3 m-0">You can also share your referral link by copying and
+                                                    sending it or sharing it on your social media.</p>
+                        </div>
+
+                        <div className="col-lg-10">
+                          <div className="form-row">
+                            <div className="col-lg-9 col-md-9 col-sm-8 mb-3">
+                              <div className="input-group">
+                                <input id="referralCode" type="text" className="form-control"
+                                  readonly=""
+                                  value={`https://web.storx.io/?ref=${user.uuid}`} />
+                                <div className="input-group-append">
+                                  <button className="btn btn-secondary"
+                                    onClick={this.copyToClipboard}>
+                                    {this.state.copySuccess}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-lg-3 col-md-3 col-sm-4 mb-3">
+                              <div className="social-sharing justify-content-between">
+                                <a className="twitter"
+                                  href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
+                                  target="_blank"
+                                ><i className="fab fa-twitter"></i></a>
+                                <a className="facebook"
+                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
+                                  target="_blank"
+                                  data-href={`https://web.storx.io/?ref=${user.uuid}`}
+                                ><i className="fab fa-facebook-f"></i></a>
+                                <a className="telegram"
+                                  href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://web.storx.io/?ref=${user.uuid}`} target="_blank"
+                                ><i className="fa fa-paper-plane"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-lg-9">
+                          <button type="submit" className="btn btn-primary"
+                            onClick={() => {
+                              if (this.state.credit > 0) {
+                                this.sendClaimEmail(this.state.email);
+                              } else {
+                                toast.info('You don\'t have any credit on your account');
+                              }
+                            }}
+                          >Claim Now</button>
+                        </div>
+                      </div>
                       {/* </form> */}
                     </div>
                   </div>
@@ -514,7 +511,7 @@ class Referred extends React.Component {
     //     <div className="Referred">
     //       <Container className="referred-box p-5">
     //         <div className="referred-title">Earn money by referring friends</div>
-    //         <div className="referred-description py-3">Invite friends who aren't on StorX yet. You'll both get €5 of StorX credit as soon as they activate their account. You can redeem that credit for a premium StorX membership, exclusive StorX merch or StorX tokens. Start earning money today!</div>
+    //         <div className="referred-description py-3">Invite friends who aren't on StorX yet. You'll both get $5 of StorX credit as soon as they activate their account. You can redeem that credit for a premium StorX membership, exclusive StorX merch or StorX tokens. Start earning money today!</div>
 
     //         <Container className="mail-container mt-3">
     //           <div className="row">
@@ -547,7 +544,7 @@ class Referred extends React.Component {
     //           <div className="col-2 d-flex p-0">
     //             <DropdownButton className="share-container m-auto" name="menuShare" title="Share" type="toggle">
     //               <Dropdown.Item className="social-button"
-    //                 href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and €5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
+    //                 href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
     //                 target="_blank"
     //                 data-size="large"
     //                 original-referer={`https://web.storx.io/?ref=${user.uuid}`}
@@ -555,18 +552,18 @@ class Referred extends React.Component {
     //                 <img src={twitter} alt="" />
     //               </Dropdown.Item>
     //               <Dropdown.Item className="social-button" data-href={`https://web.storx.io/?ref=${user.uuid}`}
-    //                 href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and €5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`} target="_blank">
+    //                 href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`} target="_blank">
     //                 <img src={facebook} alt="" />
     //               </Dropdown.Item>
     //               <Dropdown.Item className="social-button"
-    //                 href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and €5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://web.storx.io/?ref=${user.uuid}`} target="_blank">
+    //                 href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://web.storx.io/?ref=${user.uuid}`} target="_blank">
     //                 <img src={telegram} alt="" />
     //               </Dropdown.Item>
     //             </DropdownButton>
     //           </div>
     //         </Container>
 
-    //         <div className="user-credit py-4">{`You have accumulated €${this.state.credit} `}</div>
+    //         <div className="user-credit py-4">{`You have accumulated $${this.state.credit} `}</div>
 
     //         <Button block className="referred-button"
     //           type="button"

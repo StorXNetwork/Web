@@ -157,7 +157,7 @@ class StoragePlans extends React.Component {
                 // Can't select the current product or lesser
                 this.setState({ selectedProductToBuy: entry, storageStep: 2, plansLoading: true, availablePlans: null });
               }}
-              text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>€{entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>}
+              text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>${entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>}
             />))
             : ''}
           {/* <div className="pricing-header">
@@ -191,7 +191,7 @@ class StoragePlans extends React.Component {
       //               // Can't select the current product or lesser
       //               this.setState({ selectedProductToBuy: entry, storageStep: 2, plansLoading: true, availablePlans: null });
       //             }}
-      //             text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>€{entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>} />;
+      //             text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>${entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>} />;
       //         })
       //         : ''}
       //     </Row>
@@ -249,7 +249,7 @@ class StoragePlans extends React.Component {
                   <InxtContainerOption
                     key={"plan" + i}
                     isChecked={false}
-                    header={"€" + fixedPrice}
+                    header={"$" + fixedPrice}
                     onClick={(e) => {
                       analytics.track("plan-subscription-selected", {
                         price: fixedPrice,
