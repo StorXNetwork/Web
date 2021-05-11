@@ -259,9 +259,7 @@ class FileCommander extends React.Component {
       },
       (err) => {
         if (err) {
-          console.log('***************', err);
           let errmsg = err.error ? err.error : err;
-
           // if (errmsg.includes("already exist")) {
           //   errmsg = "Folder with same name already exists";
           // }
