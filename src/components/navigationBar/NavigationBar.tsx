@@ -266,7 +266,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
               <span className="bg-primary iq-progress progress-1" data-percent={(this.state.barUsage * 100) / this.state.barLimit}
                 style={{
                   width: `${(this.state.barUsage * 100) / this.state.barLimit}%`,
-                  transition: `width 2s ease 0s`
+                  transition: `width ${Math.floor(Math.random() * 10)}s ease 0s`
                 }}
               >
               </span>

@@ -355,7 +355,10 @@ class Storage extends React.Component {
                           <span
                             className="bg-primary iq-progress progress-1"
                             data-percent={((this.state.now * 100) / this.state.max)}
-                            style={{ width: `${(this.state.now * 100) / this.state.max}%` }}
+                            style={{
+                              width: `${(this.state.now * 100) / this.state.max}%`,
+                              transition: `width ${Math.floor(Math.random() * 10)}s ease 0s`
+                            }}
                           ></span>
                         </div>
                         <p>{isNaN(this.state.now / this.state.max) ? 0 : ((this.state.now * 100) / this.state.max).toFixed(2)} % Full</p>
