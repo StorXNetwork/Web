@@ -847,7 +847,6 @@ class XCloud extends React.Component {
               file_type: file.type,
               file_id: data.fileId,
             });
-            toast.success("File Uploaded Successfully.");
           } catch (err) {
             console.log(err);
             window.analytics.track("file-upload-error", {
@@ -860,6 +859,7 @@ class XCloud extends React.Component {
             console.error("Upload response data is not a JSON", err);
           }
           if (data) {
+            toast.success("File Uploaded Successfully.");
             return { res: res, data: data };
           } else {
             throw res;
