@@ -378,7 +378,6 @@ class FileCommander extends React.Component {
 
   changeTheme() {
     this.setState({ theme: !this.state.theme });
-    console.log('*************', this.state.theme);
     if (this.state.theme == true) {
       localStorage.setItem('theme', true);
     }

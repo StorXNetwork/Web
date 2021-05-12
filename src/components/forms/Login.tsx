@@ -322,6 +322,7 @@ class Login extends React.Component<LoginProps> {
       })
       .catch((err) => {
         console.error("Login error. " + err.message);
+        history.push('/login');
         toast.error("Email or Password is wrong. Please enter correct credentials.");
       })
       .finally(() => {
