@@ -392,8 +392,8 @@ class Login extends React.Component<LoginProps> {
                                   }
                                 />
                                 <label>Email address</label>
-                                <div className="my-2">
-                                  {this.state.email != "" ? this.validateEmail(this.state.email) ? "" : <span className="text-danger">Enter valid email address.</span> : null}
+                                <div className="mt-1">
+                                  {this.state.email != "" ? this.validateEmail(this.state.email) ? "" : <span className="text-danger small">Enter valid email address.</span> : null}
                                 </div>
                               </div>
                             </div>

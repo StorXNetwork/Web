@@ -16426,7 +16426,7 @@ ul.pricing-list li {
 }
 .floating-input:not(:placeholder-shown) {
   color: #535f6b;
-  border: 1px solid #fafafa;
+  /* border: 1px solid #fafafa; */
 }
 .floating-input:not(:placeholder-shown) ~ label {
   top: 0;
