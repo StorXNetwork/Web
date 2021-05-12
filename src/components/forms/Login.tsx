@@ -15,7 +15,7 @@ import {
 } from "../../lib/utils";
 
 import { getHeaders } from "../../lib/auth";
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Settings from "../../lib/settings";
 import { analytics } from "../../lib/analytics";
@@ -150,7 +150,7 @@ class Login extends React.Component<LoginProps> {
             msg: err.message,
             email: this.state.email,
           });
-          toast.warn(`"${err}"`);
+          toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });
         }
       });
   };
