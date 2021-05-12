@@ -164,7 +164,6 @@ class Reset extends React.Component<ResetProps> {
             this.setState({ salt: decryptText(res.sKey) }, () => {
               resolve();
             });
-            console.log('..........', this.state);
           })
       );
   };

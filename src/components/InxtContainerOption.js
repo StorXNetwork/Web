@@ -6,7 +6,6 @@ import CheckIcon from "./../assets/check.svg";
 
 class InxtContainerOption extends React.Component {
   render() {
-    console.log('............', this.props)
     return (
       <>
         <div class="col-lg-3 col-sm-6">

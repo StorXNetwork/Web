@@ -83,7 +83,6 @@ class Referred extends React.Component {
   };
 
   handleEmailChange = (event) => {
-    console.log('............', event.target.value);
     this.setState({
       email: event.target.value
     });
@@ -385,7 +384,7 @@ class Referred extends React.Component {
                     <div className="d-flex flex-wrap align-items-center">
                       <div className="col-lg-8 col-md-7 col-12 p-0">
                         <h4 className="mb-4">Earn money by referring friends</h4>
-                        <p className="mb-0">Invite friends who aren't on StorX yet. You'll both will be eligible for rewards of 5 STORX Tokens. Start earning with StorX today !</p>
+                        <p className="mb-0">Invite friends who aren't on StorX yet. You'll both will be eligible for rewards of 10 STORX Tokens. Start earning with StorX today !</p>
                       </div>
                       <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
                         <img src={referralClicked} className="img-fluid" />
@@ -405,7 +404,7 @@ class Referred extends React.Component {
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} class="img-fluid" />
                     </div>
-                    <h4 className="text-center mb-0">{`$${this.state.credit}`}</h4>
+                    <h4 className="text-center mb-0">{`$${this.state.credit == undefined ? 0 : this.state.credit}`}</h4>
                   </div>
                 </div>
               </div>
@@ -440,13 +439,11 @@ class Referred extends React.Component {
                             >Invite</button>
                           </div>
                         </div>
-
                         <div className="col-lg-10 mt-4">
                           <h5 className="pb-2 m-0">Share the referral link</h5>
                           <p className="pb-3 m-0">You can also share your referral link by copying and
                                                     sending it or sharing it on your social media.</p>
                         </div>
-
                         <div className="col-lg-10">
                           <div className="form-row">
                             <div className="col-lg-9 col-md-9 col-sm-8 mb-3">

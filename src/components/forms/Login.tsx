@@ -225,7 +225,7 @@ class Login extends React.Component<LoginProps> {
               });
               throw new Error(res.data.error ? res.data.error : res.data);
             }
-            toast.success("Successfully login");
+            toast.success("Login successful");
             return res.data;
           })
           .then(async (data) => {
@@ -322,7 +322,7 @@ class Login extends React.Component<LoginProps> {
       })
       .catch((err) => {
         console.error("Login error. " + err.message);
-        toast.warn("Login error");
+        toast.error("Email or Password is wrong. Please enter correct credentials.");
       })
       .finally(() => {
         this.setState({ isLogingIn: false });
@@ -392,6 +392,9 @@ class Login extends React.Component<LoginProps> {
                                   }
                                 />
                                 <label>Email address</label>
+                                <div className="my-2">
+                                  {this.state.email != "" ? this.validateEmail(this.state.email) ? "" : <span className="text-danger">Enter valid email address.</span> : null}
+                                </div>
                               </div>
                             </div>
                             <div className="col-lg-12">

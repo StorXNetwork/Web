@@ -249,7 +249,6 @@ class XCloud extends React.Component {
 
   createFolder = () => {
     const folderName = prompt('Please enter folder name');
-
     if (folderName && folderName !== '') {
       fetch('/api/storage/folder', {
         method: 'post',
@@ -270,7 +269,7 @@ class XCloud extends React.Component {
 
             throw body.error ? body.error : "createFolder error";
           }
-          toast.success('Folder created successfully');
+          toast.success(`${folderName} created successful`);
           window.analytics.track("folder-created", {
             email: getUserData().email,
             platform: "web",
@@ -859,7 +858,7 @@ class XCloud extends React.Component {
             console.error("Upload response data is not a JSON", err);
           }
           if (data) {
-            toast.success("File Uploaded Successfully.");
+            toast.success("Uploaded successfully.");
             return { res: res, data: data };
           } else {
             throw res;
