@@ -5,6 +5,8 @@ import AesUtil from "../../lib/AesUtil";
 import { Link } from "react-router-dom";
 import history from "../../lib/history";
 import Settings from "../../lib/settings";
+import Logo from "../../../src/assets/images/logo.png";
+import backGroundLogo from "../../../src/assets/images/login/login_img.png";
 
 import {
   decryptTextWithKey,
@@ -140,51 +142,62 @@ class New extends React.Component<NewProps, NewState> {
   };
 
   validateRegisterFormPart1 = () => {
-    let isValid = true;
+    let isValid = false;
+    const regexFullName = /^([a-zA-Z]{2,})(\s?[a-zA-Z]+)?$/;
 
     if (
-      !this.state.register.name ||
-      !this.state.register.lastname ||
-      !this.state.register.email
-    ) {
-      return false;
+      regexFullName.test(this.state.register.name) &&
+      regexFullName.test(this.state.register.lastname) &&
+      this.validateEmail(this.state.register.email)) {
+      isValid = true;
     }
-
-    // Name lenght check
-    if (
-      this.state.register.name.length < 1 &&
-      this.state.register.lastname.length < 1
-    ) {
-      isValid = false;
-    }
-    // Email length check and validation
-    if (
-      this.state.register.email.length < 5 ||
-      !this.validateEmail(this.state.register.email)
-    ) {
+    else {
       isValid = false;
     }
 
+    // if (
+    //   !this.state.register.name ||
+    //   !this.state.register.lastname ||
+    //   !this.state.register.email
+    // ) {
+    //   return false;
+    // }
+
+    // // Name lenght check
+    // if (
+    //   this.state.register.name.length < 1 &&
+    //   this.state.register.lastname.length < 1
+    // ) {
+    //   isValid = false;
+    // }
+    // // Email length check and validation
+    // if (
+    //   this.state.register.email.length < 5 ||
+    //   !this.validateEmail(this.state.register.email)
+    // ) {
+    //   isValid = false;
+    // }
     return isValid;
   };
 
   validatePassword = () => {
-    let isValid = true;
-
+    let isValid = false;
+    const regexPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
     if (!this.state.register.password || !this.state.register.confirmPassword) {
       return false;
     }
 
     // Pass length check
     if (
-      this.state.register.password.length < 1 &&
-      this.state.register.confirmPassword.length < 1
+      regexPass.test(this.state.register.password) &&
+      regexPass.test(this.state.register.confirmPassword)
     ) {
+      isValid = true;
+    } else {
       isValid = false;
     }
     // Pass and confirm pass validation
     if (this.state.register.password !== this.state.register.confirmPassword) {
-      toast.warn("Password mismatch");
       isValid = false;
     }
 
@@ -244,7 +257,7 @@ class New extends React.Component<NewProps, NewState> {
           return response.json().then((body) => {
             // Manage succesfull register
             const { token, user, uuid } = body;
-
+            toast.success('Your account has been created successfully. Please check your mailbox for activation.');
             analytics.identify(uuid, {
               email: this.state.register.email,
               member_tier: "free",
@@ -255,6 +268,7 @@ class New extends React.Component<NewProps, NewState> {
                 email: this.state.register.email,
               },
             });
+            // history.push("/login");
 
             const privkeyDecrypted = Buffer.from(
               AesFunctions.decrypt(
@@ -287,9 +301,10 @@ class New extends React.Component<NewProps, NewState> {
           return response.json().then((body) => {
             // Manage account already exists (error 400)
             const { message } = body;
-
+            // history.push("/login");
             toast.warn(`"${message}"`);
             this.setState({ validated: false });
+            history.push('/login');
           });
         }
       })
@@ -624,187 +639,454 @@ class New extends React.Component<NewProps, NewState> {
   }
 
   handleTermsConditions = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ checkTermsConditions: event.target.checked });
+    this.setState({ checkTermsConditions: true });
   };
 
   privacyContainer() {
     return (
-      <div className="container-register">
-        <p className="container-title">StorX Security</p>
-        <p className="privacy-disclaimer">
-          StorX Drive uses your password to encrypt and decrypt your files. Due
-          to the secure nature of StorX Drive, we don't know your password. That
-          means that if you ever forget it, your files are gone forever. With
-          us, you're the only owner of your files. We strongly suggest you to:
-        </p>
-        <ul className="privacy-remainders">
-          <li>Store your Password. Keep it safe and secure.</li>
-          <li>Keep an offline backup of your password.</li>
-        </ul>
-
-        <div className="privacy-terms">
-          <Checkbox
-            checked={this.state.checkTermsConditions}
-            onChange={this.handleTermsConditions}
-            color="default"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          />
-          <a
-            href="https://web.storx.io/en/legal"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Accept terms, conditions and privacy policy
-          </a>
+      <section className="login-content">
+        <div className="container h-100">
+          <div className="row justify-content-center align-items-center">
+            <div className="col-lg-10">
+              <div className="login-content-wrapper">
+                <div className="row justify-content-center align-items-center">
+                  <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
+                    <div className="sign-user_card">
+                      <img
+                        src={Logo}
+                        className="img-fluid rounded-normal light-logo logo"
+                        alt="logo"
+                      />
+                      {/* <img src="assets/images/logo-white.png"
+                            className="img-fluid rounded-normal darkmode-logo logo" alt="logo"> */}
+                      <h5 className="mb-3">StorX Security</h5>
+                      <p className="privacy-reminders-text">
+                        StorX Drive uses your password, only to encrypt and
+                        decrypt your files. Due to the secure nature of StorX
+                        Drive, we don't have any user's password. That means, if
+                        you ever lost your password, your files are gone
+                        FOREVER. You are the only owner of your files. We
+                        strongly suggest you to:
+                      </p>
+                      <div className="privacy-reminders">
+                        <ul>
+                          <li>Store your Password. Keep it safe and secure.</li>
+                          <li>Keep an offline backup of your password.</li>
+                        </ul>
+                      </div>
+                      {/* <Checkbox
+                        color="default"
+                        checked={this.state.checkTermsConditions}
+                        onChange={this.handleTermsConditions}
+                        inputProps={{ "aria-label": "secondary checkbox" }}
+                      />
+                      <a
+                        // href="https://web.storx.io/en/legal"
+                        href="#"
+                        // target="_blank"
+                        rel="noreferrer"
+                      >
+                        Accept terms, conditions and privacy policy
+                      </a> */}
+                      <Form
+                        onSubmit={(e: any) => {
+                          e.preventDefault();
+                          this.setState({
+                            currentContainer: CONTAINERS.PasswordContainer,
+                          });
+                        }}
+                      >
+                        <div className="btn-block">
+                          <button
+                            className="btn btn-off"
+                            onClick={(e: any) => {
+                              this.setState({
+                                currentContainer: CONTAINERS.RegisterContainer,
+                              });
+                              e.preventDefault();
+                            }}
+                          >
+                            Back
+                          </button>
+                          <button
+                            className="btn btn-on"
+                            type="submit"
+                            autoFocus
+                          // disabled={!this.state.checkTermsConditions}
+                          >
+                            Continue
+                          </button>
+                        </div>
+                      </Form>
+                    </div>
+                  </div>
+                  <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+                    <div className="sign-image_card">
+                      <h4 className="font-weight-bold text-white mb-3">
+                        Truly Decentralized Cloud Storage
+                      </h4>
+                      <p>
+                        StorX helps you securely encrypt, fragment and then
+                        distribute important data across multiple hosting nodes
+                        spread worldwide.
+                      </p>
+                      <div>
+                        <img
+                          src={backGroundLogo}
+                          className="img-fluid rounded-normal"
+                          alt="Truly Decentralized Cloud Storage"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <Form
-          onSubmit={(e: any) => {
-            e.preventDefault();
-            this.setState({ currentContainer: CONTAINERS.PasswordContainer });
-          }}
-        >
-          <Form.Row>
-            <Form.Group as={Col} controlId="name">
-              <button
-                className="btn-block off"
-                onClick={(e: any) => {
-                  this.setState({
-                    currentContainer: CONTAINERS.RegisterContainer,
-                  });
-                  e.preventDefault();
-                }}
-              >
-                Back
-              </button>
-            </Form.Group>
-            <Form.Group as={Col}>
-              <button
-                className="btn-block on"
-                type="submit"
-                autoFocus
-                disabled={!this.state.checkTermsConditions}
-              >
-                Continue
-              </button>
-            </Form.Group>
-          </Form.Row>
-        </Form>
-      </div>
+      </section>
     );
+
+    // return (
+    //   <div className="container-register">
+    //     <p className="container-title">StorX Security</p>
+    //     <p className="privacy-disclaimer">
+    //       StorX Drive uses your password to encrypt and decrypt your files. Due
+    //       to the secure nature of StorX Drive, we don't know your password. That
+    //       means that if you ever forget it, your files are gone forever. With
+    //       us, you're the only owner of your files. We strongly suggest you to:
+    //     </p>
+    //     <ul className="privacy-remainders">
+    //       <li>Store your Password. Keep it safe and secure.</li>
+    //       <li>Keep an offline backup of your password.</li>
+    //     </ul>
+
+    //     <div className="privacy-terms">
+    //       <Checkbox
+    //         checked={this.state.checkTermsConditions}
+    //         onChange={this.handleTermsConditions}
+    //         color="default"
+    //         inputProps={{ "aria-label": "secondary checkbox" }}
+    //       />
+    //       <a
+    //         href="https://web.storx.io/en/legal"
+    //         target="_blank"
+    //         rel="noreferrer"
+    //       >
+    //         Accept terms, conditions and privacy policy
+    //       </a>
+    //     </div>
+
+    //     <Form
+    //       onSubmit={(e: any) => {
+    //         e.preventDefault();
+    //         this.setState({ currentContainer: CONTAINERS.PasswordContainer });
+    //       }}
+    //     >
+    //       <Form.Row>
+    //         <Form.Group as={Col} controlId="name">
+    //           <button
+    //             className="btn-block off"
+    //             onClick={(e: any) => {
+    //               this.setState({
+    //                 currentContainer: CONTAINERS.RegisterContainer,
+    //               });
+    //               e.preventDefault();
+    //             }}
+    //           >
+    //             Back
+    //           </button>
+    //         </Form.Group>
+    //         <Form.Group as={Col}>
+    //           <button
+    //             className="btn-block on"
+    //             type="submit"
+    //             autoFocus
+    //             disabled={!this.state.checkTermsConditions}
+    //           >
+    //             Continue
+    //           </button>
+    //         </Form.Group>
+    //       </Form.Row>
+    //     </Form>
+    //   </div>
+    // );
   }
 
   passwordContainer() {
     return (
-      <div className="container-register">
-        <p className="container-title">Create an StorX account</p>
-        <div className="menu-box">
-          <button
-            className="off"
-            onClick={(e: any) => {
-              /* this.setState({ currentContainer: this.loginContainer() }) */
-            }}
-          >
-            Sign in
-          </button>
-          <button className="on">Create account</button>
+      <section className="login-content">
+        <div className="container h-100">
+          <div className="row justify-content-center align-items-center">
+            <div className="col-lg-10">
+              <div className="login-content-wrapper">
+                <div className="row justify-content-center align-items-center">
+                  <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
+                    <div className="sign-user_card">
+                      <img
+                        // src="assets/images/logo.png"
+                        src={logo}
+                        className="img-fluid rounded-normal light-logo logo"
+                        alt="logo"
+                      />
+                      {/* <img
+                      // src="assets/images/logo-white.png"
+                      src={logoWhite}
+                      className="img-fluid rounded-normal darkmode-logo logo"
+                      alt="logo"
+                    /> */}
+                      <h5 className="mb-4">Password for StorX</h5>
+                      {/* <div className="btn-block mb-4">
+                        <a className="btn btn-on" onClick={(e: any) => {
+                          this.setState({ currentContainer: this.loginContainer() });
+                        }}>Sign In</a>
+                        <Link
+                          to="/new"
+                          type="button"
+                          className="btn btn-off"
+                        >
+                          Create Account
+                      </Link>
+                      </div> */}
+                      <Form
+                        onSubmit={async (e: any) => {
+                          e.preventDefault();
+
+                          await new Promise<void>((r) =>
+                            this.setState({ isLoading: true }, () => r())
+                          );
+
+                          if (!this.validatePassword()) {
+                            return toast.warn("Password Mismatch");
+                          }
+
+                          if (!this.props.isNewUser) {
+                            this.updateInfo()
+                              .then(() => {
+                                history.push("/login");
+                              })
+                              .catch((err) => {
+                                toast.error(
+                                  <div>
+                                    <div>Reason: {err.message}</div>
+                                    <div>Please contact us</div>
+                                  </div>,
+                                  {
+                                    autoClose: false,
+                                    closeOnClick: false,
+                                  }
+                                );
+                              })
+                              .finally(() => {
+                                this.setState({ isLoading: false });
+                              });
+                          } else {
+                            this.doRegister().finally(() =>
+                              this.setState({ isLoading: false })
+                            );
+                          }
+                        }}
+                      >
+                        <Form.Control
+                          type="hidden"
+                          name="username"
+                          autoComplete="username"
+                          value={this.state.register.email}
+                        />
+                        <div className="row">
+                          <div className="col-lg-12">
+                            <div className="floating-label form-group">
+                              <input
+                                className="floating-input form-control"
+                                type="password"
+                                id="password"
+                                required
+                                placeholder=" "
+                                autoComplete="new-password"
+                                onChange={this.handleChangeRegister}
+                                autoFocus
+                              />
+                              <label>Password</label>
+                            </div>
+                          </div>
+                          <div className="col-lg-12">
+                            <div className="floating-label form-group">
+                              <input
+                                className="floating-input form-control"
+                                type="password"
+                                id="confirmPassword"
+                                required
+                                placeholder=" "
+                                autoComplete="confirm-password"
+                                onChange={this.handleChangeRegister}
+                              />
+                              <label>Confirm Password</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="btn-block">
+                          <button
+                            className="btn btn-off"
+                            onClick={(e: any) => {
+                              this.setState({
+                                currentContainer: CONTAINERS.PrivacyTermsContainer,
+                              });
+                              e.preventDefault();
+                            }}
+                          >
+                            Back
+                          </button>
+                          <button
+                            className="btn btn-on"
+                            type="submit"
+                            // disabled={this.state.isLoading}
+                            disabled={!this.validatePassword()}
+                          >
+                            Continue
+                          </button>
+                        </div>
+                      </Form>
+                    </div>
+                  </div>
+                  <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+                    <div className="sign-image_card">
+                      <h4 className="font-weight-bold text-white mb-3">
+                        Truly Decentralized Cloud Storage
+                      </h4>
+                      <p>
+                        StorX helps you securely encrypt, fragment and then
+                        distribute important data across multiple hosting nodes
+                        spread worldwide.
+                      </p>
+                      <div>
+                        <img
+                          src={backGroundLogo}
+                          className="img-fluid rounded-normal"
+                          alt="Truly Decentralized Cloud Storage"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <Form
-          className="form-register"
-          onSubmit={async (e: any) => {
-            e.preventDefault();
-
-            await new Promise<void>((r) =>
-              this.setState({ isLoading: true }, () => r())
-            );
-
-            if (!this.validatePassword()) {
-              return toast.warn(<div>Password mismatch</div>);
-            }
-
-            if (!this.props.isNewUser) {
-              this.updateInfo()
-                .then(() => {
-                  history.push("/login");
-                })
-                .catch((err) => {
-                  toast.error(
-                    <div>
-                      <div>Reason: {err.message}</div>
-                      <div>Please contact us</div>
-                    </div>,
-                    {
-                      autoClose: false,
-                      closeOnClick: false,
-                    }
-                  );
-                })
-                .finally(() => {
-                  this.setState({ isLoading: false });
-                });
-            } else {
-              this.doRegister().finally(() =>
-                this.setState({ isLoading: false })
-              );
-            }
-          }}
-        >
-          <Form.Row>
-            <Form.Control
-              type="hidden"
-              name="username"
-              autoComplete="username"
-              value={this.state.register.email}
-            />
-            <Form.Group as={Col} controlId="password">
-              <Form.Control
-                type="password"
-                required
-                placeholder="Password"
-                autoComplete="new-password"
-                onChange={this.handleChangeRegister}
-                autoFocus
-              />
-            </Form.Group>
-          </Form.Row>
-          <Form.Row>
-            <Form.Group as={Col} controlId="confirmPassword">
-              <Form.Control
-                type="password"
-                required
-                placeholder="Confirm password"
-                autoComplete="confirm-password"
-                onChange={this.handleChangeRegister}
-              />
-            </Form.Group>
-          </Form.Row>
-          <Form.Row className="form-register-submit">
-            <Form.Group as={Col}>
-              <Button
-                className="btn-block off"
-                onClick={(e: any) => {
-                  this.setState({
-                    currentContainer: CONTAINERS.PrivacyTermsContainer,
-                  });
-                  e.preventDefault();
-                }}
-              >
-                Back
-              </Button>
-            </Form.Group>
-            <Form.Group as={Col}>
-              <Button
-                className="btn-block on __btn-new-button"
-                type="submit"
-                disabled={this.state.isLoading}
-              >
-                Continue
-              </Button>
-            </Form.Group>
-          </Form.Row>
-        </Form>
-      </div>
+      </section>
     );
+
+
+
+    // return (
+    //   <div className="container-register">
+    //     <p className="container-title">Create an StorX account</p>
+    //     <div className="menu-box">
+    //       <button
+    //         className="off"
+    //         onClick={(e: any) => {
+    //           /* this.setState({ currentContainer: this.loginContainer() }) */
+    //         }}
+    //       >
+    //         Sign in
+    //       </button>
+    //       <button className="on">Create account</button>
+    //     </div>
+    //     <Form
+    //       className="form-register"
+    //       onSubmit={async (e: any) => {
+    //         e.preventDefault();
+
+    //         await new Promise<void>((r) =>
+    //           this.setState({ isLoading: true }, () => r())
+    //         );
+
+    //         if (!this.validatePassword()) {
+    //           return toast.warn(<div>Password mismatch</div>);
+    //         }
+
+    //         if (!this.props.isNewUser) {
+    //           this.updateInfo()
+    //             .then(() => {
+    //               history.push("/login");
+    //             })
+    //             .catch((err) => {
+    //               toast.error(
+    //                 <div>
+    //                   <div>Reason: {err.message}</div>
+    //                   <div>Please contact us</div>
+    //                 </div>,
+    //                 {
+    //                   autoClose: false,
+    //                   closeOnClick: false,
+    //                 }
+    //               );
+    //             })
+    //             .finally(() => {
+    //               this.setState({ isLoading: false });
+    //             });
+    //         } else {
+    //           this.doRegister().finally(() =>
+    //             this.setState({ isLoading: false })
+    //           );
+    //         }
+    //       }}
+    //     >
+    //       <Form.Row>
+    //         <Form.Control
+    //           type="hidden"
+    //           name="username"
+    //           autoComplete="username"
+    //           value={this.state.register.email}
+    //         />
+    //         <Form.Group as={Col} controlId="password">
+    //           <Form.Control
+    //             type="password"
+    //             required
+    //             placeholder="Password"
+    //             autoComplete="new-password"
+    //             onChange={this.handleChangeRegister}
+    //             autoFocus
+    //           />
+    //         </Form.Group>
+    //       </Form.Row>
+    //       <Form.Row>
+    //         <Form.Group as={Col} controlId="confirmPassword">
+    //           <Form.Control
+    //             type="password"
+    //             required
+    //             placeholder="Confirm password"
+    //             autoComplete="confirm-password"
+    //             onChange={this.handleChangeRegister}
+    //           />
+    //         </Form.Group>
+    //       </Form.Row>
+    //       <Form.Row className="form-register-submit">
+    //         <Form.Group as={Col}>
+    //           <Button
+    //             className="btn-block off"
+    //             onClick={(e: any) => {
+    //               this.setState({
+    //                 currentContainer: CONTAINERS.PrivacyTermsContainer,
+    //               });
+    //               e.preventDefault();
+    //             }}
+    //           >
+    //             Back
+    //           </Button>
+    //         </Form.Group>
+    //         <Form.Group as={Col}>
+    //           <Button
+    //             className="btn-block on __btn-new-button"
+    //             type="submit"
+    //             disabled={this.state.isLoading}
+    //           >
+    //             Continue
+    //           </Button>
+    //         </Form.Group>
+    //       </Form.Row>
+    //     </Form>
+    //   </div>
+    // );
   }
 
   activationContainer() {
@@ -841,23 +1123,24 @@ class New extends React.Component<NewProps, NewState> {
 
   render() {
     return (
-      // <div className="login-main">
-      //   <Container className="login-container-box">
-      //     {this.state.currentContainer === CONTAINERS.RegisterContainer
-      //       ? this.registerContainer()
-      //       : ""}
-      //     {this.state.currentContainer === CONTAINERS.PrivacyTermsContainer
-      //       ? this.privacyContainer()
-      //       : ""}
-      //     {this.state.currentContainer === CONTAINERS.PasswordContainer
-      //       ? this.passwordContainer()
-      //       : ""}
-      //   </Container>
-      //   <Container className="login-container-box-forgot-password">
-      //     <p className="forgotPassword"></p>
-      //   </Container>
-      // </div>
-      <div className="wrapper">
+      <>
+        {/* <div className="login-main">
+        <Container className="login-container-box">
+          {this.state.currentContainer === CONTAINERS.RegisterContainer
+            ? this.registerContainer()
+            : ""}
+          {this.state.currentContainer === CONTAINERS.PrivacyTermsContainer
+            ? this.privacyContainer()
+            : ""}
+          {this.state.currentContainer === CONTAINERS.PasswordContainer
+            ? this.passwordContainer()
+            : ""}
+        </Container>
+        <Container className="login-container-box-forgot-password">
+          <p className="forgotPassword"></p>
+        </Container>
+      </div> */}
+        {/* <div className="wrapper"> */}
         {this.state.currentContainer === CONTAINERS.RegisterContainer
           ? this.registerContainer()
           : ""}
@@ -867,7 +1150,8 @@ class New extends React.Component<NewProps, NewState> {
         {this.state.currentContainer === CONTAINERS.PasswordContainer
           ? this.passwordContainer()
           : ""}
-      </div>
+        {/* </div> */}
+      </>
     );
   }
 }

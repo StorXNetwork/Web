@@ -1,6 +1,6 @@
 {
   "name": "drive-web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@mapbox/react-click-to-select": "^2.2.0",
@@ -23,6 +23,7 @@
     "immutability-helper": "^3.1.1",
     "jquery": "^3.5.1",
     "js-file-download": "^0.4.12",
+    "moment": "^2.29.1",
     "natural-orderby": "^2.0.3",
     "openpgp": "^4.10.10",
     "popper.js": "^1.16.1",
@@ -62,23 +63,67 @@
     ],
     "rules": {
       "semi": "error",
-      "comma-dangle": ["error", "never"],
-      "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          "max": 1,
+          "maxEOF": 0,
+          "maxBOF": 0
+        }
+      ],
       "eqeqeq": "error",
-      "comma-spacing": ["error", { "before": false, "after": true }],
-      "no-trailing-spaces": ["error"],
-      "indent": ["error", 2, { "SwitchCase": 1 }],
-      "quotes": ["error", "single"],
-      "object-curly-spacing": ["error", "always"],
-      "newline-after-var": ["error", "always"],
+      "comma-spacing": [
+        "error",
+        {
+          "before": false,
+          "after": true
+        }
+      ],
+      "no-trailing-spaces": [
+        "error"
+      ],
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "newline-after-var": [
+        "error",
+        "always"
+      ],
       "no-multi-spaces": "error",
       "curly": "error",
       "keyword-spacing": "error",
-      "space-in-parens": ["error", "never"],
-      "no-unused-vars": ["error"],
-      "no-useless-constructor": ["error"],
-      "no-extra-semi": ["error"],
-      "no-empty": ["error"]
+      "space-in-parens": [
+        "error",
+        "never"
+      ],
+      "no-unused-vars": [
+        "error"
+      ],
+      "no-useless-constructor": [
+        "error"
+      ],
+      "no-extra-semi": [
+        "error"
+      ],
+      "no-empty": [
+        "error"
+      ]
     }
   },
   "browserslist": {

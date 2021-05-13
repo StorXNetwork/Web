@@ -15,7 +15,7 @@ import {
 } from "../../lib/utils";
 
 import { getHeaders } from "../../lib/auth";
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Settings from "../../lib/settings";
 import { analytics } from "../../lib/analytics";
@@ -150,7 +150,7 @@ class Login extends React.Component<LoginProps> {
             msg: err.message,
             email: this.state.email,
           });
-          toast.warn(`"${err}"`);
+          toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });
         }
       });
   };
@@ -225,6 +225,7 @@ class Login extends React.Component<LoginProps> {
               });
               throw new Error(res.data.error ? res.data.error : res.data);
             }
+            toast.success("Login successful");
             return res.data;
           })
           .then(async (data) => {
@@ -321,7 +322,8 @@ class Login extends React.Component<LoginProps> {
       })
       .catch((err) => {
         console.error("Login error. " + err.message);
-        toast.warn("Login error");
+        history.push('/login');
+        toast.error("Email or Password is wrong. Please enter correct credentials.");
       })
       .finally(() => {
         this.setState({ isLogingIn: false });
@@ -334,92 +336,95 @@ class Login extends React.Component<LoginProps> {
 
       return (
         // <React.Suspense fallback={<h1>Loading.........</h1>}>
-        <div className="wrapper">
-          <section className="login-content">
-            <div className="container h-100">
-              <div className="row justify-content-center align-items-center">
-                <div className="col-lg-10">
-                  <div className="login-content-wrapper">
-                    <div className="row justify-content-center align-items-center">
-                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
-                        <div className="sign-user_card">
-                          <img
-                            // src="assets/images/logo.png"
-                            src={logo}
-                            className="img-fluid rounded-normal light-logo logo"
-                            alt="logo"
-                          />
-                          {/* <img
+        // <div className="wrapper">
+        <section className="login-content">
+          <div className="container h-100">
+            <div className="row justify-content-center align-items-center">
+              <div className="col-lg-10">
+                <div className="login-content-wrapper">
+                  <div className="row justify-content-center align-items-center">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
+                      <div className="sign-user_card">
+                        <img
+                          // src="assets/images/logo.png"
+                          src={logo}
+                          className="img-fluid rounded-normal light-logo logo"
+                          alt="logo"
+                        />
+                        {/* <img
                             // src="assets/images/logo-white.png"
                             src={logoWhite}
                             className="img-fluid rounded-normal darkmode-logo logo"
                             alt="logo"
                           /> */}
-                          <h5 className="mb-4">Sign in to StorX</h5>
-                          <div className="btn-block mb-4">
-                            <a className="btn btn-on">Sign In</a>
-                            <Link
-                              to="/new"
-                              type="button"
-                              className="btn btn-off"
-                            >
-                              Create Account
-                            </Link>
-                          </div>
-                          <Form
-                            onSubmit={(e: any) => {
-                              e.preventDefault();
-                              this.setState({ isLogingIn: true }, () =>
-                                this.check2FANeeded()
-                              );
-                            }}
+                        <h5 className="mb-4">Sign in to StorX</h5>
+                        <div className="btn-block mb-4">
+                          <a className="btn btn-on">Sign In</a>
+                          <Link
+                            to="/new"
+                            type="button"
+                            className="btn btn-off"
                           >
-                            <div className="row">
-                              <div className="col-lg-12">
-                                <div className="floating-label form-group">
-                                  <input
-                                    className="floating-input form-control"
-                                    placeholder=" "
-                                    required
-                                    type="email"
-                                    name="email"
-                                    value={this.state.email}
-                                    onChange={(e) =>
-                                      this.setState({
-                                        email: e.target.value,
-                                      })
-                                    }
-                                  />
-                                  <label>Email address</label>
-                                </div>
-                              </div>
-                              <div className="col-lg-12">
-                                <div className="floating-label form-group">
-                                  <input
-                                    className="floating-input form-control"
-                                    type="password"
-                                    placeholder=" "
-                                    required
-                                    name="password"
-                                    value={this.state.password}
-                                    onChange={(e) =>
-                                      this.setState({
-                                        password: e.target.value,
-                                      })
-                                    }
-                                  />
-                                  <label>Password</label>
+                            Create Account
+                            </Link>
+                        </div>
+                        <Form
+                          onSubmit={(e: any) => {
+                            e.preventDefault();
+                            this.setState({ isLogingIn: true }, () =>
+                              this.check2FANeeded()
+                            );
+                          }}
+                        >
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="floating-label form-group">
+                                <input
+                                  className="floating-input form-control"
+                                  placeholder=" "
+                                  required
+                                  type="email"
+                                  name="email"
+                                  value={this.state.email}
+                                  onChange={(e) =>
+                                    this.setState({
+                                      email: e.target.value,
+                                    })
+                                  }
+                                />
+                                <label>Email address</label>
+                                <div className="mt-1">
+                                  {this.state.email != "" ? this.validateEmail(this.state.email) ? "" : <span className="text-danger small">Enter valid email address.</span> : null}
                                 </div>
                               </div>
                             </div>
-                            <button
-                              type="submit"
-                              className="btn btn-block btn-primary"
-                              disabled={!isValid || this.state.isLogingIn}
-                            >
-                              Sign In
+                            <div className="col-lg-12">
+                              <div className="floating-label form-group">
+                                <input
+                                  className="floating-input form-control"
+                                  type="password"
+                                  placeholder=" "
+                                  required
+                                  name="password"
+                                  value={this.state.password}
+                                  onChange={(e) =>
+                                    this.setState({
+                                      password: e.target.value,
+                                    })
+                                  }
+                                />
+                                <label>Password</label>
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn btn-block btn-primary"
+                            disabled={!isValid || this.state.isLogingIn}
+                          >
+                            Sign In
                             </button>
-                            <p className="mt-4 mb-0">
+                          {/* <p className="mt-4 mb-0">
                               <Link
                                 to="/remove"
                                 className="text-primary"
@@ -431,28 +436,27 @@ class Login extends React.Component<LoginProps> {
                               >
                                 Forgot Password?
                               </Link>
-                            </p>
-                          </Form>
-                        </div>
+                            </p> */}
+                        </Form>
                       </div>
-                      <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
-                        <div className="sign-image_card">
-                          <h4 className="font-weight-bold text-white mb-3">
-                            Truly Decentralized Cloud Storage
+                    </div>
+                    <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+                      <div className="sign-image_card">
+                        <h4 className="font-weight-bold text-white mb-3">
+                          Truly Decentralized Cloud Storage
                           </h4>
-                          <p>
-                            StorX helps you securely encrypt, fragment and then
-                            distribute important data across multiple hosting
-                            nodes spread worldwide.
+                        <p>
+                          StorX helps you securely encrypt, fragment and then
+                          distribute important data across multiple hosting
+                          nodes spread worldwide.
                           </p>
-                          <div>
-                            <img
-                              // src="assets/images/login/login_img.png"
-                              src={loginLogo}
-                              className="img-fluid rounded-normal"
-                              alt="Truly Decentralized Cloud Storage"
-                            />
-                          </div>
+                        <div>
+                          <img
+                            // src="assets/images/login/login_img.png"
+                            src={loginLogo}
+                            className="img-fluid rounded-normal"
+                            alt="Truly Decentralized Cloud Storage"
+                          />
                         </div>
                       </div>
                     </div>
@@ -460,8 +464,9 @@ class Login extends React.Component<LoginProps> {
                 </div>
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
+        // </div>
         // </React.Suspense>
       );
 
@@ -616,49 +621,126 @@ class Login extends React.Component<LoginProps> {
       // );
 
       return (
-        <div className="login-main">
-          <Container className="login-container-box">
-            <div className="container-register">
-              <p className="container-title">Security Verification</p>
-              <p className="privacy-disclaimer">
-                Enter your 6 digit authenticator code below
-              </p>
-              <Form
-                className="form-register container-register two-factor"
-                onSubmit={(e: any) => {
-                  e.preventDefault();
-                  this.doLogin();
-                }}
-              >
-                <Form.Row>
-                  <Form.Group as={Col} controlId="twoFactorCode">
-                    <Form.Control
-                      placeholder="Authentication code"
-                      required
-                      type="text"
-                      name="two-factor"
-                      autoComplete="off"
-                      value={this.state.twoFactorCode}
-                      onChange={this.handleChange}
-                    />
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row className="form-register-submit">
-                  <Form.Group as={Col}>
-                    <Button
-                      className="on btn-block __btn-new-button"
-                      disabled={!isValid}
-                      type="submit"
-                    >
-                      Sign in
-                    </Button>
-                  </Form.Group>
-                </Form.Row>
-              </Form>
+        <section className="login-content">
+          <div className="container h-100">
+            <div className="row justify-content-center align-items-center">
+              <div className="col-lg-10">
+                <div className="login-content-wrapper">
+                  <div className="row justify-content-center align-items-center">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
+                      <div className="sign-user_card">
+                        <img
+                          src={logo}
+                          className="img-fluid rounded-normal light-logo logo"
+                          alt="logo"
+                        />
+                        <h5 className="mb-4">Security Verification</h5>
+                        <Form onSubmit={(e: any) => {
+                          e.preventDefault();
+                          this.doLogin();
+                        }}>
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="floating-label form-group">
+                                <input
+                                  className="floating-input form-control"
+                                  type="text"
+                                  id="twoFactorCode"
+                                  placeholder=" "
+                                  required
+                                  name="two-factor"
+                                  autoComplete="off"
+                                  value={this.state.twoFactorCode}
+                                  onChange={this.handleChange}
+
+                                />
+                                <label>Authentication Code</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="btn-block">
+                            <button
+                              type="submit"
+                              disabled={!isValid}
+                              className="btn btn-block btn-primary"
+                            >
+                              Sign In
+                            </button>
+                          </div>
+                        </Form>
+                      </div>
+                    </div>
+                    <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
+                      <div className="sign-image_card">
+                        <h4 className="font-weight-bold text-white mb-3">
+                          Truly Decentralized Cloud Storage
+                        </h4>
+                        <p>
+                          StorX helps you securely encrypt, fragment and then
+                          distribute important data across multiple hosting
+                          nodes spread worldwide.
+                        </p>
+                        <div>
+                          <img
+                            src={loginLogo}
+                            className="img-fluid rounded-normal"
+                            alt="Truly Decentralized Cloud Storage"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </Container>
-        </div>
+          </div>
+        </section>
       );
+
+      // return (
+      //   <div className="login-main">
+      //     <Container className="login-container-box">
+      //       <div className="container-register">
+      //         <p className="container-title">Security Verification</p>
+      //         <p className="privacy-disclaimer">
+      //           Enter your 6 digit authenticator code below
+      //         </p>
+      //         <Form
+      //           className="form-register container-register two-factor"
+      //           onSubmit={(e: any) => {
+      //             e.preventDefault();
+      //             this.doLogin();
+      //           }}
+      //         >
+      //           <Form.Row>
+      //             <Form.Group as={Col} controlId="twoFactorCode">
+      //               <Form.Control
+      //                 placeholder="Authentication code"
+      //                 required
+      //                 type="text"
+      //                 name="two-factor"
+      //                 autoComplete="off"
+      //                 value={this.state.twoFactorCode}
+      //                 onChange={this.handleChange}
+      //               />
+      //             </Form.Group>
+      //           </Form.Row>
+      //           <Form.Row className="form-register-submit">
+      //             <Form.Group as={Col}>
+      //               <Button
+      //                 className="on btn-block __btn-new-button"
+      //                 disabled={!isValid}
+      //                 type="submit"
+      //               >
+      //                 Sign in
+      //               </Button>
+      //             </Form.Group>
+      //           </Form.Row>
+      //         </Form>
+      //       </div>
+      //     </Container>
+      //   </div>
+      // );
     }
   }
 }

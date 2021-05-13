@@ -1,89 +1,595 @@
-import React from 'react';
-import NavigationBar from './navigationBar/NavigationBar';
-import PayMethods from './PayMethods';
-import './Storage.scss';
-import history from '../lib/history';
-import InxtContainer from './InxtContainer';
-import './Plans.css';
-import StorageProgressBar from './StorageProgressBar';
-import StoragePlans from './StoragePlans';
-import PrettySize from 'prettysize';
+import React, { lazy, Suspense } from "react";
+import NavigationBar from "./navigationBar/NavigationBar";
+import PayMethods from "./PayMethods";
+import $ from "jquery";
+// import './Storage.scss';
+import history from "../lib/history";
+import Logo from "../../src/assets/images/logo.png";
+import InxtContainer from "./InxtContainer";
+// import "./Plans.css";
+import StorageProgressBar from "./StorageProgressBar";
+// import StoragePlans from "./StoragePlans";
+import PrettySize from "prettysize";
 
-import Circle from './Circle';
-import { Row, Col } from 'react-bootstrap';
-import Popup from 'reactjs-popup';
+import Circle from "./Circle";
+import { Row, Col } from "react-bootstrap";
+import Popup from "reactjs-popup";
 
-import closeTab from '../assets/Dashboard-Icons/close-tab.svg';
+import closeTab from "../assets/Dashboard-Icons/close-tab.svg";
 
-import { getHeaders } from '../lib/auth';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { getHeaders } from "../lib/auth";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getUserData } from "../lib/analytics";
+import { Link } from "react-router-dom";
+import Settings from "../lib/settings";
+import customPrettySize from "../lib/sizer";
+const StoragePlans = lazy(() => import("./StoragePlans"));
 
 class Storage extends React.Component {
-    state = {
-      page: null,
-      max: 0,
-      now: 0,
+  state = {
+    page: null,
+    max: 0,
+    now: 0,
+    dropdown: false,
+    profiledown: false,
+    modalDeleteAccountShow: false,
+  };
 
-      modalDeleteAccountShow: false
-
+  componentDidMount() {
+    // Check auth and redirect to login if necessary
+    if (!localStorage.xUser) {
+      return history.push("/login");
     }
 
-    componentDidMount() {
-      // Check auth and redirect to login if necessary
-      if (!localStorage.xUser) {
-        return history.push('/login');
-      }
+    this.getUsage();
+  }
 
-      this.getUsage();
-
+  payMethodLoader = (plan) => {
+    if (plan.stripe_plan_id != null) {
+      this.setState({
+        page: <PayMethods choosedPlan={plan} />,
+      });
     }
+  };
+  async getUsage(isTeam = false) {
+    const limit = await fetch("/api/limit", {
+      headers: getHeaders(true, false, isTeam),
+    })
+      .then((res) => res.json())
+      .catch(() => null);
 
-    payMethodLoader = (plan) => {
-      if (plan.stripe_plan_id != null) {
-        this.setState({
-          page: <PayMethods choosedPlan={plan} />
-        });
-      }
+    const usage = await fetch("/api/usage", {
+      headers: getHeaders(true, false, isTeam),
+    })
+      .then((res3) => res3.json())
+      .catch(() => null);
+
+    if (limit && usage) {
+      this.setState({
+        now: usage.total,
+        max: limit.maxSpaceBytes,
+      });
     }
-    async getUsage(isTeam = false) {
+  }
 
-      const limit = await fetch('/api/limit', {
-        headers: getHeaders(true, false, isTeam)
-      }).then(res => res.json()).catch(() => null);
-
-      const usage = await fetch('/api/usage', {
-        headers: getHeaders(true, false, isTeam)
-      }).then(res3 => res3.json()).catch(() => null);
-
-      if (limit && usage) {
-        this.setState({
-          now: usage.total,
-          max: limit.maxSpaceBytes
-        });
-      }
-
-    }
-
-    handleCancelAccount = () => {
-      fetch('/api/deactivate', {
-        method: 'GET',
-        headers: getHeaders(true, false)
+  handleCancelAccount = () => {
+    fetch("/api/deactivate", {
+      method: "GET",
+      headers: getHeaders(true, false),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({ modalDeleteAccountShow: false });
       })
-        .then(res => res.json())
-        .then(res => {
-          this.setState({ modalDeleteAccountShow: false });
-        }).catch(err => {
-          toast.warn('Error deleting account');
-          console.log(err);
-        });
-    }
+      .catch((err) => {
+        toast.warn("Error deleting account");
+        console.log(err);
+      });
+  };
 
-    render() {
-      return (
-        <div className="settings">
-          <NavigationBar navbarItems={<h5>Storage</h5>} showSettingsButton={true} />
-          <InxtContainer>
+  render() {
+    const user = JSON.parse(localStorage.getItem("xUser"));
+    return (
+      <div className="settings">
+        <NavigationBar showSettingsButton={true} />
+        <div className="iq-top-navbar">
+          <div className="iq-navbar-custom">
+            <nav className="navbar navbar-expand-lg navbar-light p-0">
+              <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
+                <i
+                  className="ri-menu-line wrapper-menu"
+                  onClick={() => $("body").addClass("sidebar-main")}
+                ></i>
+                <a className="header-logo">
+                  <img
+                    src={Logo}
+                    className="img-fluid rounded-normal light-logo"
+                    alt="logo"
+                  />
+                </a>
+              </div>
+              <div className="iq-search-bar device-search">
+                {/* <form>
+                <div className="input-prepend input-append">
+                  <div className="btn-group">
+                    <label
+                      className="dropdown-toggle searchbox"
+                      data-toggle="dropdown"
+                    >
+                      <input
+                        className="dropdown-toggle search-query text search-input"
+                        type="text"
+                        placeholder="Type here to search..."
+                        onChange={this.props.setSearchFunction}
+                      />
+                      <span className="search-replace"></span>
+                      <a className="search-link" >
+                        <i className="ri-search-line"></i>
+                      </a>
+                    </label>
+                  </div>
+                </div>
+              </form> */}
+              </div>
+              <div className="d-flex align-items-center">
+                <div
+                  className="change-mode"
+                  onChange={() => $("body").toggleClass("dark")}
+                >
+                  <div className="custom-control custom-switch custom-switch-icon custom-control-inline">
+                    {/* <div className="custom-switch-inner">
+                    <p className="mb-0"></p>
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="dark-mode"
+                      data-active="true"
+                    />
+                    <label
+                      className="custom-control-label"
+                      htmlFor="dark-mode"
+                      data-mode="toggle"
+                    >
+                      <span className="switch-icon-left">
+                        <i className="a-left ri-sun-line"></i>
+                      </span>
+                      <span className="switch-icon-right">
+                        <i className="a-left ri-moon-clear-line"></i>
+                      </span>
+                    </label>
+                  </div> */}
+                  </div>
+                </div>
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-label="Toggle navigation"
+                >
+                  <i className="ri-menu-3-line"></i>
+                </button>
+                <div
+                  className="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul className="navbar-nav ml-auto navbar-list align-items-center">
+                    <li className="nav-item nav-icon search-content">
+                      <a
+                        className="search-toggle rounded"
+                        id="dropdownSearch"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i className="ri-search-line"></i>
+                      </a>
+                      <div
+                        className="iq-search-bar iq-sub-dropdown dropdown-menu"
+                        aria-labelledby="dropdownSearch"
+                      >
+                        <form className="searchbox p-2">
+                          <div className="form-group mb-0 position-relative">
+                            <input
+                              type="text"
+                              className="text search-input font-size-12"
+                              placeholder="type here to search..."
+                            />
+                            <a className="search-link">
+                              <i className="las la-search"></i>
+                            </a>
+                          </div>
+                        </form>
+                      </div>
+                    </li>
+                    <li className={`nav-item nav-icon dropdown ${this.state.dropdown == true ? "show" : ""}`}>
+                      <a
+                        className="search-toggle dropdown-toggle"
+                        onClick={() => this.setState({ dropdown: !this.state.dropdown })}
+                        id="dropdownMenuButton02"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i className="ri-settings-3-line"></i>
+                      </a>
+                      <div
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.dropdown == true ? "show" : ""}`}
+                        aria-labelledby="dropdownMenuButton02"
+                      >
+                        <div className="card shadow-none m-0">
+                          <div className="card-body p-0 ">
+                            <div className="p-3">
+                              <Link to="/settings" className="iq-sub-card pt-0">
+                                <i className="ri-settings-3-line"></i>Update Password
+                              </Link>
+                              <Link to="/security" className="iq-sub-card">
+                                <i className="ri-shield-fill"></i>
+                                Enable 2FA
+                              </Link>
+                              <Link to="/invite" className="iq-sub-card">
+                                <i className="ri-user-follow-fill"></i>
+                                Referrals
+                              </Link>
+                              {/* <Link to="/teams" className="iq-sub-card">
+                                <i className="ri-money-dollar-circle-fill"></i>{" "}
+                                Business
+                              </Link> */}
+                              <a
+                                href="https://storx.tech/support.html"
+                                target="_blank"
+                                className="iq-sub-card"
+                              >
+                                <i className="ri-mail-open-fill"></i>
+                                Community Support
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li className={`nav-item nav-icon dropdown caption-content ${this.state.profiledown == true ? "show" : ""}`}>
+                      <a
+                        className="search-toggle dropdown-toggle"
+                        id="dropdownMenuButton03"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        onClick={() => this.setState({ profiledown: !this.state.profiledown })}
+                      >
+                        <div className="caption bg-primary line-height">
+                          <i className="ri-user-3-fill"></i>
+                        </div>
+                      </a>
+                      <div
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.profiledown == true ? "show" : ""}`}
+                        aria-labelledby="dropdownMenuButton03"
+                      >
+                        <div className="card mb-0">
+                          <div className="card-header d-flex justify-content-between align-items-center mb-0">
+                            <div className="header-title">
+                              <h4 className="card-title mb-0">Profile</h4>
+                            </div>
+                            <div className="close-data text-right badge badge-primary cursor-pointer ">
+                              <i className="ri-close-fill"></i>
+                            </div>
+                          </div>
+                          <div className="card-body">
+                            <div className="profile-header">
+                              <div className="cover-container text-center">
+                                <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
+                                  {user.name.charAt(0)}
+                                </div>
+                                <div className="profile-detail mt-3">
+                                  <h5>
+                                    <a>
+                                      {user.name} {user.lastname}
+                                    </a>
+                                  </h5>
+                                  <p>{user.email}</p>
+                                </div>
+                                <Link
+                                  to="/login"
+                                  className="btn btn-primary"
+                                  onClick={() => {
+                                    window.analytics.track("user-signout", {
+                                      email: getUserData().email,
+                                    });
+                                    Settings.clear();
+                                  }}
+                                >
+                                  Sign Out
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div className="content-page">
+          <div className="container-fluid">
+            <div className="row mb-5">
+              <div className="col-lg-12">
+                <div className="card-transparent card-block card-stretch card-height mb-3">
+                  <div className="d-flex justify-content-between">
+                    <div className="select-dropdown input-prepend input-append">
+                      <div className="btn-group">
+                        <label data-toggle="dropdown">
+                          <div className="dropdown-toggle search-query">
+                            Storage
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                    {/* <div className="dashboard1-info-back">
+                      <a href="index.html">
+                        <i className="ri-arrow-left-s-line"></i>Back
+                      </a>
+                    </div> */}
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm-12 col-lg-12">
+                <div className="card">
+                  <div className="card-header d-flex justify-content-between">
+                    <div className="header-title">
+                      <h4 className="card-title">Storage Used</h4>
+                    </div>
+                  </div>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-lg-12 col-sm-12">
+                        <p>{customPrettySize(this.state.now)} / {customPrettySize(this.state.max)}</p>
+                        <div
+                          className="iq-progress-bar mb-3"
+                          style={{ height: '1.10rem' }}
+                        >
+                          <span
+                            className="bg-primary iq-progress progress-1"
+                            data-percent={((this.state.now * 100) / this.state.max)}
+                            style={{
+                              width: `${(this.state.now * 100) / this.state.max}%`,
+                              transition: `width ${Math.floor(Math.random() * 10)}s ease 0s`
+                            }}
+                          ></span>
+                        </div>
+                        <p>{isNaN(this.state.now / this.state.max) ? 0 : ((this.state.now * 100) / this.state.max).toFixed(2)} % Full</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-12">
+                <div className="card card-block card-stretch card-transparent">
+                  <div className="card-header d-flex justify-content-between pb-0">
+                    <div className="header-title">
+                      <h4 className="card-title">Storage Plans</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-12">
+                <div className="pricing-custom-tab w-100">
+                  <div className="tab-title-info position-relative">
+                    <div className="col-sm-12 p-0">
+                      <ul
+                        className="d-flex nav nav-pills mb-5 align-items-center justify-content-center"
+                        id="pricing-pills-tab"
+                        role="tablist"
+                      >
+                        <li className="nav-item">
+                          {" "}
+                          <a
+                            className="nav-link active"
+                            data-toggle="pill"
+                            href="#pricing-data1"
+                            role="tab"
+                            aria-selected="true"
+                          >
+                            For Individual
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <div className="avatar-30 star-circle">
+                            <i className="ri-star-fill"></i>
+                          </div>
+                        </li>
+                        <li className="nav-item">
+                          {" "}
+                          <a
+                            className="nav-link show"
+                            data-toggle="pill"
+                            href="#pricing-data2"
+                            role="tab"
+                            aria-selected="false"
+                          >
+                            For Enterprise
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="pricing-content">
+                    <div id="pricing-data1" className="tab-pane fade active show">
+                      <Suspense fallback={<h3 className="text-warning">Loading.....</h3>}>
+                        <StoragePlans currentPlan={this.state.max} />
+                      </Suspense>
+                      {/* <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
+                                  2 GB
+                                </h3>
+                              </div>
+                              <h3 className="text-primary font-weight-bolder mt-5 mb-2">
+                                FREE
+                              </h3>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
+                                  20 GB
+                                </h3>
+                              </div>
+                              <h4 className="mb-2">
+                                $1 <small className="font-size-14">/ Month</small>
+                              </h4>
+                              <ul className="list-unstyled mb-0 pricing-list">
+                                <li className="text-muted">Prepay per month</li>
+                              </ul>
+                              <a href="#" className="btn btn-primary mt-3">
+                                BUY STORAGE
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
+                                  50 GB
+                                </h3>
+                              </div>
+                              <h4 className="mb-2">
+                                $2 <small className="font-size-14">/ Month</small>
+                              </h4>
+                              <ul className="list-unstyled mb-0 pricing-list">
+                                <li className="text-muted">Prepay per month</li>
+                              </ul>
+                              <a href="#" className="btn btn-primary mt-3">
+                                BUY STORAGE
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
+                                  100 GB
+                                </h3>
+                              </div>
+                              <h4 className="mb-2">
+                                $4 <small className="font-size-14">/ Month</small>
+                              </h4>
+                              <ul className="list-unstyled mb-0 pricing-list">
+                                <li className="text-muted">Prepay per month</li>
+                              </ul>
+                              <a href="#" className="btn btn-primary mt-3">
+                                BUY STORAGE
+                              </a>
+                            </div>
+                          </div>
+                        </div> */}
+                    </div>
+                    <div id="pricing-data2" className="tab-pane fade">
+                      <div className="row m-0 d-flex">
+                        <h4 className="text-warning">For Enterprise Coming Soon ...</h4>
+                        {/* <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header bg-primary text-white">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
+                                  250 GB
+                                </h3>
+                              </div>
+                              <h4 className="mb-2">
+                                $10 <small className="font-size-14">/ Month</small>
+                              </h4>
+                              <ul className="list-unstyled mb-0 pricing-list">
+                                <li className="text-muted">Prepay per month</li>
+                              </ul>
+                              <a href="#" className="btn btn-primary mt-3">
+                                BUY STORAGE
+                              </a>
+                            </div>
+                          </div>
+                        </div> */}
+                        {/* <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header bg-success text-white">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
+                                  500 GB
+                                </h3>
+                              </div>
+                              <h4 className="mb-2">
+                                $20 <small className="font-size-14">/ Month</small>
+                              </h4>
+                              <ul className="list-unstyled mb-0 pricing-list">
+                                <li className="text-muted">Prepay per month</li>
+                              </ul>
+                              <a href="#" className="btn btn-primary mt-3">
+                                BUY STORAGE
+                              </a>
+                            </div>
+                          </div>
+                        </div> */}
+                        {/* <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header bg-info text-white">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
+                                  1 TB
+                                </h3>
+                              </div>
+                              <h4 className="mb-2">
+                                $40 <small className="font-size-14">/ Month</small>
+                              </h4>
+                              <ul className="list-unstyled mb-0 pricing-list">
+                                <li className="text-muted">Prepay per month</li>
+                              </ul>
+                              <a href="#" className="btn btn-primary mt-3">
+                                BUY STORAGE
+                              </a>
+                            </div>
+                          </div>
+                        </div> */}
+                        {/* <div className="col-lg-3 col-sm-6">
+                          <div className="card card-block card-stretch card-height blog pricing-details">
+                            <div className="card-body border text-center rounded">
+                              <div className="pricing-header bg-warning text-white">
+                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
+                                  25 TB
+                                </h3>
+                              </div>
+                              <a href="mailto:contact@storx.tech">
+                                <h4 className="text-primary font-weight-bolder mt-5 mb-2">
+                                  ENTERPRISE
+                                </h4>
+                                <ul className="list-unstyled mb-0 pricing-list">
+                                  <li className="text-primary font-weight-500">
+                                    CONTACT US FOR PRICING
+                                  </li>
+                                </ul>
+                              </a>
+                            </div>
+                          </div>
+                        </div> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <InxtContainer>
             <p className="title">Storage Used</p>
 
             <p className="space-used-text">Used <b>{PrettySize(this.state.now, true, false)}</b> of <b>{PrettySize(this.state.max, true, false)}</b></p>
@@ -127,11 +633,10 @@ class Storage extends React.Component {
 
               </div>
             </div>
-          </Popup>
-
-        </div >
-      );
-    }
+          </Popup> */}
+      </div>
+    );
+  }
 }
 
 export default Storage;

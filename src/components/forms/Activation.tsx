@@ -9,19 +9,19 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface ActivationProps {
-  match?: any
+  match?: any;
 }
 
 interface ActivationState {
-  isActivated: Boolean | null
-  isError: Boolean
+  isActivated: Boolean | null;
+  isError: Boolean;
 }
 
 class Activation extends React.Component<ActivationProps & RouteProps, ActivationState> {
   state = {
     isActivated: null,
     isError: false
-  }
+  };
 
   constructor(props: ActivationProps) {
     super(props);
@@ -54,22 +54,22 @@ class Activation extends React.Component<ActivationProps & RouteProps, Activatio
   }
 
   redirect = () => {
-    if (isMobile) {
-      if (isAndroid) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      } else if (isIOS) {
-        window.location.href = 'https://web.storx.io/mobileapp';
-      }
-    } else {
-      if (this.state.isActivated) {
-        toast.info('Your account has been activated successfully!', { className: 'xcloud-toast-info' });
-      } else {
-        toast.warn('Invalid activation code');
-        toast.warn('Your activation code is invalid. Maybe you have used this link before and your account is already activated.');
-      }
-      history.push('/');
-    }
-  }
+    // if (isMobile) {
+    //   if (isAndroid) {
+    //     window.location.href = 'https://web.storx.io/mobileapp';
+    //   } else if (isIOS) {
+    //     window.location.href = 'https://web.storx.io/mobileapp';
+    //   }
+    // } else {
+    //   if (this.state.isActivated) {
+    //     toast.info('Your account has been activated successfully!', { className: 'xcloud-toast-info' });
+    //   } else {
+    //     toast.warn('Invalid activation code');
+    //     toast.warn('Your activation code is invalid. Maybe you have used this link before and your account is already activated.');
+    //   }
+    //   history.push('/');
+    // }
+  };
 
   render() {
     if (!isMobile) {

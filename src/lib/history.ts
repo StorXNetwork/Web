@@ -1,5 +1,5 @@
-import { createBrowserHistory } from 'history';
-import { analytics, PATH_NAMES } from './analytics';
+import { createBrowserHistory } from "history";
+import { analytics, PATH_NAMES } from "./analytics";
 
 const instance = createBrowserHistory({ forceRefresh: false });
 
