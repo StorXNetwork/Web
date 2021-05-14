@@ -26,7 +26,7 @@ class Activation extends React.Component<ActivationProps & RouteProps, Activatio
   constructor(props: ActivationProps) {
     super(props);
 
-    this.redirect = this.redirect.bind(this);
+    // this.redirect = this.redirect.bind(this);
   }
 
   componentDidMount() {
@@ -43,41 +43,41 @@ class Activation extends React.Component<ActivationProps & RouteProps, Activatio
           this.setState({ isActivated: false });
         }
 
-        if (!isMobile) {
-          this.redirect();
-        }
+        // if (!isMobile) {
+        //   this.redirect();
+        // }
       }).catch(err => {
         this.setState({ isActivated: false });
         console.log('Activation error: ' + err);
-        if (!isMobile) { this.redirect(); }
+        // if (!isMobile) { this.redirect(); }
       });
   }
 
-  redirect = () => {
-    // if (isMobile) {
-    //   if (isAndroid) {
-    //     window.location.href = 'https://web.storx.io/mobileapp';
-    //   } else if (isIOS) {
-    //     window.location.href = 'https://web.storx.io/mobileapp';
-    //   }
-    // } else {
-    //   if (this.state.isActivated) {
-    //     toast.info('Your account has been activated successfully!', { className: 'xcloud-toast-info' });
-    //   } else {
-    //     toast.warn('Invalid activation code');
-    //     toast.warn('Your activation code is invalid. Maybe you have used this link before and your account is already activated.');
-    //   }
-    //   history.push('/');
-    // }
-  };
+  // redirect = () => {
+  //   if (isMobile) {
+  //     if (isAndroid) {
+  //       window.location.href = 'https://web.storx.io/mobileapp';
+  //     } else if (isIOS) {
+  //       window.location.href = 'https://web.storx.io/mobileapp';
+  //     }
+  //   } else {
+  //     if (this.state.isActivated) {
+  //       toast.info('Your account has been activated successfully!', { className: 'xcloud-toast-info' });
+  //     } else {
+  //       toast.warn('Invalid activation code');
+  //       toast.warn('Your activation code is invalid. Maybe you have used this link before and your account is already activated.');
+  //     }
+  //     history.push('/');
+  //   }
+  // };
 
   render() {
     if (!isMobile) {
       return '';
     } else {
-      if (this.state.isActivated) {
-        setTimeout(this.redirect, 1000);
-      }
+      // if (this.state.isActivated) {
+      //   setTimeout(this.redirect, 1000);
+      // }
 
       return <Alert className="Alert" variant={this.state.isActivated ? 'success' : 'danger'}>
         {this.state.isActivated == null ? <div>

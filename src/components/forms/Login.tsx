@@ -138,6 +138,9 @@ class Login extends React.Component<LoginProps> {
         }
       })
       .catch((err) => {
+        if (err == 'Error: User not found on Cloud database') {
+          toast.warn("User not found on drive database. Please create account.", { autoClose: 3000, transition: Flip, draggable: true });
+        }
         if (
           err.message.includes("not activated") &&
           this.validateEmail(this.state.email)
@@ -145,12 +148,12 @@ class Login extends React.Component<LoginProps> {
           history.push(`/activate/${this.state.email}`);
         } else {
           this.setState({ isLogingIn: false });
+          // toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });
           window.analytics.track("user-signin-attempted", {
             status: "error",
             msg: err.message,
             email: this.state.email,
           });
-          toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });
         }
       });
   };
@@ -321,9 +324,18 @@ class Login extends React.Component<LoginProps> {
           });
       })
       .catch((err) => {
-        console.error("Login error. " + err.message);
-        history.push('/login');
-        toast.error("Email or Password is wrong. Please enter correct credentials.");
+        if (err == `Error: "Error: Wrong email/password"`) {
+          toast.error("Email or Password is wrong. Please enter correct credentials.", { autoClose: 3000, transition: Flip });
+          if (window.location.pathname != "/login") {
+            history.push('/login');
+          }
+        } else if (err = `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
+          toast.error("Your account has been blocked for security reasons. Please reach out to us");
+          history.push('/login');
+        } else {
+          toast.error("Wrong 2FA");
+          history.push('/login');
+        }
       })
       .finally(() => {
         this.setState({ isLogingIn: false });

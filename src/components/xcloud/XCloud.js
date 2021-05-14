@@ -53,9 +53,9 @@ class XCloud extends React.Component {
   componentDidMount = () => {
     // if (isMobile) {
     //   if (isAndroid) {
-    //     window.location.href = "https://web.storx.io/mobileapp";
+    //     // window.location.href = "https://web.storx.io/mobileapp";
     //   } else if (isIOS) {
-    //     window.location.href = "https://web.storx.io/mobileapp";
+    //     // window.location.href = "https://web.storx.io/mobileapp";
     //   }
     // }
 
@@ -264,6 +264,7 @@ class XCloud extends React.Component {
         }),
       })
         .then(async (res) => {
+          console.log('.........access', res);
           if (res.status !== 201) {
             const body = await res.json();
 

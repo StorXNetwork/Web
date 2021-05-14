@@ -418,11 +418,14 @@ class Storage extends React.Component {
                     </div>
                   </div>
                   <div className="pricing-content">
-                    <div id="pricing-data1" className="tab-pane fade active show">
+                    <Suspense fallback={<h3 className="text-warning">Loading.....</h3>}>
+                      <StoragePlans currentPlan={this.state.max} />
+                    </Suspense>
+                    {/* <div id="pricing-data1" className="tab-pane fade active show">
                       <Suspense fallback={<h3 className="text-warning">Loading.....</h3>}>
                         <StoragePlans currentPlan={this.state.max} />
-                      </Suspense>
-                      {/* <div className="col-lg-3 col-sm-6">
+                      </Suspense> */}
+                    {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
                               <div className="pricing-header">
@@ -496,10 +499,10 @@ class Storage extends React.Component {
                             </div>
                           </div>
                         </div> */}
-                    </div>
-                    <div id="pricing-data2" className="tab-pane fade">
-                      <div className="row m-0 d-flex">
-                        <h4 className="text-warning">For Enterprise Coming Soon ...</h4>
+                    {/* </div> */}
+                    {/* <div id="pricing-data2" className="tab-pane fade"> */}
+                      {/* <div className="row m-0 d-flex"> */}
+                        {/* <h4 className="text-warning">For Enterprise Coming Soon ...</h4> */}
                         {/* <div className="col-lg-3 col-sm-6">
                           <div className="card card-block card-stretch card-height blog pricing-details">
                             <div className="card-body border text-center rounded">
@@ -581,8 +584,8 @@ class Storage extends React.Component {
                             </div>
                           </div>
                         </div> */}
-                      </div>
-                    </div>
+                      {/* </div> */}
+                    {/* </div> */}
                   </div>
                 </div>
               </div>

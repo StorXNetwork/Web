@@ -42,9 +42,9 @@ class Remove extends React.Component<RemoveProps, RemoveState> {
     this.setState({ currentContainer: this.privacyContainer() });
     // if (isMobile) {
     //   if (isAndroid) {
-    //     window.location.href = "https://web.storx.io/mobileapp";
+    //     // window.location.href = "https://web.storx.io/mobileapp";
     //   } else if (isIOS) {
-    //     window.location.href = "https://web.storx.io/mobileapp";
+    //     // window.location.href = "https://web.storx.io/mobileapp";
     //   }
     // }
 
