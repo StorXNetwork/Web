@@ -37,7 +37,7 @@ class FileCommander extends React.Component {
       namePath: this.props.namePath,
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
-      theme: localStorage.getItem("theme") == "" ? false : true,
+      theme: localStorage.getItem('theme'),
       treeSize: 0,
       isTeam: this.props.isTeam,
       dropdown: false,
@@ -57,9 +57,6 @@ class FileCommander extends React.Component {
         isTeam: this.props.isTeam,
       });
     }
-    // if (this.state.theme != prevProps.theme) {
-    //   localStorage.setItem('theme', localStorage.getItem('theme'));
-    // }
   }
 
   sortItems = (sortType) => {
@@ -219,10 +216,12 @@ class FileCommander extends React.Component {
   };
 
   // componentDidMount() {
-  //   if (localStorage.getItem('theme') == true) {
-  //     $('body').addClass('dark');
+  //   const localTheme = localStorage.getItem('theme');
+  //   if (localTheme) {
+  //     this.setState({ theme: localTheme });
   //   } else {
-  //     $('body').removeClass('dark');
+  //     this.setState({ theme: localTheme });
+  //     // this.setMode('light');
   //   }
   // }
 
@@ -375,23 +374,26 @@ class FileCommander extends React.Component {
     });
   };
 
+  setMode(mode) {
+    localStorage.setItem('theme', mode);
+    this.setState({ theme: mode });
+  };
 
   changeTheme() {
-    this.setState({ theme: !this.state.theme });
-    if (this.state.theme == true) {
-      localStorage.setItem('theme', true);
-    }
-    if (this.state.theme == false) {
-      localStorage.setItem('theme', false);
-    }
-    if (localStorage.getItem('theme') == true) {
+    if (this.state.theme) {
+      this.setMode(!this.state.theme);
+      localStorage.setItem('theme', !this.state.theme);
       $('body').toggleClass('dark');
     }
-    else $('body').toggleClass('dark');
+    // else {
+    //   this.setMode(true);
+    //   localStorage.setItem('theme', true);
+    //   $('body').toggleClass('dark');
+    // }
   }
 
   render() {
-
+    console.log('.....', this.state.theme);
     const list = this.state.currentCommanderItems || 0;
     const inRoot = this.state.namePath.length === 1;
     const folderLength = list.filter((e) => e.isFolder === true).length;

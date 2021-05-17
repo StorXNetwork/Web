@@ -8,79 +8,79 @@ import 'react-toastify/dist/ReactToastify.css';
 import Settings from '../../lib/settings';
 
 interface DeactivationProps {
-    match?: any
+  match?: any;
 }
 
 class Deactivation extends React.Component<DeactivationProps> {
-    state = {
-      token: this.props.match.params.token,
-      result: this.confirmDeactivation(),
-      errorReason: ''
+  state = {
+    token: this.props.match.params.token,
+    result: this.confirmDeactivation(),
+    errorReason: ''
+  };
+
+  IsValidToken = (token: string) => {
+    return /^[a-z0-9]{512}$/.test(token);
+  };
+
+  ClearAndRedirect = () => {
+    console.log('Clear and redirect');
+    Settings.clear();
+
+    if (!isMobile) {
+      toast.info('Your account has been deactivated');
+      history.push('/');
+    } else {
+      this.setState({ result: this.confirmDeactivation() });
     }
+  };
 
-    IsValidToken = (token: string) => {
-      return /^[a-z0-9]{512}$/.test(token);
-    }
-
-    ClearAndRedirect = () => {
-      console.log('Clear and redirect');
-      Settings.clear();
-
+  ConfirmDeactivateUser = (token: string) => {
+    axios.get('/api/confirmDeactivation/' + token).then(res => {
+      this.ClearAndRedirect();
+    }).catch(err => {
       if (!isMobile) {
-        toast.info('Your account has been deactivated');
+        toast.warn('Invalid token');
         history.push('/');
       } else {
-        this.setState({ result: this.confirmDeactivation() });
+        this.setState({ result: this.invalidDeactivationToken() });
       }
-    }
+    });
+  };
 
-    ConfirmDeactivateUser = (token: string) => {
-      axios.get('/api/confirmDeactivation/' + token).then(res => {
-        this.ClearAndRedirect();
-      }).catch(err => {
-        if (!isMobile) {
-          toast.warn('Invalid token');
-          history.push('/');
-        } else {
-          this.setState({ result: this.invalidDeactivationToken() });
-        }
-      });
-    }
-
-    componentDidMount() {
-      if (this.IsValidToken(this.state.token)) {
-        this.ConfirmDeactivateUser(this.state.token);
-      } else {
-
-        if (!isMobile) {
-          toast.warn('Invalid token');
-          history.push('/');
-        } else {
-          this.setState({ result: this.invalidDeactivationToken() });
-        }
-      }
-    }
-
-    render() {
+  componentDidMount() {
+    if (this.IsValidToken(this.state.token)) {
+      this.ConfirmDeactivateUser(this.state.token);
+    } else {
 
       if (!isMobile) {
-        return '';
+        toast.warn('Invalid token');
+        history.push('/');
       } else {
-        return <Container>
-          <Alert variant="danger">{this.state.result}</Alert>
-        </Container>;
+        this.setState({ result: this.invalidDeactivationToken() });
       }
     }
+  }
 
-    confirmDeactivation() {
-      return <p>Your account has been deactivated</p>;
-    }
+  render() {
 
-    invalidDeactivationToken() {
-      return <div>
-        <p>Invalid token</p>
-      </div>;
+    if (!isMobile) {
+      return '';
+    } else {
+      return <Container>
+        <Alert variant="danger">{this.state.result}</Alert>
+      </Container>;
     }
+  }
+
+  confirmDeactivation() {
+    return <p>Your account has been deactivated</p>;
+  }
+
+  invalidDeactivationToken() {
+    return <div>
+      <p>Invalid token</p>
+    </div>;
+  }
 }
 
 export default Deactivation;

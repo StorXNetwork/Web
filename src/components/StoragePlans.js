@@ -39,6 +39,7 @@ class StoragePlans extends React.Component {
     this.state = {
       statusMessage: "",
       storageStep: 1,
+      max: 0,
 
       productsLoading: true,
       plansLoading: true,
@@ -93,6 +94,21 @@ class StoragePlans extends React.Component {
 
   componentDidMount() {
     this.loadAvailableProducts();
+    this.getUsage();
+  }
+
+  async getUsage() {
+    const limit = await fetch("/api/limit", {
+      headers: getHeaders(true, false),
+    })
+      .then((res) => res.json())
+      .catch(() => null);
+
+    if (limit) {
+      this.setState({
+        max: limit.maxSpaceBytes,
+      });
+    }
   }
 
   handleStripePayment() {
@@ -145,29 +161,91 @@ class StoragePlans extends React.Component {
 
   render() {
     if (this.state.storageStep === 1) {
+      const individualPlan = this.state.availableProducts
+        ? this.state.availableProducts.filter(
+          (prod) => prod.metadata.type_package == "individual"
+        )
+        : null;
+      const enterprisePlan = this.state.availableProducts
+        ? this.state.availableProducts.filter(
+          (prod) => prod.metadata.type_package == "enterprise"
+        )
+        : null;
       return (
-        <div className="row m-0">
-          {this.state.productsLoading === 'error' ? 'There was an error loading the available plans: The server was unreachable. Please check your network connection and reload.' : ''}
-          {this.state.availableProducts ?
-            this.state.availableProducts.map((entry, i) => (<InxtContainerOption
-              key={'plan' + i}
-              isChecked={this.props.currentPlan === entry.metadata.size_bytes * 1}
-              header={entry.metadata.simple_name}
-              onClick={(e) => {
-                // Can't select the current product or lesser
-                this.setState({ selectedProductToBuy: entry, storageStep: 2, plansLoading: true, availablePlans: null });
-              }}
-              text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>${entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>}
-            />))
-            : ''}
-          {/* <div className="pricing-header">
-                  <h3 className="mt-2 mb-2 display-5 font-weight-bolder">2 GB</h3>
-                  </div>
-                  <h3 className="text-primary font-weight-bolder mt-5 mb-2">
-                  FREE
-                </h3> */}
-          {/* </div> */}
-        </div>
+        <>
+          <div id="pricing-data1" className="tab-pane active show">
+            <div className="row m-0 d-flex">
+              {this.state.productsLoading === "error"
+                ? "There was an error loading the available plans: The server was unreachable. Please check your network connection and reload."
+                : ""}
+              {individualPlan ? (
+                individualPlan.map((entry, i) => (
+                  <InxtContainerOption
+                    key={"plan" + i}
+                    isChecked={this.state.max === entry.metadata.size_bytes * 1}
+                    header={entry.metadata.simple_name}
+                    onClick={(e) => {
+                      this.setState({
+                        selectedProductToBuy: entry,
+                        storageStep: 2,
+                        plansLoading: true,
+                        availablePlans: null,
+                      });
+                    }}
+                    text={
+                      entry.metadata.price_usd === "0" ? (
+                        "Free"
+                      ) : (
+                        <>
+                          ${entry.metadata.price_usd}
+                          <span className="font-size-14">/month</span>
+                        </>
+                      )
+                    }
+                  />
+                ))
+              ) : (
+                <h3 className="text-warning">Loading...</h3>
+              )}
+            </div>
+          </div>
+          <div id="pricing-data2" className="tab-pane show">
+            <div className="row m-0 d-flex">
+              {this.state.productsLoading === "error"
+                ? "There was an error loading the available plans: The server was unreachable. Please check your network connection and reload."
+                : ""}
+              {enterprisePlan ? (
+                enterprisePlan.map((entry, i) => (
+                  <InxtContainerOption
+                    key={"plan" + i}
+                    isChecked={this.state.max === entry.metadata.size_bytes * 1}
+                    header={entry.metadata.simple_name}
+                    onClick={(e) => {
+                      this.setState({
+                        selectedProductToBuy: entry,
+                        storageStep: 2,
+                        plansLoading: true,
+                        availablePlans: null,
+                      });
+                    }}
+                    text={
+                      entry.metadata.price_usd === "0" ? (
+                        "Contact us for pricing"
+                      ) : (
+                        <span>
+                          ${entry.metadata.price_usd}
+                          <span className="font-size-14">/month</span>
+                        </span>
+                      )
+                    }
+                  />
+                ))
+              ) : (
+                <h3 className="text-warning">Loading...</h3>
+              )}
+            </div>
+          </div>
+        </>
       );
 
       // return (
@@ -191,7 +269,7 @@ class StoragePlans extends React.Component {
       //               // Can't select the current product or lesser
       //               this.setState({ selectedProductToBuy: entry, storageStep: 2, plansLoading: true, availablePlans: null });
       //             }}
-      //             text={entry.metadata.price_eur === '0.00' ? 'Free' : <span>${entry.metadata.price_eur}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>} />;
+      //             text={entry.metadata.price_usd === '0.00' ? 'Free' : <span>${entry.metadata.price_usd}<span style={{ color: '#7e848c', fontWeight: 'normal' }}>/month</span></span>} />;
       //         })
       //         : ''}
       //     </Row>

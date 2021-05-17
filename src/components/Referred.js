@@ -131,7 +131,6 @@ class Referred extends React.Component {
 
   render() {
     const user = Settings.getUser();
-
     return (
       <>
         <NavigationBar navbarItems="" showSettingsButton={true} />

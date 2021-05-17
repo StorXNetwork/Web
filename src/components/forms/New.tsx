@@ -19,7 +19,7 @@ import "../../../src/assets/css/backend.css";
 import logo from "../../../src/assets/images/logo.png";
 import logoWhite from "../../../src/assets/images/logo-white.png";
 import loginLogo from "../../../src/assets/images/login/login_img.png";
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { analytics } from "../../lib/analytics";
 import queryString, { ParsedQuery } from "query-string";
@@ -268,7 +268,7 @@ class New extends React.Component<NewProps, NewState> {
                 email: this.state.register.email,
               },
             });
-            // history.push("/login");
+            history.push("/login");
 
             const privkeyDecrypted = Buffer.from(
               AesFunctions.decrypt(
@@ -310,6 +310,7 @@ class New extends React.Component<NewProps, NewState> {
       })
       .catch((err) => {
         console.error("Register error", err);
+        // toast.error("Something went wrong", { autoClose: 3000, transition: Flip });
       });
   };
 
@@ -638,6 +639,11 @@ class New extends React.Component<NewProps, NewState> {
     // );
   }
 
+  regexPass = (pass) => {
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
+    return regex.test(pass);
+  };
+
   handleTermsConditions = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ checkTermsConditions: true });
   };
@@ -907,10 +913,11 @@ class New extends React.Component<NewProps, NewState> {
                                 autoFocus
                               />
                               <label>Password</label>
+                              {this.state.register.password != "" ? this.regexPass(this.state.register.password) ? "" : <div className="mt-1 text-danger small">Please enter password with minimum 1 uppercase, 1 charater (@#$%&) & 1 number</div> : null}
                             </div>
                           </div>
                           <div className="col-lg-12">
-                            <div className="floating-label form-group">
+                            <div className="floating-label form-group mb-0">
                               <input
                                 className="floating-input form-control"
                                 type="password"
@@ -921,10 +928,12 @@ class New extends React.Component<NewProps, NewState> {
                                 onChange={this.handleChangeRegister}
                               />
                               <label>Confirm Password</label>
+                              {/* {this.state.register.confirmPassword != "" ? this.regexPass(this.state.register.confirmPassword) ? "" : <div className="mt-1"> <span className="text-danger small">Please enter password with minimum 1 uppercase, 1 charater (@#$%&) & 1 number</span> </div> : null} */}
                             </div>
+                            {this.state.register.password != this.state.register.confirmPassword ? <div className="mt-1 text-danger small">Password mismatch</div> : null}
                           </div>
                         </div>
-                        <div className="btn-block">
+                        <div className="btn-block mt-3">
                           <button
                             className="btn btn-off"
                             onClick={(e: any) => {
