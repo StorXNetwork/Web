@@ -264,7 +264,6 @@ class XCloud extends React.Component {
         }),
       })
         .then(async (res) => {
-          console.log('.........access', res);
           if (res.status !== 201) {
             const body = await res.json();
 
@@ -275,7 +274,6 @@ class XCloud extends React.Component {
             email: getUserData().email,
             platform: "web",
           });
-          console.log("getFolderContent 10");
           this.getFolderContent(
             this.state.currentFolderId,
             false,
@@ -286,8 +284,6 @@ class XCloud extends React.Component {
         .catch((err) => {
           if (err.includes("already exists")) {
             toast.warn("Folder with same name already exists");
-          } else {
-            toast.warn(`"${err}"`);
           }
         });
     } else {

@@ -173,8 +173,8 @@ class StoragePlans extends React.Component {
         : null;
       return (
         <>
-          <div id="pricing-data1" className="tab-pane active show">
-            <div className="row m-0 d-flex">
+          <div id="pricing-data1" className="tab-pane fade active show">
+            <div className="row flex">
               {this.state.productsLoading === "error"
                 ? "There was an error loading the available plans: The server was unreachable. Please check your network connection and reload."
                 : ""}
@@ -209,8 +209,8 @@ class StoragePlans extends React.Component {
               )}
             </div>
           </div>
-          <div id="pricing-data2" className="tab-pane show">
-            <div className="row m-0 d-flex">
+          <div id="pricing-data2" className="tab-pane fade">
+            <div className="row flex">
               {this.state.productsLoading === "error"
                 ? "There was an error loading the available plans: The server was unreachable. Please check your network connection and reload."
                 : ""}
@@ -230,7 +230,7 @@ class StoragePlans extends React.Component {
                     }}
                     text={
                       entry.metadata.price_usd === "0" ? (
-                        "Contact us for pricing"
+                        "Custom Pricing"
                       ) : (
                         <span>
                           ${entry.metadata.price_usd}

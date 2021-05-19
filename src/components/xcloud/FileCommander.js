@@ -37,7 +37,7 @@ class FileCommander extends React.Component {
       namePath: this.props.namePath,
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
-      theme: localStorage.getItem('theme'),
+      theme: localStorage.getItem('theme') || false,
       treeSize: 0,
       isTeam: this.props.isTeam,
       dropdown: false,
@@ -215,16 +215,6 @@ class FileCommander extends React.Component {
     return parseInt(size) <= 1024 * 1024 * 1200 ? true : false;
   };
 
-  // componentDidMount() {
-  //   const localTheme = localStorage.getItem('theme');
-  //   if (localTheme) {
-  //     this.setState({ theme: localTheme });
-  //   } else {
-  //     this.setState({ theme: localTheme });
-  //     // this.setMode('light');
-  //   }
-  // }
-
   handleDrop = (e, parentId = null) => {
     e.preventDefault();
     let items = e.dataTransfer.items;
@@ -375,20 +365,17 @@ class FileCommander extends React.Component {
   };
 
   setMode(mode) {
+    console.log('............mode', mode);
     localStorage.setItem('theme', mode);
     this.setState({ theme: mode });
   };
 
   changeTheme() {
-    if (this.state.theme) {
+    // if (this.state.theme) {
+      console.log('.......hellooo', !this.state.theme);
       this.setMode(!this.state.theme);
       localStorage.setItem('theme', !this.state.theme);
       $('body').toggleClass('dark');
-    }
-    // else {
-    //   this.setMode(true);
-    //   localStorage.setItem('theme', true);
-    //   $('body').toggleClass('dark');
     // }
   }
 
@@ -399,7 +386,6 @@ class FileCommander extends React.Component {
     const folderLength = list.filter((e) => e.isFolder === true).length;
     const fileLength = list.filter((e) => !e.hasOwnProperty("isFolder")).length;
     const user = JSON.parse(localStorage.getItem("xUser"));
-    // localStorage.getItem('theme') == true ? $('body').addClass('dark') : $('body').removeClass('dark');
 
     return (
       <>
