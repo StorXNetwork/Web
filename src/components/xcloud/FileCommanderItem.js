@@ -16,6 +16,7 @@ import PPT from "../../../src/assets/images/layouts/file-icons/ppt.png";
 import IMG from "../../../src/assets/images/layouts/file-icons/img.png";
 import EXE from "../../../src/assets/images/layouts/file-icons/exe.png";
 import FILE from "../../../src/assets/images/layouts/file-icons/file.png";
+import FOLDER from "../../../src/assets/images/layouts/file-icons/folder.png";
 import FolderGreen from "../../../src/assets/Folders/New-Folder-Green.svg";
 import Icon from "../../assets/Icon";
 import ActivityIndicator from "../ActivityIndicator";
@@ -26,7 +27,7 @@ import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
 class FileCommanderItem extends React.Component {
-  constructor(props, state) {
+  constructor (props, state) {
     super(props, state);
     this.state = {
       dragDropStyle: "",
@@ -374,13 +375,18 @@ class FileCommanderItem extends React.Component {
             onDragEnd={this.handleDragEnd}
           >
             <div className="d-flex justify-content-center mb-2">
-              <a className="folder">
+              {/* <a className="folder">
                 <div className="iconwrap icon-folder purple">
                   <div className="">
                     {this.props.isFolder
                       ? this.getFolderIcon()
                       : this.getFileIcon()}
                   </div>
+                </div>
+              </a> */}
+              <a className="folder">
+                <div className="iconwrap icon-folder">
+                  <img src={FOLDER} alt="Folder" />
                 </div>
               </a>
               <div className="card-header-toolbar">
