@@ -904,14 +904,14 @@ class Referred extends React.Component {
                 </p>
               </div>
               <div className="buttons-wrapper">
-                <div
+                {/* <div
                   className="btn default-button btn-block btn-primary"
                   onClick={() => {
                     this.setState({ showClaimPop: false });
                   }}
                 >
                   Accept Terms & Conditions
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
