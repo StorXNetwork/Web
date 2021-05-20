@@ -56,9 +56,9 @@ class Activation extends React.Component<ActivationProps & RouteProps, Activatio
   // redirect = () => {
   //   if (isMobile) {
   //     if (isAndroid) {
-  //       window.location.href = 'https://web.storx.io/mobileapp';
+  //       window.location.href = 'https://storx.io/mobileapp';
   //     } else if (isIOS) {
-  //       window.location.href = 'https://web.storx.io/mobileapp';
+  //       window.location.href = 'https://storx.io/mobileapp';
   //     }
   //   } else {
   //     if (this.state.isActivated) {

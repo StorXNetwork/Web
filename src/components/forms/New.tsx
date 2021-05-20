@@ -687,7 +687,7 @@ class New extends React.Component<NewProps, NewState> {
                         inputProps={{ "aria-label": "secondary checkbox" }}
                       />
                       <a
-                        // href="https://web.storx.io/en/legal"
+                        // href="https://storx.io/en/legal"
                         href="#"
                         // target="_blank"
                         rel="noreferrer"
@@ -775,7 +775,7 @@ class New extends React.Component<NewProps, NewState> {
     //         inputProps={{ "aria-label": "secondary checkbox" }}
     //       />
     //       <a
-    //         href="https://web.storx.io/en/legal"
+    //         href="https://storx.io/en/legal"
     //         target="_blank"
     //         rel="noreferrer"
     //       >

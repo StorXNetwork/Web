@@ -47,7 +47,7 @@ class Share extends React.Component<ShareProps> {
   componentDidMount() {
     if (this.IsValidToken(this.state.token)) {
       if (isMobile) {
-        window.location.href = `https://api.storx.io:8081/https://web.storx.io/api/storage/share/${this.state.token}`;
+        window.location.href = `https://api.storx.io:8081/https://storx.io/api/storage/share/${this.state.token}`;
       } else {
         this.download();
       }
