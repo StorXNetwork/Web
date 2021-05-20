@@ -440,6 +440,23 @@ h6 {
     font-size: calc(1.475rem + 2.7vw);
   }
 }
+
+.gradient-text {
+  color: #7fdd85;
+  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: hue 1s infinite linear;
+}
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+
 hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -8540,7 +8557,7 @@ a.text-dark:hover {
   display: block;
   color: #535f6b;
   position: relative;
-  padding: 15px 20px;
+  padding: 12px 20px;
   line-height: 18px;
   display: -ms-flexbox;
   display: flex;
@@ -16236,7 +16253,7 @@ table.dataTable.no-footer {
   border-radius: 60px 0 60px 0;
 }
 .pricing-header {
-  padding: 20px 0;
+  padding: 15px 0;
   background: #f5f6f9;
   border-radius: 10px 10px 50% 50%;
   transition: all 0.3s ease-in-out;
@@ -16245,14 +16262,11 @@ table.dataTable.no-footer {
 .pricing-details .icon-data {
   font-size: 50px;
 }
-.pricing-custom-tab .tab-pane.font-size-12.show {
+.pricing-custom-tab .tab-pane.fade.active.show {
   display: block !important;
 }
-.pricing-custom-tab .tab-pane {
+.pricing-custom-tab .tab-pane.fade {
   display: none;
-}
-.pricing-custom-tab .tab-pane.active.show {
-  display: block !important;
 }
 .pricing-custom-tab li.nav-item .nav-link {
   border: 1px solid #e0e3ff;
@@ -16289,9 +16303,46 @@ table.dataTable.no-footer {
   position: relative;
 }
 ul.pricing-list li {
-  font-weight: 300;
-  line-height: 24px;
+  font-weight: 400;
+  line-height: 30px;
+  border-bottom: 1px solid #e8eaf1;
 }
+ul.pricing-list li:last-child {
+  border-bottom: none;
+}
+
+/*------ Equal flex pricing plans ------*/
+.pricing-content .card-block {
+  border: 1px solid #e0e3ff !important;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: auto;
+}
+.flex .col {
+  display: flex;
+  flex-direction: column;
+}
+.flex .col .price-btn-block {
+  align-self: flex-start;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 900px) {
+  .flex {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 576px) {
+  .col {
+    flex-basis: inherit;
+  }
+}
+/*------ Equal flex pricing plans ------*/
+
 .login-content {
   /*position:relative;height:100vh;z-index:99;*/
   min-height: 100vh;
@@ -16430,7 +16481,7 @@ ul.pricing-list li {
 }
 .floating-input:not(:placeholder-shown) {
   color: #535f6b;
-  /* border: 1px solid #fafafa; */
+  border: 1px solid #fafafa;
 }
 .floating-input:not(:placeholder-shown) ~ label {
   top: 0;
@@ -20344,12 +20395,15 @@ table.dataTable th {
 }
 
 .social-sharing a.facebook:hover {
+  color: #ffffff;
   background: #1a3c85;
 }
 .social-sharing a.twitter:hover {
+  color: #ffffff;
   background: #0294cb;
 }
 .social-sharing a.telegram:hover {
+  color: #ffffff;
   background: #b70f16;
 }
 /*------------------------------------------------------------------
@@ -20465,6 +20519,10 @@ table.dataTable th {
     max-width: 500px !important;
     margin: 1.75rem auto;
   }
+  .popup--full-screen-content {
+    max-width: 825px !important;
+    margin: 1.75rem auto;
+  }
 }
 
 .popup--full-screen__close-button-wrapper {
@@ -20488,6 +20546,14 @@ table.dataTable th {
   width: 80%;
   text-align: left;
   padding-top: 10px;
+}
+.message-wrapper.terms_cond {
+  width: 90%;
+}
+.message-wrapper.terms_cond .popup_body {
+  padding-right: 25px;
+  max-height: 450px;
+  overflow-y: auto;
 }
 .popup--full-screen__content .message-wrapper h1 {
   margin-top: 25px;

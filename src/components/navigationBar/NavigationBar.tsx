@@ -239,17 +239,17 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
                 }
                 switch (getOperatingSystem()) {
                   case 'WindowsOS':
-                    window.location.href = 'https://storx.io/downloads/drive.exe';
+                    window.location.href = 'https://download.storx.io/drive.exe';
                     break;
                   case 'MacOS':
-                    window.location.href = 'https://storx.io/downloads/drive.dmg';
+                    window.location.href = 'https://download.storx.io/drive.dmg';
                     break;
                   case 'Linux':
                   case 'UNIXOS':
-                    window.location.href = 'https://storx.io/downloads/drive.deb';
+                    window.location.href = 'https://download.storx.io/drive.deb';
                     break;
                   default:
-                    window.location.href = 'https://storx.io/downloads/';
+                    window.location.href = 'https://storx.io/';
                     break;
                 }
               }}>
@@ -260,9 +260,9 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
             </ul>
           </nav>
           <div className="sidebar-bottom">
-            <h4 className="mb-3"><i className="fas fa-cloud mr-2"></i>Storage</h4>
+            <h4 className="mb-2"><i className="fas fa-cloud mr-2"></i>Storage</h4>
             <p>{customPrettySize(this.state.barUsage)} / {customPrettySize(this.state.barLimit)}</p>
-            <div className="iq-progress-bar mb-3">
+            <div className="iq-progress-bar mb-2">
               <span className="bg-primary iq-progress progress-1" data-percent={(this.state.barUsage * 100) / this.state.barLimit}
                 style={{
                   width: `${(this.state.barUsage * 100) / this.state.barLimit}%`,

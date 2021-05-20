@@ -913,7 +913,7 @@ class New extends React.Component<NewProps, NewState> {
                                 autoFocus
                               />
                               <label>Password</label>
-                              {this.state.register.password != "" ? this.regexPass(this.state.register.password) ? "" : <div className="mt-1 text-danger small">Please enter password with minimum 1 uppercase, 1 charater (@#$%&) & 1 number</div> : null}
+                              {this.state.register.password != "" ? this.regexPass(this.state.register.password) ? "" : <div className="mt-1 text-danger small">Please enter password with minimum 1 uppercase, 1 character (@#$%&) & 1 number</div> : null}
                             </div>
                           </div>
                           <div className="col-lg-12">
@@ -928,7 +928,7 @@ class New extends React.Component<NewProps, NewState> {
                                 onChange={this.handleChangeRegister}
                               />
                               <label>Confirm Password</label>
-                              {/* {this.state.register.confirmPassword != "" ? this.regexPass(this.state.register.confirmPassword) ? "" : <div className="mt-1"> <span className="text-danger small">Please enter password with minimum 1 uppercase, 1 charater (@#$%&) & 1 number</span> </div> : null} */}
+                              {/* {this.state.register.confirmPassword != "" ? this.regexPass(this.state.register.confirmPassword) ? "" : <div className="mt-1"> <span className="text-danger small">Please enter password with minimum 1 uppercase, 1 character (@#$%&) & 1 number</span> </div> : null} */}
                             </div>
                             {this.state.register.password != this.state.register.confirmPassword ? <div className="mt-1 text-danger small">Password mismatch</div> : null}
                           </div>

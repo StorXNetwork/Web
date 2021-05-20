@@ -394,7 +394,7 @@ class Storage extends React.Component {
                             role="tab"
                             aria-selected="true"
                           >
-                            For Individual
+                            Individual
                           </a>
                         </li>
                         <li className="nav-item">
@@ -411,7 +411,7 @@ class Storage extends React.Component {
                             role="tab"
                             aria-selected="false"
                           >
-                            For Enterprise
+                            Enterprise
                           </a>
                         </li>
                       </ul>
