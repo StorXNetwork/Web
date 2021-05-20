@@ -208,13 +208,6 @@ class InxtContainerOption extends React.Component {
                 BUY STORAGE
               </a>
             )}
-            {/* <button
-              disabled={(this.props.text != "Free" || "Custom Pricing") ? false : true}
-              onClick={this.props.onClick}
-              className="btn btn-primary mb-2 mt-3"
-            >
-              BUY STORAGE
-              </button> */}
           </div>
         </div>
       </div>

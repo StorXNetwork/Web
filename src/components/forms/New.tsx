@@ -26,8 +26,7 @@ import queryString, { ParsedQuery } from "query-string";
 import { initializeUser } from "../../services/auth.service";
 import { generateNewKeys } from "../../services/pgp.service";
 import AesFunctions from "../../lib/AesUtil";
-
-const bip39 = require("bip39");
+import bip39 from "bip39";
 
 interface NewProps {
   match: any;
