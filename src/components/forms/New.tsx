@@ -29,7 +29,7 @@ import { ParsedQuery } from "query-string";
 import { initializeUser } from "../../services/auth.service";
 import { generateNewKeys } from "../../services/pgp.service";
 import AesFunctions from "../../lib/AesUtil";
-import bip39 from "bip39";
+const bip39 = require("bip39")
 
 interface NewProps {
   match: any;
@@ -214,7 +214,6 @@ class New extends React.Component<NewProps, NewState> {
 
   readReferalCookie() {
     const cookie = document.cookie.match(/(^| )REFERRAL=([^;]+)/);
-
     return cookie ? cookie[2] : null;
   }
 
