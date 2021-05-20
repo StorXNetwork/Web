@@ -42,7 +42,7 @@ class Referred extends React.Component {
     dropdown: false,
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = { value: "" };
 
@@ -78,40 +78,11 @@ class Referred extends React.Component {
 
         this.setState({ credit: credit });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   parseUrl(text) {
     return new URLSearchParams(text).toString();
-  }
-
-  parseUri(ctx) {
-    const query = url.parse(ctx).query;
-    const parsedQuery = queryString.parse(query);
-    return parsedQuery;
-  }
-
-  setReferralCookie(ctx) {
-    const parsedUri = this.parseUri(ctx);
-
-    if (!parsedUri.ref) {
-      return;
-    }
-
-    const referral_id = parsedUri.ref;
-
-    const expires = moment().add(2, "days").toDate();
-    document.cookie = `REFERRAL=${referral_id}`;
-    document.cookie = `expires=${expires}`;
-    // const cookies = new Cookies();
-
-    // cookies.set('REFERRAL', referral_id, {
-    //   domain: process.env.NODE_ENV === 'production' ? 'https://web.storx.io' : 'localhost',
-    //   expires: expires,
-    //   overwrite: true,
-    //   httpOnly: false
-    // });
-    // httpOnly must be false in order to be accesible by JavaScript
   }
 
   validateEmail = (email) => {
@@ -139,11 +110,10 @@ class Referred extends React.Component {
   };
 
   sendInvitationEmail = (mail) => {
-    const user = Settings.getUser();
     fetch("/api/user/invite", {
       method: "POST",
       headers: getHeaders(true, false),
-      body: JSON.stringify({ email: mail, referral: `https://web.storx.io/?ref=${user.uuid}` }),
+      body: JSON.stringify({ email: mail }),
     })
       .then(async (res) => {
         return { response: res, data: await res.json() };
@@ -298,8 +268,9 @@ class Referred extends React.Component {
                       </div>
                     </li>
                     <li
-                      className={`nav-item nav-icon dropdown ${this.state.dropdown == true ? "show" : ""
-                        }`}
+                      className={`nav-item nav-icon dropdown ${
+                        this.state.dropdown == true ? "show" : ""
+                      }`}
                     >
                       <a
                         className="search-toggle dropdown-toggle"
@@ -314,8 +285,9 @@ class Referred extends React.Component {
                         <i className="ri-settings-3-line"></i>
                       </a>
                       <div
-                        className={`iq-sub-dropdown dropdown-menu ${this.state.dropdown == true ? "show" : ""
-                          }`}
+                        className={`iq-sub-dropdown dropdown-menu ${
+                          this.state.dropdown == true ? "show" : ""
+                        }`}
                         aria-labelledby="dropdownMenuButton02"
                       >
                         <div className="card shadow-none m-0">
@@ -351,8 +323,9 @@ class Referred extends React.Component {
                       </div>
                     </li>
                     <li
-                      className={`nav-item nav-icon dropdown caption-content ${this.state.profiledown == true ? "show" : ""
-                        }`}
+                      className={`nav-item nav-icon dropdown caption-content ${
+                        this.state.profiledown == true ? "show" : ""
+                      }`}
                     >
                       <a
                         className="search-toggle dropdown-toggle"
@@ -371,8 +344,9 @@ class Referred extends React.Component {
                         </div>
                       </a>
                       <div
-                        className={`iq-sub-dropdown dropdown-menu ${this.state.profiledown == true ? "show" : ""
-                          }`}
+                        className={`iq-sub-dropdown dropdown-menu ${
+                          this.state.profiledown == true ? "show" : ""
+                        }`}
                         aria-labelledby="dropdownMenuButton03"
                       >
                         <div className="card mb-0">
@@ -454,16 +428,16 @@ class Referred extends React.Component {
                     <div className="d-flex flex-wrap align-items-center">
                       <div className="col-lg-8 col-md-7 col-12 p-0">
                         <h4 className="mb-4">
-                          Earn money by referring friends
+                          Earn Tokens by referring Friends & Family to StorX
                         </h4>
                         <p className="mb-0">
-                          Invite friends who aren't on StorX yet. You'll both
-                          will be eligible for rewards of 10 STORX Tokens. Start
-                          earning with StorX today !
+                          Invite friends and family who aren't on StorX yet.
+                          You'll both will be eligible for rewards * of 10 STORX
+                          Tokens. Start earning with StorX today!
                         </p>
                       </div>
                       <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
-                        <img src={referralClicked} className="img-fluid" />
+                        <img src={referralClicked} className="img-fluid invite-img" />
                       </div>
                     </div>
                   </div>
@@ -480,8 +454,9 @@ class Referred extends React.Component {
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} className="img-fluid" />
                     </div>
-                    <h4 className="text-center mb-0">{`$${this.state.credit == undefined ? 0 : this.state.credit
-                      }`}</h4>
+                    <h4 className="text-center mb-0">{`$${
+                      this.state.credit == undefined ? 0 : this.state.credit
+                    }`}</h4>
                   </div>
                 </div>
               </div>
@@ -563,21 +538,23 @@ class Referred extends React.Component {
                               <div className="social-sharing justify-content-between">
                                 <a
                                   className="twitter"
-                                  href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid
-                                    }&${this.parseUrl({
-                                      text: "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
-                                    })}`}
+                                  href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${
+                                    user.uuid
+                                  }&${this.parseUrl({
+                                    text: "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
+                                  })}`}
                                   target="_blank"
                                 >
                                   <i className="fab fa-twitter"></i>
                                 </a>
                                 <a
                                   className="facebook"
-                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid
-                                    }&amp;src=sdkpreparse&${this.parseUrl({
-                                      quote:
-                                        "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
-                                    })}`}
+                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${
+                                    user.uuid
+                                  }&amp;src=sdkpreparse&${this.parseUrl({
+                                    quote:
+                                      "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
+                                  })}`}
                                   target="_blank"
                                   data-href={`https://web.storx.io/?ref=${user.uuid}`}
                                 >
@@ -589,8 +566,9 @@ class Referred extends React.Component {
                                     {
                                       text: "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
                                     }
-                                  )}&url=https://web.storx.io/?ref=${user.uuid
-                                    }`}
+                                  )}&url=https://web.storx.io/?ref=${
+                                    user.uuid
+                                  }`}
                                   target="_blank"
                                 >
                                   <i className="fa fa-paper-plane"></i>
@@ -638,7 +616,7 @@ class Referred extends React.Component {
           open={this.state.showClaimPop}
           closeOnDocumentClick
           onClose={() => this.setState({ showClaimPop: false })}
-          className="popup--full-screen"
+          className="popup--full-screen terms_cond_popup"
         >
           <div className="popup--full-screen__content">
             <div className="popup--full-screen__close-button-wrapper">
@@ -649,7 +627,9 @@ class Referred extends React.Component {
               />
             </div>
             <div className="message-wrapper terms_cond">
-              <h4 className="mt-2 mb-3">Terms & Conditions for StorX Referral Program</h4>
+              <h4 className="mt-2 mb-3">
+                Terms & Conditions for StorX Referral Program
+              </h4>
               <div className="popup_body">
                 <p className="font-weight-medium">
                   These terms ("Terms") apply to all user's participating in
