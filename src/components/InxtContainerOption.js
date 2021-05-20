@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
-import "./InxtContainerOption.scss";
+// import "./InxtContainerOption.scss";
 
 import CheckIcon from "./../assets/check.svg";
 
@@ -127,8 +127,6 @@ class InxtContainerOption extends React.Component {
             <ul className="list-unstyled font-size-14 mb-1 pricing-list">
               <li>
                 StorX can provide the storage and services your business needs.
-                S3 compliant API integrates easily with most existing
-                implementations.
               </li>
             </ul>
           </>
@@ -197,9 +195,9 @@ class InxtContainerOption extends React.Component {
                 BUY STORAGE
               </button>
             ) : this.props.text == "Custom Pricing" ? (
-              <button disabled className="btn btn-primary mb-2 mt-3">
-                BUY STORAGE
-              </button>
+              <a href="mailto:info@storx.io" className="btn btn-primary mb-2 mt-3">
+                CONTACT US
+              </a>
             ) : (
               <a
                 onClick={this.props.onClick}
@@ -208,13 +206,6 @@ class InxtContainerOption extends React.Component {
                 BUY STORAGE
               </a>
             )}
-            {/* <button
-              disabled={(this.props.text != "Free" || "Custom Pricing") ? false : true}
-              onClick={this.props.onClick}
-              className="btn btn-primary mb-2 mt-3"
-            >
-              BUY STORAGE
-              </button> */}
           </div>
         </div>
       </div>

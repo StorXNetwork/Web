@@ -1,4 +1,6 @@
 import * as React from "react";
+import url from 'url';
+import queryString from 'querystring';
 import { Container, Form, Col, Button } from "react-bootstrap";
 import Checkbox from "@material-ui/core/Checkbox";
 import AesUtil from "../../lib/AesUtil";
@@ -22,12 +24,11 @@ import loginLogo from "../../../src/assets/images/login/login_img.png";
 import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { analytics } from "../../lib/analytics";
-import queryString, { ParsedQuery } from "query-string";
+import { ParsedQuery } from "query-string";
 import { initializeUser } from "../../services/auth.service";
 import { generateNewKeys } from "../../services/pgp.service";
 import AesFunctions from "../../lib/AesUtil";
-
-const bip39 = require("bip39");
+import bip39 from "bip39";
 
 interface NewProps {
   match: any;
@@ -98,6 +99,12 @@ class New extends React.Component<NewProps, NewState> {
   }
 
   componentDidMount() {
+    if (window.location.href) {
+      let urlRef = window.location.href;
+      let queryRef = url.parse(urlRef).query;
+      let refCookie = queryString.parse(queryRef).ref;
+      document.cookie = `REFERRAL=${refCookie}`;
+    }
     const parsedQueryParams: ParsedQuery<string> = queryString.parse(
       history.location.search
     );
@@ -269,16 +276,13 @@ class New extends React.Component<NewProps, NewState> {
               },
             });
             history.push("/login");
-
             const privkeyDecrypted = Buffer.from(
               AesFunctions.decrypt(
                 user.privateKey,
                 this.state.register.password
               )
             ).toString("base64");
-
             user.privateKey = privkeyDecrypted;
-
             Settings.set("xToken", token);
             user.mnemonic = decryptTextWithKey(
               user.mnemonic,
