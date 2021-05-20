@@ -411,6 +411,7 @@ class New extends React.Component<NewProps, NewState> {
   };
 
   registerContainer() {
+    const regexFullName = /^([a-zA-Z]{2,})(\s?[a-zA-Z]+)?$/;
     return (
       // <div className="wrapper">
       <section className="login-content">
@@ -497,6 +498,7 @@ class New extends React.Component<NewProps, NewState> {
                               <label>Last Name</label>
                             </div>
                           </div>
+                          {(this.state.register.name || this.state.register.lastname) != "" ? regexFullName.test(this.state.register.name || this.state.register.lastname) ? "" : <div className="mb-3 text-danger small col-lg-12">No white space in First & last Name & only 2 words allowed with min 2 alphabets</div> : null}
                           <div className="col-lg-12">
                             <div className="floating-label form-group">
                               <input
@@ -918,7 +920,7 @@ class New extends React.Component<NewProps, NewState> {
                                 autoFocus
                               />
                               <label>Password</label>
-                              {this.state.register.password != "" ? this.regexPass(this.state.register.password) ? "" : <div className="mt-1 text-danger small">Please enter password with minimum 1 uppercase, 1 character (@#$%&) & 1 number</div> : null}
+                              {this.state.register.password != "" ? this.regexPass(this.state.register.password) ? "" : <div className="mt-1 text-danger small">Please enter password with minimum 1 uppercase, 1 special character (@#$%&) & 1 number</div> : null}
                             </div>
                           </div>
                           <div className="col-lg-12">

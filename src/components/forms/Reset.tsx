@@ -150,6 +150,11 @@ class Reset extends React.Component<ResetProps> {
     return isValid;
   }
 
+  regexPass = (pass) => {
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
+    return regex.test(pass);
+  };
+
   getSalt = () => {
     const email = Settings.getUser().email;
     return fetch("/api/login", {
@@ -467,6 +472,7 @@ class Reset extends React.Component<ResetProps> {
                                   onChange={this.handleChange}
                                 />
                                 <label htmlFor="password">New Password</label>
+                                {this.state.newPassword != null ? this.regexPass(this.state.newPassword) ? null : <div className="mt-2 text-danger small">Please enter password with minimum 1 uppercase, 1 special character (@#$%&) & 1 number</div> : null}
                               </div>
                             </div>
                             <div className="col-lg-12">
@@ -482,6 +488,7 @@ class Reset extends React.Component<ResetProps> {
                                   onChange={this.handleChange}
                                 />
                                 <label htmlFor="confpassword">Confirm New Password</label>
+                                {this.state.newPassword != this.state.confirmNewPassword ? <div className="mt-2 text-danger small">Password mismatch</div> : null}
                               </div>
                             </div>
                           </div>

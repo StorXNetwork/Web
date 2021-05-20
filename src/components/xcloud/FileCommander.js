@@ -372,7 +372,6 @@ class FileCommander extends React.Component {
 
   changeTheme() {
     // if (this.state.theme) {
-      console.log('.......hellooo', !this.state.theme);
       this.setMode(!this.state.theme);
       localStorage.setItem('theme', !this.state.theme);
       $('body').toggleClass('dark');
@@ -380,7 +379,6 @@ class FileCommander extends React.Component {
   }
 
   render() {
-    console.log('.....', this.state.theme);
     const list = this.state.currentCommanderItems || 0;
     const inRoot = this.state.namePath.length === 1;
     const folderLength = list.filter((e) => e.isFolder === true).length;
