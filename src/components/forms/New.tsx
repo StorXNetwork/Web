@@ -5,6 +5,7 @@ import { Container, Form, Col, Button } from "react-bootstrap";
 import Checkbox from "@material-ui/core/Checkbox";
 import AesUtil from "../../lib/AesUtil";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import history from "../../lib/history";
 import Settings from "../../lib/settings";
 import Logo from "../../../src/assets/images/logo.png";
@@ -103,7 +104,7 @@ class New extends React.Component<NewProps, NewState> {
       let urlRef = window.location.href;
       let queryRef = url.parse(urlRef).query;
       let refCookie = queryString.parse(queryRef).ref;
-      document.cookie = `REFERRAL=${refCookie}`;
+      document.cookie = `REFERRAL=${refCookie};expires=${moment().add(2, 'days').toDate()}`;
     }
     const parsedQueryParams: ParsedQuery<string> = queryString.parse(
       history.location.search
