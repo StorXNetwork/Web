@@ -1,6 +1,6 @@
 import * as React from "react";
-import url from 'url';
-import queryString from 'querystring';
+import url from "url";
+import queryString from "querystring";
 import { Container, Form, Col, Button } from "react-bootstrap";
 import Checkbox from "@material-ui/core/Checkbox";
 import AesUtil from "../../lib/AesUtil";
@@ -29,7 +29,7 @@ import { ParsedQuery } from "query-string";
 import { initializeUser } from "../../services/auth.service";
 import { generateNewKeys } from "../../services/pgp.service";
 import AesFunctions from "../../lib/AesUtil";
-const bip39 = require("bip39")
+const bip39 = require("bip39");
 
 interface NewProps {
   match: any;
@@ -104,7 +104,9 @@ class New extends React.Component<NewProps, NewState> {
       let urlRef = window.location.href;
       let queryRef = url.parse(urlRef).query;
       let refCookie = queryString.parse(queryRef).ref;
-      document.cookie = `REFERRAL=${refCookie};expires=${moment().add(2, 'days').toDate()}`;
+      document.cookie = `REFERRAL=${refCookie};expires=${moment()
+        .add(2, "days")
+        .toDate()}`;
     }
     const parsedQueryParams: ParsedQuery<string> = queryString.parse(
       history.location.search
@@ -144,7 +146,8 @@ class New extends React.Component<NewProps, NewState> {
 
   validateEmail = (email: string) => {
     // eslint-disable-next-line no-control-regex
-    let emailPattern = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"))@((?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
+    let emailPattern =
+      /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"))@((?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
 
     return emailPattern.test(email.toLowerCase());
   };
@@ -156,10 +159,10 @@ class New extends React.Component<NewProps, NewState> {
     if (
       regexFullName.test(this.state.register.name) &&
       regexFullName.test(this.state.register.lastname) &&
-      this.validateEmail(this.state.register.email)) {
+      this.validateEmail(this.state.register.email)
+    ) {
       isValid = true;
-    }
-    else {
+    } else {
       isValid = false;
     }
 
@@ -190,7 +193,8 @@ class New extends React.Component<NewProps, NewState> {
 
   validatePassword = () => {
     let isValid = false;
-    const regexPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
+    const regexPass =
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
     if (!this.state.register.password || !this.state.register.confirmPassword) {
       return false;
     }
@@ -264,7 +268,9 @@ class New extends React.Component<NewProps, NewState> {
           return response.json().then((body) => {
             // Manage succesfull register
             const { token, user, uuid } = body;
-            toast.success('Your account has been created successfully. Please check your mailbox for activation.');
+            toast.success(
+              "Your account has been created successfully. Please check your mailbox for activation."
+            );
             analytics.identify(uuid, {
               email: this.state.register.email,
               member_tier: "free",
@@ -308,7 +314,7 @@ class New extends React.Component<NewProps, NewState> {
             // history.push("/login");
             toast.warn(`"${message}"`);
             this.setState({ validated: false });
-            history.push('/login');
+            history.push("/login");
           });
         }
       })
@@ -497,7 +503,20 @@ class New extends React.Component<NewProps, NewState> {
                               <label>Last Name</label>
                             </div>
                           </div>
-                          {(this.state.register.name || this.state.register.lastname) != "" ? regexFullName.test(this.state.register.name || this.state.register.lastname) ? "" : <div className="mb-3 text-danger small col-lg-12">No white space in First & last Name & only 2 words allowed with min 2 alphabets</div> : null}
+                          {(this.state.register.name ||
+                            this.state.register.lastname) != "" ? (
+                            regexFullName.test(
+                              this.state.register.name ||
+                                this.state.register.lastname
+                            ) ? (
+                              ""
+                            ) : (
+                              <div className="mb-3 text-danger small col-lg-12">
+                                No white space in First & last Name & only 2
+                                words allowed with min 2 alphabets
+                              </div>
+                            )
+                          ) : null}
                           <div className="col-lg-12">
                             <div className="floating-label form-group">
                               <input
@@ -724,7 +743,7 @@ class New extends React.Component<NewProps, NewState> {
                             className="btn btn-on"
                             type="submit"
                             autoFocus
-                          // disabled={!this.state.checkTermsConditions}
+                            // disabled={!this.state.checkTermsConditions}
                           >
                             Continue
                           </button>
@@ -919,7 +938,17 @@ class New extends React.Component<NewProps, NewState> {
                                 autoFocus
                               />
                               <label>Password</label>
-                              {this.state.register.password != "" ? this.regexPass(this.state.register.password) ? "" : <div className="mt-1 text-danger small">Please enter password with minimum 1 uppercase, 1 special character (@#$%&) & 1 number</div> : null}
+                              {this.state.register.password != "" ? (
+                                this.regexPass(this.state.register.password) ? (
+                                  ""
+                                ) : (
+                                  <div className="mt-1 text-danger small">
+                                    Please enter password with minimum 1
+                                    uppercase, 1 special character (@#$%&) & 1
+                                    number
+                                  </div>
+                                )
+                              ) : null}
                             </div>
                           </div>
                           <div className="col-lg-12">
@@ -936,7 +965,12 @@ class New extends React.Component<NewProps, NewState> {
                               <label>Confirm Password</label>
                               {/* {this.state.register.confirmPassword != "" ? this.regexPass(this.state.register.confirmPassword) ? "" : <div className="mt-1"> <span className="text-danger small">Please enter password with minimum 1 uppercase, 1 character (@#$%&) & 1 number</span> </div> : null} */}
                             </div>
-                            {this.state.register.password != this.state.register.confirmPassword ? <div className="mt-1 text-danger small">Password mismatch</div> : null}
+                            {this.state.register.password !=
+                            this.state.register.confirmPassword ? (
+                              <div className="mt-1 text-danger small">
+                                Password mismatch
+                              </div>
+                            ) : null}
                           </div>
                         </div>
                         <div className="btn-block mt-3">
@@ -944,7 +978,8 @@ class New extends React.Component<NewProps, NewState> {
                             className="btn btn-off"
                             onClick={(e: any) => {
                               this.setState({
-                                currentContainer: CONTAINERS.PrivacyTermsContainer,
+                                currentContainer:
+                                  CONTAINERS.PrivacyTermsContainer,
                               });
                               e.preventDefault();
                             }}
@@ -989,8 +1024,6 @@ class New extends React.Component<NewProps, NewState> {
         </div>
       </section>
     );
-
-
 
     // return (
     //   <div className="container-register">
