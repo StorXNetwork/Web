@@ -41,7 +41,7 @@ class Referred extends React.Component {
     const user = Settings.getUser();
 
     this.getCredit();
-    this.setState({ textToCopy: `https://web.storx.io/?ref=${user.uuid}` });
+    this.setState({ textToCopy: `https://storx.io/?ref=${user.uuid}` });
     this.setState({ copySuccess: 'Copy' });
     const socialText = this.parseUrl('I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!');
 
@@ -122,7 +122,7 @@ class Referred extends React.Component {
       if (res.response.status !== 200) {
         throw res.data;
       } else {
-        toast.info('Claim email sent to hello@web.storx.io');
+        toast.info('Claim email sent to hello@storx.io');
       }
     }).catch(err => {
       toast.warn(`Error: ${err.error ? err.error : 'Internal Server Error'}`);
@@ -449,7 +449,7 @@ class Referred extends React.Component {
                               <div className="input-group">
                                 <input id="referralCode" type="text" className="form-control"
                                   readonly=""
-                                  value={`https://web.storx.io/?ref=${user.uuid}`} />
+                                  value={`https://storx.io/?ref=${user.uuid}`} />
                                 <div className="input-group-append">
                                   <button className="btn btn-secondary"
                                     onClick={this.copyToClipboard}>
@@ -461,16 +461,16 @@ class Referred extends React.Component {
                             <div className="col-lg-3 col-md-3 col-sm-4 mb-3">
                               <div className="social-sharing justify-content-between">
                                 <a className="twitter"
-                                  href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
+                                  href={`https://twitter.com/intent/tweet?url=https://storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
                                   target="_blank"
                                 ><i className="fab fa-twitter"></i></a>
                                 <a className="facebook"
-                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
+                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
                                   target="_blank"
-                                  data-href={`https://web.storx.io/?ref=${user.uuid}`}
+                                  data-href={`https://storx.io/?ref=${user.uuid}`}
                                 ><i className="fab fa-facebook-f"></i></a>
                                 <a className="telegram"
-                                  href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://web.storx.io/?ref=${user.uuid}`} target="_blank"
+                                  href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://storx.io/?ref=${user.uuid}`} target="_blank"
                                 ><i className="fa fa-paper-plane"></i></a>
                               </div>
                             </div>
@@ -529,7 +529,7 @@ class Referred extends React.Component {
     //         <Container className="row m-0 mt-4 p-0">
     //           <div className="col-8 px-0">
     //             <div className="referred-url">
-    //               <input type="text" readOnly value={`https://web.storx.io/?ref=${user.uuid}`} />
+    //               <input type="text" readOnly value={`https://storx.io/?ref=${user.uuid}`} />
     //             </div>
     //           </div>
     //           <div className="col-2 px-0 mx-0 d-flex">
@@ -540,19 +540,19 @@ class Referred extends React.Component {
     //           <div className="col-2 d-flex p-0">
     //             <DropdownButton className="share-container m-auto" name="menuShare" title="Share" type="toggle">
     //               <Dropdown.Item className="social-button"
-    //                 href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
+    //                 href={`https://twitter.com/intent/tweet?url=https://storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
     //                 target="_blank"
     //                 data-size="large"
-    //                 original-referer={`https://web.storx.io/?ref=${user.uuid}`}
+    //                 original-referer={`https://storx.io/?ref=${user.uuid}`}
     //                 data-lang="en">
     //                 <img src={twitter} alt="" />
     //               </Dropdown.Item>
-    //               <Dropdown.Item className="social-button" data-href={`https://web.storx.io/?ref=${user.uuid}`}
-    //                 href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`} target="_blank">
+    //               <Dropdown.Item className="social-button" data-href={`https://storx.io/?ref=${user.uuid}`}
+    //                 href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`} target="_blank">
     //                 <img src={facebook} alt="" />
     //               </Dropdown.Item>
     //               <Dropdown.Item className="social-button"
-    //                 href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://web.storx.io/?ref=${user.uuid}`} target="_blank">
+    //                 href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://storx.io/?ref=${user.uuid}`} target="_blank">
     //                 <img src={telegram} alt="" />
     //               </Dropdown.Item>
     //             </DropdownButton>
