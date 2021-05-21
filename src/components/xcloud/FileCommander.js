@@ -3,6 +3,7 @@ import * as React from "react";
 import { Dropdown } from "react-bootstrap";
 import async from "async";
 import $ from "jquery";
+import history from "../../lib/history";
 import Logo from "../../../src/assets/images/logo.png";
 import Settings from "../../lib/settings";
 import backgroundLogo from "../../../src/assets/images/layouts/mydrive/background.png";
@@ -37,11 +38,11 @@ class FileCommander extends React.Component {
       namePath: this.props.namePath,
       selectedSortType: SORT_TYPES.DATE_ADDED,
       dragDropStyle: "",
-      theme: localStorage.getItem('theme') || false,
+      theme: localStorage.getItem("theme") || false,
       treeSize: 0,
       isTeam: this.props.isTeam,
       dropdown: false,
-      profiledown: false
+      profiledown: false,
     };
   }
 
@@ -112,11 +113,10 @@ class FileCommander extends React.Component {
     // Change active class to option selected only if its not the currently active
     if (!event.target.className.includes("active")) {
       if (document.getElementById(this.state.selectedSortType)) {
-        document.getElementById(
-          this.state.selectedSortType
-        ).className = document
-          .getElementById(this.state.selectedSortType)
-          .className.split(" ")[0];
+        document.getElementById(this.state.selectedSortType).className =
+          document
+            .getElementById(this.state.selectedSortType)
+            .className.split(" ")[0];
       }
       event.target.className = event.target.className + " active";
       // this.setState({ selectedSortType: event.target.id });
@@ -252,11 +252,12 @@ class FileCommander extends React.Component {
           // if (errmsg.includes("already exist")) {
           //   errmsg = "Folder with same name already exists";
           // }
-          toast.warn(`"${errmsg}"`);
+          // toast.warn(`"${errmsg}"`);
+          toast.warn("Went something wrong");
         }
 
-        let idTeam = this.props.namePath[this.props.namePath.length - 1]
-          .id_team;
+        let idTeam =
+          this.props.namePath[this.props.namePath.length - 1].id_team;
 
         if (idTeam) {
           console.log("getFolderContent 1");
@@ -365,16 +366,15 @@ class FileCommander extends React.Component {
   };
 
   setMode(mode) {
-    console.log('............mode', mode);
-    localStorage.setItem('theme', mode);
+    localStorage.setItem("theme", mode);
     this.setState({ theme: mode });
-  };
+  }
 
   changeTheme() {
     // if (this.state.theme) {
-      this.setMode(!this.state.theme);
-      localStorage.setItem('theme', !this.state.theme);
-      $('body').toggleClass('dark');
+    this.setMode(!this.state.theme);
+    localStorage.setItem("theme", !this.state.theme);
+    $("body").toggleClass("dark");
     // }
   }
 
@@ -501,10 +501,15 @@ class FileCommander extends React.Component {
                         </form>
                       </div>
                     </li>
-                    <li className={`nav-item nav-icon dropdown ${this.state.dropdown == true ? "show" : ""}`}>
+                    <li
+                      className={`nav-item nav-icon dropdown ${this.state.dropdown == true ? "show" : ""
+                        }`}
+                    >
                       <a
                         className="search-toggle dropdown-toggle"
-                        onClick={() => this.setState({ dropdown: !this.state.dropdown })}
+                        onClick={() =>
+                          this.setState({ dropdown: !this.state.dropdown })
+                        }
                         id="dropdownMenuButton02"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -513,14 +518,16 @@ class FileCommander extends React.Component {
                         <i className="ri-settings-3-line"></i>
                       </a>
                       <div
-                        className={`iq-sub-dropdown dropdown-menu ${this.state.dropdown == true ? "show" : ""}`}
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.dropdown == true ? "show" : ""
+                          }`}
                         aria-labelledby="dropdownMenuButton02"
                       >
                         <div className="card shadow-none m-0">
                           <div className="card-body p-0 ">
                             <div className="p-3">
                               <Link to="/settings" className="iq-sub-card pt-0">
-                                <i className="ri-settings-3-line"></i>Update Password
+                                <i className="ri-settings-3-line"></i>Update
+                                Password
                               </Link>
                               <Link to="/security" className="iq-sub-card">
                                 <i className="ri-shield-fill"></i>
@@ -547,21 +554,29 @@ class FileCommander extends React.Component {
                         </div>
                       </div>
                     </li>
-                    <li className={`nav-item nav-icon dropdown caption-content ${this.state.profiledown == true ? "show" : ""}`}>
+                    <li
+                      className={`nav-item nav-icon dropdown caption-content ${this.state.profiledown == true ? "show" : ""
+                        }`}
+                    >
                       <a
                         className="search-toggle dropdown-toggle"
                         id="dropdownMenuButton03"
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
-                        onClick={() => this.setState({ profiledown: !this.state.profiledown })}
+                        onClick={() =>
+                          this.setState({
+                            profiledown: !this.state.profiledown,
+                          })
+                        }
                       >
                         <div className="caption bg-primary line-height">
                           <i className="ri-user-3-fill"></i>
                         </div>
                       </a>
                       <div
-                        className={`iq-sub-dropdown dropdown-menu ${this.state.profiledown == true ? "show" : ""}`}
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.profiledown == true ? "show" : ""
+                          }`}
                         aria-labelledby="dropdownMenuButton03"
                       >
                         <div className="card mb-0">
@@ -577,15 +592,26 @@ class FileCommander extends React.Component {
                             <div className="profile-header">
                               <div className="cover-container text-center">
                                 <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                                  {user.name.charAt(0)}
+                                  {user != null
+                                    ? user.name.charAt(0)
+                                    : history.push("/")}
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
                                     <a>
-                                      {user.name} {user.lastname}
+                                      {user != null
+                                        ? user.name
+                                        : history.push("/")}{" "}
+                                      {user != null
+                                        ? user.lastname
+                                        : history.push("/")}
                                     </a>
                                   </h5>
-                                  <p>{user.email}</p>
+                                  <p>
+                                    {user != null
+                                      ? user.email
+                                      : history.push("/")}
+                                  </p>
                                 </div>
                                 <Link
                                   to="/login"
@@ -660,7 +686,9 @@ class FileCommander extends React.Component {
                     <div className="d-flex flex-wrap align-items-center">
                       <div className="col-lg-6 col-sm-6 p-0">
                         <h4 className="mb-4">
-                          Welcome: {user.name} {user.lastname}
+                          Welcome:{" "}
+                          {user != null ? user.name : history.push("/")}{" "}
+                          {user != null ? user.lastname : history.push("/")}
                         </h4>
                         <p className="mb-5">
                           Currently you have{" "}
@@ -794,7 +822,17 @@ class FileCommander extends React.Component {
                 ))
               ) : inRoot ? (
                 <div className="col-md-12 col-sm-12 col-lg-12">
-                  <h4 className="text-primary text-center">Your StorX Drive is empty.</h4>
+                  <div className="alert alert-primary dashboard" role="alert">
+                    <div className="iq-alert-icon">
+                      <i className="ri-alert-line"></i>
+                    </div>
+                    <div className="iq-alert-text">
+                      Your <b>StorX Drive</b> is empty!
+                    </div>
+                  </div>
+                  {/* <h4 className="text-primary text-center">
+                    Your StorX Drive is empty.
+                  </h4> */}
                   {/* <h4 className="noItems-subtext">
                     Click the upload button or drop files in this window to get
                     started.

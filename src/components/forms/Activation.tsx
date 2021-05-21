@@ -32,21 +32,22 @@ class Activation extends React.Component<ActivationProps & RouteProps, Activatio
   componentDidMount() {
     // Get token from path and activate account through api call
     const token = this.props.match.params.token;
-
     fetch(`/api/user/activations/${token}`)
       .then(res => {
         if (res.status === 200) {
+          toast.info('Your account has been activated successfully!');
           // Successfull activation
           this.setState({ isActivated: true });
+          history.push('/login');
         } else {
+          toast.error("Invalid token");
           // Wrong activation
+          history.push('/login');
           this.setState({ isActivated: false });
         }
-
-        // if (!isMobile) {
-        //   this.redirect();
-        // }
       }).catch(err => {
+        toast.error("Invalid token");
+        history.push('/login');
         this.setState({ isActivated: false });
         console.log('Activation error: ' + err);
         // if (!isMobile) { this.redirect(); }

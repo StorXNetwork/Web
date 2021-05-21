@@ -380,15 +380,22 @@ class Reset extends React.Component<ResetProps> {
                             <div className="profile-header">
                               <div className="cover-container text-center">
                                 <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                                  {user.name.charAt(0)}
+                                  {user != null
+                                    ? user.name.charAt(0)
+                                    : history.push("/")}
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
                                     <a>
-                                      {user.name} {user.lastname}
+                                      {user != null
+                                        ? user.name
+                                        : history.push("/")}{" "}
+                                      {user != null
+                                        ? user.lastname
+                                        : history.push("/")}
                                     </a>
                                   </h5>
-                                  <p>{user.email}</p>
+                                  <p>{user != null ? user.email : history.push("/")}</p>
                                 </div>
                                 <Link
                                   to="/login"
@@ -470,12 +477,61 @@ class Reset extends React.Component<ResetProps> {
                                   name="password"
                                   value={this.state.newPassword}
                                   onChange={this.handleChange}
+                                  autoFocus
                                 />
                                 <label htmlFor="password">New Password</label>
-                                {this.state.newPassword != null ? this.regexPass(this.state.newPassword) ? null : <div className="mt-2 text-danger small">Please enter password with minimum 1 uppercase, 1 special character (@#$%&) & 1 number</div> : null}
+                                {this.state.newPassword != "" ? (
+                                  this.regexPass(this.state.newPassword) ? (
+                                    null
+                                  ) : (
+                                    <div className="mt-1 text-danger small text-left">
+                                      Please enter password with minimum 1
+                                      uppercase, 1 special character (@#$%&) & 1
+                                      number
+                                    </div>
+                                  )
+                                ) : null}
                               </div>
                             </div>
+                            {/* <div className="col-lg-12">
+                              <div className="floating-label form-group">
+                                <input
+                                  className="floating-input form-control"
+                                  type="password"
+                                  id="newPassword"
+                                  placeholder=" "
+                                  required
+                                  name="password"
+                                  value={this.state.newPassword}
+                                  onChange={this.handleChange}
+                                />
+                                <label htmlFor="password">New Password</label>
+                              </div>
+                              {this.state.newPassword != null ? this.regexPass(this.state.newPassword) ? null : <div className="mt-2 text-danger small text-left">Please enter password with minimum 1 uppercase, 1 special character (@#$%&) & 1 number</div> : null}
+                            </div> */}
                             <div className="col-lg-12">
+                              <div className="floating-label form-group mb-0">
+                                <input
+                                  className="floating-input form-control"
+                                  type="password"
+                                  placeholder=" "
+                                  id="confirmNewPassword"
+                                  required
+                                  name="confpassword"
+                                  value={this.state.confirmNewPassword}
+                                  onChange={this.handleChange}
+                                />
+                                <label htmlFor="confpassword">Confirm New Passwor</label>
+                              </div>
+                              {this.state.newPassword !=
+                                this.state.confirmNewPassword ? (
+                                <div className="mt-1 text-danger small text-left">
+                                  Password mismatch
+                                </div>
+                              ) : null}
+                            </div>
+
+                            {/* <div className="col-lg-12">
                               <div className="floating-label form-group">
                                 <input
                                   className="floating-input form-control"
@@ -490,11 +546,11 @@ class Reset extends React.Component<ResetProps> {
                                 <label htmlFor="confpassword">Confirm New Password</label>
                                 {this.state.newPassword != this.state.confirmNewPassword ? <div className="mt-2 text-danger small">Password mismatch</div> : null}
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                           <button
                             type="submit"
-                            className="btn btn-block btn-primary"
+                            className="btn btn-block btn-primary mt-4"
                             disabled={!this.isPasswordValid()}
                           >
                             Change Password

@@ -42,7 +42,7 @@ class Referred extends React.Component {
     dropdown: false,
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { value: "" };
 
@@ -53,10 +53,10 @@ class Referred extends React.Component {
     const user = Settings.getUser();
 
     this.getCredit();
-    this.setState({ textToCopy: `https://web.storx.io/?ref=${user.uuid}` });
+    this.setState({ textToCopy: `https://storx.io/new?ref=${user.uuid}` });
     this.setState({ copySuccess: "Copy" });
     const socialText = this.parseUrl(
-      "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!"
+      "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens."
     );
 
     this.setState({ text: socialText });
@@ -78,7 +78,7 @@ class Referred extends React.Component {
 
         this.setState({ credit: credit });
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   parseUrl(text) {
@@ -141,7 +141,7 @@ class Referred extends React.Component {
         if (res.response.status !== 200) {
           throw res.data;
         } else {
-          toast.info("Claim email sent to hello@web.storx.io");
+          toast.info("Claim email sent to support@storx.io");
         }
       })
       .catch((err) => {
@@ -268,9 +268,8 @@ class Referred extends React.Component {
                       </div>
                     </li>
                     <li
-                      className={`nav-item nav-icon dropdown ${
-                        this.state.dropdown == true ? "show" : ""
-                      }`}
+                      className={`nav-item nav-icon dropdown ${this.state.dropdown == true ? "show" : ""
+                        }`}
                     >
                       <a
                         className="search-toggle dropdown-toggle"
@@ -285,9 +284,8 @@ class Referred extends React.Component {
                         <i className="ri-settings-3-line"></i>
                       </a>
                       <div
-                        className={`iq-sub-dropdown dropdown-menu ${
-                          this.state.dropdown == true ? "show" : ""
-                        }`}
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.dropdown == true ? "show" : ""
+                          }`}
                         aria-labelledby="dropdownMenuButton02"
                       >
                         <div className="card shadow-none m-0">
@@ -323,9 +321,8 @@ class Referred extends React.Component {
                       </div>
                     </li>
                     <li
-                      className={`nav-item nav-icon dropdown caption-content ${
-                        this.state.profiledown == true ? "show" : ""
-                      }`}
+                      className={`nav-item nav-icon dropdown caption-content ${this.state.profiledown == true ? "show" : ""
+                        }`}
                     >
                       <a
                         className="search-toggle dropdown-toggle"
@@ -344,9 +341,8 @@ class Referred extends React.Component {
                         </div>
                       </a>
                       <div
-                        className={`iq-sub-dropdown dropdown-menu ${
-                          this.state.profiledown == true ? "show" : ""
-                        }`}
+                        className={`iq-sub-dropdown dropdown-menu ${this.state.profiledown == true ? "show" : ""
+                          }`}
                         aria-labelledby="dropdownMenuButton03"
                       >
                         <div className="card mb-0">
@@ -362,15 +358,15 @@ class Referred extends React.Component {
                             <div className="profile-header">
                               <div className="cover-container text-center">
                                 <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                                  {user.name.charAt(0)}
+                                  {user != null ? user.name.charAt(0) : ""}
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
                                     <a>
-                                      {user.name} {user.lastname}
+                                      {user != null ? user.name : ""} {user != null ? user.lastname : ""}
                                     </a>
                                   </h5>
-                                  <p>{user.email}</p>
+                                  <p>{user != null ? user.email : ""}</p>
                                 </div>
                                 <Link
                                   to="/login"
@@ -427,9 +423,9 @@ class Referred extends React.Component {
                   <div className="card-body property2-content">
                     <div className="d-flex flex-wrap align-items-center">
                       <div className="col-lg-8 col-md-7 col-12 p-0">
-                        <h4 className="mb-4">
+                        <h5 className="mb-4">
                           Earn Tokens by referring Friends & Family to StorX
-                        </h4>
+                        </h5>
                         <p className="mb-0">
                           Invite friends and family who aren't on StorX yet.
                           You'll both will be eligible for rewards * of 10 STORX
@@ -437,7 +433,10 @@ class Referred extends React.Component {
                         </p>
                       </div>
                       <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
-                        <img src={referralClicked} className="img-fluid invite-img" />
+                        <img
+                          src={referralClicked}
+                          className="img-fluid invite-img"
+                        />
                       </div>
                     </div>
                   </div>
@@ -447,16 +446,15 @@ class Referred extends React.Component {
                 <div className="card card-block card-stretch card-height">
                   <div className="card-header d-flex justify-content-between">
                     <div className="header-title">
-                      <h4 className="card-title">You have accumulated</h4>
+                      <h5 className="card-title">You have accumulated</h5>
                     </div>
                   </div>
                   <div className="card-body pt-0">
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} className="img-fluid" />
                     </div>
-                    <h4 className="text-center mb-0">{`$${
-                      this.state.credit == undefined ? 0 : this.state.credit
-                    }`}</h4>
+                    <h5 className="text-center mb-0">{`${this.state.credit == undefined ? 0 : this.state.credit
+                      } STORX`}</h5>
                   </div>
                 </div>
               </div>
@@ -465,7 +463,7 @@ class Referred extends React.Component {
                 <div className="card">
                   <div className="card-header d-flex justify-content-between">
                     <div className="header-title">
-                      <h4 className="card-title">Invite Your Friends</h4>
+                      <h5 className="card-title">Invite Your Friends</h5>
                     </div>
                   </div>
                   <div className="card-body">
@@ -522,7 +520,7 @@ class Referred extends React.Component {
                                   type="text"
                                   className="form-control"
                                   readonly=""
-                                  value={`https://web.storx.io/?ref=${user.uuid}`}
+                                  value={`https://storx.io/new?ref=${user.uuid}`}
                                 />
                                 <div className="input-group-append">
                                   <button
@@ -538,25 +536,23 @@ class Referred extends React.Component {
                               <div className="social-sharing justify-content-between">
                                 <a
                                   className="twitter"
-                                  href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${
-                                    user.uuid
-                                  }&${this.parseUrl({
-                                    text: "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
-                                  })}`}
+                                  href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid
+                                    }&${this.parseUrl({
+                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                    })}`}
                                   target="_blank"
                                 >
                                   <i className="fab fa-twitter"></i>
                                 </a>
                                 <a
                                   className="facebook"
-                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${
-                                    user.uuid
-                                  }&amp;src=sdkpreparse&${this.parseUrl({
-                                    quote:
-                                      "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
-                                  })}`}
+                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid
+                                    }&amp;src=sdkpreparse&${this.parseUrl({
+                                      quote:
+                                        "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                    })}`}
                                   target="_blank"
-                                  data-href={`https://web.storx.io/?ref=${user.uuid}`}
+                                  data-href={`https://storx.io/new?ref=${user.uuid}`}
                                 >
                                   <i className="fa fa-facebook-f"></i>
                                 </a>
@@ -564,11 +560,9 @@ class Referred extends React.Component {
                                   className="telegram"
                                   href={`https://t.me/share/url?${this.parseUrl(
                                     {
-                                      text: "I've made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!",
+                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
                                     }
-                                  )}&url=https://web.storx.io/?ref=${
-                                    user.uuid
-                                  }`}
+                                  )}&url=https://storx.io/new?ref=${user.uuid}`}
                                   target="_blank"
                                 >
                                   <i className="fa fa-paper-plane"></i>
@@ -947,7 +941,7 @@ class Referred extends React.Component {
     //         <Container className="row m-0 mt-4 p-0">
     //           <div className="col-8 px-0">
     //             <div className="referred-url">
-    //               <input type="text" readOnly value={`https://web.storx.io/?ref=${user.uuid}`} />
+    //               <input type="text" readOnly value={`https://storx.io/?ref=${user.uuid}`} />
     //             </div>
     //           </div>
     //           <div className="col-2 px-0 mx-0 d-flex">
@@ -958,19 +952,19 @@ class Referred extends React.Component {
     //           <div className="col-2 d-flex p-0">
     //             <DropdownButton className="share-container m-auto" name="menuShare" title="Share" type="toggle">
     //               <Dropdown.Item className="social-button"
-    //                 href={`https://twitter.com/intent/tweet?url=https://web.storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
+    //                 href={`https://twitter.com/intent/tweet?url=https://storx.io/?ref=${user.uuid}&${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`}
     //                 target="_blank"
     //                 data-size="large"
-    //                 original-referer={`https://web.storx.io/?ref=${user.uuid}`}
+    //                 original-referer={`https://storx.io/?ref=${user.uuid}`}
     //                 data-lang="en">
     //                 <img src={twitter} alt="" />
     //               </Dropdown.Item>
-    //               <Dropdown.Item className="social-button" data-href={`https://web.storx.io/?ref=${user.uuid}`}
-    //                 href={`https://www.facebook.com/sharer/sharer.php?u=https://web.storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`} target="_blank">
+    //               <Dropdown.Item className="social-button" data-href={`https://storx.io/?ref=${user.uuid}`}
+    //                 href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({ quote: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}`} target="_blank">
     //                 <img src={facebook} alt="" />
     //               </Dropdown.Item>
     //               <Dropdown.Item className="social-button"
-    //                 href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://web.storx.io/?ref=${user.uuid}`} target="_blank">
+    //                 href={`https://t.me/share/url?${this.parseUrl({ text: 'I\'ve made the switch to @StorXtech a secure and free alternative to Dropbox that truly respects your privacy. Sign up using this exclusive link and get 10 GB free for life, and $5 that can be used if you ever decide to upgrade your StorX storage plan!' })}&url=https://storx.io/?ref=${user.uuid}`} target="_blank">
     //                 <img src={telegram} alt="" />
     //               </Dropdown.Item>
     //             </DropdownButton>

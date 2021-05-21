@@ -31,7 +31,10 @@ class InxtContainerOption extends React.Component {
         return (
           <>
             <h5 className="font-weight-600 text-primary mb-3">WELCOME</h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">2 GB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
               <li>End-to-End Encryption</li>
               <li>Private File Sharing</li>
               <li>No 3rd Party Tracking</li>
@@ -41,8 +44,11 @@ class InxtContainerOption extends React.Component {
       case "20 GB":
         return (
           <>
-            <h5 className="font-weight-600 text-primary mb-3">BASIC</h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+            <h5 class="font-weight-600 text-primary mb-3">BASIC</h5>
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">20 GB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
               <li>End-to-End Encryption</li>
               <li>Private File Sharing</li>
               <li>No 3rd Party Tracking</li>
@@ -52,81 +58,97 @@ class InxtContainerOption extends React.Component {
       case "50 GB":
         return (
           <>
-            <h5 className="font-weight-600 text-primary mb-3">PROFESSIONAL</h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+            <h5 class="font-weight-600 text-primary mb-3">PROFESSIONAL</h5>
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">50 GB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
               <li>End-to-End Encryption</li>
-              <li>Unlimited Downloads</li>
               <li>Private File Sharing</li>
               <li>No 3rd Party Tracking</li>
-              <li>Desktop Sync</li>
+              <li>Unlimited Downloads</li>
+              <li>Desktop App</li>
             </ul>
           </>
         );
       case "100 GB":
         return (
           <>
-            <h5 className="font-weight-600 text-primary mb-3">
-              SMALL BUSINESS
-            </h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+            <h5 class="font-weight-600 text-primary mb-3">SMALL BUSINESS</h5>
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">100 GB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
               <li>End-to-End Encryption</li>
-              <li>Unlimited Downloads</li>
               <li>Private File Sharing</li>
               <li>No 3rd Party Tracking</li>
-              <li>Desktop Sync</li>
+              <li>Unlimited Downloads</li>
+              <li>Desktop App</li>
             </ul>
           </>
         );
       case "250 GB":
         return (
           <>
-            <h5 className="font-weight-600 text-primary mb-3">ENTERPRISE</h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+            <h5 class="font-weight-600 text-primary mb-3">ENTERPRISE</h5>
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">250 GB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
               <li>End-to-End Encryption</li>
-              <li>Unlimited Downloads</li>
               <li>Private File Sharing</li>
               <li>No 3rd Party Tracking</li>
-              <li>Desktop Sync</li>
+              <li>Unlimited Downloads</li>
+              <li>Desktop App</li>
             </ul>
           </>
         );
       case "500 GB":
         return (
           <>
-            <h5 className="font-weight-600 text-primary mb-3">
-              ENTERPRISE PRO
-            </h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+            <h5 class="font-weight-600 text-primary mb-3">ENTERPRISE PRO</h5>
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">500 GB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
               <li>End-to-End Encryption</li>
-              <li>Unlimited Downloads</li>
               <li>Private File Sharing</li>
               <li>No 3rd Party Tracking</li>
-              <li>Desktop Sync</li>
+              <li>Unlimited Downloads</li>
+              <li>Desktop App</li>
             </ul>
           </>
         );
       case "1 TB":
         return (
           <>
-            <h5 className="font-weight-600 text-primary mb-3">
-              ENTERPRISE ELITE
-            </h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+            <h5 class="font-weight-600 text-primary mb-3">ENTERPRISE ELITE</h5>
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">1 TB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
               <li>End-to-End Encryption</li>
-              <li>Unlimited Downloads</li>
               <li>Private File Sharing</li>
               <li>No 3rd Party Tracking</li>
-              <li>Desktop Sync</li>
+              <li>Unlimited Downloads</li>
+              <li>Desktop App</li>
             </ul>
           </>
         );
       case "25 TB":
         return (
           <>
-            <h5 className="font-weight-600 text-primary mb-3">ENTERPRISE ++</h5>
-            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
-              <li>
-                StorX can provide the storage and services your business needs.
+            <h5 class="font-weight-600 text-primary mb-3">ENTERPRISE ++</h5>
+            <div class="pricing-header">
+              <h3 class="font-weight-bolder">25 TB</h3>
+            </div>
+            <ul class="list-unstyled font-size-14 mb-1 pricing-list">
+              <li class="font-size-18">
+                All Services of<br></br>
+                <span class="gradient-text font-weight-600">
+                  Enterprise Elite<br></br>+<br></br>
+                  Customization*
+                </span>
               </li>
             </ul>
           </>
@@ -136,36 +158,46 @@ class InxtContainerOption extends React.Component {
     }
   }
 
-  textWhite(pack) {
-    switch (pack) {
-      case "2 GB":
-      case "20 GB":
-      case "50 GB":
-      case "100 GB":
-        return "";
-      case "250 GB":
-      case "500 GB":
-      case "1 TB":
-      case "25 TB":
-      default:
-        return "text-white";
-    }
-  }
   render() {
+    console.log("////////////", this.props);
     return (
       <div className="col col-lg-3 col-sm-6">
         <div className="card card-block card-stretch card-height pricing-details text-center p-2">
-          <div
-            className={`pricing-header ${this.backgroundColor(
-              this.props.header
-            )} ${this.textWhite(this.props.header)}`}
-          >
-            <h3 className={`mt-2 mb-2 font-weight-bolder ${this.textWhite(this.props.header)}`}>
-              {this.props.header}
-            </h3>
-          </div>
           {this.features(this.props.header)}
-          <div className="price-btn-block">
+          <div class="price-btn-block">
+            {this.props.text == "Free" ? (
+              <>
+                <h4 class="letter-spacing-2 gradient-text font-weight-600 mt-1 mb-3">
+                  FREE
+                </h4>
+                <h5 class="font-size-14 text-muted">&nbsp;</h5>
+              </>
+            ) : this.props.text == "Custom US" ? (
+              <>
+                <a href="mailto:info@storx.io" class="btn btn-primary mb-2 mt-3">
+                  <p class="font-weight-500">
+                    <small class="font-weight-400">Contact Us</small>
+                  </p>
+                </a>
+                <h5 class="font-size-14 text-muted">*By EcoSystem Partner</h5>
+              </>
+            ) : (
+              <>
+                <button class="btn btn-primary mb-2 mt-3" onClick={this.props.onClick}>
+                  {this.props.text}
+                </button>
+                <h5 class="font-size-14 text-muted">Prepay per month</h5>
+              </>
+            )}
+            {/* <button class="btn btn-primary mb-2 mt-3">
+              <p class="font-weight-500">
+                $4 <small class="font-weight-400">/ Month</small>
+              </p>
+            </button>
+            <h5 class="font-size-14 text-muted">Prepay per month</h5> */}
+          </div>
+
+          {/* <div className="price-btn-block">
             {this.props.text == "Free" ? (
               <h3 className="letter-spacing-2 gradient-text font-weight-600 mt-4 mb-1">
                 FREE
@@ -195,7 +227,10 @@ class InxtContainerOption extends React.Component {
                 BUY STORAGE
               </button>
             ) : this.props.text == "Custom Pricing" ? (
-              <a href="mailto:info@storx.io" className="btn btn-primary mb-2 mt-3">
+              <a
+                href="mailto:info@storx.io"
+                className="btn btn-primary mb-2 mt-3"
+              >
                 CONTACT US
               </a>
             ) : (
@@ -206,7 +241,7 @@ class InxtContainerOption extends React.Component {
                 BUY STORAGE
               </a>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     );

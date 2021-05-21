@@ -19,41 +19,41 @@ import { getKeys } from '../../services/teams.service';
 import trash from '../../assets/Dashboard-Icons/trash.svg';
 
 interface Props {
-  match?: any
-  isAuthenticated: Boolean
-  templateOption?: string
+  match?: any;
+  isAuthenticated: Boolean;
+  templateOption?: string;
 }
 
 interface State {
   user: {
     email: string,
     isAdmin: Boolean,
-    isTeamMember: Boolean
-  }
+    isTeamMember: Boolean;
+  };
   team: {
     bridgeUser: string,
-    teamPassword: string
-  }
-  idTeam: number
-  teamName: string
-  email: string
-  isTeamActivated: boolean
-  menuTitle: string
-  visibility: string
-  showDescription: boolean
-  template: any
-  templateOption?: string
-  dataSource: Item[]
+    teamPassword: string;
+  };
+  idTeam: number;
+  teamName: string;
+  email: string;
+  isTeamActivated: boolean;
+  menuTitle: string;
+  visibility: string;
+  showDescription: boolean;
+  template: any;
+  templateOption?: string;
+  dataSource: Item[];
   modalDeleteAccountShow: boolean,
-  sessionIdStripe: any
-  showDeleteModal: boolean
-  selectedItem: Item | null
+  sessionIdStripe: any;
+  showDeleteModal: boolean;
+  selectedItem: Item | null;
 }
 
 interface Item {
-  isMember: Boolean
-  isInvitation: Boolean
-  user: string
+  isMember: Boolean;
+  isInvitation: Boolean;
+  user: string;
 }
 
 class Teams extends React.Component<Props, State> {
@@ -95,18 +95,18 @@ class Teams extends React.Component<Props, State> {
 
   handleShowDescription = (_showDescription) => {
     this.setState({ showDescription: _showDescription });
-  }
+  };
 
   handleChangePass = (event: React.FormEvent<HTMLInputElement>) => {
     this.setState({ team: { ...this.state.team, teamPassword: event.currentTarget.value } });
-  }
+  };
 
   handlePassword = (password: any) => {
-  }
+  };
 
   isLoggedIn = () => {
     return !(!localStorage.xToken);
-  }
+  };
 
   componentDidMount() {
     if (!this.isLoggedIn()) {
@@ -167,18 +167,18 @@ class Teams extends React.Component<Props, State> {
         toast.info(`Invitation email sent to ${mail}`);
       }
     });
-  }
+  };
 
   handleEmailChange = (event) => {
     this.setState({
       email: event.target.value
     });
-  }
+  };
 
   formRegisterSubmit = (e: any) => {
     e.preventDefault();
 
-  }
+  };
 
   renderPlans = (): JSX.Element => {
     return (
@@ -190,22 +190,22 @@ class Teams extends React.Component<Props, State> {
         </InxtContainer>
       </div>
     );
-  }
+  };
 
   handleChangeName = (event: React.FormEvent<HTMLInputElement>) => {
     this.setState({ teamName: event.currentTarget.value });
-  }
+  };
 
   handleKeySaved = (user: JSON) => {
     localStorage.setItem('xUser', JSON.stringify(user));
-  }
+  };
 
   validateEmailInvitations = (email) => {
     // eslint-disable-next-line no-control-regex
     const emailPattern = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"))@((?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
 
     return emailPattern.test(email.toLowerCase());
-  }
+  };
 
   sendInvitation = (e: any) => {
     e.preventDefault();
@@ -231,7 +231,7 @@ class Teams extends React.Component<Props, State> {
       toast.warn('Please, enter a valid email before sending out the invite');
     }
     return;
-  }
+  };
 
   handleCancelAccount = () => {
     fetch('/api/teams/deleteAccount', {
@@ -245,12 +245,12 @@ class Teams extends React.Component<Props, State> {
       if (res.response.status !== 200) {
         throw res.data;
       } else {
-        toast.info('The request has been sent to hello@storx.io');
+        toast.info('The request has been sent to support@storx.io');
       }
     }).catch(err => {
       toast.warn(`Error: ${err.error ? err.error : 'Internal Server Error'}`);
     });
-  }
+  };
 
   deletePeople = (item: Item | null) => {
     if (!item) {
@@ -275,7 +275,7 @@ class Teams extends React.Component<Props, State> {
     }).catch(err => {
       toast.warn(`Error: ${err.error ? err.error : 'Internal Server Error'}`);
     });
-  }
+  };
 
   renderTeamSettings() {
     return <div>
@@ -336,7 +336,7 @@ class Teams extends React.Component<Props, State> {
             </div>
             <div className="message-wrapper">
               <h1>Are you sure?</h1>
-              <p className="delete-account-advertising">All your files will be gone forever and you will lose access to your StorX Drive account. Any active subscriptions you might have will also be cancelled. Once you click delete account, a request will be sent to hello@storx.io and the account will be deleted in a few hours.</p>
+              <p className="delete-account-advertising">All your files will be gone forever and you will lose access to your StorX Drive account. Any active subscriptions you might have will also be cancelled. Once you click delete account, a request will be sent to support@storx.io and the account will be deleted in a few hours.</p>
               <div className="buttons-wrapper">
                 <div className="default-button button-primary delete-account-button"
                   onClick={this.handleCancelAccount}>

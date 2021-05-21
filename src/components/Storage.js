@@ -280,15 +280,22 @@ class Storage extends React.Component {
                             <div className="profile-header">
                               <div className="cover-container text-center">
                                 <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                                  {user.name.charAt(0)}
+                                  {user != null
+                                    ? user.name.charAt(0)
+                                    : history.push("/")}
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
                                     <a>
-                                      {user.name} {user.lastname}
+                                      {user != null
+                                        ? user.name
+                                        : history.push("/")}{" "}
+                                      {user != null
+                                        ? user.lastname
+                                        : history.push("/")}
                                     </a>
                                   </h5>
-                                  <p>{user.email}</p>
+                                  <p>{user != null ? user.email : history.push("/")}</p>
                                 </div>
                                 <Link
                                   to="/login"
@@ -318,56 +325,6 @@ class Storage extends React.Component {
           <div className="container-fluid">
             <div className="row mb-5">
               <div className="col-lg-12">
-                <div className="card-transparent card-block card-stretch card-height mb-3">
-                  <div className="d-flex justify-content-between">
-                    <div className="select-dropdown input-prepend input-append">
-                      <div className="btn-group">
-                        <label data-toggle="dropdown">
-                          <div className="dropdown-toggle search-query">
-                            Storage
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-                    {/* <div className="dashboard1-info-back">
-                      <a href="index.html">
-                        <i className="ri-arrow-left-s-line"></i>Back
-                      </a>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-12 col-lg-12">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="header-title">
-                      <h4 className="card-title">Storage Used</h4>
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-lg-12 col-sm-12">
-                        <p>{customPrettySize(this.state.now)} / {customPrettySize(this.state.max)}</p>
-                        <div
-                          className="iq-progress-bar mb-3"
-                          style={{ height: '1.10rem' }}
-                        >
-                          <span
-                            className="bg-primary iq-progress progress-1"
-                            data-percent={((this.state.now * 100) / this.state.max)}
-                            style={{
-                              width: `${(this.state.now * 100) / this.state.max}%`,
-                              transition: `width ${Math.floor(Math.random() * 10)}s ease 0s`
-                            }}
-                          ></span>
-                        </div>
-                        <p>{isNaN(this.state.now / this.state.max) ? 0 : ((this.state.now * 100) / this.state.max).toFixed(2)} % Full</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-12">
                 <div className="card card-block card-stretch card-transparent">
                   <div className="card-header d-flex justify-content-between pb-0">
                     <div className="header-title">
@@ -380,40 +337,11 @@ class Storage extends React.Component {
                 <div className="pricing-custom-tab w-100">
                   <div className="tab-title-info position-relative">
                     <div className="col-sm-12 p-0">
-                      <ul
-                        className="d-flex nav nav-pills mb-5 align-items-center justify-content-center"
-                        id="pricing-pills-tab"
-                        role="tablist"
-                      >
-                        <li className="nav-item">
-                          {" "}
-                          <a
-                            className="nav-link active"
-                            data-toggle="pill"
-                            href="#pricing-data1"
-                            role="tab"
-                            aria-selected="true"
-                          >
-                            Individual
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <div className="avatar-30 star-circle">
-                            <i className="ri-star-fill"></i>
-                          </div>
-                        </li>
-                        <li className="nav-item">
-                          {" "}
-                          <a
-                            className="nav-link show"
-                            data-toggle="pill"
-                            href="#pricing-data2"
-                            role="tab"
-                            aria-selected="false"
-                          >
-                            Enterprise
-                          </a>
-                        </li>
+                      <ul class="nav nav-tabs">
+                        <li><a class="active show" data-toggle="tab" href="#pricing-data1"><span
+                          class="left-text">Individual</span></a></li>
+                        <li><a class=" " data-toggle="tab" href="#pricing-data2"><span
+                          class="right-text">Enterprise</span></a></li>
                       </ul>
                     </div>
                   </div>
@@ -421,171 +349,39 @@ class Storage extends React.Component {
                     <Suspense fallback={<h3 className="text-warning">Loading.....</h3>}>
                       <StoragePlans currentPlan={this.state.max} />
                     </Suspense>
-                    {/* <div id="pricing-data1" className="tab-pane fade active show">
-                      <Suspense fallback={<h3 className="text-warning">Loading.....</h3>}>
-                        <StoragePlans currentPlan={this.state.max} />
-                      </Suspense> */}
-                    {/* <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
-                                  2 GB
-                                </h3>
-                              </div>
-                              <h3 className="text-primary font-weight-bolder mt-5 mb-2">
-                                FREE
-                              </h3>
-                            </div>
-                          </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm-12 col-lg-12 mt-5">
+                <div className="card">
+                  <div className="card-header d-flex justify-content-between">
+                    <div className="header-title">
+                      <h4 className="card-title">Storage Used</h4>
+                    </div>
+                  </div>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-lg-9 col-sm-5">
+                        <p>{customPrettySize(this.state.now)} / {customPrettySize(this.state.max)}</p>
+                        <div className="iq-progress-bar mb-3" style={{ height: "1.10rem" }}>
+                          <span className="bg-primary iq-progress progress-1" data-percent={((this.state.now * 100) / this.state.max)}
+                            style={{
+                              width: `${(this.state.now * 100) / this.state.max}%`,
+                              transition: `width ${Math.floor(Math.random() * 10)}s ease 0s`
+                            }}>
+                          </span>
                         </div>
-                        <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
-                                  20 GB
-                                </h3>
-                              </div>
-                              <h4 className="mb-2">
-                                $1 <small className="font-size-14">/ Month</small>
-                              </h4>
-                              <ul className="list-unstyled mb-0 pricing-list">
-                                <li className="text-muted">Prepay per month</li>
-                              </ul>
-                              <a href="#" className="btn btn-primary mt-3">
-                                BUY STORAGE
-                              </a>
-                            </div>
-                          </div>
+                        <p>{isNaN(this.state.now / this.state.max) ? 0 : ((this.state.now * 100) / this.state.max).toFixed(2)} % Full</p>
+                      </div>
+                      <div className="col-lg-3 col-sm-5">
+                        <div className="legends p-2 pl-4">
+                          <ul className="round">
+                            <li className="total-space">Total Space</li>
+                            <li className="used-space">Used Space</li>
+                          </ul>
                         </div>
-                        <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
-                                  50 GB
-                                </h3>
-                              </div>
-                              <h4 className="mb-2">
-                                $2 <small className="font-size-14">/ Month</small>
-                              </h4>
-                              <ul className="list-unstyled mb-0 pricing-list">
-                                <li className="text-muted">Prepay per month</li>
-                              </ul>
-                              <a href="#" className="btn btn-primary mt-3">
-                                BUY STORAGE
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder">
-                                  100 GB
-                                </h3>
-                              </div>
-                              <h4 className="mb-2">
-                                $4 <small className="font-size-14">/ Month</small>
-                              </h4>
-                              <ul className="list-unstyled mb-0 pricing-list">
-                                <li className="text-muted">Prepay per month</li>
-                              </ul>
-                              <a href="#" className="btn btn-primary mt-3">
-                                BUY STORAGE
-                              </a>
-                            </div>
-                          </div>
-                        </div> */}
-                    {/* </div> */}
-                    {/* <div id="pricing-data2" className="tab-pane fade"> */}
-                      {/* <div className="row m-0 d-flex"> */}
-                        {/* <h4 className="text-warning">For Enterprise Coming Soon ...</h4> */}
-                        {/* <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header bg-primary text-white">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
-                                  250 GB
-                                </h3>
-                              </div>
-                              <h4 className="mb-2">
-                                $10 <small className="font-size-14">/ Month</small>
-                              </h4>
-                              <ul className="list-unstyled mb-0 pricing-list">
-                                <li className="text-muted">Prepay per month</li>
-                              </ul>
-                              <a href="#" className="btn btn-primary mt-3">
-                                BUY STORAGE
-                              </a>
-                            </div>
-                          </div>
-                        </div> */}
-                        {/* <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header bg-success text-white">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
-                                  500 GB
-                                </h3>
-                              </div>
-                              <h4 className="mb-2">
-                                $20 <small className="font-size-14">/ Month</small>
-                              </h4>
-                              <ul className="list-unstyled mb-0 pricing-list">
-                                <li className="text-muted">Prepay per month</li>
-                              </ul>
-                              <a href="#" className="btn btn-primary mt-3">
-                                BUY STORAGE
-                              </a>
-                            </div>
-                          </div>
-                        </div> */}
-                        {/* <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header bg-info text-white">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
-                                  1 TB
-                                </h3>
-                              </div>
-                              <h4 className="mb-2">
-                                $40 <small className="font-size-14">/ Month</small>
-                              </h4>
-                              <ul className="list-unstyled mb-0 pricing-list">
-                                <li className="text-muted">Prepay per month</li>
-                              </ul>
-                              <a href="#" className="btn btn-primary mt-3">
-                                BUY STORAGE
-                              </a>
-                            </div>
-                          </div>
-                        </div> */}
-                        {/* <div className="col-lg-3 col-sm-6">
-                          <div className="card card-block card-stretch card-height blog pricing-details">
-                            <div className="card-body border text-center rounded">
-                              <div className="pricing-header bg-warning text-white">
-                                <h3 className="mt-2 mb-2 display-5 font-weight-bolder text-white">
-                                  25 TB
-                                </h3>
-                              </div>
-                              <a href="mailto:contact@storx.tech">
-                                <h4 className="text-primary font-weight-bolder mt-5 mb-2">
-                                  ENTERPRISE
-                                </h4>
-                                <ul className="list-unstyled mb-0 pricing-list">
-                                  <li className="text-primary font-weight-500">
-                                    CONTACT US FOR PRICING
-                                  </li>
-                                </ul>
-                              </a>
-                            </div>
-                          </div>
-                        </div> */}
-                      {/* </div> */}
-                    {/* </div> */}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

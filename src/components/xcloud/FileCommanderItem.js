@@ -357,6 +357,7 @@ class FileCommanderItem extends React.Component {
               );
             }}
             onDoubleClick={(e) => {
+              console.log('.......ysdvcydss', e.target.className);
               // if (e.target.className.includes('card-body')) {
               if (this.props.type == null) {
                 window.analytics.track("folder-opened", {
@@ -393,7 +394,7 @@ class FileCommanderItem extends React.Component {
                 <div className="dropdown">
                   <span
                     className="dropdown-toggle"
-                    // as={CustomToggle}
+                    as={CustomToggle}
                     id="dropdownMenuButton2"
                     handleShowDropdown={this.handleShowDropdown}
                     data-toggle="dropdown"

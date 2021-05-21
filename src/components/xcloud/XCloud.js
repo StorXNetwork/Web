@@ -1209,14 +1209,14 @@ class XCloud extends React.Component {
                 />
               </div>
               <div className="message-wrapper">
-                <h1>
+                <h5>
                   Delete item{this.getSelectedItems().length > 1 ? "s" : ""}
-                </h1>
-                <h2>
+                </h5>
+                <h6>
                   Please confirm you want to delete this item
                   {this.getSelectedItems().length > 1 ? "s" : ""}. This action
                   can’t be undone.
-                </h2>
+                </h6>
                 <div className="buttons-wrapper">
                   <div
                     className="btn default-button btn-block btn-primary"

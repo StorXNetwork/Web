@@ -267,6 +267,7 @@ class New extends React.Component<NewProps, NewState> {
         if (response.status === 200) {
           return response.json().then((body) => {
             // Manage succesfull register
+            history.push("/login");
             const { token, user, uuid } = body;
             toast.success(
               "Your account has been created successfully. Please check your mailbox for activation."
@@ -281,7 +282,6 @@ class New extends React.Component<NewProps, NewState> {
                 email: this.state.register.email,
               },
             });
-            history.push("/login");
             const privkeyDecrypted = Buffer.from(
               AesFunctions.decrypt(
                 user.privateKey,
@@ -304,7 +304,6 @@ class New extends React.Component<NewProps, NewState> {
             ).then((rootFolderInfo) => {
               user.root_folder_id = rootFolderInfo.user.root_folder_id;
               Settings.set("xUser", JSON.stringify(user));
-              history.push("/login");
             });
           });
         } else {
@@ -312,7 +311,7 @@ class New extends React.Component<NewProps, NewState> {
             // Manage account already exists (error 400)
             const { message } = body;
             // history.push("/login");
-            toast.warn(`"${message}"`);
+            toast.warn(message);
             this.setState({ validated: false });
             history.push("/login");
           });
@@ -507,12 +506,12 @@ class New extends React.Component<NewProps, NewState> {
                             this.state.register.lastname) != "" ? (
                             regexFullName.test(
                               this.state.register.name ||
-                                this.state.register.lastname
+                              this.state.register.lastname
                             ) ? (
                               ""
                             ) : (
                               <div className="mb-3 text-danger small col-lg-12">
-                                No white space in First & last Name & only 2
+                                No white space in First, Last Name & only 2
                                 words allowed with min 2 alphabets
                               </div>
                             )
@@ -743,7 +742,7 @@ class New extends React.Component<NewProps, NewState> {
                             className="btn btn-on"
                             type="submit"
                             autoFocus
-                            // disabled={!this.state.checkTermsConditions}
+                          // disabled={!this.state.checkTermsConditions}
                           >
                             Continue
                           </button>
@@ -931,13 +930,14 @@ class New extends React.Component<NewProps, NewState> {
                                 className="floating-input form-control"
                                 type="password"
                                 id="password"
+                                name="password"
                                 required
                                 placeholder=" "
                                 autoComplete="new-password"
                                 onChange={this.handleChangeRegister}
                                 autoFocus
                               />
-                              <label>Password</label>
+                              <label htmlFor="password">Password</label>
                               {this.state.register.password != "" ? (
                                 this.regexPass(this.state.register.password) ? (
                                   ""
@@ -963,10 +963,9 @@ class New extends React.Component<NewProps, NewState> {
                                 onChange={this.handleChangeRegister}
                               />
                               <label>Confirm Password</label>
-                              {/* {this.state.register.confirmPassword != "" ? this.regexPass(this.state.register.confirmPassword) ? "" : <div className="mt-1"> <span className="text-danger small">Please enter password with minimum 1 uppercase, 1 character (@#$%&) & 1 number</span> </div> : null} */}
                             </div>
                             {this.state.register.password !=
-                            this.state.register.confirmPassword ? (
+                              this.state.register.confirmPassword ? (
                               <div className="mt-1 text-danger small">
                                 Password mismatch
                               </div>

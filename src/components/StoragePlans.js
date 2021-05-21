@@ -193,14 +193,13 @@ class StoragePlans extends React.Component {
                       });
                     }}
                     text={
-                      entry.metadata.price_usd === "0" ? (
-                        "Free"
-                      ) : (
-                        <>
-                          ${entry.metadata.price_usd}
-                          <span className="font-size-14">/month</span>
-                        </>
-                      )
+                      entry.metadata.price_usd === "0" ? "Free"
+                        : (
+                          <p className="font-weight-500">
+                            ${entry.metadata.price_usd}
+                            <small className="font-weight-400">/month</small>
+                          </p>
+                        )
                     }
                   />
                 ))
@@ -229,14 +228,13 @@ class StoragePlans extends React.Component {
                       });
                     }}
                     text={
-                      entry.metadata.price_usd === "0" ? (
-                        "Custom Pricing"
-                      ) : (
-                        <span>
-                          ${entry.metadata.price_usd}
-                          <span className="font-size-14">/month</span>
-                        </span>
-                      )
+                      entry.metadata.price_usd === "0" ? "Custom US"
+                        : (
+                          <p className="font-weight-500">
+                            ${entry.metadata.price_usd}
+                            <small className="font-weight-400">/month</small>
+                          </p>
+                        )
                     }
                   />
                 ))
