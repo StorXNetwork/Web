@@ -2,16 +2,16 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 const AppSumoTiers = [
-  { name: 'internxt_free1', size: '2GB', humanName: 'Free tier' },
-  { name: 'internxt_tier1', size: '500GB', humanName: 'Tier 1' },
-  { name: 'internxt_tier2', size: '1TB', humanName: 'Tier 2' },
-  { name: 'internxt_tier3', size: '2TB', humanName: 'Tier 3' },
-  { name: 'internxt_tier4', size: '3TB', humanName: 'Tier 4' },
-  { name: 'internxt_tier5', size: '5TB', humanName: 'Tier 5' }
+  { name: 'storx_free1', size: '2GB', humanName: 'Free tier' },
+  { name: 'storx_tier1', size: '500GB', humanName: 'Tier 1' },
+  { name: 'storx_tier2', size: '1TB', humanName: 'Tier 2' },
+  { name: 'storx_tier3', size: '2TB', humanName: 'Tier 3' },
+  { name: 'storx_tier4', size: '3TB', humanName: 'Tier 4' },
+  { name: 'storx_tier5', size: '5TB', humanName: 'Tier 5' }
 ];
 
 interface AppSumoPlansProps {
-  details?: any
+  details?: any;
 }
 
 function getAppSumoSize(name: string) {
