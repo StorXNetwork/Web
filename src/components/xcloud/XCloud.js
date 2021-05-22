@@ -974,10 +974,9 @@ class XCloud extends React.Component {
           if (err) {
             console.error("Error uploading:", err);
             reject(err);
-            toast.warn(`"${err}"`);
+            toast.warn("Went something wrong");
           } else if (parentFolderId === currentFolderId) {
             resolve();
-            console.log("getFolderContent 15");
             // this.getFolderContent(currentFolderId, false, true);
           } else {
             resolve();
