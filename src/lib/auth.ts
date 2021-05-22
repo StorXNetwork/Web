@@ -4,8 +4,8 @@ function getHeaders(withAuth: Boolean, withMnemonic: Boolean, isTeam: Boolean = 
   const headers = new Headers();
 
   headers.append('content-type', 'application/json; charset=utf-8');
-  headers.append('internxt-version', '1.0.0');
-  headers.append('internxt-client', 'drive-web');
+  headers.append('storx-version', '1.0.0');
+  headers.append('storx-client', 'drive-web');
 
   if (isTeam) {
     if (withAuth) {
@@ -13,7 +13,7 @@ function getHeaders(withAuth: Boolean, withMnemonic: Boolean, isTeam: Boolean = 
     }
 
     if (withMnemonic) {
-      headers.append('internxt-mnemonic', `${Settings.getTeams().bridge_mnemonic}`);
+      headers.append('storx-mnemonic', `${Settings.getTeams().bridge_mnemonic}`);
     }
   } else {
     if (withAuth) {
@@ -21,7 +21,7 @@ function getHeaders(withAuth: Boolean, withMnemonic: Boolean, isTeam: Boolean = 
     }
 
     if (withMnemonic) {
-      headers.append('internxt-mnemonic', `${Settings.get('xMnemonic')}`);
+      headers.append('storx-mnemonic', `${Settings.get('xMnemonic')}`);
     }
   }
 
