@@ -253,7 +253,7 @@ class FileCommander extends React.Component {
           //   errmsg = "Folder with same name already exists";
           // }
           // toast.warn(`"${errmsg}"`);
-          toast.warn("Went something wrong");
+          toast.warn("Something went wrong");
         }
 
         let idTeam =

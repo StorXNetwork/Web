@@ -181,14 +181,16 @@ class InxtContainerOption extends React.Component {
                 </a>
                 <h5 class="font-size-14 text-muted">*By EcoSystem Partner</h5>
               </>
-            ) : (
-              <>
-                <button class="btn btn-primary mb-2 mt-3" onClick={this.props.onClick}>
-                  {this.props.text}
-                </button>
-                <h5 class="font-size-14 text-muted">Prepay per month</h5>
-              </>
-            )}
+            ) :
+              (
+                <>
+                  <button class="btn btn-primary mb-2 mt-3" disabled onClick={this.props.onClick}>
+                    {this.props.text}
+                  </button>
+                  <h5 class="font-size-14 text-muted">Prepay per month</h5>
+                </>
+              )
+            }
             {/* <button class="btn btn-primary mb-2 mt-3">
               <p class="font-weight-500">
                 $4 <small class="font-weight-400">/ Month</small>
