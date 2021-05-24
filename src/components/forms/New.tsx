@@ -105,7 +105,7 @@ class New extends React.Component<NewProps, NewState> {
       let queryRef = url.parse(urlRef).query;
       let refCookie = queryString.parse(queryRef).ref;
       document.cookie = `REFERRAL=${refCookie};expires=${moment()
-        .add(2, "days")
+        .add(4, "days")
         .toDate()}`;
     }
     const parsedQueryParams: ParsedQuery<string> = queryString.parse(

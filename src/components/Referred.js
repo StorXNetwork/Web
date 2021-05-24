@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import url from "url";
 import Popup from "reactjs-popup";
 import queryString from "querystring";

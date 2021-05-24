@@ -145,7 +145,9 @@ class Login extends React.Component<LoginProps> {
           err.message.includes("not activated") &&
           this.validateEmail(this.state.email)
         ) {
-          history.push(`/activate/${this.state.email}`);
+          // history.push(`/activate/${this.state.email}`);
+          // history.push('/login');
+          toast.warn("Please verify your email, check your mail to verify.");
         } else {
           this.setState({ isLogingIn: false });
           // toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });
@@ -326,9 +328,10 @@ class Login extends React.Component<LoginProps> {
       .catch((err) => {
         if (err == `Error: "Error: Wrong email/password"`) {
           toast.error("Email or Password is wrong. Please enter correct credentials.", { autoClose: 3000, transition: Flip });
-          if (window.location.pathname != "/login") {
-            history.push('/login');
-          }
+          history.push('/');
+          // if (window.location.pathname != "/login") {
+          //   history.push('/login');
+          // }
         } else if (err = `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
           toast.error("Your account has been blocked for security reasons. Please reach out to us");
           history.push('/login');
