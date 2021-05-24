@@ -282,9 +282,10 @@ class XCloud extends React.Component {
           );
         })
         .catch((err) => {
-          if (err.includes("already exists")) {
-            toast.warn("Folder with same name already exists");
-          }
+          // if (err.error == "Folder with the same name already exists.") {
+          //   toast.warn("Folder with the same name already exists.");
+          // }
+          toast.warn("Folder with same name already exists.");
         });
     } else {
       toast.warn("Invalid folder name");
