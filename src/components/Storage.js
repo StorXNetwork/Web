@@ -364,7 +364,7 @@ class Storage extends React.Component {
                       <div className="col-xl-9 col-lg-8 col-md-8 col-sm-7">
                         <p>{customPrettySize(this.state.now)} / {customPrettySize(this.state.max)}</p>
                         <div className="iq-progress-bar mb-3" style={{ height: "1.10rem" }}>
-                          <span className="bg-primary iq-progress progress-1" data-percent={((this.state.now * 100) / this.state.max)}
+                          <span className="iq-progress progress-1" data-percent={((this.state.now * 100) / this.state.max)}
                             style={{
                               width: `${(this.state.now * 100) / this.state.max}%`,
                               transition: `width ${Math.floor(Math.random() * 10)}s ease 0s`
