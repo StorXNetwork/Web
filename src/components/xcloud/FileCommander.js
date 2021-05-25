@@ -777,7 +777,7 @@ class FileCommander extends React.Component {
               </div>
               {list.length > 0 ? (
                 list.map((item, i) => (
-                  <div className="col-md-6 col-sm-6 col-lg-3" key={i}>
+                  <div className="col-md-6 col-sm-6 col-lg-4 col-xl-3" key={i}>
                     <div className="card card-block card-stretch card-height">
                       <FileCommanderItem
                         deleteItem={this.props.deleteItems}

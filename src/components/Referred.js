@@ -469,7 +469,7 @@ class Referred extends React.Component {
                     <div className="new-user-info">
                       {/* <form> */}
                       <div className="row">
-                        <div className="col-lg-10">
+                        <div className="col-xl-10 col-lg-12 col-md-12">
                           <p className="pb-3 m-0">
                             Insert your friends email address and send
                             invitations to join StorX!
@@ -503,16 +503,16 @@ class Referred extends React.Component {
                             </button>
                           </div>
                         </div>
-                        <div className="col-lg-10 mt-4">
+                        <div className="col-xl-10 col-lg-12 col-md-12 mt-4">
                           <h5 className="pb-2 m-0">Share the referral link</h5>
                           <p className="pb-3 m-0">
                             You can also share your referral link by copying and
                             sending it or sharing it on your social media.
                           </p>
                         </div>
-                        <div className="col-lg-10">
+                        <div className="col-xl-10 col-lg-12 col-md-12">
                           <div className="form-row">
-                            <div className="col-lg-9 col-md-9 col-sm-8 mb-3">
+                            <div className="col-xl-9 col-lg-9 col-md-9 col-sm-8 mb-3">
                               <div className="input-group">
                                 <input
                                   id="referralCode"
@@ -531,7 +531,7 @@ class Referred extends React.Component {
                                 </div>
                               </div>
                             </div>
-                            <div className="col-lg-3 col-md-3 col-sm-4 mb-3">
+                            <div className="col-xl-3 col-lg-2 col-md-3 col-sm-4 mb-3">
                               <div className="social-sharing justify-content-between">
                                 <a
                                   className="twitter"
@@ -570,7 +570,7 @@ class Referred extends React.Component {
                             </div>
                           </div>
                         </div>
-                        <div className="col-lg-10">
+                        <div className="col-xl-10 col-lg-12 col-md-12">
                           <button
                             type="submit"
                             className="btn btn-primary"
@@ -587,7 +587,7 @@ class Referred extends React.Component {
                             Claim Now
                           </button>
                         </div>
-                        <div className="col-lg-10 mt-4">
+                        <div className="col-xl-10 col-lg-12 col-md-12 mt-4">
                           <Link
                             onClick={() =>
                               this.setState({ showClaimPop: true })

@@ -159,10 +159,9 @@ class InxtContainerOption extends React.Component {
   }
 
   render() {
-    console.log("////////////", this.props);
     return (
       <div className="col col-lg-3 col-sm-6">
-        <div className="card card-block card-stretch card-height pricing-details text-center p-2">
+        <div className="card card-block card-stretch card-height pricing-details text-center pt-3 pb-3 p-2">
           {this.features(this.props.header)}
           <div class="price-btn-block">
             {this.props.text == "Free" ? (

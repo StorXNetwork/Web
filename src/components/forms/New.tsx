@@ -698,7 +698,7 @@ class New extends React.Component<NewProps, NewState> {
                         FOREVER. You are the only owner of your files. We
                         strongly suggest you to:
                       </p>
-                      <div className="privacy-reminders">
+                      <div className="privacy-reminders font-weight-600">
                         <ul>
                           <li>Store your Password. Keep it safe and secure.</li>
                           <li>Keep an offline backup of your password.</li>
