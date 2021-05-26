@@ -151,7 +151,7 @@ class Login extends React.Component<LoginProps> {
           // history.push('/login');
           toast.warn("Please verify your email, check your mail to verify.");
         } else {
-          this.setState({ isLogingIn: false });
+          // this.setState({ isLogingIn: false });
           // toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });
           window.analytics.track("user-signin-attempted", {
             status: "error",
@@ -197,7 +197,6 @@ class Login extends React.Component<LoginProps> {
         } else if (response.status !== 200) {
           throw Error("This account doesn't exists");
         }
-
         return response.json();
       })
       .then(async (body) => {
@@ -231,7 +230,6 @@ class Login extends React.Component<LoginProps> {
               });
               throw new Error(res.data.error ? res.data.error : res.data);
             }
-            this.setState({ isLoginLoading: false });
             toast.success("Login successful");
             return res.data;
           })
@@ -343,7 +341,7 @@ class Login extends React.Component<LoginProps> {
         }
       })
       .finally(() => {
-        this.setState({ isLogingIn: false });
+        this.setState({ isLoginLoading: false });
       });
   };
 
@@ -437,7 +435,7 @@ class Login extends React.Component<LoginProps> {
                           <button
                             type="submit"
                             className="btn btn-block btn-primary"
-                            disabled={!isValid || this.state.isLogingIn}
+                            disabled={!isValid}
                           >
                             {this.state.isLoginLoading ? <><span style={{ paddingRight: '10px' }}>Sign In</span><img src={Preloader} /></> : "Sign In"}
                           </button>
@@ -681,7 +679,7 @@ class Login extends React.Component<LoginProps> {
                               disabled={!isValid}
                               className="btn btn-block btn-primary"
                             >
-                              Sign In
+                              {this.state.isLoginLoading ? <><span style={{ paddingRight: '10px' }}>Sign In</span><img src={Preloader} /></> : "Sign In"}
                             </button>
                           </div>
                         </Form>

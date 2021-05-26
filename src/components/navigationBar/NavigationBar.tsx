@@ -26,6 +26,7 @@ import history from '../../lib/history';
 import { getHeaders } from '../../lib/auth';
 import Settings from '../../lib/settings';
 import customPrettySize from '../../lib/sizer';
+import { toast } from 'react-toastify';
 
 interface NavigationBarProps {
   navbarItems: JSX.Element;
@@ -80,13 +81,13 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     const usage = await fetch('/api/usage', {
       headers: getHeaders(true, false, isTeam)
     }).then(res3 => res3.json()).catch(() => null);
-
     if (limit && usage) {
       this.setState({
         barUsage: usage.total,
         barLimit: limit.maxSpaceBytes
       });
     }
+    if (this.state.barUsage >= this.state.barLimit) toast.error("You have used 100% space, please upgrade your plan");
   }
 
   getNavBarItems(isTeam: boolean) {

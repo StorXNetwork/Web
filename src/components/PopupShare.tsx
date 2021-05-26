@@ -171,6 +171,9 @@ class PopupShare extends React.Component<PopupShareProps> {
                 appearance: 'textfield'
               }}>
             </input>
+            <br />
+            <br />
+            <b>*Mention 0 if you want the Download Link to be active for Unlimited Downloads</b>
           </div>
         </div>
 
@@ -186,6 +189,7 @@ class PopupShare extends React.Component<PopupShareProps> {
               });
               if (this.state.link) {
                 copy(this.state.link);
+                toast.info(this.state.link);
               }
             }}>Copy</a>
           </div>
