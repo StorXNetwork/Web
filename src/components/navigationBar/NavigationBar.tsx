@@ -214,10 +214,10 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     return (
       <div className="iq-sidebar  sidebar-default ">
         <div className="iq-sidebar-logo d-flex align-items-center justify-content-between">
-          <a className="header-logo">
+          <Link to="/app" className="header-logo" >
             <img src={Logo} className="img-fluid rounded-normal light-logo" alt="logo" />
             {/* <img src="assets/images/logo-white.png" className="img-fluid rounded-normal darkmode-logo" alt="logo" /> */}
-          </a>
+          </Link>
           <div className="iq-menu-bt-sidebar">
             <i className="ri-close-line wrapper-menu" onClick={() => $('body').removeClass('sidebar-main')}></i>
           </div>
