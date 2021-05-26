@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../src/assets/images/logo.png";
 import logoWhite from "../../../src/assets/images/logo-white.png";
 import loginLogo from "../../../src/assets/images/login/login_img.png";
+import Preloader from "../../assets/images/login/login_preloader.gif";
 import history from "../../lib/history";
 // import "./Login.scss";
 import {
@@ -40,6 +41,7 @@ class Login extends React.Component<LoginProps> {
     password: "",
     isAuthenticated: false,
     token: "",
+    isLoginLoading: false,
     user: {},
     showTwoFactor: false,
     twoFactorCode: "",
@@ -180,6 +182,7 @@ class Login extends React.Component<LoginProps> {
   };
 
   doLogin = async () => {
+    this.setState({ isLoginLoading: true });
     // Proceed with submit
     fetch("/api/login", {
       method: "post",
@@ -200,12 +203,10 @@ class Login extends React.Component<LoginProps> {
       .then(async (body) => {
         // Manage credentials verification
         const keys = await this.generateNewKeys(this.state.password);
-
         // Check password
         const salt = decryptText(body.sKey);
         const hashObj = passToHash({ password: this.state.password, salt });
         const encPass = encryptText(hashObj.hash);
-
         return fetch("/api/access", {
           method: "post",
           headers: getHeaders(false, false),
@@ -230,6 +231,7 @@ class Login extends React.Component<LoginProps> {
               });
               throw new Error(res.data.error ? res.data.error : res.data);
             }
+            this.setState({ isLoginLoading: false });
             toast.success("Login successful");
             return res.data;
           })
@@ -334,7 +336,7 @@ class Login extends React.Component<LoginProps> {
           // }
         } else if (err = `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
           toast.error("Your account has been blocked for security reasons. Please reach out to us");
-          history.push('/login');
+          history.push('/');
         } else {
           toast.error("Wrong 2FA");
           history.push('/login');
@@ -437,8 +439,8 @@ class Login extends React.Component<LoginProps> {
                             className="btn btn-block btn-primary"
                             disabled={!isValid || this.state.isLogingIn}
                           >
-                            Sign In
-                            </button>
+                            {this.state.isLoginLoading ? <><span style={{ paddingRight: '10px' }}>Sign In</span><img src={Preloader} /></> : "Sign In"}
+                          </button>
                           {/* <p className="mt-4 mb-0">
                               <Link
                                 to="/remove"
