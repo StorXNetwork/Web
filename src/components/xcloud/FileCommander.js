@@ -1,6 +1,6 @@
 // import * as _ from 'lodash'
 import * as React from "react";
-import { Dropdown } from "react-bootstrap";
+import { Breadcrumb, Dropdown } from "react-bootstrap";
 import async from "async";
 import $ from "jquery";
 import history from "../../lib/history";
@@ -249,6 +249,7 @@ class FileCommander extends React.Component {
       (err) => {
         if (err) {
           let errmsg = err.error ? err.error : err;
+          // console.log('.....upload logger', err);
           // if (errmsg.includes("already exist")) {
           //   errmsg = "Folder with same name already exists";
           // }
@@ -384,7 +385,6 @@ class FileCommander extends React.Component {
     const folderLength = list.filter((e) => e.isFolder === true).length;
     const fileLength = list.filter((e) => !e.hasOwnProperty("isFolder")).length;
     const user = JSON.parse(localStorage.getItem("xUser"));
-
     return (
       <>
         <div className="iq-top-navbar">
@@ -396,13 +396,13 @@ class FileCommander extends React.Component {
                   onClick={() => $("body").addClass("sidebar-main")}
                 // onClick={() => this.setState({ theme: !this.state.theme })}
                 ></i>
-                <a className="header-logo">
+                <Link to="/app" className="header-logo">
                   <img
                     src={Logo}
                     className="img-fluid rounded-normal light-logo"
                     alt="logo"
                   />
-                </a>
+                </Link>
               </div>
               <div className="iq-search-bar device-search">
                 <form>
@@ -428,7 +428,7 @@ class FileCommander extends React.Component {
                 </form>
               </div>
               <div className="d-flex align-items-center">
-                <div
+                {/* <div
                   className="change-mode"
                   onClick={() => this.changeTheme()}
                 // onChange={() => $("body").toggleClass("dark")}
@@ -456,7 +456,7 @@ class FileCommander extends React.Component {
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <button
                   className="navbar-toggler"
                   type="button"
@@ -714,6 +714,11 @@ class FileCommander extends React.Component {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="col-lg-12 col-md-12 col-sm-12 my-3">
+              {/* <Breadcrumb>
+                <Breadcrumb.Item active>{window.location.pathname}</Breadcrumb.Item>
+              </Breadcrumb> */}
             </div>
             <div
               className="row mb-3"

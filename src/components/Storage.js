@@ -101,13 +101,13 @@ class Storage extends React.Component {
                   className="ri-menu-line wrapper-menu"
                   onClick={() => $("body").addClass("sidebar-main")}
                 ></i>
-                <a className="header-logo">
+                <Link to="/app" className="header-logo">
                   <img
                     src={Logo}
                     className="img-fluid rounded-normal light-logo"
                     alt="logo"
                   />
-                </a>
+                </Link>
               </div>
               <div className="iq-search-bar device-search">
                 {/* <form>

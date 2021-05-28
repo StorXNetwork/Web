@@ -163,13 +163,13 @@ class Referred extends React.Component {
                   className="ri-menu-line wrapper-menu"
                   onClick={() => $("body").addClass("sidebar-main")}
                 ></i>
-                <a className="header-logo">
+                <Link to="/app" className="header-logo" >
                   <img
                     src={Logo}
                     className="img-fluid rounded-normal light-logo"
                     alt="logo"
                   />
-                </a>
+                </Link>
               </div>
               <div className="iq-search-bar device-search">
                 {/* <form>
@@ -438,6 +438,13 @@ class Referred extends React.Component {
                           You'll both will be eligible for rewards * of 10 STORX
                           Tokens. Start earning with StorX today!
                         </p>
+                        <br />
+                        <b>
+                          Create an account on XDC web wallet, to claim your STORX token.
+                        </b>
+                        <br />
+                        <br />
+                        <b>XDC Web Wallet: <a href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b>
                       </div>
                       <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
                         <img
@@ -460,150 +467,153 @@ class Referred extends React.Component {
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} className="img-fluid" />
                     </div>
-                    <h5 className="text-center mb-0">{`${this.state.credit == undefined ? 0 : this.state.credit
+                    <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit
                       } STORX`}</h5>
+                    <div className="col-lg-12 col-md-12 text-center">
+                      {this.state.credit > 0 ?
+                        <a
+                          target="_blank"
+                          href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
+                          type="submit"
+                          className="btn btn-primary"
+                          onClick={() => {
+                            if (this.state.credit > 0) {
+                              this.sendClaimEmail(this.state.email);
+                            } else {
+                              toast.info(
+                                "You don't have any credit on your account"
+                              );
+                            }
+                          }}
+                        >
+                          Claim Now
+                          </a> : null}
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="col-sm-12 col-lg-12">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between">
-                    <div className="header-title">
-                      <h5 className="card-title">Invite Your Friends</h5>
-                    </div>
+            <div className="col-sm-12 col-lg-12">
+              <div className="card">
+                <div className="card-header d-flex justify-content-between">
+                  <div className="header-title">
+                    <h5 className="card-title">Invite Your Friends</h5>
                   </div>
-                  <div className="card-body">
-                    <div className="new-user-info">
-                      {/* <form> */}
-                      <div className="row">
-                        <div className="col-xl-10 col-lg-12 col-md-12">
-                          <p className="pb-3 m-0">
-                            Insert your friends email address and send
-                            invitations to join StorX!
+                </div>
+                <div className="card-body">
+                  <div className="new-user-info">
+                    {/* <form> */}
+                    <div className="row">
+                      <div className="col-xl-10 col-lg-12 col-md-12">
+                        <p className="pb-3 m-0">
+                          Insert your friends email address and send
+                          invitations to join StorX!
                           </p>
-                          <div className="d-flex">
-                            <input
-                              type="email"
-                              className="form-control mr-2 flex-grow-1"
-                              placeholder="example@example.com"
-                              value={this.state.email}
-                              onChange={this.handleEmailChange}
-                            />
-                            <button
-                              className="btn btn-primary flex-shrink-0"
-                              onClick={() => {
-                                const mail = this.state.email;
-                                if (
-                                  mail !== undefined &&
-                                  this.validateEmail(mail)
-                                ) {
-                                  this.sendInvitationEmail(mail);
-                                  this.setState({ email: "" });
-                                } else {
-                                  toast.warn(
-                                    "Please, enter a valid email before sending out the invite"
-                                  );
-                                }
-                              }}
-                            >
-                              Invite
-                            </button>
-                          </div>
-                        </div>
-                        <div className="col-xl-10 col-lg-12 col-md-12 mt-4">
-                          <h5 className="pb-2 m-0">Share the referral link</h5>
-                          <p className="pb-3 m-0">
-                            You can also share your referral link by copying and
-                            sending it or sharing it on your social media.
-                          </p>
-                        </div>
-                        <div className="col-xl-10 col-lg-12 col-md-12">
-                          <div className="form-row">
-                            <div className="col-xl-9 col-lg-9 col-md-9 col-sm-8 mb-3">
-                              <div className="input-group">
-                                <input
-                                  id="referralCode"
-                                  type="text"
-                                  className="form-control"
-                                  readonly=""
-                                  value={`https://storx.io/new?ref=${user.uuid}`}
-                                />
-                                <div className="input-group-append">
-                                  <button
-                                    className="btn btn-secondary"
-                                    onClick={this.copyToClipboard}
-                                  >
-                                    {this.state.copySuccess}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-xl-3 col-lg-2 col-md-3 col-sm-4 mb-3">
-                              <div className="social-sharing justify-content-between">
-                                <a
-                                  className="twitter"
-                                  href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid
-                                    }&${this.parseUrl({
-                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
-                                    })}`}
-                                  target="_blank"
-                                >
-                                  <i className="fab fa-twitter"></i>
-                                </a>
-                                <a
-                                  className="facebook"
-                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid
-                                    }&amp;src=sdkpreparse&${this.parseUrl({
-                                      quote:
-                                        "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
-                                    })}`}
-                                  target="_blank"
-                                  data-href={`https://storx.io/new?ref=${user.uuid}`}
-                                >
-                                  <i className="fa fa-facebook-f"></i>
-                                </a>
-                                <a
-                                  className="telegram"
-                                  href={`https://t.me/share/url?${this.parseUrl(
-                                    {
-                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
-                                    }
-                                  )}&url=https://storx.io/new?ref=${user.uuid}`}
-                                  target="_blank"
-                                >
-                                  <i className="fa fa-paper-plane"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-xl-10 col-lg-12 col-md-12">
+                        <div className="d-flex">
+                          <input
+                            type="email"
+                            className="form-control mr-2 flex-grow-1"
+                            placeholder="example@example.com"
+                            value={this.state.email}
+                            onChange={this.handleEmailChange}
+                          />
                           <button
-                            type="submit"
-                            className="btn btn-primary"
+                            className="btn btn-primary flex-shrink-0"
                             onClick={() => {
-                              if (this.state.credit > 0) {
-                                this.sendClaimEmail(this.state.email);
+                              const mail = this.state.email;
+                              if (
+                                mail !== undefined &&
+                                this.validateEmail(mail)
+                              ) {
+                                this.sendInvitationEmail(mail);
+                                this.setState({ email: "" });
                               } else {
-                                toast.info(
-                                  "You don't have any credit on your account"
+                                toast.warn(
+                                  "Please, enter a valid email before sending out the invite"
                                 );
                               }
                             }}
                           >
-                            Claim Now
-                          </button>
+                            Invite
+                            </button>
                         </div>
-                        <div className="col-xl-10 col-lg-12 col-md-12 mt-4">
-                          <Link
-                            onClick={() =>
-                              this.setState({ showClaimPop: true })
-                            }
-                          >
-                            * Referral Program Terms & Conditions
+                      </div>
+                      <div className="col-xl-10 col-lg-12 col-md-12 mt-4">
+                        <h5 className="pb-2 m-0">Share the referral link</h5>
+                        <p className="pb-3 m-0">
+                          You can also share your referral link by copying and
+                          sending it or sharing it on your social media.
+                          </p>
+                      </div>
+                      <div className="col-xl-10 col-lg-12 col-md-12">
+                        <div className="form-row">
+                          <div className="col-xl-9 col-lg-9 col-md-9 col-sm-8 mb-3">
+                            <div className="input-group">
+                              <input
+                                id="referralCode"
+                                type="text"
+                                className="form-control"
+                                readonly=""
+                                value={`https://storx.io/new?ref=${user.uuid}`}
+                              />
+                              <div className="input-group-append">
+                                <button
+                                  className="btn btn-secondary"
+                                  onClick={this.copyToClipboard}
+                                >
+                                  {this.state.copySuccess}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-xl-3 col-lg-2 col-md-3 col-sm-4 mb-3">
+                            <div className="social-sharing justify-content-between">
+                              <a
+                                className="twitter"
+                                href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid
+                                  }&${this.parseUrl({
+                                    text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                  })}`}
+                                target="_blank"
+                              >
+                                <i className="fab fa-twitter"></i>
+                              </a>
+                              <a
+                                className="facebook"
+                                href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid
+                                  }&amp;src=sdkpreparse&${this.parseUrl({
+                                    quote:
+                                      "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                  })}`}
+                                target="_blank"
+                                data-href={`https://storx.io/new?ref=${user.uuid}`}
+                              >
+                                <i className="fa fa-facebook-f"></i>
+                              </a>
+                              <a
+                                className="telegram"
+                                href={`https://t.me/share/url?${this.parseUrl(
+                                  {
+                                    text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                  }
+                                )}&url=https://storx.io/new?ref=${user.uuid}`}
+                                target="_blank"
+                              >
+                                <i className="fa fa-paper-plane"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-xl-10 col-lg-12 col-md-12 mt-2">
+                        <Link
+                          onClick={() =>
+                            this.setState({ showClaimPop: true })
+                          }
+                        >
+                          * Referral Program Terms & Conditions
                           </Link>
-                        </div>
                       </div>
                       {/* </form> */}
                     </div>

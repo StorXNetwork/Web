@@ -33,6 +33,7 @@ class XCloud extends React.Component {
     isInitialized: false,
     isTeam: false,
     token: "",
+    // browseFolder: null,
     chooserModalOpen: false,
     rateLimitModal: false,
     currentFolderId: null,
@@ -446,6 +447,8 @@ class XCloud extends React.Component {
         }
       })
       .then(async (data) => {
+        // console.log('..........folder loggeerr>>>>>', data);
+        // this.setState({ browseFolder: data.name });
         this.deselectAll();
 
         // Set new items list
@@ -805,10 +808,7 @@ class XCloud extends React.Component {
 
   upload = (file, parentFolderId) => {
     return new Promise((resolve, reject) => {
-      if (!parentFolderId) {
-        return reject(Error("No folder ID provided"));
-      }
-
+      if (!parentFolderId) return reject(Error("No folder ID provided"));
       window.analytics.track("file-upload-start", {
         file_size: file.size,
         file_type: file.type,
@@ -835,6 +835,18 @@ class XCloud extends React.Component {
         body: data,
       })
         .then(async (res) => {
+          // let length = await res.headers.get('Content-Length');
+          let reader = await res.body.getReader();
+          const contentLength = +res.headers.get('Content-Length');
+          let receivedLength = 0;
+          let chunks = [];
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            chunks.push(value);
+            receivedLength += value.length;
+            console.log(`Received ${receivedLength} of ${contentLength}`);
+          }
           let data;
           try {
             data = await res.json();
@@ -845,7 +857,6 @@ class XCloud extends React.Component {
               file_id: data.fileId,
             });
           } catch (err) {
-            console.log(err);
             window.analytics.track("file-upload-error", {
               file_size: file.size,
               file_type: file.type,
@@ -962,7 +973,6 @@ class XCloud extends React.Component {
               );
             })
             .finally(() => {
-              console.log("getFolderContent 14");
               this.getFolderContent(
                 this.state.currentFolderId,
                 false,
@@ -975,7 +985,7 @@ class XCloud extends React.Component {
           if (err) {
             console.error("Error uploading:", err);
             reject(err);
-            toast.warn("Something went wrong");
+            // toast.warn("Something went wrong");
           } else if (parentFolderId === currentFolderId) {
             resolve();
             // this.getFolderContent(currentFolderId, false, true);
@@ -1052,7 +1062,6 @@ class XCloud extends React.Component {
       if (err) {
         throw err;
       } else {
-        console.log("getFolderContent 16");
         this.getFolderContent(
           this.state.currentFolderId,
           false,
@@ -1164,6 +1173,7 @@ class XCloud extends React.Component {
             style
           />
           <FileCommander
+            browseFolder={this.state.browseFolder}
             deleteItems={this.deleteItems}
             setSearchFunction={this.setSearchFunction}
             currentCommanderItems={this.state.currentCommanderItems}
