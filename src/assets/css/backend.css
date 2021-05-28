@@ -16586,7 +16586,7 @@ ul.pricing-list li:last-child {
   font-size: 15px;
 }
 .login-content .sign-user_card .privacy-reminders ul {
-  font-size: 14px;
+  font-size: 15px;
   margin: 0px;
   padding: 0px;
   margin-left: 20px;
@@ -16672,7 +16672,11 @@ ul.pricing-list li:last-child {
   max-height: 345px;
   margin: 0 auto 20px;
 }
-
+@media (max-width: 576px) {
+  .login-content .sign-user_card {
+    padding: 40px;
+  }
+}
 @media (max-width: 768px) {
   .login-content-wrapper .pr-0 {
     padding-right: 15px !important;

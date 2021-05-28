@@ -7,7 +7,6 @@ import iconCloseTab from "../assets/Dashboard-Icons/close-tab.svg";
 import iconStripe from "../assets/PaymentBridges/stripe.svg";
 import iconInxt from "../assets/PaymentBridges/inxt.svg";
 import iconPayPal from "../assets/PaymentBridges/paypal.svg";
-
 import { getHeaders } from "../lib/auth";
 
 import { analytics, getUserData } from "../lib/analytics";
@@ -196,7 +195,7 @@ class StoragePlans extends React.Component {
                       entry.metadata.price_usd === "0" ? "Free"
                         : (
                           <p className="font-weight-500">
-                            ${entry.metadata.price_usd}
+                            {entry.metadata.price_usd} STORX
                             <small className="font-weight-400">/month</small>
                           </p>
                         )
@@ -231,7 +230,7 @@ class StoragePlans extends React.Component {
                       entry.metadata.price_usd === "0" ? "Custom US"
                         : (
                           <p className="font-weight-500">
-                            ${entry.metadata.price_usd}
+                            {entry.metadata.price_usd} STORX
                             <small className="font-weight-400">/month</small>
                           </p>
                         )
@@ -325,7 +324,7 @@ class StoragePlans extends React.Component {
                   <InxtContainerOption
                     key={"plan" + i}
                     isChecked={false}
-                    header={"$" + fixedPrice}
+                    header={"STORX" + fixedPrice}
                     onClick={(e) => {
                       analytics.track("plan-subscription-selected", {
                         price: fixedPrice,

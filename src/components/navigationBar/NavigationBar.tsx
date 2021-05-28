@@ -98,7 +98,7 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
     //   </div>
     // </div>
     return <>
-      <HeaderButton active="active" icon="fas fa-home iq-arrow-left" name="Dashboard" />
+      <HeaderButton icon="fas fa-home iq-arrow-left" name="Dashboard" />
       <HeaderButton icon="fas fa-cloud-upload-alt iq-arrow-left" name="Upload File" clickHandler={this.props.uploadFile} />
       <HeaderButton icon="fas fa-folder-plus iq-arrow-left" name="New folder" clickHandler={this.props.createFolder} />
       <HeaderButton icon="fas fa-trash-alt iq-arrow-left" name="Delete" clickHandler={this.props.deleteItems} />

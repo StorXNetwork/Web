@@ -238,6 +238,14 @@ class Storage extends React.Component {
                                 Business
                               </Link> */}
                               <a
+                                href="https://storx.tech/faqs.html"
+                                target="_blank"
+                                className="iq-sub-card"
+                              >
+                                <i className="ri-question-fill"></i>
+                                FAQs
+                              </a>
+                              <a
                                 href="https://storx.tech/support.html"
                                 target="_blank"
                                 className="iq-sub-card"
@@ -343,13 +351,210 @@ class Storage extends React.Component {
                         <li><a class=" " data-toggle="tab" href="#pricing-data2"><span
                           class="right-text">Enterprise</span></a></li>
                       </ul>
+                      {/* <ul class="nav nav-tabs">
+                        <li><a class="active show" data-toggle="tab" href="#pricing-data1"><span
+                          class="left-text">Individual</span></a></li>
+                        <li><a class=" " data-toggle="tab" href="#pricing-data2"><span
+                          class="right-text">Enterprise</span></a></li>
+                      </ul> */}
                     </div>
                   </div>
                   <div className="pricing-content">
+                    <div id="pricing-data1" className="tab-pane active show">
+                      <div className="row flex">
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">WELCOME</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">2 GB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li>End-to-End Encryption</li>
+                              <li>Private File Sharing</li>
+                              <li>No 3rd Party Tracking</li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <h4
+                                className="letter-spacing-2 gradient-text font-weight-600 mt-1 mb-3">
+                                FREE</h4>
+                              <h5 className="font-size-14 text-muted">&nbsp;</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">BASIC</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">20 GB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li>End-to-End Encryption</li>
+                              <li>Private File Sharing</li>
+                              <li>No 3rd Party Tracking</li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <button className="btn btn-primary mb-2 mt-3" disabled>
+                                <p className="font-weight-500">10 STORX<small className="font-weight-400">/
+                                                                Month</small></p>
+                              </button>
+                              <h5 className="font-size-14 text-muted">Prepay per month</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">PROFESSIONAL</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">50 GB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li>End-to-End Encryption</li>
+                              <li>Private File Sharing</li>
+                              <li>No 3rd Party Tracking</li>
+                              <li>Unlimited Downloads</li>
+                              <li>Desktop App</li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <button className="btn btn-primary mb-2 mt-3" disabled>
+                                <p className="font-weight-500">20 STORX<small className="font-weight-400">/
+                                                                Month</small></p>
+                              </button>
+                              <h5 className="font-size-14 text-muted">Prepay per month</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">SMALL BUSINESS</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">100 GB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li>End-to-End Encryption</li>
+                              <li>Private File Sharing</li>
+                              <li>No 3rd Party Tracking</li>
+                              <li>Unlimited Downloads</li>
+                              <li>Desktop App</li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <button className="btn btn-primary mb-2 mt-3" disabled>
+                                <p className="font-weight-500">40 STORX<small className="font-weight-400">/
+                                                                Month</small></p>
+                              </button>
+                              <h5 className="font-size-14 text-muted">Prepay per month</h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="pricing-data2" className="tab-pane show">
+                      <div className="row flex">
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">ENTERPRISE</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">250 GB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li>End-to-End Encryption</li>
+                              <li>Private File Sharing</li>
+                              <li>No 3rd Party Tracking</li>
+                              <li>Unlimited Downloads</li>
+                              <li>Desktop App</li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <button className="btn btn-primary mb-2 mt-3" disabled>
+                                <p className="font-weight-500">100 STORX<small className="font-weight-400">/
+                                                                Month</small></p>
+                              </button>
+                              <h5 className="font-size-14 text-muted">Prepay per month</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">ENTERPRISE PRO</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">500 GB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li>End-to-End Encryption</li>
+                              <li>Private File Sharing</li>
+                              <li>No 3rd Party Tracking</li>
+                              <li>Unlimited Downloads</li>
+                              <li>Desktop App</li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <button className="btn btn-primary mb-2 mt-3" disabled>
+                                <p className="font-weight-500">200 STORX<small className="font-weight-400">/
+                                                                Month</small></p>
+                              </button>
+                              <h5 className="font-size-14 text-muted">Prepay per month</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">ENTERPRISE ELITE</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">1 TB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li>End-to-End Encryption</li>
+                              <li>Private File Sharing</li>
+                              <li>No 3rd Party Tracking</li>
+                              <li>Unlimited Downloads</li>
+                              <li>Desktop App</li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <button className="btn btn-primary mb-2 mt-3" disabled>
+                                <p className="font-weight-500">400 STORX<small className="font-weight-400">/
+                                                                Month</small></p>
+                              </button>
+                              <h5 className="font-size-14 text-muted">Prepay per month</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col col-lg-3 col-sm-6">
+                          <div
+                            className="card card-block card-stretch card-height pricing-details text-center p-3">
+                            <h5 className="font-weight-600 text-primary mb-3">ENTERPRISE ++</h5>
+                            <div className="pricing-header">
+                              <h3 className="font-weight-bolder">25 TB</h3>
+                            </div>
+                            <ul className="list-unstyled font-size-14 mb-1 pricing-list">
+                              <li className="font-size-18">
+                                All Services of<br />
+                                <span className="gradient-text font-weight-600">Enterprise Elite<br />
+                                  +<br />
+                                    Customization*
+                                                        </span>
+                              </li>
+                            </ul>
+                            <div className="price-btn-block">
+                              <a href="mailto:info@storx.io" className="btn btn-primary mb-2 mt-3">
+                                <p className="font-weight-500"><small
+                                  className="font-weight-400">Contact Us</small></p>
+                              </a>
+                              <h5 className="font-size-14 text-muted">*By EcoSystem Partner</h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* <div className="pricing-content">
                     <Suspense fallback={<h3 className="text-warning">Loading.....</h3>}>
                       <StoragePlans currentPlan={this.state.max} />
                     </Suspense>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="col-sm-12 col-lg-12 mt-5">

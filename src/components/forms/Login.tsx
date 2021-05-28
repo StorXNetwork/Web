@@ -149,7 +149,7 @@ class Login extends React.Component<LoginProps> {
         ) {
           // history.push(`/activate/${this.state.email}`);
           // history.push('/login');
-          toast.warn("Please verify your email, check your mail to verify.");
+          toast.warn("Activate your account first. Please check your mailbox for the activation link.");
         } else {
           // this.setState({ isLogingIn: false });
           // toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });

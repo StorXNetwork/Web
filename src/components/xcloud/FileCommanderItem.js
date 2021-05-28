@@ -357,7 +357,6 @@ class FileCommanderItem extends React.Component {
               );
             }}
             onDoubleClick={(e) => {
-              console.log('.......ysdvcydss', e.target.className);
               // if (e.target.className.includes('card-body')) {
               if (this.props.type == null) {
                 window.analytics.track("folder-opened", {

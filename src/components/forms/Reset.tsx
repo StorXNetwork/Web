@@ -338,6 +338,14 @@ class Reset extends React.Component<ResetProps> {
                                 Business
                               </Link> */}
                               <a
+                                href="https://storx.tech/faqs.html"
+                                target="_blank"
+                                className="iq-sub-card"
+                              >
+                                <i className="ri-question-fill"></i>
+                                FAQs
+                              </a>
+                              <a
                                 href="https://storx.tech/support.html"
                                 target="_blank"
                                 className="iq-sub-card"
