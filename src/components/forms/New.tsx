@@ -272,54 +272,55 @@ class New extends React.Component<NewProps, NewState> {
             toast.success(
               "Your account has been created successfully. Please check your mailbox for activation."
             );
-            analytics.identify(uuid, {
-              email: this.state.register.email,
-              member_tier: "free",
-            });
-            window.analytics.track("user-signup", {
-              properties: {
-                userId: uuid,
-                email: this.state.register.email,
-              },
-            });
-            const privkeyDecrypted = Buffer.from(
-              AesFunctions.decrypt(
-                user.privateKey,
-                this.state.register.password
-              )
-            ).toString("base64");
-            user.privateKey = privkeyDecrypted;
-            Settings.set("xToken", token);
-            user.mnemonic = decryptTextWithKey(
-              user.mnemonic,
-              this.state.register.password
-            );
-            Settings.set("xUser", JSON.stringify(user));
-            Settings.set("xMnemonic", user.mnemonic);
+            // analytics.identify(uuid, {
+            //   email: this.state.register.email,
+            //   member_tier: "free",
+            // });
+            // window.analytics.track("user-signup", {
+            //   properties: {
+            //     userId: uuid,
+            //     email: this.state.register.email,
+            //   },
+            // });
+            // const privkeyDecrypted = Buffer.from(
+            //   AesFunctions.decrypt(
+            //     user.privateKey,
+            //     this.state.register.password
+            //   )
+            // ).toString("base64");
+            // user.privateKey = privkeyDecrypted;
+            // Settings.set("xToken", token);
+            // user.mnemonic = decryptTextWithKey(
+            //   user.mnemonic,
+            //   this.state.register.password
+            // );
+            // Settings.set("xUser", JSON.stringify(user));
+            // Settings.set("xMnemonic", user.mnemonic);
 
-            return initializeUser(
-              this.state.register.email,
-              user.mnemonic,
-              encPass
-            ).then((rootFolderInfo) => {
-              user.root_folder_id = rootFolderInfo.user.root_folder_id;
-              Settings.set("xUser", JSON.stringify(user));
-            });
-          });
-        } else {
-          return response.json().then((body) => {
-            // Manage account already exists (error 400)
-            const { message } = body;
-            // history.push("/login");
-            toast.warn(message);
-            this.setState({ validated: false });
-            history.push("/login");
+            // return initializeUser(
+            //   this.state.register.email,
+            //   user.mnemonic,
+            //   encPass
+            // ).then((rootFolderInfo) => {
+            //   user.root_folder_id = rootFolderInfo.user.root_folder_id;
+            //   Settings.set("xUser", JSON.stringify(user));
+            // });
           });
         }
+        // else {
+        //   return response.json().then((body) => {
+        //     // Manage account already exists (error 400)
+        //     // const { message } = body;
+        //     // toast.warn(message);
+        //     // this.setState({ validated: false });
+        //     history.push("/login");
+        //   });
+        // }
       })
       .catch((err) => {
+        history.push('/');
         console.error("Register error", err);
-        // toast.error("Something went wrong", { autoClose: 3000, transition: Flip });
+        toast.error("Something went wrong", { autoClose: 3000, transition: Flip });
       });
   };
 

@@ -435,7 +435,7 @@ class Login extends React.Component<LoginProps> {
                           <button
                             type="submit"
                             className="btn btn-block btn-primary"
-                            disabled={!isValid}
+                            disabled={!isValid || this.state.isLoginLoading}
                           >
                             {this.state.isLoginLoading ? <><span style={{ paddingRight: '10px' }}>Sign In</span><img src={Preloader} /></> : "Sign In"}
                           </button>
