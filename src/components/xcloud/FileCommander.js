@@ -241,21 +241,24 @@ class FileCommander extends React.Component {
                 );
               }
             })
-            .catch((err) => { });
+            .catch((err) => toast.warn("Something went wrong"));
         } else {
           nextItem();
         }
       },
       (err) => {
-        if (err) {
-          let errmsg = err.error ? err.error : err;
-          // console.log('.....upload logger', err);
-          // if (errmsg.includes("already exist")) {
-          //   errmsg = "Folder with same name already exists";
-          // }
-          // toast.warn(`"${errmsg}"`);
-          toast.warn("Something went wrong");
-        }
+        // if (err) {
+        //   console.log('......error', err);
+        //   toast.warn("Something went wrong");
+        // }
+        // if (err) {
+        //   let errmsg = err.error ? err.error : err;
+        //   console.log('.....upload logger', err);
+        //   if (errmsg.includes("already exist")) {
+        //     errmsg = "Folder with same name already exists";
+        //     toast.warn("Folder with same name already exists");
+        //   } else toast.warn("Something went wrong");
+        // }
 
         let idTeam =
           this.props.namePath[this.props.namePath.length - 1].id_team;

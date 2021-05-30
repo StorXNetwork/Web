@@ -24,7 +24,7 @@ import referralEarned from "../../src/assets/images/referral/presenting.png";
 // import facebook from '../assets/Share-Icons/Facebook.svg';
 // import telegram from '../assets/Share-Icons/Telegram.svg';
 
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
 import copy from "copy-to-clipboard";
 import { getUserData } from "../lib/analytics";
 
@@ -94,6 +94,7 @@ class Referred extends React.Component {
 
   copyToClipboard = () => {
     this.setState({ copySuccess: "Copied" });
+    toast.info("Copied ✔", { autoClose: 2000, transition: Flip });
     copy(this.state.textToCopy);
   };
 
@@ -120,11 +121,9 @@ class Referred extends React.Component {
       .then((res) => {
         if (res.response.status !== 200) {
           throw res.data;
-        } else toast.info(`Invitation email sent to ${mail}`);
+        } else toast.info(`Invitation email sent to ${mail} 📧`);
       })
-      .catch((err) => {
-        toast.warn(`Error: ${err.error ? err.error : "Internal Server Error"}`);
-      });
+      .catch((err) => toast.warn(`Error: ${err.error ? err.error : "Internal Server Error"}`));
   };
 
   sendClaimEmail = () => {
@@ -140,7 +139,8 @@ class Referred extends React.Component {
         if (res.response.status !== 200) {
           throw res.data;
         } else {
-          toast.info("Claim email sent to support@storx.io");
+          console.log("Claim send to support@storx.io");
+          // toast.info("Claim email sent to support@storx.io");
         }
       })
       .catch((err) => {
@@ -444,7 +444,7 @@ class Referred extends React.Component {
                         </b>
                         <br />
                         <br />
-                        <b>XDC Web Wallet: <a href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b>
+                        <b>XDC Web Wallet: <a target="_blank" href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b>
                       </div>
                       <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
                         <img

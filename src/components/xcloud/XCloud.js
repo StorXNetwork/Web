@@ -283,10 +283,10 @@ class XCloud extends React.Component {
           );
         })
         .catch((err) => {
-          // if (err.error == "Folder with the same name already exists.") {
-          //   toast.warn("Folder with the same name already exists.");
-          // }
-          toast.warn("Folder with same name already exists.");
+          if (err.error == "Folder with the same name already exists.") {
+            toast.warn("Folder with the same name already exists.");
+          }
+          toast.warn("Invalid folder");
         });
     } else {
       toast.warn("Invalid folder name");
@@ -835,21 +835,21 @@ class XCloud extends React.Component {
         body: data,
       })
         .then(async (res) => {
-          // let length = await res.headers.get('Content-Length');
-          let reader = await res.body.getReader();
-          const contentLength = +res.headers.get('Content-Length');
-          let receivedLength = 0;
-          let chunks = [];
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            chunks.push(value);
-            receivedLength += value.length;
-            console.log(`Received ${receivedLength} of ${contentLength}`);
-          }
+          // let reader = await res.body.getReader();
+          // const contentLength = +res.headers.get('Content-Length');
+          // let receivedLength = 0;
+          // let chunks = [];
+          // while (true) {
+          //   const { done, value } = await reader.read();
+          //   if (done) break;
+          //   chunks.push(value);
+          //   receivedLength += value.length;
+          //   console.log((receivedLength / contentLength) * 100 + "%");
+          // }
           let data;
           try {
             data = await res.json();
+            toast.success("Uploaded successfully.");
             window.analytics.track("file-upload-finished", {
               email: getUserData().email,
               file_size: file.size,
@@ -867,7 +867,6 @@ class XCloud extends React.Component {
             console.error("Upload response data is not a JSON", err);
           }
           if (data) {
-            toast.success("Uploaded successfully.");
             return { res: res, data: data };
           } else {
             throw res;

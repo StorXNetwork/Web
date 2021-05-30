@@ -240,14 +240,14 @@ class NavigationBar extends React.Component<NavigationBarProps, NavigationBarSta
                 }
                 switch (getOperatingSystem()) {
                   case 'WindowsOS':
-                    window.location.href = 'https://download.storx.io/storxDesktopApp.exe';
+                    window.location.href = 'https://download.storx.io/StorXDesktopApp.exe';
                     break;
                   case 'MacOS':
-                    window.location.href = 'https://download.storx.io/storxDesktopApp.dmg';
+                    window.location.href = 'https://download.storx.io/StorXDesktopApp.dmg';
                     break;
                   case 'Linux':
                   case 'UNIXOS':
-                    window.location.href = 'https://download.storx.io/storxDesktopApp.deb';
+                    window.location.href = 'https://download.storx.io/StorXDesktopApp.deb';
                     break;
                   default:
                     window.location.href = 'https://storx.io/';
