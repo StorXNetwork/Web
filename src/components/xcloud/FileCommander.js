@@ -796,6 +796,7 @@ class FileCommander extends React.Component {
                   <div className="col-md-6 col-sm-6 col-lg-4 col-xl-3" key={i}>
                     <div className="card card-block card-stretch card-height">
                       <FileCommanderItem
+                        progressLoading={this.props.progressLoading}
                         deleteItem={this.props.deleteItems}
                         key={item.id + "-" + i}
                         selectableKey={item.id}

@@ -25,6 +25,7 @@ import axios from "axios";
 
 import { getUserData } from "../../lib/analytics";
 import Settings from "../../lib/settings";
+import Progress from 'node-fetch-progress';
 
 class XCloud extends React.Component {
   state = {
@@ -33,7 +34,7 @@ class XCloud extends React.Component {
     isInitialized: false,
     isTeam: false,
     token: "",
-    // browseFolder: null,
+    progressLoading: null,
     chooserModalOpen: false,
     rateLimitModal: false,
     currentFolderId: null,
@@ -447,8 +448,6 @@ class XCloud extends React.Component {
         }
       })
       .then(async (data) => {
-        // console.log('..........folder loggeerr>>>>>', data);
-        // this.setState({ browseFolder: data.name });
         this.deselectAll();
 
         // Set new items list
@@ -818,7 +817,6 @@ class XCloud extends React.Component {
       });
 
       const uploadUrl = `/api/storage/folder/${parentFolderId}/upload`;
-
       // Headers with Auth & Mnemonic
       let headers = getHeaders(true, true, this.state.isTeam);
 
@@ -828,24 +826,24 @@ class XCloud extends React.Component {
       const data = new FormData();
 
       data.append("xfile", file);
-
+      axios.post(`/api/storage/folder/${parentFolderId}/upload`, data, {
+        onUploadProgress: e => {
+          const { loaded, total } = e;
+          let percent = Math.floor((loaded * 100) / total);
+          console.log('........percentupload', percent);
+        }
+      }).then(res => console.log(res));
       fetch(uploadUrl, {
         method: "POST",
         headers: headers,
         body: data,
       })
         .then(async (res) => {
-          // let reader = await res.body.getReader();
-          // const contentLength = +res.headers.get('Content-Length');
-          // let receivedLength = 0;
-          // let chunks = [];
-          // while (true) {
-          //   const { done, value } = await reader.read();
-          //   if (done) break;
-          //   chunks.push(value);
-          //   receivedLength += value.length;
-          //   console.log((receivedLength / contentLength) * 100 + "%");
-          // }
+          // let progress = new Progress(res, { throttle: 100 });
+          // progress.on('progress', (p) => console.log(',,,,,,,,,,', p));
+          // this.setState({ progressLoading: await res });
+          // this.setState({ progressLoading: await res.arrayBuffer() });
+
           let data;
           try {
             data = await res.json();
@@ -1172,7 +1170,8 @@ class XCloud extends React.Component {
             style
           />
           <FileCommander
-            browseFolder={this.state.browseFolder}
+            // browseFolder={this.state.browseFolder}
+            progressLoading={this.state.progressLoading}
             deleteItems={this.deleteItems}
             setSearchFunction={this.setSearchFunction}
             currentCommanderItems={this.state.currentCommanderItems}

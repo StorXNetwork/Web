@@ -25,6 +25,7 @@ import TimeAgo from "react-timeago";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
+import Progress from "node-fetch-progress";
 
 class FileCommanderItem extends React.Component {
   constructor (props, state) {
@@ -335,47 +336,89 @@ class FileCommanderItem extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <>
-        {this.props.rawItem.isFolder == true ? (
-          <div
-            className={`card-body text-center ${this.props.isSelected ? "selected" : ""}`}
-            data-type={this.props.type}
-            data-id={this.props.id}
-            data-cloud-file-id={this.props.rawItem.id}
-            data-cloud-folder-id={this.props.rawItem.folder_id}
-            data-bridge-file-id={this.props.rawItem.fileId}
-            data-bridge-bucket-id={this.props.rawItem.bucket}
-            data-name={this.props.rawItem.name}
-            data-isfolder={!!this.props.rawItem.isFolder}
-            onClick={() => {
-              this.props.selectHandler(
-                this.props.id,
-                this.props.isFolder,
-                false
-              );
-            }}
-            onDoubleClick={(e) => {
-              // if (e.target.className.includes('card-body')) {
-              if (this.props.type == null) {
-                window.analytics.track("folder-opened", {
-                  folder_name: this.state.itemName,
-                  folder_id: this.props.id,
-                });
-              }
-              this.itemClickHandler(e);
-              // }
-            }}
-            draggable={this.props.isDraggable}
-            onDragStart={(e) => this.props.handleDragStart(e)}
-            onDragOver={this.handleDragOver}
-            onDragLeave={this.handleDragLeave}
-            onDrop={this.handleDrop}
-            onDragEnd={this.handleDragEnd}
-          >
-            <div className="d-flex justify-content-center mb-2">
-              {/* <a className="folder">
+  progressBar(data) {
+    if (data == null) {
+      // return <ProgressBar now={60} label={`${60}%`} />;
+      return <span>Loaded</span>;
+    } else {
+      // const fetchData = new Progress(data, { throttle: 100 });
+      // console.log('........reader', fetchData);
+      // let loader = 0;
+
+      // let reader = data.arrayBuffer();
+      // let readerData = new Uint8Array(reader);
+      // let at = 0;
+      // let length = data.headers.get('Content-Length');
+      // if (!length) {
+      //   const readerBody = data.body.getReader();
+    }
+    // const contentLength = +data.headers.get('Content-Length');
+    // let receivedLength = 0;
+    // let chunks = [];
+    // while (true) {
+    //   const { done, value } = reader.read();
+    //   if (done) break;
+    //   chunks.push(value);
+    //   receivedLength += value.length;
+    //   loader = (receivedLength / contentLength) * 100 + "%";
+    // }
+    // return <ProgressBar now={60} label={`${60}%`} />;
+  // }
+}
+
+render() {
+
+  // let reader = this.props.progressLoading.body.getReader();
+  // const contentLength = +this.props.progressLoading.headers.get('Content-Length');
+  // let receivedLength = 0;
+  // let chunks = [];
+  // while (true) {
+  //   const { done, value } = reader.read();
+  //   if (done) break;
+  //   chunks.push(value);
+  //   receivedLength += value.length;
+  //   console.log((receivedLength / contentLength) * 100 + "%");
+  // }
+  return (
+    <>
+      {this.props.rawItem.isFolder == true ? (
+        <div
+          className={`card-body text-center ${this.props.isSelected ? "selected" : ""}`}
+          data-type={this.props.type}
+          data-id={this.props.id}
+          data-cloud-file-id={this.props.rawItem.id}
+          data-cloud-folder-id={this.props.rawItem.folder_id}
+          data-bridge-file-id={this.props.rawItem.fileId}
+          data-bridge-bucket-id={this.props.rawItem.bucket}
+          data-name={this.props.rawItem.name}
+          data-isfolder={!!this.props.rawItem.isFolder}
+          onClick={() => {
+            this.props.selectHandler(
+              this.props.id,
+              this.props.isFolder,
+              false
+            );
+          }}
+          onDoubleClick={(e) => {
+            // if (e.target.className.includes('card-body')) {
+            if (this.props.type == null) {
+              window.analytics.track("folder-opened", {
+                folder_name: this.state.itemName,
+                folder_id: this.props.id,
+              });
+            }
+            this.itemClickHandler(e);
+            // }
+          }}
+          draggable={this.props.isDraggable}
+          onDragStart={(e) => this.props.handleDragStart(e)}
+          onDragOver={this.handleDragOver}
+          onDragLeave={this.handleDragLeave}
+          onDrop={this.handleDrop}
+          onDragEnd={this.handleDragEnd}
+        >
+          <div className="d-flex justify-content-center mb-2">
+            {/* <a className="folder">
                 <div className="iconwrap icon-folder purple">
                   <div className="">
                     {this.props.isFolder
@@ -384,62 +427,62 @@ class FileCommanderItem extends React.Component {
                   </div>
                 </div>
               </a> */}
-              <a className="folder">
-                <div className="iconwrap icon-folder">
-                  <img src={FOLDER} alt="Folder" />
-                </div>
-              </a>
-              <div className="card-header-toolbar">
-                <div className="dropdown">
-                  <span
-                    className="dropdown-toggle"
-                    as={CustomToggle}
-                    id="dropdownMenuButton2"
-                    handleShowDropdown={this.handleShowDropdown}
-                    data-toggle="dropdown"
-                  >
-                    {/* <i className="ri-more-2-fill"></i> */}
-                  </span>
-                  <div
-                    className="dropdown-menu dropdown-menu-right"
-                    aria-labelledby="dropdownMenuButton2"
-                  >
-                    <div className="colorToggleBox">
-                      <p>Style Color</p>
-                      <div
-                        // className="colorToggle"
-                        id="colorToggle"
-                        className="toggleGroup"
-                        name="colorSelection"
-                        type="radio"
-                        defaultValue={this.props.color}
-                        onChange={this.handleColorSelection}
-                        role="group"
-                        className="toggleGroup btn-group"
-                      >
-                        {this.colors.map((value, i) => {
-                          return (
-                            <label
-                              className={`${value}Color btn btn-primary`}
-                              type="radio"
-                              key={i}
-                              value={value}
-                            />
-                          );
-                        })}
-                      </div>
+            <a className="folder">
+              <div className="iconwrap icon-folder">
+                <img src={FOLDER} alt="Folder" />
+              </div>
+            </a>
+            <div className="card-header-toolbar">
+              <div className="dropdown">
+                <span
+                  className="dropdown-toggle"
+                  as={CustomToggle}
+                  id="dropdownMenuButton2"
+                  handleShowDropdown={this.handleShowDropdown}
+                  data-toggle="dropdown"
+                >
+                  {/* <i className="ri-more-2-fill"></i> */}
+                </span>
+                <div
+                  className="dropdown-menu dropdown-menu-right"
+                  aria-labelledby="dropdownMenuButton2"
+                >
+                  <div className="colorToggleBox">
+                    <p>Style Color</p>
+                    <div
+                      // className="colorToggle"
+                      id="colorToggle"
+                      className="toggleGroup"
+                      name="colorSelection"
+                      type="radio"
+                      defaultValue={this.props.color}
+                      onChange={this.handleColorSelection}
+                      role="group"
+                      className="toggleGroup btn-group"
+                    >
+                      {this.colors.map((value, i) => {
+                        return (
+                          <label
+                            className={`${value}Color btn btn-primary`}
+                            type="radio"
+                            key={i}
+                            value={value}
+                          />
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <a className="folder">
-              <h5 className="mb-2">{this.props.name}</h5>
-              <p className="mb-2">
-                <i className="lar la-clock text-primary mr-2 font-size-20"></i>
-                {moment(this.props.rawItem.createdAt).format("DD MMM, YYYY")}
-              </p>
-              {/* <p className="mb-0">
+          </div>
+          <a className="folder">
+            <h5 className="mb-2">{this.props.name}</h5>
+            <p className="mb-2">
+              <i className="lar la-clock text-primary mr-2 font-size-20"></i>
+              {moment(this.props.rawItem.createdAt).format("DD MMM, YYYY")}
+            </p>
+            {/* <p className="mb-0">
                 <i className="lar la-clock text-primary mr-2 font-size-20"></i>
                 {PrettySize(this.props.size)}
               </p>
@@ -447,241 +490,243 @@ class FileCommanderItem extends React.Component {
                 <i className="lar la-clock text-primary mr-2 font-size-20"></i>
                 {this.props.created && this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}
               </p> */}
-            </a>
-          </div>
-        ) : (
-          <>
-            {this.props.type == "pdf" ||
-              "ppt" ||
-              "xlsx" ||
-              "doc" ||
-              "jpeg" ||
-              "png" ||
-              "PNG" ||
-              "jpg" ? (
-              <div
-                className={`card-body image-thumb text-center ${this.props.isSelected ? "selected" : ""
-                  }`}
-                data-type={this.props.type}
-                data-id={this.props.id}
-                data-cloud-file-id={this.props.rawItem.id}
-                data-cloud-folder-id={this.props.rawItem.folder_id}
-                data-bridge-file-id={this.props.rawItem.fileId}
-                data-bridge-bucket-id={this.props.rawItem.bucket}
-                data-name={this.props.rawItem.name}
-                data-isfolder={!!this.props.rawItem.isFolder}
-                onClick={() => {
-                  this.props.selectHandler(
-                    this.props.id,
-                    this.props.isFolder,
-                    false
-                  );
-                }}
-                onDoubleClick={(e) => {
-                  // if (e.target.className.includes('card-body')) {
-                  if (this.props.type == null) {
-                    window.analytics.track("folder-opened", {
-                      folder_name: this.state.itemName,
-                      folder_id: this.props.id,
-                    });
-                  }
-                  this.itemClickHandler(e);
-                  // }
-                }}
-                draggable={this.props.isDraggable}
-                onDragStart={(e) => this.props.handleDragStart(e)}
-                onDragOver={this.handleDragOver}
-                onDragLeave={this.handleDragLeave}
-                onDrop={this.handleDrop}
-                onDragEnd={this.handleDragEnd}
+          </a>
+        </div>
+      ) : (
+        <>
+          {this.props.type == "pdf" ||
+            "ppt" ||
+            "xlsx" ||
+            "doc" ||
+            "jpeg" ||
+            "png" ||
+            "PNG" ||
+            "js" ||
+            "jpg" ? (
+            <div
+              className={`card-body image-thumb text-center ${this.props.isSelected ? "selected" : ""
+                }`}
+              data-type={this.props.type}
+              data-id={this.props.id}
+              data-cloud-file-id={this.props.rawItem.id}
+              data-cloud-folder-id={this.props.rawItem.folder_id}
+              data-bridge-file-id={this.props.rawItem.fileId}
+              data-bridge-bucket-id={this.props.rawItem.bucket}
+              data-name={this.props.rawItem.name}
+              data-isfolder={!!this.props.rawItem.isFolder}
+              onClick={() => {
+                this.props.selectHandler(
+                  this.props.id,
+                  this.props.isFolder,
+                  false
+                );
+              }}
+              onDoubleClick={(e) => {
+                // if (e.target.className.includes('card-body')) {
+                if (this.props.type == null) {
+                  window.analytics.track("folder-opened", {
+                    folder_name: this.state.itemName,
+                    folder_id: this.props.id,
+                  });
+                }
+                this.itemClickHandler(e);
+                // }
+              }}
+              draggable={this.props.isDraggable}
+              onDragStart={(e) => this.props.handleDragStart(e)}
+              onDragOver={this.handleDragOver}
+              onDragLeave={this.handleDragLeave}
+              onDrop={this.handleDrop}
+              onDragEnd={this.handleDragEnd}
+            >
+              {/* {this.progressBar(this.props.progressLoading)} */}
+              <a
+                data-title={`${this.props.name}.${this.props.type}`}
+                data-load-file="file"
+                data-load-target="#resolte-contaniner"
+                data-url={`${this.props.name}.${this.props.type}`}
+                data-toggle="modal"
+                data-target="#exampleModal"
+                className="folder"
               >
-                <a
-                  data-title={`${this.props.name}.${this.props.type}`}
-                  data-load-file="file"
-                  data-load-target="#resolte-contaniner"
-                  data-url={`${this.props.name}.${this.props.type}`}
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                  className="folder"
-                >
-                  <div className="mb-3 text-center p-0 rounded iq-thumb">
-                    <img
-                      src={this.fileTypeDoc(this.props.type)}
-                      className="img-fluid"
-                      alt="image1"
-                    />
-                  </div>
-                  <h6>
-                    {this.props.name}.{this.props.type}
-                  </h6>
-                  {/* <p className="mb-2">
+                <div className="mb-3 text-center p-0 rounded iq-thumb">
+                  <img
+                    src={this.fileTypeDoc(this.props.type)}
+                    className="img-fluid"
+                    alt="image1"
+                  />
+                </div>
+                <h6>
+                  {this.props.name}.{this.props.type}
+                </h6>
+                {/* <p className="mb-2">
                     {moment(this.props.rawItem.createdAt).format(
                       "DD MMM, YYYY"
                     )}
                   </p> */}
-                  {/* <p className="mb-0">{PrettySize(this.props.size)}</p> */}
-                  <p className="mb-0"> {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}</p>
-                </a>
-              </div>
-            ) : (
-              ""
-            )}
-          </>
-        )}
-      </>
-    );
+                {/* <p className="mb-0">{PrettySize(this.props.size)}</p> */}
+                <p className="mb-0"> {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}</p>
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
+        </>
+      )}
+    </>
+  );
 
-    // return (
-    //   <div
-    //     className={
-    //       'FileCommanderItem' +
-    //       (this.props.isSelected ? ' selected ' : ' ') +
-    //       this.state.dragDropStyle
-    //     }
-    //     data-type={this.props.type}
-    //     data-id={this.props.id}
-    //     data-cloud-file-id={this.props.rawItem.id}
-    //     data-cloud-folder-id={this.props.rawItem.folder_id}
-    //     data-bridge-file-id={this.props.rawItem.fileId}
-    //     data-bridge-bucket-id={this.props.rawItem.bucket}
-    //     data-name={this.props.rawItem.name}
-    //     data-isfolder={!!this.props.rawItem.isFolder}
-    //     onClick={() => {
-    //       this.props.selectHandler(this.props.id, this.props.isFolder, false);
-    //     }}
-    //     onDoubleClick={(e) => {
-    //       if (e.target.className.includes('FileCommanderItem')) {
-    //         if (this.props.type == null) {
-    //           window.analytics.track('folder-opened', {
-    //             folder_name: this.state.itemName,
-    //             folder_id: this.props.id
-    //           });
-    //         }
-    //         this.itemClickHandler(e);
-    //       }
-    //     }}
-    //     draggable={this.props.isDraggable}
-    //     onDragStart={(e) => this.props.handleDragStart(e)}
-    //     onDragOver={this.handleDragOver}
-    //     onDragLeave={this.handleDragLeave}
-    //     onDrop={this.handleDrop}
-    //     onDragEnd={this.handleDragEnd}
-    //   >
-    //     <div className="properties">
-    //       {/* Item context menu changes depending on folder or file*/}
-    //       {this.props.isFolder ? (
-    //         <Dropdown
-    //           drop={'right'}
-    //           show={this.state.showDropdown}
-    //           onToggle={this.handleDropdownSelect}
-    //         >
-    //           <Dropdown.Toggle as={CustomToggle} handleShowDropdown={this.handleShowDropdown}>
-    //             ...
-    //           </Dropdown.Toggle>
-    //           <Dropdown.Menu>
-    //             <Dropdown.Item as="span">
-    //               <input
-    //                 className="itemNameInput"
-    //                 type="text"
-    //                 value={this.state.itemName}
-    //                 onChange={this.handleNameChange}
-    //               />
-    //             </Dropdown.Item>
-    //             <Dropdown.Divider />
-    //             <Dropdown.Item as="span">Style color</Dropdown.Item>
-    //             <ToggleButtonGroup
-    //               id="colorToggle"
-    //               className="toggleGroup"
-    //               name="colorSelection"
-    //               type="radio"
-    //               defaultValue={this.props.color}
-    //               onChange={this.handleColorSelection}
-    //             >
-    //               {this.colors.map((value, i) => {
-    //                 return (
-    //                   <ToggleButton
-    //                     className={`${value}Color`}
-    //                     type="radio"
-    //                     key={i}
-    //                     value={value}
-    //                   />
-    //                 );
-    //               })}
-    //             </ToggleButtonGroup>
-    //             <Dropdown.Divider className="ponleunnombre" />
-    //             <Dropdown.Item as="span">Cover icon</Dropdown.Item>
-    //             <ToggleButtonGroup
-    //               id="iconToggle"
-    //               className="toggleGroup"
-    //               name="iconSelection"
-    //               type="radio"
-    //               defaultValue={this.props.icon ? this.props.icon.id : ''}
-    //               onChange={this.handleIconSelection}
-    //             >
-    //               {this.icons.map((value, i) => {
-    //                 return (
-    //                   <ToggleButton
-    //                     className={`${value}Icon`}
-    //                     type="radio"
-    //                     value={i + 1}
-    //                     key={i}
-    //                     onClick={() => this.handleClickIcon(value)}
-    //                   />
-    //                 );
-    //               })}
-    //             </ToggleButtonGroup>
-    //           </Dropdown.Menu>
-    //         </Dropdown>
-    //       ) : (
-    //         <Dropdown
-    //           drop={'right'}
-    //           show={this.state.showDropdown}
-    //           onToggle={this.handleDropdownSelect}
-    //         >
-    //           <Dropdown.Toggle as={CustomToggle} handleShowDropdown={this.handleShowDropdown}>
-    //               ...
-    //           </Dropdown.Toggle>
-    //           <Dropdown.Menu>
-    //             <Dropdown.Item as="span">
-    //               <input
-    //                 className="itemNameInput"
-    //                 type="text"
-    //                 value={this.state.itemName}
-    //                 onChange={this.handleNameChange}
-    //               />
-    //             </Dropdown.Item>
-    //             <Dropdown.Divider />
-    //             <Dropdown.Item as="span">
-    //               <div>
-    //                 <span className="propText">Type: </span>
-    //                 <span className="propValue">
-    //                   {this.props.type ? this.props.type.toUpperCase() : ''}
-    //                 </span>
-    //               </div>
-    //             </Dropdown.Item>
-    //             <Dropdown.Item as="span">
-    //               <div>
-    //                 <span className="propText">Size: </span>
-    //                 <span className="propValue">{PrettySize(this.props.size)}</span>
-    //               </div>
-    //             </Dropdown.Item>
-    //             {/* <Dropdown.Item eventKey="4" as="span"><span className="propText">Added: </span></Dropdown.Item> */}
-    //           </Dropdown.Menu>
-    //         </Dropdown>
-    //       )}
-    //     </div>
-    //     <div className="itemIcon">
-    //       {this.props.isFolder ? this.getFolderIcon() : this.getFileIcon()}
-    //     </div>
-    //     <div className="name" title={this.props.name} onClick={this.itemClickHandler}>
-    //       {this.props.name}
-    //     </div>
-    //     <div className="created">
-    //       {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}
-    //     </div>
-    //   </div >
-    // );
-  }
+  // return (
+  //   <div
+  //     className={
+  //       'FileCommanderItem' +
+  //       (this.props.isSelected ? ' selected ' : ' ') +
+  //       this.state.dragDropStyle
+  //     }
+  //     data-type={this.props.type}
+  //     data-id={this.props.id}
+  //     data-cloud-file-id={this.props.rawItem.id}
+  //     data-cloud-folder-id={this.props.rawItem.folder_id}
+  //     data-bridge-file-id={this.props.rawItem.fileId}
+  //     data-bridge-bucket-id={this.props.rawItem.bucket}
+  //     data-name={this.props.rawItem.name}
+  //     data-isfolder={!!this.props.rawItem.isFolder}
+  //     onClick={() => {
+  //       this.props.selectHandler(this.props.id, this.props.isFolder, false);
+  //     }}
+  //     onDoubleClick={(e) => {
+  //       if (e.target.className.includes('FileCommanderItem')) {
+  //         if (this.props.type == null) {
+  //           window.analytics.track('folder-opened', {
+  //             folder_name: this.state.itemName,
+  //             folder_id: this.props.id
+  //           });
+  //         }
+  //         this.itemClickHandler(e);
+  //       }
+  //     }}
+  //     draggable={this.props.isDraggable}
+  //     onDragStart={(e) => this.props.handleDragStart(e)}
+  //     onDragOver={this.handleDragOver}
+  //     onDragLeave={this.handleDragLeave}
+  //     onDrop={this.handleDrop}
+  //     onDragEnd={this.handleDragEnd}
+  //   >
+  //     <div className="properties">
+  //       {/* Item context menu changes depending on folder or file*/}
+  //       {this.props.isFolder ? (
+  //         <Dropdown
+  //           drop={'right'}
+  //           show={this.state.showDropdown}
+  //           onToggle={this.handleDropdownSelect}
+  //         >
+  //           <Dropdown.Toggle as={CustomToggle} handleShowDropdown={this.handleShowDropdown}>
+  //             ...
+  //           </Dropdown.Toggle>
+  //           <Dropdown.Menu>
+  //             <Dropdown.Item as="span">
+  //               <input
+  //                 className="itemNameInput"
+  //                 type="text"
+  //                 value={this.state.itemName}
+  //                 onChange={this.handleNameChange}
+  //               />
+  //             </Dropdown.Item>
+  //             <Dropdown.Divider />
+  //             <Dropdown.Item as="span">Style color</Dropdown.Item>
+  //             <ToggleButtonGroup
+  //               id="colorToggle"
+  //               className="toggleGroup"
+  //               name="colorSelection"
+  //               type="radio"
+  //               defaultValue={this.props.color}
+  //               onChange={this.handleColorSelection}
+  //             >
+  //               {this.colors.map((value, i) => {
+  //                 return (
+  //                   <ToggleButton
+  //                     className={`${value}Color`}
+  //                     type="radio"
+  //                     key={i}
+  //                     value={value}
+  //                   />
+  //                 );
+  //               })}
+  //             </ToggleButtonGroup>
+  //             <Dropdown.Divider className="ponleunnombre" />
+  //             <Dropdown.Item as="span">Cover icon</Dropdown.Item>
+  //             <ToggleButtonGroup
+  //               id="iconToggle"
+  //               className="toggleGroup"
+  //               name="iconSelection"
+  //               type="radio"
+  //               defaultValue={this.props.icon ? this.props.icon.id : ''}
+  //               onChange={this.handleIconSelection}
+  //             >
+  //               {this.icons.map((value, i) => {
+  //                 return (
+  //                   <ToggleButton
+  //                     className={`${value}Icon`}
+  //                     type="radio"
+  //                     value={i + 1}
+  //                     key={i}
+  //                     onClick={() => this.handleClickIcon(value)}
+  //                   />
+  //                 );
+  //               })}
+  //             </ToggleButtonGroup>
+  //           </Dropdown.Menu>
+  //         </Dropdown>
+  //       ) : (
+  //         <Dropdown
+  //           drop={'right'}
+  //           show={this.state.showDropdown}
+  //           onToggle={this.handleDropdownSelect}
+  //         >
+  //           <Dropdown.Toggle as={CustomToggle} handleShowDropdown={this.handleShowDropdown}>
+  //               ...
+  //           </Dropdown.Toggle>
+  //           <Dropdown.Menu>
+  //             <Dropdown.Item as="span">
+  //               <input
+  //                 className="itemNameInput"
+  //                 type="text"
+  //                 value={this.state.itemName}
+  //                 onChange={this.handleNameChange}
+  //               />
+  //             </Dropdown.Item>
+  //             <Dropdown.Divider />
+  //             <Dropdown.Item as="span">
+  //               <div>
+  //                 <span className="propText">Type: </span>
+  //                 <span className="propValue">
+  //                   {this.props.type ? this.props.type.toUpperCase() : ''}
+  //                 </span>
+  //               </div>
+  //             </Dropdown.Item>
+  //             <Dropdown.Item as="span">
+  //               <div>
+  //                 <span className="propText">Size: </span>
+  //                 <span className="propValue">{PrettySize(this.props.size)}</span>
+  //               </div>
+  //             </Dropdown.Item>
+  //             {/* <Dropdown.Item eventKey="4" as="span"><span className="propText">Added: </span></Dropdown.Item> */}
+  //           </Dropdown.Menu>
+  //         </Dropdown>
+  //       )}
+  //     </div>
+  //     <div className="itemIcon">
+  //       {this.props.isFolder ? this.getFolderIcon() : this.getFileIcon()}
+  //     </div>
+  //     <div className="name" title={this.props.name} onClick={this.itemClickHandler}>
+  //       {this.props.name}
+  //     </div>
+  //     <div className="created">
+  //       {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}
+  //     </div>
+  //   </div >
+  // );
+}
 }
 
 const CustomToggle = React.forwardRef(
