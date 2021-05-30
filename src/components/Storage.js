@@ -396,7 +396,7 @@ class Storage extends React.Component {
                             </ul>
                             <div className="price-btn-block">
                               <button className="btn btn-primary mb-2 mt-3" disabled>
-                                <p className="font-weight-500">10 STORX<small className="font-weight-400">/
+                                <p className="font-weight-500">10 SRX<small className="font-weight-400">/
                                                                 Month</small></p>
                               </button>
                               <h5 className="font-size-14 text-muted">Prepay per month</h5>
@@ -419,7 +419,7 @@ class Storage extends React.Component {
                             </ul>
                             <div className="price-btn-block">
                               <button className="btn btn-primary mb-2 mt-3" disabled>
-                                <p className="font-weight-500">20 STORX<small className="font-weight-400">/
+                                <p className="font-weight-500">20 SRX<small className="font-weight-400">/
                                                                 Month</small></p>
                               </button>
                               <h5 className="font-size-14 text-muted">Prepay per month</h5>
@@ -442,7 +442,7 @@ class Storage extends React.Component {
                             </ul>
                             <div className="price-btn-block">
                               <button className="btn btn-primary mb-2 mt-3" disabled>
-                                <p className="font-weight-500">40 STORX<small className="font-weight-400">/
+                                <p className="font-weight-500">40 SRX<small className="font-weight-400">/
                                                                 Month</small></p>
                               </button>
                               <h5 className="font-size-14 text-muted">Prepay per month</h5>
@@ -469,7 +469,7 @@ class Storage extends React.Component {
                             </ul>
                             <div className="price-btn-block">
                               <button className="btn btn-primary mb-2 mt-3" disabled>
-                                <p className="font-weight-500">100 STORX<small className="font-weight-400">/
+                                <p className="font-weight-500">100 SRX<small className="font-weight-400">/
                                                                 Month</small></p>
                               </button>
                               <h5 className="font-size-14 text-muted">Prepay per month</h5>
@@ -492,7 +492,7 @@ class Storage extends React.Component {
                             </ul>
                             <div className="price-btn-block">
                               <button className="btn btn-primary mb-2 mt-3" disabled>
-                                <p className="font-weight-500">200 STORX<small className="font-weight-400">/
+                                <p className="font-weight-500">200 SRX<small className="font-weight-400">/
                                                                 Month</small></p>
                               </button>
                               <h5 className="font-size-14 text-muted">Prepay per month</h5>
@@ -515,7 +515,7 @@ class Storage extends React.Component {
                             </ul>
                             <div className="price-btn-block">
                               <button className="btn btn-primary mb-2 mt-3" disabled>
-                                <p className="font-weight-500">400 STORX<small className="font-weight-400">/
+                                <p className="font-weight-500">400 SRX<small className="font-weight-400">/
                                                                 Month</small></p>
                               </button>
                               <h5 className="font-size-14 text-muted">Prepay per month</h5>
