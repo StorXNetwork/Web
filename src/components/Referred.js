@@ -466,7 +466,7 @@ class Referred extends React.Component {
                       <img src={referralEarned} className="img-fluid" />
                     </div>
                     <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit
-                      } STORX`}</h5>
+                      } SRX`}</h5>
                     <div className="col-lg-12 col-md-12 text-center">
                       {this.state.credit > 0 ?
                         <a

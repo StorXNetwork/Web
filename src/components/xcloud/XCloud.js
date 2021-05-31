@@ -287,7 +287,7 @@ class XCloud extends React.Component {
           if (err.error == "Folder with the same name already exists.") {
             toast.warn("Folder with the same name already exists.");
           }
-          toast.warn("Invalid folder");
+          toast.warn("Invalid folder name");
         });
     } else {
       toast.warn("Invalid folder name");

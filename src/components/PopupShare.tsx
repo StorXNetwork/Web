@@ -189,7 +189,7 @@ class PopupShare extends React.Component<PopupShareProps> {
               });
               if (this.state.link) {
                 copy(this.state.link);
-                toast.info(this.state.link);
+                toast.info("Copied ✔");
               }
             }}>Copy</a>
           </div>
