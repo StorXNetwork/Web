@@ -511,9 +511,9 @@ class FileCommanderItem extends React.Component {
                   className="folder"
                 >
                   <div className="upload-preloader">
-                    {this.props.bucket == null ? this.progressBar(this.props.progressLoading) : null}
+                    {(this.props.bucket == null && this.props.rawItem.fileId != 0) ? this.progressBar(this.props.progressLoading) : null}
                   </div>
-                  <div style={{ opacity: (this.props.bucket == null || undefined) ? "0.5" : "1" }}>
+                  <div style={{ opacity: (this.props.bucket == null && this.props.rawItem.fileId != 0) ? "0.5" : "1" }}>
                     <div className="mb-3 text-center p-0 rounded iq-thumb">
                       <img
                         src={this.fileTypeDoc(this.props.type)}

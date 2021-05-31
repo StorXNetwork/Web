@@ -319,7 +319,7 @@ class New extends React.Component<NewProps, NewState> {
       .catch((err) => {
         history.push('/');
         console.error("Register error", err);
-        toast.error("Something went wrong", { autoClose: 3000, transition: Flip });
+        // toast.error("Something went wrong", { autoClose: 3000, transition: Flip });
       });
   };
 
