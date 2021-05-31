@@ -140,7 +140,6 @@ class Referred extends React.Component {
           throw res.data;
         } else {
           console.log("Claim send to support@storx.io");
-          // toast.info("Claim email sent to support@storx.io");
         }
       })
       .catch((err) => {
@@ -161,7 +160,7 @@ class Referred extends React.Component {
               <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
                 <i
                   className="ri-menu-line wrapper-menu"
-                  onClick={() => $("body").addClass("sidebar-main")}
+                  // onClick={() => $("body").addClass("sidebar-main")}
                 ></i>
                 <Link to="/app" className="header-logo" >
                   <img
@@ -433,18 +432,17 @@ class Referred extends React.Component {
                         <h5 className="mb-4">
                           Earn Tokens by referring Friends & Family to StorX
                         </h5>
-                        <p className="mb-0">
+                        <p className="mb-2">
                           Invite friends and family who aren't on StorX yet.
                           You'll both will be eligible for rewards * of 10 STORX
                           Tokens. Start earning with StorX today!
                         </p>
+                        <p className="font-weight-medium">
+                          Create an account on <a target="_blank" href="https://wallet.xinfin.network/">XDC Web Wallet</a>, to claim your STORX token.
+                        </p>
+                        {/* <br />
                         <br />
-                        <b>
-                          Create an account on XDC web wallet, to claim your STORX token.
-                        </b>
-                        <br />
-                        <br />
-                        <b>XDC Web Wallet: <a target="_blank" href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b>
+                        <b>XDC Web Wallet: <a target="_blank" href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b> */}
                       </div>
                       <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
                         <img

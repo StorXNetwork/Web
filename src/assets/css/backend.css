@@ -16471,10 +16471,10 @@ ul.pricing-list li:last-child {
     flex-basis: inherit !important;
     max-width: 100% !important;
   }
-	.pricing-content .row .col {
-    padding-right: 15px!important;
+  .pricing-content .row .col {
+    padding-right: 15px !important;
     padding-left: 15px !important;
-}
+  }
 }
 /*------ Equal flex pricing plans ------*/
 
@@ -20786,4 +20786,18 @@ table.dataTable th {
   transform: translate3d(0px, 43px, 0px);
   top: 0px;
   will-change: transform;
+}
+
+.upload-preloader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.25rem;
+  z-index: 999;
+}
+.upload-preloader .progress {
+  position: relative;
+  margin-top: 75px;
 }

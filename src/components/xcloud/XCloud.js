@@ -25,7 +25,7 @@ import axios from "axios";
 
 import { getUserData } from "../../lib/analytics";
 import Settings from "../../lib/settings";
-import Progress from 'node-fetch-progress';
+import AxiosInstance from "../helper/AxiosInstance";
 
 class XCloud extends React.Component {
   state = {
@@ -826,24 +826,20 @@ class XCloud extends React.Component {
       const data = new FormData();
 
       data.append("xfile", file);
-      axios.post(`/api/storage/folder/${parentFolderId}/upload`, data, {
+      AxiosInstance.post(uploadUrl, data, {
         onUploadProgress: e => {
           const { loaded, total } = e;
           let percent = Math.floor((loaded * 100) / total);
-          console.log('........percentupload', percent);
-        }
-      }).then(res => console.log(res));
+          this.setState({ progressLoading: percent });
+        },
+        headers: headers
+      }).then(res => { });
       fetch(uploadUrl, {
         method: "POST",
         headers: headers,
         body: data,
       })
         .then(async (res) => {
-          // let progress = new Progress(res, { throttle: 100 });
-          // progress.on('progress', (p) => console.log(',,,,,,,,,,', p));
-          // this.setState({ progressLoading: await res });
-          // this.setState({ progressLoading: await res.arrayBuffer() });
-
           let data;
           try {
             data = await res.json();
