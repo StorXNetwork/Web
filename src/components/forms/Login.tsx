@@ -191,10 +191,12 @@ class Login extends React.Component<LoginProps> {
     })
       .then((response) => {
         if (response.status === 400) {
+          toast.error("Cannot connect to server");
           return response.json().then((body) => {
             throw Error(body.error || "Cannot connect to server");
           });
         } else if (response.status !== 200) {
+          toast.error("This account doesn't exists");
           throw Error("This account doesn't exists");
         }
         return response.json();
@@ -228,6 +230,7 @@ class Login extends React.Component<LoginProps> {
                 msg: res.data.error ? res.data.error : "Login error",
                 email: this.state.email,
               });
+              toast.error("Login error");
               throw new Error(res.data.error ? res.data.error : res.data);
             }
             toast.success("Login successful");
@@ -322,6 +325,7 @@ class Login extends React.Component<LoginProps> {
             });
           })
           .catch((err) => {
+            toast.error(err);
             throw Error(`"${err.error ? err.error : err}"`);
           });
       })
@@ -329,9 +333,6 @@ class Login extends React.Component<LoginProps> {
         if (err == `Error: "Error: Wrong email/password"`) {
           toast.error("Email or Password is wrong. Please enter correct credentials.", { autoClose: 3000, transition: Flip });
           history.push('/');
-          // if (window.location.pathname != "/login") {
-          //   history.push('/login');
-          // }
         } else if (err = `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
           toast.error("Your account has been blocked for security reasons. Please reach out to us");
           history.push('/');
@@ -350,8 +351,6 @@ class Login extends React.Component<LoginProps> {
       const isValid = this.validateLoginForm();
 
       return (
-        // <React.Suspense fallback={<h1>Loading.........</h1>}>
-        // <div className="wrapper">
         <section className="login-content">
           <div className="container h-100">
             <div className="row justify-content-center align-items-center">
