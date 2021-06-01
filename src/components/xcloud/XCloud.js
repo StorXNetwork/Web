@@ -25,7 +25,6 @@ import axios from "axios";
 
 import { getUserData } from "../../lib/analytics";
 import Settings from "../../lib/settings";
-import AxiosInstance from "../helper/AxiosInstance";
 
 class XCloud extends React.Component {
   state = {
@@ -817,57 +816,50 @@ class XCloud extends React.Component {
       });
 
       const uploadUrl = `/api/storage/folder/${parentFolderId}/upload`;
-      // Headers with Auth & Mnemonic
-      let headers = getHeaders(true, true, this.state.isTeam);
-
-      headers.delete("content-type");
-
-      // Data
       const data = new FormData();
 
       data.append("xfile", file);
-      AxiosInstance.post(uploadUrl, data, {
+      axios.post(uploadUrl,
+        data, {
         onUploadProgress: e => {
           const { loaded, total } = e;
           let percent = Math.floor((loaded * 100) / total);
           this.setState({ progressLoading: percent });
         },
-        headers: headers
-      }).then(res => { });
-      fetch(uploadUrl, {
-        method: "POST",
-        headers: headers,
-        body: data,
-      })
-        .then(async (res) => {
-          let data;
-          try {
-            data = await res.json();
-            toast.success("Uploaded successfully.");
-            window.analytics.track("file-upload-finished", {
-              email: getUserData().email,
-              file_size: file.size,
-              file_type: file.type,
-              file_id: data.fileId,
-            });
-          } catch (err) {
-            window.analytics.track("file-upload-error", {
-              file_size: file.size,
-              file_type: file.type,
-              email: getUserData().email,
-              msg: err.message,
-              platform: "web",
-            });
-            console.error("Upload response data is not a JSON", err);
-          }
-          if (data) {
-            return { res: res, data: data };
-          } else {
-            throw res;
-          }
-        })
-        .then(({ res, data }) => resolve({ res, data }))
-        .catch(reject);
+        headers: {
+          "Authorization": `Bearer ${Settings.get("xToken")}`,
+          "storx-version": "2.0.0",
+          "storx-client": "drive-web",
+          "storx-mnemonic": `${Settings.get("xMnemonic")}`
+        },
+      }).then(async res => {
+        let data;
+        try {
+          data = await res.data;
+          toast.success("Uploaded successfully.");
+          window.analytics.track("file-upload-finished", {
+            email: getUserData().email,
+            file_size: file.size,
+            file_type: file.type,
+            file_id: data.fileId,
+          });
+        } catch (err) {
+          window.analytics.track("file-upload-error", {
+            file_size: file.size,
+            file_type: file.type,
+            email: getUserData().email,
+            msg: err.message,
+            platform: "web",
+          });
+          console.error("Upload response data is not a JSON", err);
+        }
+        if (data) {
+          return { res: res, data: res.data };
+        } else {
+          throw res;
+        }
+      }).then(({ res, data }) => resolve({ res, data }))
+        .catch(err => reject(err));
     });
   };
 
@@ -1426,6 +1418,6 @@ class XCloud extends React.Component {
       return <div></div>;
     }
   }
-}
+};
 
 export default XCloud;

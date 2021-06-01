@@ -230,7 +230,6 @@ class Login extends React.Component<LoginProps> {
                 msg: res.data.error ? res.data.error : "Login error",
                 email: this.state.email,
               });
-              toast.error("Login error");
               throw new Error(res.data.error ? res.data.error : res.data);
             }
             toast.success("Login successful");
