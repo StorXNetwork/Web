@@ -819,7 +819,6 @@ class XCloud extends React.Component {
       const uploadUrl = `/api/storage/folder/${parentFolderId}/upload`;
       const data = new FormData();
       data.append("xfile", file);
-      console.log('///////////', file);
       // const ranNum = Math.floor(Math.random() * 1000);
       axios.post(uploadUrl,
         data, {
