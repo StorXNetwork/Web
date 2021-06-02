@@ -33,7 +33,8 @@ class XCloud extends React.Component {
     isInitialized: false,
     isTeam: false,
     token: "",
-    progressLoading: null,
+    size: null,
+    progressLoading: 0,
     chooserModalOpen: false,
     rateLimitModal: false,
     currentFolderId: null,
@@ -817,14 +818,15 @@ class XCloud extends React.Component {
 
       const uploadUrl = `/api/storage/folder/${parentFolderId}/upload`;
       const data = new FormData();
-
       data.append("xfile", file);
+      console.log('///////////', file);
+      // const ranNum = Math.floor(Math.random() * 1000);
       axios.post(uploadUrl,
         data, {
         onUploadProgress: e => {
           const { loaded, total } = e;
           let percent = Math.floor((loaded * 100) / total);
-          this.setState({ progressLoading: percent });
+          this.setState({ progressLoading: percent, size: file.size });
         },
         headers: {
           "Authorization": `Bearer ${Settings.get("xToken")}`,
@@ -1078,7 +1080,7 @@ class XCloud extends React.Component {
         }
       });
       this.setState({ currentCommanderItems: this.state.currentCommanderItems });
-    } else toast.error("Wait for upload");
+    } else toast.error("Wait for file info");
   };
 
   deselectAll() {
@@ -1158,7 +1160,7 @@ class XCloud extends React.Component {
             style
           />
           <FileCommander
-            // browseFolder={this.state.browseFolder}
+            size={this.state.size}
             progressLoading={this.state.progressLoading}
             deleteItems={this.deleteItems}
             setSearchFunction={this.setSearchFunction}

@@ -335,12 +335,51 @@ class FileCommanderItem extends React.Component {
     }
   }
 
-  progressBar(data) {
-    if (data === 100) return null;
-    else return <ProgressBar striped variant="success" now={data} label={`${data}%`} />;
-  }
+  // progressBar(data) {
+  // if (data === 0 || 100) return null;
+  // else return <ProgressBar striped variant="success" now={data} label={`${data}%`} />;
+  //   if (data.size != null && data.progressLoading != 0 && data.progressLoading != 100 && data.rawItem.fileId != 0 && data.bucket == null) {
+  //     return (
+  //       <>
+  //         <div className="upload-preloader">
+  //           <ProgressBar striped variant="success" now={data.progressLoading} label={`${data.progressLoading}%`} />
+  //         </div>
+  //         <div style={{ opacity: (this.props.bucket == null && this.props.rawItem.fileId != 0) ? "0.5" : "1" }}>
+  //           <div className="mb-3 text-center p-0 rounded iq-thumb">
+  //             <img
+  //               src={this.fileTypeDoc(data.type)}
+  //               className="img-fluid"
+  //               alt="File Image"
+  //             />
+  //           </div>
+  //           <h6>
+  //             {data.name}.{data.type}
+  //           </h6>
+  //           <p className="mb-0"> {data.created && !data.isFolder ? <TimeAgo date={data.created} /> : ''}</p>
+  //         </div>
+  //       </>
+  //     );
+  //   } else {
+  //     return (
+  //       <div>
+  //         <div className="mb-3 text-center p-0 rounded iq-thumb">
+  //           <img
+  //             src={this.fileTypeDoc(data.type)}
+  //             className="img-fluid"
+  //             alt="File Image"
+  //           />
+  //         </div>
+  //         <h6>
+  //           {data.name}.{data.type}
+  //         </h6>
+  //         <p className="mb-0"> {data.created && !data.isFolder ? <TimeAgo date={data.created} /> : ''}</p>
+  //       </div>
+  //     );
+  //   }
+  // }
 
   render() {
+    console.log('..........', this.props);
     return (
       <>
         {this.props.rawItem.isFolder == true ? (
@@ -391,6 +430,10 @@ class FileCommanderItem extends React.Component {
               </a> */}
               <a className="folder">
                 <div className="iconwrap icon-folder">
+                  {/* {
+                    (this.props.bucket == null && this.props.rawItem.name) ? <div className="folderFile-preloader"></div> :
+                      <img src={FOLDER} alt="Folder" />
+                  } */}
                   <img src={FOLDER} alt="Folder" />
                 </div>
               </a>
@@ -510,7 +553,8 @@ class FileCommanderItem extends React.Component {
                   data-target="#exampleModal"
                   className="folder"
                 >
-                  <div className="upload-preloader">
+                  {/* {this.progressBar(this.props)} */}
+                  {/* <div className="upload-preloader">
                     {(this.props.bucket == null && this.props.rawItem.fileId != 0) ? this.progressBar(this.props.progressLoading) : null}
                   </div>
                   <div style={{ opacity: (this.props.bucket == null && this.props.rawItem.fileId != 0) ? "0.5" : "1" }}>
@@ -525,12 +569,28 @@ class FileCommanderItem extends React.Component {
                       {this.props.name}.{this.props.type}
                     </h6>
                     <p className="mb-0"> {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}</p>
-                  </div>
+                  </div> */}
+                  {
+                    <div>
+                      <div className="mb-3 text-center p-0 rounded iq-thumb">
+                        {(this.props.bucket == null && this.props.rawItem.fileId != 0) ? <div className="folderFile-preloader"></div> :
+                          <img
+                            src={this.fileTypeDoc(this.props.type)}
+                            className="img-fluid"
+                            alt="File Image"
+                          />}
+                        {/* <div className="folderFile-preloader"></div> */}
+                      </div>
+                      <h6>
+                        {this.props.name}.{this.props.type}
+                      </h6>
+                      <p className="mb-0"> {this.props.created && !this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}</p>
+                    </div>
+                  }
+
                 </a>
               </div>
-            ) : (
-              ""
-            )}
+            ) : null}
           </>
         )}
       </>
