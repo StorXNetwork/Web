@@ -247,22 +247,7 @@ class FileCommander extends React.Component {
         }
       },
       (err) => {
-        // if (err) {
-        //   console.log('......error', err);
-        //   toast.warn("Something went wrong");
-        // }
-        // if (err) {
-        //   let errmsg = err.error ? err.error : err;
-        //   console.log('.....upload logger', err);
-        //   if (errmsg.includes("already exist")) {
-        //     errmsg = "Folder with same name already exists";
-        //     toast.warn("Folder with same name already exists");
-        //   } else toast.warn("Something went wrong");
-        // }
-
-        let idTeam =
-          this.props.namePath[this.props.namePath.length - 1].id_team;
-
+        let idTeam = this.props.namePath[this.props.namePath.length - 1].id_team;
         if (idTeam) {
           console.log("getFolderContent 1");
           this.props.getFolderContent(this.props.currentFolderId, true, idTeam);

@@ -732,7 +732,6 @@ class XCloud extends React.Component {
             if (pcb) {
               const size = pcb.props.rawItem.size;
               const progress = Math.floor((100 * pe.loaded) / size);
-
               pcb.setState({ progress: progress });
             }
           },
@@ -758,6 +757,7 @@ class XCloud extends React.Component {
           };
         })
         .then(({ blob, filename }) => {
+          toast.success("File downloaded");
           fileDownload(blob, filename);
           pcb.setState({ progress: 0 });
           resolve();

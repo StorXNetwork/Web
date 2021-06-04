@@ -36,7 +36,7 @@ class FileCommanderItem extends React.Component {
       selectedIcon: 0,
       showDropdown: false,
       isLoading: this.props.isLoading,
-      isDownloading: false,
+      isDownloading: this.props.isDownloading,
       handleExternalDrop: this.props.handleExternalDrop,
       progress: 0,
     };
@@ -379,7 +379,6 @@ class FileCommanderItem extends React.Component {
   // }
 
   render() {
-    // console.log('..........', this.props);
     return (
       <>
         {this.props.rawItem.isFolder == true ? (
@@ -573,7 +572,7 @@ class FileCommanderItem extends React.Component {
                   {
                     <div>
                       <div className="mb-3 text-center p-0 rounded iq-thumb">
-                        {(this.props.bucket == null && this.props.rawItem.fileId != 0) ? <div className="folderFile-preloader"></div> :
+                        {(this.props.bucket == null && this.props.rawItem.fileId != 0) || this.state.isDownloading == true ? <div className="folderFile-preloader"></div> :
                           <img
                             src={this.fileTypeDoc(this.props.type)}
                             className="img-fluid"
