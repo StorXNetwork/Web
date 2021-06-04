@@ -545,12 +545,13 @@ class New extends React.Component<NewProps, NewState> {
                         >
                           Create Account
                         </button>
-                        <p className="mt-4 mb-0 text-small text-muted">
-                          * In order to use features of Storx, the email address
-                          of your Storx account needs to be verified. please
-                          Check your spam folder to make sure verification email
-                          didn't end up there.
-                        </p>
+                        <div className="email-alert font-weight-400">
+                          <ul>
+                            <li>To activate your StorX Account, Kindly verify your email address by Clicking on Activation link of verification email sent to your registered email.</li>
+                            <li>Verification Email might take upto 15 mintues.</li>
+                            <li>Please check Spam/Promotion Folder for veification email account if not found in Inbox</li>
+                          </ul>
+                        </div>
                       </Form>
                     </div>
                   </div>

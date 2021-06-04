@@ -16591,6 +16591,24 @@ ul.pricing-list li:last-child {
   padding: 0px;
   margin-left: 20px;
 }
+
+.login-content .sign-user_card .email-alert {
+  margin: 10px 0px 0px 0px;
+}
+.login-content .sign-user_card .email-alert-text {
+  font-size: 14px;
+}
+.login-content .sign-user_card .email-alert ul {
+  font-size: 13px;
+  margin: 0px;
+  padding: 0px;
+  margin-left: 20px;
+}
+.login-content .sign-user_card .email-alert ul li {
+  margin-top: 6px;
+  line-height: 16px;
+}
+
 .login-content .sign-user_card .btn-block .btn-on {
   color: #ffffff !important;
   background-color: #2028eb;
