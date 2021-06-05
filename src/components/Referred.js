@@ -160,7 +160,7 @@ class Referred extends React.Component {
               <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
                 <i
                   className="ri-menu-line wrapper-menu"
-                  // onClick={() => $("body").addClass("sidebar-main")}
+                // onClick={() => $("body").addClass("sidebar-main")}
                 ></i>
                 <Link to="/app" className="header-logo" >
                   <img
@@ -468,6 +468,7 @@ class Referred extends React.Component {
                     <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit
                       } SRX`}</h5>
                     <div className="col-lg-12 col-md-12 text-center">
+                      <p>{user.email}</p>
                       {this.state.credit > 0 ?
                         <a
                           target="_blank"
