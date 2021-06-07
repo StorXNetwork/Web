@@ -815,11 +815,10 @@ class XCloud extends React.Component {
         email: getUserData().email,
         platform: "web",
       });
-
+      if (file.size > 104857600) toast.warning("You cannot upload file more than 100 mb");
       const uploadUrl = `/api/storage/folder/${parentFolderId}/upload`;
       const data = new FormData();
       data.append("xfile", file);
-      // const ranNum = Math.floor(Math.random() * 1000);
       axios.post(uploadUrl,
         data, {
         onUploadProgress: e => {

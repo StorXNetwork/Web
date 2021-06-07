@@ -110,14 +110,11 @@ class Share extends React.Component<ShareProps> {
     const token = this.state.token;
 
     socket.emit('get-file-share', { token });
-
     socket.on(`get-file-share-${token}-length`, (fileLength) => this.setFileLength(fileLength));
     socket.on(`get-file-share-${token}-fileName`, (fileName) => this.setFileName(fileName));
     socket.on(`get-file-share-${token}-error`, (err) => this.handleSocketError(err));
-
     socket.on(`get-file-share-${token}-stream`, (chunk: ArrayBuffer) => {
       this.increaseProgress(((chunk.byteLength / this.state.fileLength) * 100));
-
       if (!this.state.steps.sendingToBrowser) {
         // prevent event to fire twice before react changes state.steps.sendingToBrowser to true.
         this.IsSendingToBrowser();

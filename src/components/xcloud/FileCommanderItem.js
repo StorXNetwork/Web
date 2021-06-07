@@ -486,14 +486,6 @@ class FileCommanderItem extends React.Component {
                 <i className="lar la-clock text-primary mr-2 font-size-20"></i>
                 {moment(this.props.rawItem.createdAt).format("DD MMM, YYYY")}
               </p>
-              {/* <p className="mb-0">
-                <i className="lar la-clock text-primary mr-2 font-size-20"></i>
-                {PrettySize(this.props.size)}
-              </p>
-              <p className="mb-0">
-                <i className="lar la-clock text-primary mr-2 font-size-20"></i>
-                {this.props.created && this.props.isFolder ? <TimeAgo date={this.props.created} /> : ''}
-              </p> */}
             </a>
           </div>
         ) : (

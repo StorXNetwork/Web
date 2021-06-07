@@ -247,7 +247,8 @@ class FileCommander extends React.Component {
         }
       },
       (err) => {
-        let idTeam = this.props.namePath[this.props.namePath.length - 1].id_team;
+        let idTeam =
+          this.props.namePath[this.props.namePath.length - 1].id_team;
         if (idTeam) {
           console.log("getFolderContent 1");
           this.props.getFolderContent(this.props.currentFolderId, true, idTeam);
@@ -648,78 +649,6 @@ class FileCommander extends React.Component {
                         </label>
                       </div>
                     </div>
-                    {
-                      <div className="dashboard1-info-back">
-                        {this.state.namePath.length > 1 ? (
-                          <a
-                            href="#"
-                            onClick={this.props.handleFolderTraverseUp.bind(
-                              this
-                            )}
-                            onDragOver={this.handleDragOverBackButton}
-                            onDrop={this.handleDropOverBackButton}
-                          >
-                            <i className="ri-arrow-left-s-line"></i>Back
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    }
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-12">
-                <div
-                  className="card card-block card-stretch card-height iq-welcome"
-                  style={{
-                    background: `url(${backgroundLogo}) no-repeat scroll right center`,
-                    backgroundColor: "#ffffff",
-                    backgroundSize: "contain",
-                  }}
-                >
-                  <div className="card-body property2-content">
-                    <div className="d-flex flex-wrap align-items-center">
-                      <div className="col-lg-6 col-sm-6 p-0">
-                        <h4 className="mb-4">
-                          Welcome:{" "}
-                          {user != null ? user.name : history.push("/")}{" "}
-                          {user != null ? user.lastname : history.push("/")}
-                        </h4>
-                        <p className="mb-5">
-                          Currently you have{" "}
-                          {folderLength > 0
-                            ? `${folderLength} Folder`
-                            : "No Folder Available"}{" "}
-                          and{" "}
-                          {fileLength > 0
-                            ? `${fileLength} File`
-                            : "No File Available"}{" "}
-                          in your drive.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 my-3">
-              {/* <Breadcrumb>
-                <Breadcrumb.Item active>{window.location.pathname}</Breadcrumb.Item>
-              </Breadcrumb> */}
-            </div>
-            <div
-              className="row mb-3"
-              onDragOver={this.handleDragOver}
-              onDragLeave={this.handleDragLeave}
-              onDrop={this.handleDrop}
-            >
-              <div className="col-lg-12">
-                <div className="card card-block card-stretch card-transparent">
-                  <div className="card-header d-flex justify-content-between pb-0">
-                    <div className="header-title">
-                      <h4 className="card-title">Folders / Files</h4>
-                    </div>
                     <div className="card-header-toolbar d-flex align-items-center">
                       <div className="dropdown">
                         <span
@@ -773,6 +702,86 @@ class FileCommander extends React.Component {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-12">
+                <div
+                  className="card card-block card-stretch card-height-welcome iq-welcome"
+                  style={{
+                    background: `url(${backgroundLogo}) no-repeat scroll right center`,
+                    backgroundColor: "#ffffff",
+                    backgroundSize: "contain",
+                  }}
+                >
+                  <div className="card-body property2-content">
+                    <div className="d-flex flex-wrap align-items-center">
+                      <div className="col-lg-6 col-sm-6 p-0">
+                        <h4 className="mb-3">
+                          Welcome:{" "}
+                          {user != null ? user.name : history.push("/")}{" "}
+                          {user != null ? user.lastname : history.push("/")}
+                        </h4>
+                        <p className="mb-0">
+                          Currently you have{" "}
+                          {folderLength > 0
+                            ? `${folderLength} Folder`
+                            : "No Folder Available"}{" "}
+                          and{" "}
+                          {fileLength > 0
+                            ? `${fileLength} File`
+                            : "No File Available"}{" "}
+                          in your drive.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <div className="col-lg-3 col-md-6 col-sm-6 my-3">
+            </div> */}
+            <div
+              className="row mb-3"
+              onDragOver={this.handleDragOver}
+              onDragLeave={this.handleDragLeave}
+              onDrop={this.handleDrop}
+            >
+              <div className="col-lg-12">
+                <div className="card card-block card-stretch card-transparent">
+                  <div className="card-header d-flex justify-content-between pb-0">
+                    {/* <div className="header-title">
+                      <h4 className="card-title">Folders / Files</h4>
+                    </div> */}
+                    <Breadcrumb style={{ pointerEvents: "none" }}>
+                      {this.props.namePath.map((e, i) =>
+                        e.name == "All Files" ? (
+                          <Breadcrumb.Item key={i}>
+                            All Folders & Files
+                          </Breadcrumb.Item>
+                        ) : (
+                          <Breadcrumb.Item key={i}>{e.name}</Breadcrumb.Item>
+                        )
+                      )}
+                    </Breadcrumb>
+                    {
+                      <div className="dashboard1-info-back">
+                        {this.state.namePath.length > 1 ? (
+                          <a
+                            href="#"
+                            onClick={this.props.handleFolderTraverseUp.bind(
+                              this
+                            )}
+                            onDragOver={this.handleDragOverBackButton}
+                            onDrop={this.handleDropOverBackButton}
+                          >
+                            <i className="ri-arrow-left-s-line"></i>Back
+                          </a>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    }
                   </div>
                 </div>
               </div>

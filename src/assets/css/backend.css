@@ -8495,6 +8495,12 @@ a.text-dark:hover {
 .card-block.card-height {
   height: calc(100% - 30px);
 }
+.card-block.card-height-welcome {
+  /*height: calc(75% - 30px);*/
+}
+.card-height-welcome h4 {
+  font-size: 22px !important;
+}
 .card-block {
   display: -ms-flexbox;
   display: flex;
