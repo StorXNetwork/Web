@@ -815,7 +815,7 @@ class XCloud extends React.Component {
         email: getUserData().email,
         platform: "web",
       });
-      if (file.size > 104857600) toast.warning("You cannot upload file more than 100 mb");
+      if (file.size > 104857600) toast.warning("Max upload limit 100 mb");
       const uploadUrl = `/api/storage/folder/${parentFolderId}/upload`;
       const data = new FormData();
       data.append("xfile", file);
