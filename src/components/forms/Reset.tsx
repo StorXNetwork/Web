@@ -128,7 +128,8 @@ class Reset extends React.Component<ResetProps> {
 
   isPasswordValid() {
     let isValid = false;
-    const regexPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
+    const regexPass = /^([\w\d]{1,})$/;
+    // const regexPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
     if (!this.state.newPassword || !this.state.confirmNewPassword) {
       return false;
     }

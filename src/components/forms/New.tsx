@@ -193,8 +193,9 @@ class New extends React.Component<NewProps, NewState> {
 
   validatePassword = () => {
     let isValid = false;
-    const regexPass =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
+    // const regexPass =
+    //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
+    const regexPass = /^([\w\d]{1,})$/;
     if (!this.state.register.password || !this.state.register.confirmPassword) {
       return false;
     }
@@ -212,7 +213,6 @@ class New extends React.Component<NewProps, NewState> {
     if (this.state.register.password !== this.state.register.confirmPassword) {
       isValid = false;
     }
-
     return isValid;
   };
 
@@ -547,9 +547,9 @@ class New extends React.Component<NewProps, NewState> {
                         </button>
                         <div className="email-alert font-weight-400">
                           <ul>
-                            <li>To activate your StorX Account, Kindly verify your email address by Clicking on Activation link of verification email sent to your registered email.</li>
-                            <li>Verification Email might take upto 15 mintues.</li>
-                            <li>Please check Spam/Promotion Folder for veification email account if not found in Inbox</li>
+                            <li><b>To activate your StorX Account, Kindly check your Inbox/Spam/Promotion Folder to verify your email address.</b></li>
+                            <li><b>Verification Email might take upto 15 mintues.</b></li>
+                            {/* <li><b>Please check Spam/Promotion Folder for veification email account if not found in Inbox</b></li> */}
                           </ul>
                         </div>
                       </Form>
@@ -939,7 +939,7 @@ class New extends React.Component<NewProps, NewState> {
                                 autoFocus
                               />
                               <label htmlFor="password">Password</label>
-                              {this.state.register.password != "" ? (
+                              {/* {this.state.register.password != "" ? (
                                 this.regexPass(this.state.register.password) ? (
                                   ""
                                 ) : (
@@ -949,7 +949,7 @@ class New extends React.Component<NewProps, NewState> {
                                     number
                                   </div>
                                 )
-                              ) : null}
+                              ) : null} */}
                             </div>
                           </div>
                           <div className="col-lg-12">
@@ -965,12 +965,12 @@ class New extends React.Component<NewProps, NewState> {
                               />
                               <label>Confirm Password</label>
                             </div>
-                            {this.state.register.password !=
+                            {/* {this.state.register.password !=
                               this.state.register.confirmPassword ? (
                               <div className="mt-1 text-danger small">
                                 Password mismatch
                               </div>
-                            ) : null}
+                            ) : null} */}
                           </div>
                         </div>
                         <div className="btn-block mt-3">

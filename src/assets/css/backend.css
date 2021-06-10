@@ -10272,7 +10272,7 @@ body.sidebar-main .iq-top-navbar {
   border: 1px solid transparent;
   padding: 0.75rem 0.75rem !important;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1 !important;
   border-radius: 8px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
