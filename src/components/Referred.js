@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../src/assets/images/logo.png";
 import $ from "jquery";
 import Settings from "../lib/settings";
+import history from "../lib/history";
 import referralClicked from "../../src/assets/images/referral/click.png";
 import referralEarned from "../../src/assets/images/presenting.png";
 
@@ -151,7 +152,8 @@ class Referred extends React.Component {
   };
 
   render() {
-    const user = Settings.getUser();
+    let user = Settings.getUser();
+    let userData = Object.keys(user).length === 0 ? history.push('/') : user;
     return (
       <>
         <NavigationBar navbarItems="" showSettingsButton={true} />
@@ -239,7 +241,7 @@ class Referred extends React.Component {
                 >
                   <ul className="navbar-nav ml-auto navbar-list align-items-center">
                     <li className="nav-item nav-icon search-content">
-                      <a
+                      {/* <a
                         className="search-toggle rounded"
                         id="dropdownSearch"
                         data-toggle="dropdown"
@@ -247,7 +249,7 @@ class Referred extends React.Component {
                         aria-expanded="false"
                       >
                         <i className="ri-search-line"></i>
-                      </a>
+                      </a> */}
                       <div
                         className="iq-search-bar iq-sub-dropdown dropdown-menu"
                         aria-labelledby="dropdownSearch"
@@ -365,7 +367,7 @@ class Referred extends React.Component {
                             <div className="profile-header">
                               <div className="cover-container text-center">
                                 <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                                  {user != null ? user.name.charAt(0) : ""}
+                                  {userData ? user.name.charAt(0) : ""}
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
@@ -435,8 +437,8 @@ class Referred extends React.Component {
                         </h5>
                         <p className="mb-3">
                           Invite friends and family who aren't on StorX yet.
-                          You'll both will be eligible for rewards * of 10 STORX
-                          Tokens. Start earning with StorX today!
+                          You'll both will be eligible for rewards * of 10 SRX
+                          tokens. Start earning with StorX today!
                         </p>
                         {/* <p className="font-weight-medium">
                           Create an account on <a target="_blank" href="https://wallet.xinfin.network/">XDC Web Wallet</a>, to claim your SRX token.
@@ -478,7 +480,7 @@ class Referred extends React.Component {
                           target="_blank"
                           href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
                           type="submit"
-                          className="btn btn-primary"
+                          className="btn btn-primary btn-sm"
                           onClick={() => {
                             if (this.state.credit > 0) {
                               // this.sendClaimEmail();

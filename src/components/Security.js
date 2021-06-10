@@ -239,7 +239,7 @@ class Security extends React.Component {
                 >
                   <ul className="navbar-nav ml-auto navbar-list align-items-center">
                     <li className="nav-item nav-icon search-content">
-                      <a
+                      {/* <a
                         className="search-toggle rounded"
                         id="dropdownSearch"
                         data-toggle="dropdown"
@@ -247,7 +247,7 @@ class Security extends React.Component {
                         aria-expanded="false"
                       >
                         <i className="ri-search-line"></i>
-                      </a>
+                      </a> */}
                       <div
                         className="iq-search-bar iq-sub-dropdown dropdown-menu"
                         aria-labelledby="dropdownSearch"

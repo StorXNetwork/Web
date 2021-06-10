@@ -177,7 +177,7 @@ class Storage extends React.Component {
                 >
                   <ul className="navbar-nav ml-auto navbar-list align-items-center">
                     <li className="nav-item nav-icon search-content">
-                      <a
+                      {/* <a
                         className="search-toggle rounded"
                         id="dropdownSearch"
                         data-toggle="dropdown"
@@ -185,7 +185,7 @@ class Storage extends React.Component {
                         aria-expanded="false"
                       >
                         <i className="ri-search-line"></i>
-                      </a>
+                      </a> */}
                       <div
                         className="iq-search-bar iq-sub-dropdown dropdown-menu"
                         aria-labelledby="dropdownSearch"
@@ -348,7 +348,7 @@ class Storage extends React.Component {
                       <ul class="nav nav-tabs">
                         <li><a class="active show" data-toggle="tab" href="#pricing-data1"><span
                           class="left-text">Individual</span></a></li>
-                        <li><a class=" " data-toggle="tab" href="#pricing-data2"><span
+                        <li><a class="ent " data-toggle="tab" href="#pricing-data2"><span
                           class="right-text">Enterprise</span></a></li>
                       </ul>
                       {/* <ul class="nav nav-tabs">
@@ -373,6 +373,7 @@ class Storage extends React.Component {
                               <li>End-to-End Encryption</li>
                               <li>Private File Sharing</li>
                               <li>No 3rd Party Tracking</li>
+                              <li>Desktop App <b>(For limited time)</b></li>
                             </ul>
                             <div className="price-btn-block">
                               <h4
@@ -393,6 +394,7 @@ class Storage extends React.Component {
                               <li>End-to-End Encryption</li>
                               <li>Private File Sharing</li>
                               <li>No 3rd Party Tracking</li>
+                              <li>Desktop App <b>(For limited time)</b></li>
                             </ul>
                             <div className="price-btn-block">
                               <button className="btn btn-primary mb-2 mt-3" disabled>

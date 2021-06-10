@@ -16374,35 +16374,46 @@ table.dataTable.no-footer {
   display: inline-block;
 }
 .pricing-custom-tab .nav-tabs li a .left-text {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.1 !important;
-  color: #525252;
-  position: absolute;
-  margin-left: -110px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 0.75!important;
+    color: #525252;
+    position: absolute;
+    margin-left: -100px;
 }
 .pricing-custom-tab .nav-tabs li a .right-text {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.1 !important;
-  color: #525252;
-  position: absolute;
-  margin-left: 36px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 0.75 !important;
+    color: #525252;
+    position: absolute;
+    margin-left: 36px!important;
 }
 .pricing-custom-tab .nav-tabs li a {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: transparent;
-  display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: transparent;
+    display: inline-block;
+    margin: 2px;
+}
+.pricing-custom-tab .nav-tabs li a.active .right-text {
+    color: #57616d;
+    margin-left: 30px !important;
+}
+.pricing-custom-tab .nav-tabs li a.active .left-text {
+    color: #57616d;
 }
 .pricing-custom-tab .nav-tabs li a.active {
-  background: #fff;
+    background: #fff;
 }
 .pricing-custom-tab .nav-tabs li a.active span {
   color: #01041b;
 }
-
+.ent.active {
+  right: -6px;
+  position: relative;
+}
 ul.pricing-list {
   padding-top: 10px;
   border-top: 1px solid #e8eaf1;
@@ -20864,4 +20875,28 @@ table.dataTable th {
   to {
     transform: rotate(360deg);
   }
+}
+
+/*---------- Breadcrumb ----------*/
+.breadcrumb {
+ background-color:transparent !important;
+	margin-bottom: 0px !important;
+}
+.breadcrumb-item {
+    font-size: 1.15rem !important;
+	font-weight: 500;
+}
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.01rem !important;;
+}
+.breadcrumb-item a {
+    color: #535f6b;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "\ea6e" !important;
+    font-family: 'remixicon' !important;
+	margin-top: -2px !important;
+	font-size: 24px !important;
+    font-weight: 500 !important;
+	padding-right: 0.01rem !important;
 }
