@@ -127,11 +127,11 @@ class Referred extends React.Component {
   };
 
   sendClaimEmail = () => {
-    console.log('.........', this.state.email);
+    const user = Settings.getUser();
     fetch("/api/user/claim", {
       method: "POST",
       headers: getHeaders(true, false),
-      body: JSON.stringify({ email: this.state.email }),
+      body: JSON.stringify({ email: user.email }),
     })
       .then(async (res) => {
         return { response: res, data: await res.json() };
@@ -144,7 +144,6 @@ class Referred extends React.Component {
         }
       })
       .catch((err) => {
-        console.log('.........', err);
         toast.error(
           `Error: ${err.error ? err.error : "Internal Server Error"}`
         );
@@ -482,7 +481,7 @@ class Referred extends React.Component {
                           className="btn btn-primary"
                           onClick={() => {
                             if (this.state.credit > 0) {
-                              this.sendClaimEmail();
+                              // this.sendClaimEmail();
                             } else {
                               toast.info(
                                 "You don't have any credit on your account"
