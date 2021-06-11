@@ -79,8 +79,6 @@ class XCloud extends React.Component {
             history.push("/login");
           });
       } else {
-        console.log("getFolderContent 4");
-
         if (
           Settings.exists("xTeam") &&
           !this.state.isTeam &&
@@ -412,7 +410,6 @@ class XCloud extends React.Component {
 
   openFolder = (e) => {
     return new Promise((resolve) => {
-      console.log("getFolderContent 11");
       this.getFolderContent(e, true, true, this.state.isTeam);
       resolve();
     });

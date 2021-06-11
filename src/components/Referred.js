@@ -492,7 +492,7 @@ class Referred extends React.Component {
                           }}
                         >
                           Claim Now
-                          </a> : null}
+                        </a> : null}
                     </div>
                   </div>
                 </div>
@@ -576,7 +576,7 @@ class Referred extends React.Component {
                                   className="twitter"
                                   href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid
                                     }&${this.parseUrl({
-                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 SRX Tokens.\n#SRX #StorXNetwork\n\n",
                                     })}`}
                                   target="_blank"
                                 >
@@ -587,7 +587,7 @@ class Referred extends React.Component {
                                   href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid
                                     }&amp;src=sdkpreparse&${this.parseUrl({
                                       quote:
-                                        "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                        "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 SRX Tokens.\n#SRX #StorXNetwork\n\n",
                                     })}`}
                                   target="_blank"
                                   data-href={`https://storx.io/new?ref=${user.uuid}`}
@@ -598,7 +598,7 @@ class Referred extends React.Component {
                                   className="telegram"
                                   href={`https://t.me/share/url?${this.parseUrl(
                                     {
-                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $STORX Tokens.\n#StorX #StorXNetwork\n\n",
+                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 SRX Tokens.\n#SRX #StorXNetwork\n\n",
                                     }
                                   )}&url=https://storx.io/new?ref=${user.uuid}`}
                                   target="_blank"
