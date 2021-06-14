@@ -195,7 +195,7 @@ class New extends React.Component<NewProps, NewState> {
     let isValid = false;
     // const regexPass =
     //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@$!%*?&]).{8,}$/;
-    const regexPass = /^([\w\d]{1,})$/;
+    const regexPass = /^([\w\d!@#$&]{1,})$/;
     if (!this.state.register.password || !this.state.register.confirmPassword) {
       return false;
     }
