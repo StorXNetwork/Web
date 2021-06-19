@@ -446,6 +446,7 @@ class Referred extends React.Component {
                         <p className="font-weight-medium">
                           Download <a target="_blank" href="https://dcentwallet.com/MobileApp">D'CENT Wallet</a>, to store your SRX tokens.
                         </p>
+                        <span><b>Note*</b> Minimum claim amount is 50 SRX</span>
                         {/* <br />
                         <br />
                         <b>XDC Web Wallet: <a target="_blank" href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b> */}
@@ -480,6 +481,7 @@ class Referred extends React.Component {
                           target="_blank"
                           href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
                           type="submit"
+                          style={{ pointerEvents: this.state.credit > 50 ? false : "none", opacity: this.state.credit > 50 ? 1 : 0.6 }}
                           className="btn btn-primary btn-sm"
                           onClick={() => {
                             if (this.state.credit > 0) {
