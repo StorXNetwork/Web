@@ -833,7 +833,6 @@ class XCloud extends React.Component {
         let data;
         try {
           data = await res.data;
-          toast.success("Uploaded successfully.");
           window.analytics.track("file-upload-finished", {
             email: getUserData().email,
             file_size: file.size,
@@ -851,6 +850,7 @@ class XCloud extends React.Component {
           console.error("Upload response data is not a JSON", err);
         }
         if (data) {
+          toast.success("Uploaded successfully.");
           return { res: res, data: res.data };
         } else {
           throw res;
