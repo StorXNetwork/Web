@@ -471,8 +471,7 @@ class Referred extends React.Component {
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} className="img-fluid" />
                     </div>
-                    <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit
-                      } SRX`}</h5>
+                    <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit >= 1000 ? 1000 : this.state.credit} SRX`}</h5>
                     <div className="col-lg-12 col-md-12 text-center">
                       <p>{user.email}</p>
                       {this.state.credit > 0 ?
