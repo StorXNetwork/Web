@@ -45,7 +45,6 @@ class Referred extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "" };
-
     this.handleEmailChange = this.handleEmailChange.bind(this);
   }
 
@@ -472,6 +471,7 @@ class Referred extends React.Component {
                       <img src={referralEarned} className="img-fluid" />
                     </div>
                     <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit >= 1000 ? 1000 : this.state.credit} SRX`}</h5>
+                    {this.state.credit > 1000 ? <p className="text-center mb-2 text-danger">You have reached maximum limit of Tokens</p> : null}
                     <div className="col-lg-12 col-md-12 text-center">
                       <p>{user.email}</p>
                       {this.state.credit > 0 ?
@@ -573,20 +573,18 @@ class Referred extends React.Component {
                               <div className="social-sharing justify-content-between">
                                 <a
                                   className="twitter"
-                                  href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid
-                                    }&${this.parseUrl({
-                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
-                                    })}`}
+                                  href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid}&${this.parseUrl({
+                                    text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
+                                  })}`}
                                   target="_blank"
                                 >
                                   <i className="fab fa-twitter"></i>
                                 </a>
                                 <a
                                   className="facebook"
-                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid
-                                    }&amp;src=sdkpreparse&${this.parseUrl({
-                                      quote: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
-                                    })}`}
+                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({
+                                    quote: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
+                                  })}`}
                                   target="_blank"
                                   data-href={`https://storx.io/new?ref=${user.uuid}`}
                                 >
@@ -594,11 +592,7 @@ class Referred extends React.Component {
                                 </a>
                                 <a
                                   className="telegram"
-                                  href={`https://t.me/share/url?${this.parseUrl(
-                                    {
-                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
-                                    }
-                                  )}&url=https://storx.io/new?ref=${user.uuid}`}
+                                  href={`https://t.me/share/url?${this.parseUrl({ text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n", })}&url=https://storx.io/new?ref=${user.uuid}`}
                                   target="_blank"
                                 >
                                   <i className="fa fa-paper-plane"></i>
