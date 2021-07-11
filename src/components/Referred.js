@@ -33,6 +33,7 @@ class Referred extends React.Component {
   state = {
     email: "",
     credit: 0,
+    creditWarning: false,
     showClaimPop: false,
     textToCopy: "",
     copySuccess: "",
@@ -75,8 +76,11 @@ class Referred extends React.Component {
       })
       .then(async ({ res, data }) => {
         const credit = data.userCredit;
-
-        this.setState({ credit: credit });
+        if(credit < 1000){
+          this.setState({ credit: credit });
+        } else {
+          this.setState({ credit: 1000, creditWarning: true });
+        }
       })
       .catch((err) => { });
   };
@@ -473,6 +477,7 @@ class Referred extends React.Component {
                     </div>
                     <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit
                       } SRX`}</h5>
+                    {this.state.creditWarning ? <h6 style={{fontSize: '4px', backgroundColor: 'red', color: 'white'}} className="text-center mb-2">You have reached the maximum accumulation limit</h6> : null}
                     <div className="col-lg-12 col-md-12 text-center">
                       <p>{user.email}</p>
                       {this.state.credit > 0 ?
