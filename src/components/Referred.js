@@ -436,7 +436,7 @@ class Referred extends React.Component {
                         </h5>
                         <p className="mb-3">
                           Invite friends and family who aren't on StorX yet.
-                          You'll both will be eligible for rewards * of 10 SRX
+                          You'll both will be eligible for rewards * of 100 SRX
                           tokens. Start earning with StorX today!
                         </p>
                         {/* <p className="font-weight-medium">
@@ -474,14 +474,14 @@ class Referred extends React.Component {
                     {this.state.credit > 1000 ? <p className="text-center mb-2 text-danger">You have reached maximum limit of Tokens</p> : null}
                     <div className="col-lg-12 col-md-12 text-center">
                       <p>{user.email}</p>
-                      {this.state.credit > 0 ?
+                      {this.state.credit > 100 ?
                         <a
                           target="_blank"
                           href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
                           type="submit"
                           className="btn btn-primary btn-sm"
                           onClick={() => {
-                            if (this.state.credit > 0) {
+                            if (this.state.credit > 100) {
                               // this.sendClaimEmail();
                             } else {
                               toast.info(
