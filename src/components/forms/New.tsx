@@ -306,6 +306,8 @@ class New extends React.Component<NewProps, NewState> {
               // Settings.set("xUser", JSON.stringify(user));
             });
           });
+        } else if (response.status === 429) {
+          toast.warning("User not created, Please try again.");
         } else {
           return response.json().then((body) => {
             //Manage account already exists (error 400)
@@ -314,10 +316,10 @@ class New extends React.Component<NewProps, NewState> {
             this.setState({ validated: false });
             history.push("/login");
           });
-        };
+        }
       })
       .catch((err) => {
-        history.push('/');
+        history.push("/");
         console.error("Register error", err);
         // toast.error("Something went wrong", { autoClose: 3000, transition: Flip });
       });
@@ -506,7 +508,7 @@ class New extends React.Component<NewProps, NewState> {
                             this.state.register.lastname) != "" ? (
                             regexFullName.test(
                               this.state.register.name ||
-                              this.state.register.lastname
+                                this.state.register.lastname
                             ) ? (
                               ""
                             ) : (
@@ -547,8 +549,18 @@ class New extends React.Component<NewProps, NewState> {
                         </button>
                         <div className="email-alert font-weight-400">
                           <ul>
-                            <li><b>To activate your StorX Account, Kindly check your Inbox/Spam/Promotion Folder to verify your email address.</b></li>
-                            <li><b>Verification Email might take upto 15 mintues.</b></li>
+                            <li>
+                              <b>
+                                To activate your StorX Account, Kindly check
+                                your Inbox/Spam/Promotion Folder to verify your
+                                email address.
+                              </b>
+                            </li>
+                            <li>
+                              <b>
+                                Verification Email might take upto 15 mintues.
+                              </b>
+                            </li>
                             {/* <li><b>Please check Spam/Promotion Folder for veification email account if not found in Inbox</b></li> */}
                           </ul>
                         </div>
@@ -743,7 +755,7 @@ class New extends React.Component<NewProps, NewState> {
                             className="btn btn-on"
                             type="submit"
                             autoFocus
-                          // disabled={!this.state.checkTermsConditions}
+                            // disabled={!this.state.checkTermsConditions}
                           >
                             Continue
                           </button>
