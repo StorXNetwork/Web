@@ -474,24 +474,24 @@ class Referred extends React.Component {
                     {this.state.credit > 1000 ? <p className="text-center mb-2 text-danger">You have reached maximum limit of Tokens</p> : null}
                     <div className="col-lg-12 col-md-12 text-center">
                       <p>{user.email}</p>
-                      {this.state.credit > 100 ?
-                        <a
-                          target="_blank"
-                          href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
-                          type="submit"
-                          className="btn btn-primary btn-sm"
-                          onClick={() => {
-                            if (this.state.credit > 100) {
-                              // this.sendClaimEmail();
-                            } else {
-                              toast.info(
-                                "You don't have any credit on your account"
-                              );
-                            }
-                          }}
-                        >
-                          Claim Now
-                        </a> : null}
+                      <a
+                        target="_blank"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
+                        type="submit"
+                        style={{ pointerEvents: this.state.credit > 100 ? null : "none", opacity: this.state.credit > 100 ? "1" : "0.6" }}
+                        className="btn btn-primary btn-sm"
+                        onClick={() => {
+                          if (this.state.credit > 100) {
+                            // this.sendClaimEmail();
+                          } else {
+                            toast.info(
+                              "You don't have any credit on your account"
+                            );
+                          }
+                        }}
+                      >
+                        Claim Now
+                      </a>
                     </div>
                   </div>
                 </div>
