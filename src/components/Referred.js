@@ -33,6 +33,7 @@ class Referred extends React.Component {
   state = {
     email: "",
     credit: 0,
+    creditWarning: false,
     showClaimPop: false,
     textToCopy: "",
     copySuccess: "",
@@ -45,6 +46,7 @@ class Referred extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "" };
+
     this.handleEmailChange = this.handleEmailChange.bind(this);
   }
 
@@ -74,8 +76,11 @@ class Referred extends React.Component {
       })
       .then(async ({ res, data }) => {
         const credit = data.userCredit;
-
-        this.setState({ credit: credit });
+        if(credit < 1000){
+          this.setState({ credit: credit });
+        } else {
+          this.setState({ credit: 1000, creditWarning: true });
+        }
       })
       .catch((err) => { });
   };
@@ -423,7 +428,7 @@ class Referred extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-8 col-md-8 col-sm-7">
+              <div className="col-lg-12 col-md-12 col-sm-12">
                 <div
                   className="card card-block card-stretch card-height iq-welcome"
                   style={{ backgroundColor: "#ffffff" }}
@@ -432,34 +437,41 @@ class Referred extends React.Component {
                     <div className="d-flex flex-wrap align-items-center">
                       <div className="col-lg-8 col-md-7 col-12 p-0">
                         <h5 className="mb-4">
-                          Earn Tokens by referring Friends & Family to StorX
+                          Dear Users,
                         </h5>
                         <p className="mb-3">
-                          Invite friends and family who aren't on StorX yet.
-                          You'll both will be eligible for rewards * of 100 SRX
-                          tokens. Start earning with StorX today!
+                          Thanks for your Love & Response.
+                        </p>
+                        <p className="mb-3">
+                          As annouced on 13, July, 2021, Our Referral Program has already concluded. All users who qualify for referral SRX token would received the same in coming 14 - 30 days time, After due verification.
+                        </p>
+                        <p className="mb-3">
+                          We have many more exiciting Bouties coming up, Please subscribde and stay tuned to our Social Media Network for more information.
+                        </p>
+                        <p className="mb-3">
+                          Please Refer to Referral Program <a target="_blank" href="https://storx.tech/application-usage-terms.html">Terms & Conditions</a>
                         </p>
                         {/* <p className="font-weight-medium">
                           Create an account on <a target="_blank" href="https://wallet.xinfin.network/">XDC Web Wallet</a>, to claim your SRX token.
                         </p> */}
-                        <p className="font-weight-medium">
+                        {/* <p className="font-weight-medium">
                           Download <a target="_blank" href="https://dcentwallet.com/MobileApp">D'CENT Wallet</a>, to store your SRX tokens.
-                        </p>
+                        </p> */}
                         {/* <br />
                         <br />
                         <b>XDC Web Wallet: <a target="_blank" href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b> */}
                       </div>
-                      <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
+                      {/* <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
                         <img
                           src={referralClicked}
                           className="img-fluid invite-img"
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-5">
+              {/* <div className="col-lg-4 col-md-4 col-sm-5">
                 <div className="card card-block card-stretch card-height">
                   <div className="card-header d-flex justify-content-between">
                     <div className="header-title">
@@ -470,33 +482,34 @@ class Referred extends React.Component {
                     <div className="iconwrap icon-folder text-center">
                       <img src={referralEarned} className="img-fluid" />
                     </div>
-                    <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit >= 1000 ? 1000 : this.state.credit} SRX`}</h5>
-                    {this.state.credit > 1000 ? <p className="text-center mb-2 text-danger">You have reached maximum limit of Tokens</p> : null}
+                    <h5 className="text-center mb-2">{`${this.state.credit == undefined ? 0 : this.state.credit
+                      } SRX`}</h5>
+                    {this.state.creditWarning ? <h6 style={{fontSize: '4px', backgroundColor: 'red', color: 'white'}} className="text-center mb-2">You have reached the maximum accumulation limit</h6> : null}
                     <div className="col-lg-12 col-md-12 text-center">
                       <p>{user.email}</p>
-                      <a
-                        target="_blank"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
-                        type="submit"
-                        style={{ pointerEvents: this.state.credit > 100 ? null : "none", opacity: this.state.credit > 100 ? "1" : "0.6" }}
-                        className="btn btn-primary btn-sm"
-                        onClick={() => {
-                          if (this.state.credit > 100) {
-                            // this.sendClaimEmail();
-                          } else {
-                            toast.info(
-                              "You don't have any credit on your account"
-                            );
-                          }
-                        }}
-                      >
-                        Claim Now
-                      </a>
+                      {this.state.credit > 0 ?
+                        <a
+                          target="_blank"
+                          href="https://docs.google.com/forms/d/e/1FAIpQLScfZPLFO47nwAYgOupgoP-8mUax6ejdPkP_GCa0LWvfngMmRw/viewform?usp=sf_link"
+                          type="submit"
+                          className="btn btn-primary btn-sm"
+                          onClick={() => {
+                            if (this.state.credit > 0) {
+                              // this.sendClaimEmail();
+                            } else {
+                              toast.info(
+                                "You don't have any credit on your account"
+                              );
+                            }
+                          }}
+                        >
+                          Claim Now
+                        </a> : null}
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-sm-12 col-lg-12">
+              </div> */}
+              {/* <div className="col-sm-12 col-lg-12">
                 <div className="card">
                   <div className="card-header d-flex justify-content-between">
                     <div className="header-title">
@@ -505,7 +518,6 @@ class Referred extends React.Component {
                   </div>
                   <div className="card-body">
                     <div className="new-user-info">
-                      {/* <form> */}
                       <div className="row">
                         <div className="col-xl-10 col-lg-12 col-md-12">
                           <p className="pb-3 m-0">
@@ -573,18 +585,20 @@ class Referred extends React.Component {
                               <div className="social-sharing justify-content-between">
                                 <a
                                   className="twitter"
-                                  href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid}&${this.parseUrl({
-                                    text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
-                                  })}`}
+                                  href={`https://twitter.com/intent/tweet?url=https://storx.io/new?ref=${user.uuid
+                                    }&${this.parseUrl({
+                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
+                                    })}`}
                                   target="_blank"
                                 >
                                   <i className="fab fa-twitter"></i>
                                 </a>
                                 <a
                                   className="facebook"
-                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid}&amp;src=sdkpreparse&${this.parseUrl({
-                                    quote: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
-                                  })}`}
+                                  href={`https://www.facebook.com/sharer/sharer.php?u=https://storx.io/new?ref=${user.uuid
+                                    }&amp;src=sdkpreparse&${this.parseUrl({
+                                      quote: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
+                                    })}`}
                                   target="_blank"
                                   data-href={`https://storx.io/new?ref=${user.uuid}`}
                                 >
@@ -592,7 +606,11 @@ class Referred extends React.Component {
                                 </a>
                                 <a
                                   className="telegram"
-                                  href={`https://t.me/share/url?${this.parseUrl({ text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n", })}&url=https://storx.io/new?ref=${user.uuid}`}
+                                  href={`https://t.me/share/url?${this.parseUrl(
+                                    {
+                                      text: "I switched to @StorXNetwork a High Performance Truly Decentralized Cloud Storage Network. Sign up using link and get  FREE 2 GB Account + 10 $SRX Tokens.\n#StorX #SRX #StorXNetwork\n\n",
+                                    }
+                                  )}&url=https://storx.io/new?ref=${user.uuid}`}
                                   target="_blank"
                                 >
                                   <i className="fa fa-paper-plane"></i>
@@ -610,12 +628,11 @@ class Referred extends React.Component {
                             * Referral Program Terms & Conditions
                           </Link>
                         </div>
-                        {/* </form> */}
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
