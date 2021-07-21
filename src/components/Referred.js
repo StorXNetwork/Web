@@ -435,7 +435,7 @@ class Referred extends React.Component {
                 >
                   <div className="card-body property2-content">
                     <div className="d-flex flex-wrap align-items-center">
-                      <div className="col-lg-8 col-md-7 col-12 p-0">
+                      <div className="col-lg-12 col-md-12 col-12 p-0">
                         <h5 className="mb-4">
                           Dear Users,
                         </h5>
@@ -443,14 +443,14 @@ class Referred extends React.Component {
                           Thanks for your Love & Response.
                         </p>
                         <p className="mb-3">
-                          As annouced on 13, July, 2021, Our Referral Program has already concluded. All users who qualify for referral SRX token would received the same in coming 14 - 30 days time, After due verification.
+                          As announced on 13, July, 2021, Our Referral Program has already concluded. All users who qualify for referral SRX token would received the same in coming 14 - 30 days time, After due verification.
                         </p>
                         <p className="mb-3">
-                          We have many more exiciting Bouties coming up, Please subscribde and stay tuned to our Social Media Network for more information.
+                          We have many more exciting Bounties coming up, Please subscribe and stay tuned to our Social Media Network for more information.
                         </p>
-                        <p className="mb-3">
+                        {/* <p className="mb-3">
                           Please Refer to Referral Program <a target="_blank" href="https://storx.tech/application-usage-terms.html">Terms & Conditions</a>
-                        </p>
+                        </p> */}
                         {/* <p className="font-weight-medium">
                           Create an account on <a target="_blank" href="https://wallet.xinfin.network/">XDC Web Wallet</a>, to claim your SRX token.
                         </p> */}
@@ -460,6 +460,15 @@ class Referred extends React.Component {
                         {/* <br />
                         <br />
                         <b>XDC Web Wallet: <a target="_blank" href="https://wallet.xinfin.network/">https://wallet.xinfin.network/</a></b> */}
+                      </div>
+                      <div className="col-xl-10 col-lg-12 col-md-12 mt-2">
+                        <Link
+                          onClick={() =>
+                            this.setState({ showClaimPop: true })
+                          }
+                        >
+                          * Referral Program Terms & Conditions
+                        </Link>
                       </div>
                       {/* <div className="col-lg-4 col-sm-5 text-center p-0 d-none d-md-block">
                         <img
