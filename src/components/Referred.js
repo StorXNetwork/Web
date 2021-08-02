@@ -440,13 +440,16 @@ class Referred extends React.Component {
                           Dear Users,
                         </h5>
                         <p className="mb-3">
-                          Thanks for your Love & Response.
+                          Thanks for your Overwhelming Love & Response.
                         </p>
                         <p className="mb-3">
-                          As announced on 13, July, 2021, Our Referral Program has already concluded. All users who qualify for referral SRX token would received the same in coming 14 - 30 days time, After due verification.
+                          As announced on 13, July, 2021, Our Referral Program has already concluded. First 1000 qualified users were already allotted with referral SRX token.
                         </p>
                         <p className="mb-3">
-                          We have many more exciting Bounties coming up, Please subscribe and stay tuned to our Social Media Network for more information.
+                          As a token of appreciation for participation, We have decided to credit 17 StorX Token to all valid and qualified users, Who filled up the Referral Forms. This would be credited in coming 14 - 30 days time, After due verification.
+                        </p>
+                        <p className="mb-3">
+                          We have many more exciting Contest coming up, Please subscribe and stay tuned to our Social Media Network for more information.
                         </p>
                         {/* <p className="mb-3">
                           Please Refer to Referral Program <a target="_blank" href="https://storx.tech/application-usage-terms.html">Terms & Conditions</a>
