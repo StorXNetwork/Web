@@ -321,6 +321,14 @@ class Referred extends React.Component {
                                 FAQs
                               </a>
                               <a
+                                href="https://storx.tech/disclaimer.html"
+                                target="_blank"
+                                className="iq-sub-card"
+                              >
+                                <i className="ri-question-fill"></i>
+                                Disclaimer
+                              </a>
+                              <a
                                 href="https://storx.tech/support.html"
                                 target="_blank"
                                 className="iq-sub-card"
