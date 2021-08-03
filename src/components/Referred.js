@@ -325,7 +325,7 @@ class Referred extends React.Component {
                                 target="_blank"
                                 className="iq-sub-card"
                               >
-                                <i className="ri-question-fill"></i>
+                                <i className="ri-alert-fill"></i>
                                 Disclaimer
                               </a>
                               <a
