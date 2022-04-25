@@ -137,6 +137,17 @@ class New extends React.Component<NewProps, NewState> {
     }
   }
 
+  componentDidUpdate() {
+    const listener = event => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+      }
+    };
+    if (this.state.currentContainer === CONTAINERS.PasswordContainer) {
+      document.addEventListener("keydown", listener) 
+    }
+  }
+
   handleChangeRegister = (event: any) => {
     var registerState = this.state.register;
 
