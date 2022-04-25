@@ -137,17 +137,6 @@ class New extends React.Component<NewProps, NewState> {
     }
   }
 
-  componentDidUpdate() {
-    const listener = event => {
-      if (event.code === "Enter" || event.code === "NumpadEnter") {
-        event.preventDefault();
-      }
-    };
-    if (this.state.currentContainer === CONTAINERS.PasswordContainer) {
-      document.addEventListener("keydown", listener) 
-    }
-  }
-
   handleChangeRegister = (event: any) => {
     var registerState = this.state.register;
 
@@ -996,7 +985,16 @@ class New extends React.Component<NewProps, NewState> {
                             ) : null} */}
                           </div>
                         </div>
-                        <div className="btn-block mt-3">
+                        <div className="btn-block mt-3" style={{display: 'flex', flexDirection: 'row'}}>
+                          <button
+                            className="btn btn-on"
+                            type="submit"
+                            // disabled={this.state.isLoading}
+                            disabled={!this.validatePassword()}
+                            style={{order: 2}}
+                          >
+                            Continue
+                          </button>
                           <button
                             className="btn btn-off"
                             onClick={(e: any) => {
@@ -1006,16 +1004,9 @@ class New extends React.Component<NewProps, NewState> {
                               });
                               e.preventDefault();
                             }}
+                            style={{order: 1, marginLeft: -1, marginRight: 10}}
                           >
                             Back
-                          </button>
-                          <button
-                            className="btn btn-on"
-                            type="submit"
-                            // disabled={this.state.isLoading}
-                            disabled={!this.validatePassword()}
-                          >
-                            Continue
                           </button>
                         </div>
                       </Form>
