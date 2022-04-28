@@ -988,6 +988,8 @@ class XCloud extends React.Component {
 
     if (selectedItems && selectedItems.length === 1) {
       this.setState({ popupShareOpened: true });
+    } else if (selectedItems && selectedItems.length > 1) {
+      toast.warn("Please select ONE file or folder  at a time to share");
     } else {
       toast.warn("Please select at least one file or folder to share");
     }
