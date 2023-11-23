@@ -30,6 +30,8 @@ const Storage = lazy(() => import("./components/Storage"));
 const Login = lazy(() => import("./components/forms/Login"));
 const Remove = lazy(() => import("./components/forms/Remove"));
 const New = lazy(() => import("./components/forms/New"));
+const Landing1 = lazy(() => import("./components/forms/Landing1"));
+const Landing2 = lazy(() => import("./components/forms/Landing2"));
 const XCloud = lazy(() => import("./components/xcloud/XCloud"));
 const Security = lazy(() => import("./components/Security"));
 
@@ -67,6 +69,32 @@ class App extends React.Component {
                 render={(props) => (
                   <Login
                     {...props}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+
+              <Route
+                exact
+                path="/landing1"
+                render={(props: any) => (
+                  <Landing1
+                    {...props}
+                    isNewUser={true}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+
+              <Route
+                exact
+                path="/landing2"
+                render={(props: any) => (
+                  <Landing2
+                    {...props}
+                    isNewUser={true}
                     isAuthenticated={this.state.isAuthenticated}
                     handleKeySaved={this.handleKeySaved}
                   />

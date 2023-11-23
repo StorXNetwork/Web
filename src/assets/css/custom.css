@@ -1,0 +1,25 @@
+.landing-h1 {
+    font-size: 40px !important;
+}
+
+.landing-h4 {
+    font-size: 20px !important;
+}
+
+.landing-h2 {
+    font-size: 28px !important;
+}
+
+.landing-h3 {
+    font-size: 34px !important;
+}
+
+.landing-p {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 20px !important;
+}
+
+.landing-h3-white {
+    font-size: 25px !important;
+}
