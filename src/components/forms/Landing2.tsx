@@ -432,7 +432,7 @@ class New extends React.Component<NewProps, NewState> {
           <section className="banner">
             <div className="container">
               <div className="content-wrapper">
-                <h1 className="landing-h1">Storx—decentralized cloud storage <br/>
+                <h1 className="landing-h1">StorX—decentralized cloud storage <br/>
                   platform offering the security and <br/>
                   privacy that centralized storage won’t.</h1>
                 <p className="white">Centralized storage providers monopolise prices,
