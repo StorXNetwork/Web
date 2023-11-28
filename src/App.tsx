@@ -34,6 +34,7 @@ const Landing1 = lazy(() => import("./components/forms/Landing1"));
 const Landing2 = lazy(() => import("./components/forms/Landing2"));
 const XCloud = lazy(() => import("./components/xcloud/XCloud"));
 const Security = lazy(() => import("./components/Security"));
+const ThankYou = lazy(() => import("./components/pages/ThankYou"));
 
 class App extends React.Component {
   state = {
@@ -93,6 +94,19 @@ class App extends React.Component {
                 path="/landing2"
                 render={(props: any) => (
                   <Landing2
+                    {...props}
+                    isNewUser={true}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+
+              <Route
+                exact
+                path="/thankyou"
+                render={(props: any) => (
+                  <ThankYou
                     {...props}
                     isNewUser={true}
                     isAuthenticated={this.state.isAuthenticated}

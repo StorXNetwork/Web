@@ -279,28 +279,28 @@ class New extends React.Component<NewProps, NewState> {
         if (response.status === 200) {
           return response.json().then((body) => {
             // Manage succesfull register
-            history.push("/login");
-            const { token, user, uuid } = body;
-            toast.success(
-              "Your account has been created successfully. Please check your mailbox for activation."
-            );
-            analytics.identify(uuid, {
-              email: this.state.register.email,
-              member_tier: "free",
-            });
-            window.analytics.track("user-signup", {
-              properties: {
-                userId: uuid,
-                email: this.state.register.email,
-              },
-            });
-            const privkeyDecrypted = Buffer.from(
-              AesFunctions.decrypt(
-                user.privateKey,
-                this.state.register.password
-              )
-            ).toString("base64");
-            user.privateKey = privkeyDecrypted;
+            history.push("/thankyou");
+            // const { token, user, uuid } = body;
+            // // toast.success(
+            // //   "Your account has been created successfully. Please check your mailbox for activation."
+            // // );
+            // analytics.identify(uuid, {
+            //   email: this.state.register.email,
+            //   member_tier: "free",
+            // });
+            // window.analytics.track("user-signup", {
+            //   properties: {
+            //     userId: uuid,
+            //     email: this.state.register.email,
+            //   },
+            // });
+            // const privkeyDecrypted = Buffer.from(
+            //   AesFunctions.decrypt(
+            //     user.privateKey,
+            //     this.state.register.password
+            //   )
+            // ).toString("base64");
+            // user.privateKey = privkeyDecrypted;
             // Settings.set("xToken", token);
             // user.mnemonic = decryptTextWithKey(
             //   user.mnemonic,
@@ -309,14 +309,14 @@ class New extends React.Component<NewProps, NewState> {
             // Settings.set("xUser", JSON.stringify(user));
             // Settings.set("xMnemonic", user.mnemonic);
 
-            return initializeUser(
-              this.state.register.email,
-              user.mnemonic,
-              encPass
-            ).then((rootFolderInfo) => {
-              user.root_folder_id = rootFolderInfo.user.root_folder_id;
-              // Settings.set("xUser", JSON.stringify(user));
-            });
+            // return initializeUser(
+            //   this.state.register.email,
+            //   user.mnemonic,
+            //   encPass
+            // ).then((rootFolderInfo) => {
+            //   user.root_folder_id = rootFolderInfo.user.root_folder_id;
+            //   // Settings.set("xUser", JSON.stringify(user));
+            // });
           });
         } else if (response.status === 429) {
           toast.warning("User not created, Please try again.");
@@ -326,7 +326,7 @@ class New extends React.Component<NewProps, NewState> {
             const { message } = body;
             toast.warn(message);
             this.setState({ validated: false });
-            history.push("/login");
+            history.push("/thankyou");
           });
         }
       })
@@ -655,6 +655,101 @@ class New extends React.Component<NewProps, NewState> {
                 </div>
             </section>
 
+            <section className="contact-us">
+                <div className="container">
+                    <h2 className="landing-h2">Take StorX For A Spin</h2>
+                    <div className="form">
+                        <div className="row">
+                            <div className="col-md-6 landing-col-md-6">
+                                <div className="form-group landing-form-group">
+                                    <input 
+                                        onChange={(e) =>
+                                            this.setState({
+                                                register: {
+                                                ...this.state.register,
+                                                name: e.target.value,
+                                                },
+                                            })
+                                        }
+                                        value={this.state.register.name}
+                                        type="text"
+                                        className="landing-form-control"
+                                        placeholder="First Name"/>
+                                </div>
+                            </div>
+                            <div className="col-md-6 landing-col-md-6">
+                                <div className="form-group landing-form-group">
+                                    <input 
+                                        onChange={(e) =>
+                                            this.setState({
+                                              register: {
+                                                ...this.state.register,
+                                                lastname: e.target.value,
+                                              },
+                                            })
+                                        }
+                                        value={this.state.register.lastname}
+                                        type="text"
+                                        className="landing-form-control"
+                                        placeholder="Last Name"/>
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="form-group landing-form-group">
+                                    <input
+                                        onChange={(e) =>
+                                            this.setState({
+                                              register: {
+                                                ...this.state.register,
+                                                email: e.target.value,
+                                              },
+                                            })
+                                        }
+                                        value={this.state.register.email}
+                                        type="email"
+                                        className="landing-form-control"
+                                        placeholder="Email Address"/>
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="form-group landing-form-group">
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        onChange={this.handleChangeRegister}
+                                        className="landing-form-control"
+                                        placeholder="Password"/>
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="form-group landing-form-group">
+                                    <input
+                                        type="password"
+                                        id="confirmPassword"
+                                        onChange={this.handleChangeRegister}
+                                        className="landing-form-control"
+                                        placeholder="Confirm Password"/>
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="form-group landing-form-group submit">
+                                    <button
+                                        disabled={!this.validatePassword() || !this.validateRegisterFormPart1()}
+                                        onClick={() => this.doRegister().finally(() => {
+                                            this.setState({ isLoading: false })
+                                        })}
+                                        type="submit"
+                                        className="btn-style orange btn btn-on">
+                                            Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section className="more-faq">
                 <div className="container">
                     <h2 className="landing-h2">FAQs</h2>
@@ -728,41 +823,6 @@ class New extends React.Component<NewProps, NewState> {
                             </div>
                         </div>
 
-                    </div>
-                </div>
-            </section>
-
-            <section className="contact-us d-none">
-                <div className="container">
-                    <h2>Take StorX For A Spin</h2>
-                    <div className="form">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="First Name"/>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Last Name"/>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <input type="email" className="form-control" placeholder="Email"/>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <input type="tel" className="form-control" placeholder="Phone Number"/>
-                                </div>
-                            </div>
-                            <div className="col-md-12">
-                                <div className="form-group submit">
-                                    <input type="submit" className="btn-style orange" value="Submit"/>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>

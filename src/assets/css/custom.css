@@ -23,3 +23,67 @@
 .landing-h3-white {
     font-size: 25px !important;
 }
+
+.contact-us .form .landing-col-md-6 {
+    padding-left: 25px !important;
+    padding-right: 14px !important;
+}
+@media screen and (max-width: 767px) {
+    .contact-us .form .landing-col-md-6 {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+}
+.contact-us .form .landing-col-md-6:nth-of-type(2n+1) {
+    padding-left: 14px !important;
+    padding-right: 25px !important;
+}
+@media screen and (max-width: 767px) {
+    .contact-us .form .landing-col-md-6:nth-of-type(2n+1) {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+}
+
+.contact-us .form .landing-form-group {
+    margin-bottom: 26px;
+}
+@media screen and (max-width: 767px) {
+    .contact-us .form .landing-form-group {
+      margin-bottom: 20px;
+    }
+}
+.contact-us .form .landing-form-group.submit {
+    margin-top: 6px;
+    text-align: center;
+}
+.contact-us .form .landing-form-group.submit .btn-style {
+    min-width: 119px;
+}
+
+.form .landing-form-control {
+    font-size: 15px;
+    font-weight: 500;
+    width: 100%;
+    color: #8F8C8C;
+    position: relative;
+    outline: none;
+    appearance: none;
+    border-radius: 9px;
+    border: 1px solid #CAC7C7;
+    background: #F3F3F3;
+    height: 56px;
+    line-height: 25px;
+    padding: 15px 23px;
+  }
+  @media screen and (max-width: 991px) {
+    .form .landing-form-control {
+      height: 55px;
+    }
+  }
+  .form .landing-form-control::placeholder {
+    color: #8F8C8C;
+  }
+  .form .landing-form-control:focus {
+    box-shadow: none;
+  }
