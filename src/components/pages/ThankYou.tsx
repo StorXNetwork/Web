@@ -14,12 +14,12 @@ interface ThankYouProps {
 class ThankYou extends React.Component<ThankYouProps> {
 
   componentDidMount(): void {
-    // setTimeout(() => {
-    //     history.push("/login");
-    //     toast.success(
-    //         "Your account has been created successfully. Please check your mailbox for activation."
-    //     );
-    // }, 6000)
+    setTimeout(() => {
+        history.push("/login");
+        toast.success(
+            "Your account has been created successfully. Please check your mailbox for activation."
+        );
+    }, 6000)
   }
 
   render() {
