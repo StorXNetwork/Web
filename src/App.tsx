@@ -78,7 +78,7 @@ class App extends React.Component {
 
               <Route
                 exact
-                path="/landing1"
+                path="/landing1/zrin2D3Q"
                 render={(props: any) => (
                   <Landing1
                     {...props}
@@ -91,7 +91,7 @@ class App extends React.Component {
 
               <Route
                 exact
-                path="/landing2"
+                path="/landing2/IEzZIH6y"
                 render={(props: any) => (
                   <Landing2
                     {...props}

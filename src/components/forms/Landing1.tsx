@@ -662,7 +662,7 @@ class New extends React.Component<NewProps, NewState> {
                         <div className="row">
                             <div className="col-md-6 landing-col-md-6">
                                 <div className="form-group landing-form-group">
-                                    <input 
+                                    <input
                                         onChange={(e) =>
                                             this.setState({
                                                 register: {
@@ -679,7 +679,7 @@ class New extends React.Component<NewProps, NewState> {
                             </div>
                             <div className="col-md-6 landing-col-md-6">
                                 <div className="form-group landing-form-group">
-                                    <input 
+                                    <input
                                         onChange={(e) =>
                                             this.setState({
                                               register: {
@@ -758,39 +758,38 @@ class New extends React.Component<NewProps, NewState> {
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="heading-1">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                                What are software Development services?
+                                    What is StorX?
                                 </button>
                             </h2>
                             <div id="collapse-1" className="accordion-collapse collapse " aria-labelledby="heading-1" data-bs-parent="#accordionExample-1">
                                 <div className="accordion-body">
-                                    <p>We at StorX Network would like to extend our sincere gratitude to our Twitter Community for their recent vote on whether our token should become deflationary. The overwhelming response in favor of this change has inspired us to take the necessary steps to implement this transformation. Our team is hard at work researching and developing a secureand sustainable deflationary model to ensure the long-term success of our network. We are committed to ensuring a seamless transition for our community and will keep you updated on our progress. Thank you for your continued support and for being a part of the StorX Network community.</p>
+                                    <p>A. StorX Network is a decentralized cloud storage platform that leverages blockchain technology and a distributed network of users to provide secure, efficient, and cost-effective storage solutions.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="heading-2">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="true" aria-controls="collapse-2">
-                                What are the benefits associated with DeFi?
+                                    How is my data secure on StorX?
                                 </button>
                             </h2>
                             <div id="collapse-2" className="accordion-collapse collapse " aria-labelledby="heading-2" data-bs-parent="#accordionExample-2">
                                 <div className="accordion-body">
-                                <p>StorX Network will be looking to bring on individuals or organizations that will help promote and sell their products or services. These sales partners would be responsible for identifying potential customers and closing deals on behalf of the StorX Network. By recruiting sales partners worldwide, the StorX Network would be able to expand its reach and increase its revenue.</p>
-                                <p>The sales partners might be incentivized with a commission based on the sales they bring in, or some other form of compensation. This would allow them to earn money by helping the network grow and expand. Sales partners could be independent sales people, existing businesses, ororganizations that have a large customer base that could benefit from StorX Network's offerings.</p>
-                                <p>This approach can help the StorX Network to reach a wider audience, expand its customer base, and generate more revenue, as the sales partners can leverage their existing relationships, networks, and expertise.</p>
-                                <p>It's important to note that the selection of the sales partners should be done carefully and with clear criteria and that they should be trained and given the necessary tools to represent the network in a professional way.</p>
+                                <p>A. StorX Network prioritizes the security and privacy of user data. The platform utilizes end-to-end encryption, fragmentation, distribution, and audit mechanisms to provide the highest level of security, which makes its services completely secure compared to centralized storage solutions.
+                                </p>
                                 </div>
                             </div>
                         </div>
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="heading-3">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
-                                What is the role of a software developer?
+                                    Can I use StorX for personal and business data storage?
                                 </button>
                             </h2>
                             <div id="collapse-3" className="accordion-collapse collapse " aria-labelledby="heading-3" data-bs-parent="#accordionExample-3">
                                 <div className="accordion-body">
-                                <p>We are thrilled to announce that StorX Network will be launching its MainNet in Q4 2023.</p>
+                                <p>A. Absolutely. StorX Network is designed to cater to personal and business storage needs, providing a versatile and secure decentralized storage solution.</p>
                                 </div>
                             </div>
                         </div>
@@ -798,31 +797,69 @@ class New extends React.Component<NewProps, NewState> {
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="heading-4">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="true" aria-controls="collapse-4">
-                                What is the role of a software developer?
+                                    What types of files and data formats does StorX Drive support?
                                 </button>
                             </h2>
                             <div id="collapse-4" className="accordion-collapse collapse " aria-labelledby="heading-4" data-bs-parent="#accordionExample-4">
                                 <div className="accordion-body">
-                                    <p>StorX Network will be expanding its developer resources and programs in the coming months. Our goal is to empower developers to build cutting-edge decentralized applications and services on our platform, and we believe that by providing more resources and support, we can help drive innovation and drive the adoption of decentralized technology.</p>
-                                    <p>As part of this expansion, we will be launching new developer documentation, tutorials, and sample code, as well as hosting hackathons, meetups, and other events to bring together developers and help them collaborate and share knowledge. We are excited about this next step in our journey and look forward to seeing the amazing things our developer community will build on StorX Network.</p>
+                                    <p>A. StorX supports a wide range of file formats, including but not limited to documents, images, audio, and video files. It provides flexibility for storing diverse types of data.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="heading-5">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-5" aria-expanded="true" aria-controls="collapse-5">
-                                What is the role of a software developer?
+                                    How do I access my stored data on StorX?
                                 </button>
                             </h2>
                             <div id="collapse-5" className="accordion-collapse collapse " aria-labelledby="heading-5" data-bs-parent="#accordionExample-5">
                                 <div className="accordion-body">
-                                    <p>We are thrilled to announce that StorX Network will be running a series of hackathons to enhance our project and explore new business use cases. These hackathons will provide an opportunity for developers, entrepreneurs, and other industry experts to come together and collaborate on innovative solutions that will help us to further advance our technology and discover new ways to use it in the real world.</p>
-                                    <p>Participants will have the chance to work with our team and access our cutting-edge technology, with the goal of developing new applications and use cases that can be integrated into our platform. We believe that this event will drive innovation and accelerate the development of our project.</p>
-                                    <p>We welcome anyone who is interested in participating in this event and contributing their skills and expertise to the StorX Network community. We look forward to seeing the great ideas and solutions that will emerge from these hackathons and how they will help to shape the future of our project.</p>
+                                    <p>A. You can access your stored data on StorX through the platform's user interface or using compatible third-party applications. Simply log in to your account and navigate to the files you wish to access. You can refer to our StorX Usage Guide for reference.
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
+                        <div className="accordion-item">
+                            <h2 className="accordion-header" id="heading-6">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-6" aria-expanded="true" aria-controls="collapse-6">
+                                    What are the benefits of utilizing StorX Network over traditional cloud storage?
+                                </button>
+                            </h2>
+                            <div id="collapse-6" className="accordion-collapse collapse " aria-labelledby="heading-6" data-bs-parent="#accordionExample-6">
+                                <div className="accordion-body">
+                                    <p>A. StorX Network offers advantages such as enhanced security, decentralization, and cost-effectiveness compared to traditional cloud storage. The decentralized nature of StorX reduces the risk of downtime and data breaches.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="accordion-item">
+                            <h2 className="accordion-header" id="heading-7">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-7" aria-expanded="true" aria-controls="collapse-7">
+                                    Is the Free Plan of 2 GB Free for Life?
+                                </button>
+                            </h2>
+                            <div id="collapse-7" className="accordion-collapse collapse " aria-labelledby="heading-7" data-bs-parent="#accordionExample-7">
+                                <div className="accordion-body">
+                                    <p>A. Yes, the Free Plan offering 2 GB of storage on StorX is indeed free for life. Users can enjoy this allocation without any associated costs or time limitations, providing a perpetual and no-cost option for decentralized cloud storage on the StorX Network.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="accordion-item">
+                            <h2 className="accordion-header" id="heading-8">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-8" aria-expanded="true" aria-controls="collapse-8">
+                                    How do I get started with StorX? Do I need a Credit Card to sign up for Free Account?
+                                </button>
+                            </h2>
+                            <div id="collapse-8" className="accordion-collapse collapse " aria-labelledby="heading-8" data-bs-parent="#accordionExample-8">
+                                <div className="accordion-body">
+                                    <p>A. The StorX 2 GB Free plan does not require a credit card for signup, Users can visit StorX.tech and sign up for the Free plan
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
