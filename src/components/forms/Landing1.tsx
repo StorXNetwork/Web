@@ -776,7 +776,7 @@ class New extends React.Component<NewProps, NewState> {
                             </h2>
                             <div id="collapse-2" className="accordion-collapse collapse " aria-labelledby="heading-2" data-bs-parent="#accordionExample-2">
                                 <div className="accordion-body">
-                                <p>A. StorX Network prioritizes the security and privacy of user data. The platform utilizes end-to-end encryption, fragmentation, distribution, and audit mechanisms to provide the highest level of security, which makes its services completely secure compared to centralized storage solutions.
+                                <p>A. The platform utilizes end-to-end encryption, data fragmentation, distribution, and audit mechanisms to provide unmatched security, which makes its services extremely secure compared to centralized storage solutions.
                                 </p>
                                 </div>
                             </div>
@@ -789,7 +789,8 @@ class New extends React.Component<NewProps, NewState> {
                             </h2>
                             <div id="collapse-3" className="accordion-collapse collapse " aria-labelledby="heading-3" data-bs-parent="#accordionExample-3">
                                 <div className="accordion-body">
-                                <p>A. Absolutely. StorX Network is designed to cater to personal and business storage needs, providing a versatile and secure decentralized storage solution.</p>
+                                <p>A. Absolutely. The StorX Network is designed to cater to personal and business storage needs, providing a versatile and secure decentralized storage solution.
+                                </p>
                                 </div>
                             </div>
                         </div>
@@ -815,7 +816,7 @@ class New extends React.Component<NewProps, NewState> {
                             </h2>
                             <div id="collapse-5" className="accordion-collapse collapse " aria-labelledby="heading-5" data-bs-parent="#accordionExample-5">
                                 <div className="accordion-body">
-                                    <p>A. You can access your stored data on StorX through the platform's user interface or using compatible third-party applications. Simply log in to your account and navigate to the files you wish to access. You can refer to our StorX Usage Guide for reference.
+                                    <p>A. You can access your stored data on StorX just by logging in to your account . Simple. You can refer to our StorX User Guide to learn more.
                                     </p>
                                 </div>
                             </div>
@@ -824,12 +825,12 @@ class New extends React.Component<NewProps, NewState> {
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="heading-6">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-6" aria-expanded="true" aria-controls="collapse-6">
-                                    What are the benefits of utilizing StorX Network over traditional cloud storage?
+                                    What are the benefits of utilizing the StorX Network over traditional cloud storage?
                                 </button>
                             </h2>
                             <div id="collapse-6" className="accordion-collapse collapse " aria-labelledby="heading-6" data-bs-parent="#accordionExample-6">
                                 <div className="accordion-body">
-                                    <p>A. StorX Network offers advantages such as enhanced security, decentralization, and cost-effectiveness compared to traditional cloud storage. The decentralized nature of StorX reduces the risk of downtime and data breaches.
+                                    <p>A. Unmatched data security and privacy. The decentralized nature of StorX drastically reduces the risk of downtime and data breaches.
                                     </p>
                                 </div>
                             </div>
@@ -837,12 +838,12 @@ class New extends React.Component<NewProps, NewState> {
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="heading-7">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-7" aria-expanded="true" aria-controls="collapse-7">
-                                    Is the Free Plan of 2 GB Free for Life?
+                                    Is the free plan free for life?
                                 </button>
                             </h2>
                             <div id="collapse-7" className="accordion-collapse collapse " aria-labelledby="heading-7" data-bs-parent="#accordionExample-7">
                                 <div className="accordion-body">
-                                    <p>A. Yes, the Free Plan offering 2 GB of storage on StorX is indeed free for life. Users can enjoy this allocation without any associated costs or time limitations, providing a perpetual and no-cost option for decentralized cloud storage on the StorX Network.
+                                    <p>A. Yes, the free plan on StorX is indeed free for life. Users can enjoy this allocation without any associated costs or time limitations, providing a perpetual and no-cost option for decentralized cloud storage on the StorX Network.
                                     </p>
                                 </div>
                             </div>
@@ -855,7 +856,7 @@ class New extends React.Component<NewProps, NewState> {
                             </h2>
                             <div id="collapse-8" className="accordion-collapse collapse " aria-labelledby="heading-8" data-bs-parent="#accordionExample-8">
                                 <div className="accordion-body">
-                                    <p>A. The StorX 2 GB Free plan does not require a credit card for signup, Users can visit StorX.tech and sign up for the Free plan
+                                    <p>A. The free plan does not require a credit card for signup, you can visit StorX.tech and sign up for the free plan.
                                     </p>
                                 </div>
                             </div>
