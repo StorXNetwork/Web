@@ -444,7 +444,7 @@ class New extends React.Component<NewProps, NewState> {
                             blockchain powered decentralized storage platform is
                             advanced in every way <br/> when it comes to security and privacy
                             while ensuring zero compromise on <br/> convenience and accessibility. </p>
-                        <a href="https://storx.io/" target="_blank"
+                        <a href="#contact-us"
                             className="btn-style orange icon">Try for free
                             <img className="lazyload" data-src="./images/icons/right-arrow-icon.svg" alt="icon"
                                 src={rightArrow}/>
@@ -514,7 +514,7 @@ class New extends React.Component<NewProps, NewState> {
                         </ul>
                     </div>
                     <div className="btn-wrapper">
-                        <a href="https://storx.io/" target="_blank"
+                        <a href="#contact-us"
                         className="btn-style orange icon">Try for free
                         <img className="lazyload" data-src="./images/icons/right-arrow-icon.svg" alt="icon"
                             src={rightArrow}/>
@@ -600,7 +600,7 @@ class New extends React.Component<NewProps, NewState> {
                         </div>
                     </div>
                     <div className="btn-wrapper">
-                        <a href="https://storx.io/" target="_blank"
+                        <a href="#contact-us"
                         className="btn-style orange icon">Try for free
                         <img className="lazyload" data-src="./images/icons/right-arrow-icon.svg" alt="icon"
                             src={rightArrow}/>
@@ -655,7 +655,7 @@ class New extends React.Component<NewProps, NewState> {
                 </div>
             </section>
 
-            <section className="contact-us">
+            <section className="contact-us" id="contact-us">
                 <div className="container">
                     <h2 className="landing-h2">Take StorX For A Spin</h2>
                     <div className="form">
@@ -871,7 +871,7 @@ class New extends React.Component<NewProps, NewState> {
                         <h3 className="white landing-h3-white">The most secure way to store your personal <br/>
                         data is here and ready. Are you?</h3>
                         <div className="btn-wrapper">
-                            <a href="https://storx.io/" target="_blank"
+                            <a href="#contact-us"
                                 className="btn-style orange icon">Try for free
                                 <img className="lazyload" data-src="./images/icons/right-arrow-icon.svg" alt="icon"
                                     src={rightArrow}/>
