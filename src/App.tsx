@@ -78,7 +78,7 @@ class App extends React.Component {
 
               <Route
                 exact
-                path="/landing1/zrin2D3Q"
+                path="/lp/blockchain-storage"
                 render={(props: any) => (
                   <Landing1
                     {...props}
