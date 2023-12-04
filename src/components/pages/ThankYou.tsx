@@ -25,6 +25,8 @@ class ThankYou extends React.Component<ThankYouProps> {
   render() {
     const link = <a onClick={() => history.push("/")}>log in</a>
     return <>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11394458535"></script>
+        <script dangerouslySetInnerHTML={{__html: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11394458535');"}}></script>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '45vh', fontSize: '40px', fontWeight: 600}}>Thank You for Choosing StorX. You will be redirected to StorX shortly.</div>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>If you have issue redirecting, please click here to&nbsp;<a style={{color: 'blue', textDecoration: 'underline', cursor: 'pointer'}} onClick={() => history.push("/")}>Login</a></div>
     </>;
