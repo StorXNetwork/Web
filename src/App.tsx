@@ -24,6 +24,9 @@ import Settings from "./lib/settings";
 import Success from "./components/teams/Success";
 import MainLoader from "./mainLoader";
 // const MainLoader = lazy(() => import("./mainLoader"));
+
+import ReactGA from 'react-ga';
+
 const Teams = lazy(() => import("./components/forms/Teams"));
 const Activation = lazy(() => import("./components/forms/Activation"));
 const Storage = lazy(() => import("./components/Storage"));
@@ -48,7 +51,10 @@ class App extends React.Component {
     Settings.set("xUser", JSON.stringify(user));
     this.setState({ isAuthenticated: true, user: user });
   };
-
+  componentDidMount(){
+    ReactGA.initialize('AW-11394458535'); // Replace with your tracking ID
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
   render() {
     const pathName = window.location.pathname.split("/")[1];
 

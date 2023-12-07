@@ -10,7 +10,7 @@ import history from "../../lib/history";
 import Settings from "../../lib/settings";
 import Logo from "../../../src/assets/images/logo.png";
 import backGroundLogo from "../../../src/assets/images/login/login_img.png";
-
+import ReactGA from 'react-ga';
 import {
   decryptTextWithKey,
   encryptText,
@@ -278,6 +278,12 @@ class New extends React.Component<NewProps, NewState> {
       .then((response) => {
         if (response.status === 200) {
           return response.json().then((body) => {
+
+              ReactGA.event({
+                  category: 'Form',
+                  action: 'Submit',
+                  label: 'My Form Submission'
+              });
             // Manage succesfull register
             history.push("/thankyou");
             // const { token, user, uuid } = body;
@@ -433,8 +439,8 @@ class New extends React.Component<NewProps, NewState> {
     return (
         // <div className="wrapper">
         <>
-            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11394458535"></script>
-            <script dangerouslySetInnerHTML={{__html: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11394458535');"}}></script>
+            {/* <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11394458535"></script>
+            <script dangerouslySetInnerHTML={{__html: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11394458535');"}}></script> */}
             <section className="banner ad-banner-1">
                 <div className="container">
                     <div className="content-wrapper">
