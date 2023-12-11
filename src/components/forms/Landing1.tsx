@@ -441,6 +441,8 @@ class New extends React.Component<NewProps, NewState> {
         <>
             {/* <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11394458535"></script>
             <script dangerouslySetInnerHTML={{__html: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11394458535');"}}></script> */}
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLQX4VKK"
+                height="0" width="0" style={{display: "none", visibility: "hidden"}}></iframe></noscript>
             <section className="banner ad-banner-1">
                 <div className="container">
                     <div className="content-wrapper">
