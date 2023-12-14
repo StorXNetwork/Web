@@ -26,6 +26,7 @@ import MainLoader from "./mainLoader";
 // const MainLoader = lazy(() => import("./mainLoader"));
 
 import ReactGA from 'react-ga';
+import Landing3 from "./components/forms/Landing3";
 
 const Teams = lazy(() => import("./components/forms/Teams"));
 const Activation = lazy(() => import("./components/forms/Activation"));
@@ -87,6 +88,19 @@ class App extends React.Component {
                 path="/lp/blockchain-storage"
                 render={(props: any) => (
                   <Landing1
+                    {...props}
+                    isNewUser={true}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+
+              <Route
+                exact
+                path="/lp/decentralized-storage"
+                render={(props: any) => (
+                  <Landing3
                     {...props}
                     isNewUser={true}
                     isAuthenticated={this.state.isAuthenticated}
