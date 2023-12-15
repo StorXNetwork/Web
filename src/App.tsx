@@ -26,7 +26,6 @@ import MainLoader from "./mainLoader";
 // const MainLoader = lazy(() => import("./mainLoader"));
 
 import ReactGA from 'react-ga';
-import Landing3 from "./components/forms/Landing3";
 
 const Teams = lazy(() => import("./components/forms/Teams"));
 const Activation = lazy(() => import("./components/forms/Activation"));
@@ -36,6 +35,7 @@ const Remove = lazy(() => import("./components/forms/Remove"));
 const New = lazy(() => import("./components/forms/New"));
 const Landing1 = lazy(() => import("./components/forms/Landing1"));
 const Landing2 = lazy(() => import("./components/forms/Landing2"));
+const Landing3 = lazy(() => import("./components/forms/Landing3"));
 const XCloud = lazy(() => import("./components/xcloud/XCloud"));
 const Security = lazy(() => import("./components/Security"));
 const ThankYou = lazy(() => import("./components/pages/ThankYou"));
