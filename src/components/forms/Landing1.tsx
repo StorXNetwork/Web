@@ -684,7 +684,9 @@ class New extends React.Component<NewProps, NewState> {
                                         value={this.state.register.name}
                                         type="text"
                                         className="landing-form-control"
-                                        placeholder="First Name"/>
+                                        placeholder="First Name"
+                                        id="firstName"
+                                        name="firstName"/>
                                 </div>
                             </div>
                             <div className="col-md-6 landing-col-md-6">
@@ -701,7 +703,9 @@ class New extends React.Component<NewProps, NewState> {
                                         value={this.state.register.lastname}
                                         type="text"
                                         className="landing-form-control"
-                                        placeholder="Last Name"/>
+                                        placeholder="Last Name"
+                                        id="lastName"
+                                        name="lastName"/>
                                 </div>
                             </div>
                             <div className="col-md-12">
@@ -718,7 +722,9 @@ class New extends React.Component<NewProps, NewState> {
                                         value={this.state.register.email}
                                         type="email"
                                         className="landing-form-control"
-                                        placeholder="Email Address"/>
+                                        placeholder="Email Address"
+                                        id="email"
+                                        name="email"/>
                                 </div>
                             </div>
                             <div className="col-md-12">
@@ -737,6 +743,7 @@ class New extends React.Component<NewProps, NewState> {
                                     <input
                                         type="password"
                                         id="confirmPassword"
+                                        name="confirmPassword"
                                         onChange={this.handleChangeRegister}
                                         className="landing-form-control"
                                         placeholder="Confirm Password"/>
