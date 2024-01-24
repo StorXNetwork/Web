@@ -700,83 +700,58 @@ class New extends React.Component<NewProps, NewState> {
                         this.setState({ isLoading: false })
                       })}>
                     <div className="form-main-wrapper">
-                      <div className="login-step">
-                        <div className="form-group">
-                          <a href="#" className="social-btn">
-                            <img src={google} alt="icon"/>Continue with Google
-                          </a>
-                        </div>
-                        <div className="form-group">
-                          <a href="#" className="social-btn">
-                            <img src={facebook} alt="icon"/>Continue with Facebook
-                          </a>
-                        </div>
-                        <div className="form-group">
-                          <a href="#" className="social-btn">
-                            <img src={linkedin} alt="icon"/>Continue with LinkedIn
-                          </a>
-                        </div>
-                        <div className="form-group">
-                          <a href="#" className="social-btn">Continue with phone number</a>
-                        </div>
-                      </div>
-
-                      <p className="or">OR</p>
-
-                      <div className="login-step">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter First Name"
-                            onChange={(e) =>
-                              this.setState({
-                                  register: {
-                                  ...this.state.register,
-                                  name: e.target.value,
-                                  },
-                              })
-                            }
-                            value={this.state.register.name}/>
-                        </div>
-                        <div className="form-group">
-                          <input
-                            type="email"
-                            className="form-control"
-                            placeholder="Enter Email Address"
-                            onChange={(e) =>
-                              this.setState({
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Enter First Name"
+                          onChange={(e) =>
+                            this.setState({
                                 register: {
-                                  ...this.state.register,
-                                  email: e.target.value,
+                                ...this.state.register,
+                                name: e.target.value,
                                 },
-                              })
-                            }
-                            value={this.state.register.email}/>
-                        </div>
-                        <div className="form-group">
-                          <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Create Password"
-                            id="password"
-                            name="password"
-                            onChange={this.handleChangeRegister}/>
-                        </div>
-                        <div className="form-group">
-                          <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Retype Password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            onChange={this.handleChangeRegister}/>
-                        </div>
+                            })
+                          }
+                          value={this.state.register.name}/>
+                      </div>
+                      <div className="form-group">
+                        <input
+                          type="email"
+                          className="form-control"
+                          placeholder="Enter Email Address"
+                          onChange={(e) =>
+                            this.setState({
+                              register: {
+                                ...this.state.register,
+                                email: e.target.value,
+                              },
+                            })
+                          }
+                          value={this.state.register.email}/>
+                      </div>
+                      <div className="form-group">
+                        <input
+                          type="password"
+                          className="form-control"
+                          placeholder="Create Password"
+                          id="password"
+                          name="password"
+                          onChange={this.handleChangeRegister}/>
+                      </div>
+                      <div className="form-group">
+                        <input
+                          type="password"
+                          className="form-control"
+                          placeholder="Retype Password"
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          onChange={this.handleChangeRegister}/>
                       </div>
                     </div>
                     <div className="checkbox-wrapper">
                       <input type="checkbox" id="privacy"/>
-                      <label>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                      <label>I agree to the <a href="https://storx.tech/application-usage-terms.html">Terms of Service</a></label>
                     </div>
                     <div className="btn-wrapper" onClick={() => this.doRegister().finally(() => {
                         this.setState({ isLoading: false })
