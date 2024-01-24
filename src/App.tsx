@@ -36,6 +36,7 @@ const New = lazy(() => import("./components/forms/New"));
 const Landing1 = lazy(() => import("./components/forms/Landing1"));
 const Landing2 = lazy(() => import("./components/forms/Landing2"));
 const Landing3 = lazy(() => import("./components/forms/Landing3"));
+const Landing4 = lazy(() => import("./components/forms/Landing4"));
 const XCloud = lazy(() => import("./components/xcloud/XCloud"));
 const Security = lazy(() => import("./components/Security"));
 const ThankYou = lazy(() => import("./components/pages/ThankYou"));
@@ -101,6 +102,19 @@ class App extends React.Component {
                 path="/lp/decentralized-storage"
                 render={(props: any) => (
                   <Landing3
+                    {...props}
+                    isNewUser={true}
+                    isAuthenticated={this.state.isAuthenticated}
+                    handleKeySaved={this.handleKeySaved}
+                  />
+                )}
+              />
+
+              <Route
+                exact
+                path="/lp/true-control"
+                render={(props: any) => (
+                  <Landing4
                     {...props}
                     isNewUser={true}
                     isAuthenticated={this.state.isAuthenticated}
