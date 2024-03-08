@@ -88,14 +88,14 @@ class App extends React.Component {
 
               <Route
                 exact
-                path="/resetPassword"
-                render={(props) => <ResetPassword />}
+                path="/resetPassword/:token"
+                render={(props:any) => < ResetPassword {...props} />}
               />
 
               <Route
                 exact
                 path="/forgotPassword"
-                render={(props) => <ForgotPassword />}
+                render={(props:any) => <ForgotPassword {...props} />}
               />
 
               <Route
