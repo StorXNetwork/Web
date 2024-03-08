@@ -12,7 +12,6 @@ function ResetPassword() {
     password: "",
     confirmPassword: "",
   });
-  console.log(resetData);
 
   const getResetData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

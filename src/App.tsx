@@ -27,6 +27,7 @@ import MainLoader from "./mainLoader";
 
 import ReactGA from "react-ga";
 import ResetPassword from "./components/forms/ResetPassword";
+import ForgotPassword from "./components/forms/ForgotPassword";
 
 const Teams = lazy(() => import("./components/forms/Teams"));
 const Activation = lazy(() => import("./components/forms/Activation"));
@@ -89,6 +90,12 @@ class App extends React.Component {
                 exact
                 path="/resetPassword"
                 render={(props) => <ResetPassword />}
+              />
+
+              <Route
+                exact
+                path="/forgotPassword"
+                render={(props) => <ForgotPassword />}
               />
 
               <Route

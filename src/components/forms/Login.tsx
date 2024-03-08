@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Form, Col, Container, Spinner } from "react-bootstrap";
 import "../../../src/assets/css/backend.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../../src/assets/images/logo.png";
 import logoWhite from "../../../src/assets/images/logo-white.png";
 import loginLogo from "../../../src/assets/images/login/login_img.png";
@@ -443,6 +443,10 @@ class Login extends React.Component<LoginProps> {
                                 <label>Password</label>
                               </div>
                             </div>
+                          </div>
+                          <div className="mb-3">
+                            Forgot password?
+                            <NavLink to="/forgotPassword"> Reset</NavLink>
                           </div>
                           <button
                             type="submit"
