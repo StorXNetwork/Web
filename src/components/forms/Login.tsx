@@ -8,12 +8,7 @@ import loginLogo from "../../../src/assets/images/login/login_img.png";
 import Preloader from "../../assets/images/login/login_preloader.gif";
 import history from "../../lib/history";
 // import "./Login.scss";
-import {
-  encryptText,
-  decryptText,
-  passToHash,
-  decryptTextWithKey,
-} from "../../lib/utils";
+import { encryptText, decryptText, passToHash, decryptTextWithKey } from "../../lib/utils";
 
 import { getHeaders } from "../../lib/auth";
 import { Flip, toast } from "react-toastify";
@@ -56,12 +51,7 @@ class Login extends React.Component<LoginProps> {
     // const xKeys = localStorage.getItem('xKeys');
     // const xKeyPublic = localStorage.getItem('xKeyPublic');
 
-    if (
-      user &&
-      user.registerCompleted &&
-      mnemonic &&
-      this.props.handleKeySaved
-    ) {
+    if (user && user.registerCompleted && mnemonic && this.props.handleKeySaved) {
       this.props.handleKeySaved(user);
       history.push("/app");
     } else if (user && user.registerCompleted === false) {
@@ -110,8 +100,7 @@ class Login extends React.Component<LoginProps> {
     return emailPattern.test(email.toLowerCase());
   };
 
-  handleChange = (event: any) =>
-    this.setState({ [event.target.id]: event.target.value });
+  handleChange = (event: any) => this.setState({ [event.target.id]: event.target.value });
 
   check2FANeeded = () => {
     fetch("/api/login", {
@@ -142,20 +131,12 @@ class Login extends React.Component<LoginProps> {
       })
       .catch((err) => {
         if (err == "Error: User not found on Cloud database") {
-          toast.warn(
-            "User not found on drive database. Please create account.",
-            { autoClose: 3000, transition: Flip, draggable: true }
-          );
+          toast.warn("User not found on drive database. Please create account.", { autoClose: 3000, transition: Flip, draggable: true });
         }
-        if (
-          err.message.includes("not activated") &&
-          this.validateEmail(this.state.email)
-        ) {
+        if (err.message.includes("not activated") && this.validateEmail(this.state.email)) {
           // history.push(`/activate/${this.state.email}`);
           // history.push('/login');
-          toast.warn(
-            "Activate your account first. Please check your mailbox for the activation link."
-          );
+          toast.warn("Activate your account first. Please check your mailbox for the activation link.");
         } else {
           // this.setState({ isLogingIn: false });
           // toast.warn("Something went wrong", { autoClose: 3000, transition: Flip, draggable: true });
@@ -169,16 +150,11 @@ class Login extends React.Component<LoginProps> {
   };
 
   generateNewKeys = async (password: string) => {
-    const { privateKeyArmored, publicKeyArmored, revocationCertificate } =
-      await generateNewKeys();
+    const { privateKeyArmored, publicKeyArmored, revocationCertificate } = await generateNewKeys();
 
     return {
       privateKeyArmored,
-      privateKeyArmoredEncrypted: AesUtil.encrypt(
-        privateKeyArmored,
-        password,
-        false
-      ),
+      privateKeyArmoredEncrypted: AesUtil.encrypt(privateKeyArmored, password, false),
       publicKeyArmored,
       revocationCertificate,
     };
@@ -243,9 +219,7 @@ class Login extends React.Component<LoginProps> {
             const publicKey = data.user.publicKey;
             const revocateKey = data.user.revocateKey;
 
-            const privkeyDecrypted = Buffer.from(
-              AesUtil.decrypt(privateKey, this.state.password)
-            ).toString("base64");
+            const privkeyDecrypted = Buffer.from(AesUtil.decrypt(privateKey, this.state.password)).toString("base64");
 
             analytics.identify(data.user.uuid, {
               email: this.state.email,
@@ -258,10 +232,7 @@ class Login extends React.Component<LoginProps> {
             // Manage succesfull login
             const user = {
               ...data.user,
-              mnemonic: decryptTextWithKey(
-                data.user.mnemonic,
-                this.state.password
-              ),
+              mnemonic: decryptTextWithKey(data.user.mnemonic, this.state.password),
               email: this.state.email,
               privateKey: privkeyDecrypted,
               publicKey: publicKey,
@@ -281,10 +252,7 @@ class Login extends React.Component<LoginProps> {
             }
 
             if (data.userTeam) {
-              const mnemonicDecode = Buffer.from(
-                data.userTeam.bridge_mnemonic,
-                "base64"
-              ).toString();
+              const mnemonicDecode = Buffer.from(data.userTeam.bridge_mnemonic, "base64").toString();
               const mnemonicDecrypt = await decryptPGP(mnemonicDecode);
 
               const team = {
@@ -332,18 +300,12 @@ class Login extends React.Component<LoginProps> {
           });
       })
       .catch((err) => {
+        console.log(err);
         if (err == `Error: "Error: Wrong email/password"`) {
-          toast.error(
-            "Email or Password is wrong. Please enter correct credentials.",
-            { autoClose: 3000, transition: Flip }
-          );
+          toast.error("Email or Password is wrong. Please enter correct credentials.", { autoClose: 3000, transition: Flip });
           history.push("/");
-        } else if (
-          (err = `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`)
-        ) {
-          toast.error(
-            "Your account has been blocked for security reasons. Please reach out to us"
-          );
+        } else if (err === `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
+          toast.error("Your account has been blocked for security reasons. Please reach out to us");
           history.push("/");
         } else {
           toast.error("Wrong 2FA");
@@ -390,9 +352,7 @@ class Login extends React.Component<LoginProps> {
                         <Form
                           onSubmit={(e: any) => {
                             e.preventDefault();
-                            this.setState({ isLogingIn: true }, () =>
-                              this.check2FANeeded()
-                            );
+                            this.setState({ isLogingIn: true }, () => this.check2FANeeded());
                           }}
                         >
                           <div className="row">
@@ -417,9 +377,7 @@ class Login extends React.Component<LoginProps> {
                                     this.validateEmail(this.state.email) ? (
                                       ""
                                     ) : (
-                                      <span className="text-danger small">
-                                        Enter valid email address.
-                                      </span>
+                                      <span className="text-danger small">Enter valid email address.</span>
                                     )
                                   ) : null}
                                 </div>
@@ -446,18 +404,12 @@ class Login extends React.Component<LoginProps> {
                           </div>
                           <div className="mb-3">
                             Forgot password?
-                            <NavLink to="/forgotPassword"> Reset</NavLink>
+                            <NavLink to="/forgot-password"> Reset</NavLink>
                           </div>
-                          <button
-                            type="submit"
-                            className="btn btn-block btn-primary"
-                            disabled={!isValid || this.state.isLoginLoading}
-                          >
+                          <button type="submit" className="btn btn-block btn-primary" disabled={!isValid || this.state.isLoginLoading}>
                             {this.state.isLoginLoading ? (
                               <>
-                                <span style={{ paddingRight: "10px" }}>
-                                  Sign In
-                                </span>
+                                <span style={{ paddingRight: "10px" }}>Sign In</span>
                                 <img src={Preloader} />
                               </>
                             ) : (
@@ -482,13 +434,10 @@ class Login extends React.Component<LoginProps> {
                     </div>
                     <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
                       <div className="sign-image_card">
-                        <h4 className="font-weight-bold text-white mb-3">
-                          Truly Decentralized Cloud Storage
-                        </h4>
+                        <h4 className="font-weight-bold text-white mb-3">Truly Decentralized Cloud Storage</h4>
                         <p>
-                          StorX helps you securely encrypt, fragment and then
-                          distribute important data across multiple hosting
-                          nodes spread worldwide.
+                          StorX helps you securely encrypt, fragment and then distribute important data across multiple hosting nodes spread
+                          worldwide.
                         </p>
                         <div>
                           <img
@@ -669,11 +618,7 @@ class Login extends React.Component<LoginProps> {
                   <div className="row justify-content-center align-items-center">
                     <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
                       <div className="sign-user_card">
-                        <img
-                          src={logo}
-                          className="img-fluid rounded-normal light-logo logo"
-                          alt="logo"
-                        />
+                        <img src={logo} className="img-fluid rounded-normal light-logo logo" alt="logo" />
                         <h5 className="mb-4">Security Verification</h5>
                         <Form
                           onSubmit={(e: any) => {
@@ -700,16 +645,10 @@ class Login extends React.Component<LoginProps> {
                             </div>
                           </div>
                           <div className="btn-block">
-                            <button
-                              type="submit"
-                              disabled={!isValid}
-                              className="btn btn-block btn-primary"
-                            >
+                            <button type="submit" disabled={!isValid} className="btn btn-block btn-primary">
                               {this.state.isLoginLoading ? (
                                 <>
-                                  <span style={{ paddingRight: "10px" }}>
-                                    Sign In
-                                  </span>
+                                  <span style={{ paddingRight: "10px" }}>Sign In</span>
                                   <img src={Preloader} />
                                 </>
                               ) : (
@@ -722,20 +661,13 @@ class Login extends React.Component<LoginProps> {
                     </div>
                     <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
                       <div className="sign-image_card">
-                        <h4 className="font-weight-bold text-white mb-3">
-                          Truly Decentralized Cloud Storage
-                        </h4>
+                        <h4 className="font-weight-bold text-white mb-3">Truly Decentralized Cloud Storage</h4>
                         <p>
-                          StorX helps you securely encrypt, fragment and then
-                          distribute important data across multiple hosting
-                          nodes spread worldwide.
+                          StorX helps you securely encrypt, fragment and then distribute important data across multiple hosting nodes spread
+                          worldwide.
                         </p>
                         <div>
-                          <img
-                            src={loginLogo}
-                            className="img-fluid rounded-normal"
-                            alt="Truly Decentralized Cloud Storage"
-                          />
+                          <img src={loginLogo} className="img-fluid rounded-normal" alt="Truly Decentralized Cloud Storage" />
                         </div>
                       </div>
                     </div>

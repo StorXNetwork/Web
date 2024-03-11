@@ -2,10 +2,14 @@ import logo from "../../../src/assets/images/logo.png";
 import loginLogo from "../../../src/assets/images/login/login_img.png";
 import { useEffect, useState } from "react";
 import history from "../../lib/history";
+import AesUtil from "../../lib/AesUtil";
 import { Form } from "react-bootstrap";
 import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getHeaders } from "../../lib/auth";
+import { encryptText, encryptTextWithKey, passToHash } from "../../lib/utils";
+import { generateNewKeys } from "../../services/pgp.service";
+const bip39 = require("bip39");
 
 interface ResetDataObject {
   password: string;
@@ -55,18 +59,44 @@ function ResetPassword(props) {
 
     try {
       setIsLoading(true);
+      const { privateKeyArmored, publicKeyArmored: codpublicKey, revocationCertificate: codrevocationKey } = await generateNewKeys();
+      const hashObj = passToHash({ password: resetData.password });
+      const encPass = encryptText(hashObj.hash);
+      const encSalt = encryptText(hashObj.salt);
 
+      const mnemonic = bip39.generateMnemonic(256);
+      const encMnemonic = encryptTextWithKey(mnemonic, resetData.password);
+      const encPrivateKey = AesUtil.encrypt(privateKeyArmored, resetData.password, false);
       const response = await fetch("/api/reset-password", {
         method: "post",
         headers: getHeaders(true, true),
-        body: JSON.stringify(resetData),
-      });
-
-      if (response.ok) {
-        console.log(response.json());
-      }
+        body: JSON.stringify({
+          ...resetData,
+          mnemonic: encMnemonic,
+          password: encPass,
+          salt: encSalt,
+          privateKey: encPrivateKey,
+          publicKey: codpublicKey,
+          revocationKey: codrevocationKey,
+        }),
+      })
+        .then((e) => {
+          return e.json();
+        })
+        .then((finalResult) => {
+          if (finalResult.message === "Invalid Token") {
+            history.push("/");
+            toast.error(finalResult.message);
+          } else {
+            if (finalResult.status) {
+              toast.success("Password Updated Successfully!");
+              history.push("/");
+            } else {
+              toast.error(finalResult.message);
+            }
+          }
+        });
     } catch (e) {
-      console.log(e);
     } finally {
       setIsLoading(false);
     }

@@ -1,6 +1,7 @@
 import logo from "../../../src/assets/images/logo.png";
 import loginLogo from "../../../src/assets/images/login/login_img.png";
 import { useState } from "react";
+import history from "../../lib/history";
 import { Form } from "react-bootstrap";
 import { Flip, toast } from "react-toastify";
 import { getHeaders } from "../../lib/auth";
@@ -24,19 +25,25 @@ function ForgotPassword() {
 
     try {
       setIsLoading(true);
-      const response = await fetch("/api/send-email", {
+      fetch("/api/send-email", {
         method: "post",
         headers: getHeaders(true, true),
         body: JSON.stringify({
           email,
         }),
-      });
-
-      if (response.ok) {
-        console.log(response.json());
-      }
+      })
+        .then((e) => e.json())
+        .then((e) => {
+          if (e.error) {
+            toast.error(e.error);
+          } else {
+            toast.success("Email Sent Successfully!");
+            history.push("/");
+          }
+        })
+        .catch((e) => {});
     } catch (e) {
-      console.log(e);
+      toast.error(e);
     } finally {
       setIsLoading(false);
     }
