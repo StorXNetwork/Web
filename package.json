@@ -155,5 +155,5 @@
     "stylelint-config-standard": "^20.0.0",
     "stylelint-scss": "^3.17.2"
   },
-  "proxy": "https://storx.io/"
+  "proxy": "https://webapi.storx.io"
 }
