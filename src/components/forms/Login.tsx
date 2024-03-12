@@ -1,19 +1,14 @@
 import * as React from "react";
 import { Button, Form, Col, Container, Spinner } from "react-bootstrap";
 import "../../../src/assets/css/backend.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../../src/assets/images/logo.png";
 import logoWhite from "../../../src/assets/images/logo-white.png";
 import loginLogo from "../../../src/assets/images/login/login_img.png";
 import Preloader from "../../assets/images/login/login_preloader.gif";
 import history from "../../lib/history";
 // import "./Login.scss";
-import {
-  encryptText,
-  decryptText,
-  passToHash,
-  decryptTextWithKey,
-} from "../../lib/utils";
+import { encryptText, decryptText, passToHash, decryptTextWithKey } from "../../lib/utils";
 
 import { getHeaders } from "../../lib/auth";
 import { Flip, toast } from "react-toastify";
@@ -56,12 +51,7 @@ class Login extends React.Component<LoginProps> {
     // const xKeys = localStorage.getItem('xKeys');
     // const xKeyPublic = localStorage.getItem('xKeyPublic');
 
-    if (
-      user &&
-      user.registerCompleted &&
-      mnemonic &&
-      this.props.handleKeySaved
-    ) {
+    if (user && user.registerCompleted && mnemonic && this.props.handleKeySaved) {
       this.props.handleKeySaved(user);
       history.push("/app");
     } else if (user && user.registerCompleted === false) {
@@ -104,13 +94,13 @@ class Login extends React.Component<LoginProps> {
 
   validateEmail = (email: string) => {
     // eslint-disable-next-line no-control-regex
-    let emailPattern = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"))@((?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
+    let emailPattern =
+      /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"))@((?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
 
     return emailPattern.test(email.toLowerCase());
   };
 
-  handleChange = (event: any) =>
-    this.setState({ [event.target.id]: event.target.value });
+  handleChange = (event: any) => this.setState({ [event.target.id]: event.target.value });
 
   check2FANeeded = () => {
     fetch("/api/login", {
@@ -140,13 +130,10 @@ class Login extends React.Component<LoginProps> {
         }
       })
       .catch((err) => {
-        if (err == 'Error: User not found on Cloud database') {
+        if (err == "Error: User not found on Cloud database") {
           toast.warn("User not found on drive database. Please create account.", { autoClose: 3000, transition: Flip, draggable: true });
         }
-        if (
-          err.message.includes("not activated") &&
-          this.validateEmail(this.state.email)
-        ) {
+        if (err.message.includes("not activated") && this.validateEmail(this.state.email)) {
           // history.push(`/activate/${this.state.email}`);
           // history.push('/login');
           toast.warn("Activate your account first. Please check your mailbox for the activation link.");
@@ -163,19 +150,11 @@ class Login extends React.Component<LoginProps> {
   };
 
   generateNewKeys = async (password: string) => {
-    const {
-      privateKeyArmored,
-      publicKeyArmored,
-      revocationCertificate,
-    } = await generateNewKeys();
+    const { privateKeyArmored, publicKeyArmored, revocationCertificate } = await generateNewKeys();
 
     return {
       privateKeyArmored,
-      privateKeyArmoredEncrypted: AesUtil.encrypt(
-        privateKeyArmored,
-        password,
-        false
-      ),
+      privateKeyArmoredEncrypted: AesUtil.encrypt(privateKeyArmored, password, false),
       publicKeyArmored,
       revocationCertificate,
     };
@@ -240,9 +219,7 @@ class Login extends React.Component<LoginProps> {
             const publicKey = data.user.publicKey;
             const revocateKey = data.user.revocateKey;
 
-            const privkeyDecrypted = Buffer.from(
-              AesUtil.decrypt(privateKey, this.state.password)
-            ).toString("base64");
+            const privkeyDecrypted = Buffer.from(AesUtil.decrypt(privateKey, this.state.password)).toString("base64");
 
             analytics.identify(data.user.uuid, {
               email: this.state.email,
@@ -255,10 +232,7 @@ class Login extends React.Component<LoginProps> {
             // Manage succesfull login
             const user = {
               ...data.user,
-              mnemonic: decryptTextWithKey(
-                data.user.mnemonic,
-                this.state.password
-              ),
+              mnemonic: decryptTextWithKey(data.user.mnemonic, this.state.password),
               email: this.state.email,
               privateKey: privkeyDecrypted,
               publicKey: publicKey,
@@ -278,10 +252,7 @@ class Login extends React.Component<LoginProps> {
             }
 
             if (data.userTeam) {
-              const mnemonicDecode = Buffer.from(
-                data.userTeam.bridge_mnemonic,
-                "base64"
-              ).toString();
+              const mnemonicDecode = Buffer.from(data.userTeam.bridge_mnemonic, "base64").toString();
               const mnemonicDecrypt = await decryptPGP(mnemonicDecode);
 
               const team = {
@@ -329,15 +300,16 @@ class Login extends React.Component<LoginProps> {
           });
       })
       .catch((err) => {
+        console.log(err);
         if (err == `Error: "Error: Wrong email/password"`) {
           toast.error("Email or Password is wrong. Please enter correct credentials.", { autoClose: 3000, transition: Flip });
-          history.push('/');
-        } else if (err = `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
+          history.push("/");
+        } else if (err === `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
           toast.error("Your account has been blocked for security reasons. Please reach out to us");
-          history.push('/');
+          history.push("/");
         } else {
           toast.error("Wrong 2FA");
-          history.push('/login');
+          history.push("/login");
         }
       })
       .finally(() => {
@@ -373,20 +345,14 @@ class Login extends React.Component<LoginProps> {
                         <h5 className="mb-4">Sign in to StorX</h5>
                         <div className="btn-block mb-4">
                           <a className="btn btn-on">Sign In</a>
-                          <Link
-                            to="/new"
-                            type="button"
-                            className="btn btn-off"
-                          >
+                          <Link to="/new" type="button" className="btn btn-off">
                             Create Account
-                            </Link>
+                          </Link>
                         </div>
                         <Form
                           onSubmit={(e: any) => {
                             e.preventDefault();
-                            this.setState({ isLogingIn: true }, () =>
-                              this.check2FANeeded()
-                            );
+                            this.setState({ isLogingIn: true }, () => this.check2FANeeded());
                           }}
                         >
                           <div className="row">
@@ -407,7 +373,13 @@ class Login extends React.Component<LoginProps> {
                                 />
                                 <label>Email address</label>
                                 <div className="mt-1">
-                                  {this.state.email != "" ? this.validateEmail(this.state.email) ? "" : <span className="text-danger small">Enter valid email address.</span> : null}
+                                  {this.state.email != "" ? (
+                                    this.validateEmail(this.state.email) ? (
+                                      ""
+                                    ) : (
+                                      <span className="text-danger small">Enter valid email address.</span>
+                                    )
+                                  ) : null}
                                 </div>
                               </div>
                             </div>
@@ -430,12 +402,19 @@ class Login extends React.Component<LoginProps> {
                               </div>
                             </div>
                           </div>
-                          <button
-                            type="submit"
-                            className="btn btn-block btn-primary"
-                            disabled={!isValid || this.state.isLoginLoading}
-                          >
-                            {this.state.isLoginLoading ? <><span style={{ paddingRight: '10px' }}>Sign In</span><img src={Preloader} /></> : "Sign In"}
+                          <div className="mb-3">
+                            Forgot password?
+                            <NavLink to="/forgot-password"> Reset</NavLink>
+                          </div>
+                          <button type="submit" className="btn btn-block btn-primary" disabled={!isValid || this.state.isLoginLoading}>
+                            {this.state.isLoginLoading ? (
+                              <>
+                                <span style={{ paddingRight: "10px" }}>Sign In</span>
+                                <img src={Preloader} />
+                              </>
+                            ) : (
+                              "Sign In"
+                            )}
                           </button>
                           {/* <p className="mt-4 mb-0">
                               <Link
@@ -455,14 +434,11 @@ class Login extends React.Component<LoginProps> {
                     </div>
                     <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
                       <div className="sign-image_card">
-                        <h4 className="font-weight-bold text-white mb-3">
-                          Truly Decentralized Cloud Storage
-                          </h4>
+                        <h4 className="font-weight-bold text-white mb-3">Truly Decentralized Cloud Storage</h4>
                         <p>
-                          StorX helps you securely encrypt, fragment and then
-                          distribute important data across multiple hosting
-                          nodes spread worldwide.
-                          </p>
+                          StorX helps you securely encrypt, fragment and then distribute important data across multiple hosting nodes spread
+                          worldwide.
+                        </p>
                         <div>
                           <img
                             // src="assets/images/login/login_img.png"
@@ -642,16 +618,14 @@ class Login extends React.Component<LoginProps> {
                   <div className="row justify-content-center align-items-center">
                     <div className="col-lg-6 col-md-6 col-sm-12 col-12 pr-0 align-self-center">
                       <div className="sign-user_card">
-                        <img
-                          src={logo}
-                          className="img-fluid rounded-normal light-logo logo"
-                          alt="logo"
-                        />
+                        <img src={logo} className="img-fluid rounded-normal light-logo logo" alt="logo" />
                         <h5 className="mb-4">Security Verification</h5>
-                        <Form onSubmit={(e: any) => {
-                          e.preventDefault();
-                          this.doLogin();
-                        }}>
+                        <Form
+                          onSubmit={(e: any) => {
+                            e.preventDefault();
+                            this.doLogin();
+                          }}
+                        >
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="floating-label form-group">
@@ -665,19 +639,21 @@ class Login extends React.Component<LoginProps> {
                                   autoComplete="off"
                                   value={this.state.twoFactorCode}
                                   onChange={this.handleChange}
-
                                 />
                                 <label>Authentication Code</label>
                               </div>
                             </div>
                           </div>
                           <div className="btn-block">
-                            <button
-                              type="submit"
-                              disabled={!isValid}
-                              className="btn btn-block btn-primary"
-                            >
-                              {this.state.isLoginLoading ? <><span style={{ paddingRight: '10px' }}>Sign In</span><img src={Preloader} /></> : "Sign In"}
+                            <button type="submit" disabled={!isValid} className="btn btn-block btn-primary">
+                              {this.state.isLoginLoading ? (
+                                <>
+                                  <span style={{ paddingRight: "10px" }}>Sign In</span>
+                                  <img src={Preloader} />
+                                </>
+                              ) : (
+                                "Sign In"
+                              )}
                             </button>
                           </div>
                         </Form>
@@ -685,20 +661,13 @@ class Login extends React.Component<LoginProps> {
                     </div>
                     <div className="d-none d-sm-none d-md-block col-lg-6 col-md-6 col-sm-12 col-12 align-self-center">
                       <div className="sign-image_card">
-                        <h4 className="font-weight-bold text-white mb-3">
-                          Truly Decentralized Cloud Storage
-                        </h4>
+                        <h4 className="font-weight-bold text-white mb-3">Truly Decentralized Cloud Storage</h4>
                         <p>
-                          StorX helps you securely encrypt, fragment and then
-                          distribute important data across multiple hosting
-                          nodes spread worldwide.
+                          StorX helps you securely encrypt, fragment and then distribute important data across multiple hosting nodes spread
+                          worldwide.
                         </p>
                         <div>
-                          <img
-                            src={loginLogo}
-                            className="img-fluid rounded-normal"
-                            alt="Truly Decentralized Cloud Storage"
-                          />
+                          <img src={loginLogo} className="img-fluid rounded-normal" alt="Truly Decentralized Cloud Storage" />
                         </div>
                       </div>
                     </div>
