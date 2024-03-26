@@ -345,9 +345,9 @@ class Login extends React.Component<LoginProps> {
                         <h5 className="mb-4">Sign in to StorX</h5>
                         <div className="btn-block mb-4">
                           <a className="btn btn-on">Sign In</a>
-                          <Link to="/new" type="button" className="btn btn-off">
+                          <a href="https://b2.storx.io/login" type="button" className="btn btn-off">
                             Create Account
-                          </Link>
+                          </a>
                         </div>
                         <Form
                           onSubmit={(e: any) => {
