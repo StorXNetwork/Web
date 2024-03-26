@@ -246,6 +246,7 @@ class Login extends React.Component<LoginProps> {
             Settings.set("xToken", data.token);
             Settings.set("xMnemonic", user.mnemonic);
             Settings.set("xUser", JSON.stringify(user));
+            Settings.set("showModal", JSON.stringify({ showDeprecationModal: true }));
 
             if (user.teams) {
               await storeTeamsInfo();
