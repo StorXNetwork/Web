@@ -7,6 +7,10 @@ import logoWhite from "../../../src/assets/images/logo-white.png";
 import loginLogo from "../../../src/assets/images/login/login_img.png";
 import Preloader from "../../assets/images/login/login_preloader.gif";
 import history from "../../lib/history";
+import Popup from "reactjs-popup";
+import closeTab from "../../assets/Dashboard-Icons/close-tab.svg";
+import FarewellImage from "../../../src/assets/images/farewell-storx.jpeg"
+
 // import "./Login.scss";
 import { encryptText, decryptText, passToHash, decryptTextWithKey } from "../../lib/utils";
 
@@ -42,6 +46,7 @@ class Login extends React.Component<LoginProps> {
     twoFactorCode: "",
     isLogingIn: false,
     registerCompleted: true,
+    showDeprecationModal:true,
   };
 
   componentDidMount() {
@@ -246,8 +251,7 @@ class Login extends React.Component<LoginProps> {
             Settings.set("xToken", data.token);
             Settings.set("xMnemonic", user.mnemonic);
             Settings.set("xUser", JSON.stringify(user));
-            Settings.set("showModal", JSON.stringify({ showDeprecationModal: true }));
-
+        
             if (user.teams) {
               await storeTeamsInfo();
             }
@@ -323,6 +327,32 @@ class Login extends React.Component<LoginProps> {
 
       return (
         <section className="login-content">
+          <Popup 
+            open={this.state.showDeprecationModal} 
+            onClose={() => {
+              this.setState({showDeprecationModal:false})
+            }}
+            className="popup--full-screen"
+          >
+            <div className="popup--full-screen__content">
+              <div className="popup--full-screen__close-button-wrapper">
+                <img
+                  src={closeTab}
+                  onClick={() => {
+                    this.setState({showDeprecationModal:false})
+                  }}
+                  alt="Close tab"
+                />
+              </div>
+                <a href="https://medium.com/storx-network/farewell-to-the-legacy-storx-application-transitioning-to-the-future-de2a9d4cc911" rel="noreferrer" target="_blank" >
+                  <img
+                    src={FarewellImage}
+                    className="img-fluid rounded-normal"
+                    alt="Farewell"
+                  />
+              </a>
+            </div>
+          </Popup>
           <div className="container h-100">
             <div className="row justify-content-center align-items-center">
               <div className="col-lg-10">
