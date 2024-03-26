@@ -246,6 +246,7 @@ class Login extends React.Component<LoginProps> {
             Settings.set("xToken", data.token);
             Settings.set("xMnemonic", user.mnemonic);
             Settings.set("xUser", JSON.stringify(user));
+            Settings.set("showModal", JSON.stringify({ showDeprecationModal: true }));
 
             if (user.teams) {
               await storeTeamsInfo();
@@ -300,11 +301,10 @@ class Login extends React.Component<LoginProps> {
           });
       })
       .catch((err) => {
-        console.log(err);
         if (err == `Error: "Error: Wrong email/password"`) {
           toast.error("Email or Password is wrong. Please enter correct credentials.", { autoClose: 3000, transition: Flip });
           history.push("/");
-        } else if (err === `Error: "Error: Your account has been blocked for security reasons. Please reach out to us"`) {
+        } else if (err.message === `"Error: Your account has been blocked for security reasons. Please reach out to us"`) {
           toast.error("Your account has been blocked for security reasons. Please reach out to us");
           history.push("/");
         } else {

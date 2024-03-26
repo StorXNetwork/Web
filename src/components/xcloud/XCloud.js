@@ -13,6 +13,7 @@ import NavigationBar from "../navigationBar/NavigationBar";
 import history from "../../lib/history";
 import { removeAccents } from "../../lib/utils";
 import closeTab from "../../assets/Dashboard-Icons/close-tab.svg";
+import FarewellImage from "../../../src/assets/images/farewell-storx.jpeg"
 
 import PopupShare from "../PopupShare";
 // import './XCloud.scss';
@@ -31,6 +32,7 @@ class XCloud extends React.Component {
     email: "",
     isAuthorized: false,
     isInitialized: false,
+    showDeprecationModal:false,
     isTeam: false,
     token: "",
     size: null,
@@ -89,6 +91,11 @@ class XCloud extends React.Component {
           this.getFolderContent(this.props.user.root_folder_id);
           this.setState({ currentFolderId: this.props.user.root_folder_id });
         }
+      }
+
+      if(Settings.exists("showModal")){
+        const modalState = JSON.parse(Settings.get("showModal"))
+        this.setState({showDeprecationModal : Boolean(modalState.showDeprecationModal)})
       }
 
       const team = Settings.getTeams();
@@ -1189,6 +1196,34 @@ class XCloud extends React.Component {
           ) : (
             ""
           )}
+          <Popup 
+            open={this.state.showDeprecationModal} 
+            onClose={() => {
+              this.setState({showDeprecationModal:false})
+              Settings.set("showModal", JSON.stringify({showDeprecationModal:false}))
+            }}
+            className="popup--full-screen"
+          >
+            <div className="popup--full-screen__content">
+              <div className="popup--full-screen__close-button-wrapper">
+                <img
+                  src={closeTab}
+                  onClick={() => {
+                    this.setState({showDeprecationModal:false})
+                    Settings.set("showModal", JSON.stringify({showDeprecationModal:false}))
+                  }}
+                  alt="Close tab"
+                />
+              </div>
+                <a href="https://medium.com/storx-network/farewell-to-the-legacy-storx-application-transitioning-to-the-future-de2a9d4cc911" rel="noreferrer" target="_blank" >
+                  <img
+                    src={FarewellImage}
+                    className="img-fluid rounded-normal"
+                    alt="Farewell"
+                  />
+              </a>
+            </div>
+          </Popup>
           <Popup
             open={this.state.showDeleteItemsPopup}
             closeOnDocumentClick
